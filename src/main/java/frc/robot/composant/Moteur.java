@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMax;
 // https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html
 
 // https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Limit%20Switch/src/main/java/frc/robot/Robot.java
+
 import com.revrobotics.SparkMaxLimitSwitch;
 
 public class Moteur extends CANSparkMax{
