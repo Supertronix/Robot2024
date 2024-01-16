@@ -1,16 +1,15 @@
 package frc.robot.commande;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Cinematique;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
-import frc.robot.soussysteme.RouesMecanumSynchro;
 import frc.robot.mesure.DetecteurDuree;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.Cinematique;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvancer extends CommandBase {
+public class CommandeAvancer extends Command {
 
     protected Roues roues = null;
     protected boolean finie = false;

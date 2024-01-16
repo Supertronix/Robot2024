@@ -1,15 +1,14 @@
 package frc.robot.commande;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.interaction.LecteurAccelerometre;
 import frc.robot.soussysteme.RouesMecanumSynchro;
-import frc.robot.mesure.DetecteurDuree;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.mesure.DetecteurDuree;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvancerJusquaPlateforme extends CommandBase {
+public class CommandeAvancerJusquaPlateforme extends Command {
 
     protected RouesMecanumSynchro roues = null;
     protected LecteurAccelerometre lecteurEquilibre = null;

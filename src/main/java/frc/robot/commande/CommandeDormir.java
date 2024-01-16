@@ -1,13 +1,11 @@
 package frc.robot.commande;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.soussysteme.Machoire;
-import frc.robot.Cinematique;
-import frc.robot.Robot;
+import edu.wpi.first.wpilibj2.command.Command;
+//import frc.robot.Cinematique;
 import frc.robot.mesure.DetecteurDuree;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeDormir extends CommandBase {
+public class CommandeDormir extends Command {
 
     protected DetecteurDuree detecteur;
     protected int delais;

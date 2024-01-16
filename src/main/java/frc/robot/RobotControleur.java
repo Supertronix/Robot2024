@@ -7,6 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commande.MouvementDuRobot;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -15,9 +18,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class RobotControleur extends TimedRobot {
-  private Command m_autonomousCommand;
 
-  private Robot m_robotContainer;
+  private Robot robot;
+  private Command trajetAutonome;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -27,7 +31,7 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new Robot();
+    robot = new Robot();
   }
 
   /**
@@ -56,12 +60,8 @@ public class RobotControleur extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link Robot} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    //trajetAutonome = new CommandeTrajetAutonome();
+    //trajetAutonome.schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -70,12 +70,9 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. If you want the autonomous to
-    // continue until interrupted by another command, remove
-    // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    // This makes sure that the autonomous stops running when teleop starts running. 
+    if (trajetAutonome != null) {
+      trajetAutonome.cancel();
     }
   }
 
@@ -100,4 +97,24 @@ public class RobotControleur extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+  
+  /**
+   * Use this method to define your trigger->command mappings. Triggers can be created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * predicate, or via the named factories in {@link
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
+   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * joysticks}.
+   */
+  @SuppressWarnings({"unused"})
+  private void lierInteractions() {
+    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+    new Trigger(robot.partie::exampleCondition).onTrue(new MouvementDuRobot(robot.partie));
+
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // cancelling on release.
+    // m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+  }
+
 }

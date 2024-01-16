@@ -1,7 +1,7 @@
 package frc.robot.soussysteme;
 
 // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html
-import edu.wpi.first.math.geometry.Rotation2d;
+//import edu.wpi.first.math.geometry.Rotation2d;
 // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html    
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.interaction.Manette;

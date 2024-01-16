@@ -9,6 +9,7 @@ import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMax;
 
 // diametre 6 pouces
+@SuppressWarnings({"removal"})
 public class RouesMecanumSynchro extends RouesMecanum {
 
     protected MecanumDrive mecanum;
