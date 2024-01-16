@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 
 import com.revrobotics.SparkMaxLimitSwitch;
 
+@SuppressWarnings({"removal"}) 
 public class Moteur extends CANSparkMax{
     private SparkMaxLimitSwitch limiteAvant;
     private SparkMaxLimitSwitch limiteArriere;
