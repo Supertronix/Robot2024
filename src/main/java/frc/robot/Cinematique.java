@@ -20,9 +20,9 @@ public interface Cinematique {
       static double BIAIS_AXE_GAUCHE_X = 0;
       static double BIAIS_AXE_GAUCHE_Y = -0;
     } 
-    /*
     public interface Bras
     {
+    /*
       // B = 0 - A = 6.5 - X = 13
       // arriere pour scorer- centrer pour deplacement - devant pour ramasser
       public static final float POSITION_AVANT = 11f;
@@ -77,15 +77,13 @@ public interface Cinematique {
         public static final double MAX = 0.3;  
       }
 
-      public static int INTERVALLE_IMMOBILITE = 250;
       public static double TEMPS_MAXIMUM_CALIBRER = 800;
       public static double TEMPS_MAXIMUM_CALIBRER_AVANT = 1600;
+      */
       public static double DISTANCE_NULLE = 2; 
-      // TODO peut-etre un ratio sur la distance
-
-
-    
+      public static int INTERVALLE_IMMOBILITE = 250;
     }
+    /* 
     public interface Machoire
     {
       public double VITESSE = 1;
