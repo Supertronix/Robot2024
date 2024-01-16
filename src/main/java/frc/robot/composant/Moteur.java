@@ -5,7 +5,6 @@ package frc.robot.composant;
 import com.revrobotics.CANSparkMax;
 
 // https://codedocs.revrobotics.com/java/com/revrobotics/cansparkmaxlowlevel.motortype
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 // https://codedocs.revrobotics.com/java/com/revrobotics/cansparkmax
 // https://docs.wpilib.org/en/stable/docs/software/vscode-overview/3rd-party-libraries.html
 
