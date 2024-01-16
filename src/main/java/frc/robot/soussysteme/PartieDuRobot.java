@@ -5,9 +5,8 @@
 package frc.robot.soussysteme;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class PartieDuRobot extends SubsystemBase {
+public class PartieDuRobot extends SousSysteme {
   /** Creates a new ExampleSubsystem. */
   public PartieDuRobot() {}
 
