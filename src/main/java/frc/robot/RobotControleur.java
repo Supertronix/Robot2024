@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
+import frc.robot.interaction.Manette;
+import frc.robot.soussysteme.RouesMecanumSynchro;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,6 +20,7 @@ import frc.robot.commande.MouvementDuRobot;
 public class RobotControleur extends TimedRobot {
 
   private Robot robot;
+  protected Manette manette;
   private Command trajetAutonome;
 
 
@@ -29,7 +32,8 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    robot = new Robot();
+    this.manette = Manette.getInstance();
+    this.robot = Robot.getInstance();
   }
 
   /**
@@ -68,15 +72,21 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when teleop starts running. 
+    // This makes sure that the autonomous stops running when teleop starts running.
     if (trajetAutonome != null) {
       trajetAutonome.cancel();
     }
+
+    ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
+    ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(0.8);
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic()
+  {
+    robot.roues.conduireAvecManette(this.manette);
+  }
 
   @Override
   public void testInit() {
