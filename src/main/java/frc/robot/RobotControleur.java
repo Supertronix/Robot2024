@@ -2,11 +2,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
+import frc.robot.composant.Limelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -14,12 +16,15 @@ public class RobotControleur extends TimedRobot {
 
   private Robot robot;
   private Manette manette;
+  private Limelight limelight;
   //private Command trajetAutonome;
 
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = Manette.getInstance();
+    this.limelight = new Limelight();
+    DriverStation.silenceJoystickConnectionWarning(true);
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -34,7 +39,9 @@ public class RobotControleur extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    limelight.dynamicCrop();
+  }
 
   @Override
   public void autonomousInit() {
