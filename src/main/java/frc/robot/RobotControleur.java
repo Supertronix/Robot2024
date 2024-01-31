@@ -18,7 +18,7 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void robotInit() {
-    robot = new Robot(); //         this.robot = Robot.getInstance();
+    this.robot = Robot.getInstance();
     this.manette = Manette.getInstance();
   }
 
@@ -49,7 +49,7 @@ public class RobotControleur extends TimedRobot {
 
     System.out.println("teleopInit()");
     ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
-    ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(0.8);
+    ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
     //    if (trajetAutonome != null) {
      // trajetAutonome.cancel();
     //}
