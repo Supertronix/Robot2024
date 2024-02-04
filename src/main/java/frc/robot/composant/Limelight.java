@@ -6,9 +6,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class Limelight {
 
     private NetworkTable networkTable = null;
-    private final double HORIZONTAL_FOV = 29.8;
-    private final double VERTICAL_FOV = 24.85;
+    private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
+    private final double VERTICAL_FOV = 24.85; // A verifier
+    private double multiplicateur = 1; // Augmenter pour augmenter la zone de découpage
 
+    /**
+     * Instancie une caméra Limelight 2
+     */
     public Limelight() {
         System.out.println("Limelight()");
         try {
@@ -17,98 +21,142 @@ public class Limelight {
             System.out.println("Limelight() exception: " + e.getMessage());
         }
     }
-    public boolean getIsTargetFound() {
+
+    /**
+     * @return True si une cible valide est trouvé, false sinon.
+     */
+    public boolean getEstCibleTrouve() {
         return networkTable.getEntry("tv").getDouble(0) != 0;
     }
 
     /**
-     * @return 	Horizontal Offset From Crosshair To Target
+     * @return Décalage horizontal entre le réticule et la cible
      * (LL2: -29.8 to 29.8 degrees)
      */
-    public double getHorizontalOffset() {
+    public double getDecalageHorizontal() {
         return networkTable.getEntry("tx").getDouble(0);
     }
 
-    public double getHorizontalPercentOffset() {
-        return getHorizontalOffset() / HORIZONTAL_FOV;
+    /**
+     * @return Décalage horizontal entre le réticule et la cible
+     * (0 à 1)
+     */
+    public double getDecalageHorizonPourcent() {
+        return getDecalageHorizontal() / HORIZONTAL_FOV;
     }
 
     /**
-     * @return	Vertical Offset From Crosshair To Target
+     * @return Décalage vertical entre le réticule et la cible
      * (LL2: -24.85 to 24.85 degrees)
      */
-    public double getVerticalOffset() {
+    public double getDecalageVertical() {
         return networkTable.getEntry("ty").getDouble(0);
     }
 
-    public double getVerticalPercentOffset() {
-        return getVerticalOffset() / VERTICAL_FOV;
+    /**
+     * @return Décalage vertical entre le réticule et la cible
+     * (0 à 1)
+     */
+    public double getDecalageVerticalPourcent() {
+        return getDecalageVertical() / VERTICAL_FOV;
     }
 
-    public double getRoughHorizontalBoundingBox() {
+    /**
+     * @return Longueur latérale horizontale de la boîte de délimitation approximative
+     * (0 - 320 pixels)
+     */
+    public double getDelimitationHorizontalApproximative() {
         return networkTable.getEntry("thor").getDouble(0);
     }
 
-    public double getRoughHorizontalBoundingBoxPercent() {
-        return getRoughHorizontalBoundingBox() / 320;
+    /**
+     * @return Longueur latérale horizontale de la boîte de délimitation approximative
+     * (0 - 1)
+     */
+    public double getDelimitationHorizontalApproximativePourcent() {
+        return getDelimitationHorizontalApproximative() / 320;
     }
 
-    public double getRoughVerticalBoundingBox() {
+    /**
+     * @return Longueur latérale verticale de la boîte de délimitation approximative
+     * (0 - 320 pixels)
+     */
+    public double getDelimitationVerticalApproximative() {
         return networkTable.getEntry("tvert").getDouble(0);
     }
 
-    public double getRoughVerticalBoundingBoxPercent() {
-        return getRoughVerticalBoundingBox() / 320;
+    /**
+     * @return Longueur latérale verticale de la boîte de délimitation approximative
+     * (0 - 1)
+     */
+    public double getDelimitationVerticalApproximativePourcent() {
+        return getDelimitationVerticalApproximative() / 320;
     }
 
-    public double getFittedLongestSide() {
+    /**
+     * @return Longueur du côté le plus long de la boîte de délimitation ajustée
+     */
+    public double getDelimitationAjustee() {
         return networkTable.getEntry("tlong").getDouble(0);
     }
 
-    public void dynamicCrop() {
-        if (getIsTargetFound()) {
-            //System.out.println("Cropping");
-
-            // X0 - Min or Max X value of crop rectangle (-1 to 1)
-            // X1 - Min or Max X value of crop rectangle (-1 to 1)
-            // Y0 - Min or Max Y value of crop rectangle (-1 to 1)
-            // Y1 - Min or Max Y value of crop rectangle (-1 to 1)
-
-            // get the tag offset from the crosshair
-            //double x0 = getHorizontalOffset();
-            //double y0 = getVerticalOffset();
-
-            double x1 = getHorizontalPercentOffset();
-            double y1 = getVerticalPercentOffset();
-            //System.out.println("x1: " + x1 + " y1: " + y1);
-
-            // x1 + y1 = center of the target
-
-            //System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1);
-
-            double horizontalSidelenght = getRoughHorizontalBoundingBoxPercent() / 2;
-            double verticalSidelenght = getRoughVerticalBoundingBoxPercent() / 2;
-            System.out.println("horizontalSidelenght: " + horizontalSidelenght + " verticalSidelenght: " + verticalSidelenght);
-
-            double[] cropValues = new double[4];
-            cropValues[0] = x1 - horizontalSidelenght;
-            cropValues[1] = x1 + horizontalSidelenght;
-            cropValues[2] = y1 - verticalSidelenght;
-            cropValues[3] = y1 + verticalSidelenght;
-
-            //System.out.println("x0: " + cropValues[0] + " y0: " + cropValues[1] + " x1: " + cropValues[2] + " y1: " + cropValues[3]);
-
-            networkTable.getEntry("crop").setDoubleArray(cropValues);
+    /**
+     * Découpe la caméra dynamiquement en fonction de la cible, permet d'améliorer la vitesse de traitement
+     */
+    public void decoupageCameraDynamique() {
+        if (getEstCibleTrouve()) {
+            decoupageCamera();
         } else {
-            System.out.println("Not cropping");
-
-            double[] cropValues = new double[4];
-            cropValues[0] = -1; // x0
-            cropValues[1] = 1; // x1
-            cropValues[2] = -1; // y0
-            cropValues[3] = 1; // y1
-
-            networkTable.getEntry("crop").setDoubleArray(cropValues);
+            resetDecoupageCamera();
         }
+    }
+
+    /**
+     * Découpe la caméra autour de la cible
+     */
+    public void decoupageCamera() {
+        //System.out.println("Découpage");
+
+        double x1 = getDecalageHorizonPourcent();
+        double y1 = getDecalageVerticalPourcent();
+
+        double horizontalSidelenght = (getDelimitationHorizontalApproximativePourcent() / 2) * multiplicateur;
+        double verticalSidelenght = (getDelimitationVerticalApproximativePourcent() / 2) * multiplicateur;
+        System.out.println("horizontalSidelenght: " + horizontalSidelenght + " verticalSidelenght: " + verticalSidelenght);
+
+        double[] cropValues = new double[4];
+        cropValues[0] = x1 - horizontalSidelenght;
+        cropValues[1] = x1 + horizontalSidelenght;
+        cropValues[2] = y1 - verticalSidelenght;
+        cropValues[3] = y1 + verticalSidelenght;
+
+        //System.out.println("x0: " + cropValues[0] + " y0: " + cropValues[1] + " x1: " + cropValues[2] + " y1: " + cropValues[3]);
+
+        networkTable.getEntry("crop").setDoubleArray(cropValues);
+    }
+
+    /**
+     * Réinitialise la découpe de la caméra
+     */
+    public void resetDecoupageCamera() {
+        //System.out.println("Reset decoupage");
+
+        double[] cropValues = new double[4];
+        cropValues[0] = -1; // x0
+        cropValues[1] = 1; // x1
+        cropValues[2] = -1; // y0
+        cropValues[3] = 1; // y1
+
+        networkTable.getEntry("crop").setDoubleArray(cropValues);
+    }
+
+    /**
+     * @param multiplicateur multiplicateur de la zone de découpage
+     * (plus le multiplicateur est grand, plus la zone de découpage est grande)
+     * Plus grand : permet un meilleur suivi de la cible
+     * Plus petit : permet un meilleur FPS
+     */
+    public void setMultiplicateur(double multiplicateur) {
+        this.multiplicateur = multiplicateur;
     }
 }

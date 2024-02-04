@@ -40,7 +40,7 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    limelight.dynamicCrop();
+    //limelight.decoupageCameraDynamique();
   }
 
   @Override
@@ -67,7 +67,8 @@ public class RobotControleur extends TimedRobot {
     //System.out.println("teleopPeriodic()");   
     
     robot.roues.conduireAvecManette(this.manette);
-    manette.executerActions();    
+    manette.executerActions();
+    limelight.decoupageCameraDynamique();
   }
 
   @Override
