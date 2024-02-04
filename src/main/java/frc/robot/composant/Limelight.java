@@ -49,8 +49,16 @@ public class Limelight {
         return networkTable.getEntry("thor").getDouble(0);
     }
 
+    public double getRoughHorizontalBoundingBoxPercent() {
+        return getRoughHorizontalBoundingBox() / 320;
+    }
+
     public double getRoughVerticalBoundingBox() {
         return networkTable.getEntry("tvert").getDouble(0);
+    }
+
+    public double getRoughVerticalBoundingBoxPercent() {
+        return getRoughVerticalBoundingBox() / 320;
     }
 
     public double getFittedLongestSide() {
@@ -72,20 +80,20 @@ public class Limelight {
 
             double x1 = getHorizontalPercentOffset();
             double y1 = getVerticalPercentOffset();
-            System.out.println("x1: " + x1 + " y1: " + y1);
+            //System.out.println("x1: " + x1 + " y1: " + y1);
 
             // x1 + y1 = center of the target
 
             //System.out.println("x0: " + x0 + " y0: " + y0 + " x1: " + x1 + " y1: " + y1);
 
-            double horizontalSidelenght = 20 / HORIZONTAL_FOV;
-            double verticalSidelenght = 20 / VERTICAL_FOV;
-            //System.out.println("horizontalSidelenght: " + horizontalSidelenght + " verticalSidelenght: " + verticalSidelenght);
+            double horizontalSidelenght = getRoughHorizontalBoundingBoxPercent() / 2;
+            double verticalSidelenght = getRoughVerticalBoundingBoxPercent() / 2;
+            System.out.println("horizontalSidelenght: " + horizontalSidelenght + " verticalSidelenght: " + verticalSidelenght);
 
             double[] cropValues = new double[4];
             cropValues[0] = x1 - horizontalSidelenght;
-            cropValues[1] = y1 + verticalSidelenght;
-            cropValues[2] = x1 - horizontalSidelenght;
+            cropValues[1] = x1 + horizontalSidelenght;
+            cropValues[2] = y1 - verticalSidelenght;
             cropValues[3] = y1 + verticalSidelenght;
 
             //System.out.println("x0: " + cropValues[0] + " y0: " + cropValues[1] + " x1: " + cropValues[2] + " y1: " + cropValues[3]);
