@@ -36,7 +36,9 @@ public class RobotControleur extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    limelight.resetDecoupageCamera();
+  }
 
   @Override
   public void disabledPeriodic() {

@@ -10,6 +10,8 @@ public class Limelight {
     private final double VERTICAL_FOV = 24.85; // A verifier
     private double multiplicateur = 1.2; // Augmenter pour augmenter la zone de découpage
 
+    // ------------------- CONSTRUCTEUR -------------------
+
     /**
      * Instancie une caméra Limelight 2
      */
@@ -21,6 +23,8 @@ public class Limelight {
             System.out.println("Limelight() exception: " + e.getMessage());
         }
     }
+
+    // ------------------- GETTERS -------------------
 
     /**
      * @return True si une cible valide est trouvé, false sinon.
@@ -123,6 +127,27 @@ public class Limelight {
     }
 
 
+    // ------------------- SETTERS -------------------
+
+    /**
+     * @param multiplicateur multiplicateur de la zone de découpage
+     * (plus le multiplicateur est grand, plus la zone de découpage est grande)
+     * Plus grand : permet un meilleur suivi de la cible
+     * Plus petit : permet un meilleur FPS
+     */
+    public void setMultiplicateur(double multiplicateur) {
+        this.multiplicateur = multiplicateur;
+    }
+
+    /**
+     * @param coordonnees coordonnées de la zone de découpage (x0, x1, y0, y1)
+     */
+    public void setDecoupageCamera(double[] coordonnees) {
+        networkTable.getEntry("crop").setDoubleArray(coordonnees);
+    }
+
+    // ------------------- METHODES -------------------
+
     /**
      * Découpe la caméra dynamiquement en fonction de la cible, permet d'améliorer la vitesse de traitement
      */
@@ -173,20 +198,5 @@ public class Limelight {
         setDecoupageCamera(cropValues);
     }
 
-    /**
-     * @param multiplicateur multiplicateur de la zone de découpage
-     * (plus le multiplicateur est grand, plus la zone de découpage est grande)
-     * Plus grand : permet un meilleur suivi de la cible
-     * Plus petit : permet un meilleur FPS
-     */
-    public void setMultiplicateur(double multiplicateur) {
-        this.multiplicateur = multiplicateur;
-    }
-
-    /**
-     * @param coordonnees coordonnées de la zone de découpage (x0, x1, y0, y1)
-     */
-    public void setDecoupageCamera(double[] coordonnees) {
-        networkTable.getEntry("crop").setDoubleArray(coordonnees);
-    }
+    
 }
