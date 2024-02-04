@@ -8,7 +8,7 @@ public class Limelight {
     private NetworkTable networkTable = null;
     private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
     private final double VERTICAL_FOV = 24.85; // A verifier
-    private double multiplicateur = 1; // Augmenter pour augmenter la zone de découpage
+    private double multiplicateur = 1.2; // Augmenter pour augmenter la zone de découpage
 
     /**
      * Instancie une caméra Limelight 2
@@ -101,6 +101,29 @@ public class Limelight {
     }
 
     /**
+     * @return Contribution au temps de latence du pipeline (ms).
+     */
+    public double getLatencePipeline() {
+        return networkTable.getEntry("tl").getDouble(0);
+    }
+
+    /**
+     * @return Temps de latence du pipeline de capture (ms). Temps écoulé entre la fin de l'exposition de
+     * la rangée centrale du capteur et le début du pipeline de suivi.
+     */
+    public double getLatencePipelineTracking() {
+        return networkTable.getEntry("cl").getDouble(0);
+    }
+
+    /**
+     * @return Temps de latence total (ms).
+     */
+    public double getLatenceTotal() {
+        return getLatencePipeline() + getLatencePipelineTracking();
+    }
+
+
+    /**
      * Découpe la caméra dynamiquement en fonction de la cible, permet d'améliorer la vitesse de traitement
      */
     public void decoupageCameraDynamique() {
@@ -120,19 +143,19 @@ public class Limelight {
         double x1 = getDecalageHorizonPourcent();
         double y1 = getDecalageVerticalPourcent();
 
-        double horizontalSidelenght = (getDelimitationHorizontalApproximativePourcent() / 2) * multiplicateur;
-        double verticalSidelenght = (getDelimitationVerticalApproximativePourcent() / 2) * multiplicateur;
-        System.out.println("horizontalSidelenght: " + horizontalSidelenght + " verticalSidelenght: " + verticalSidelenght);
+        double longueurHorizontal = (getDelimitationHorizontalApproximativePourcent() / 2) * multiplicateur;
+        double longueurVertical = (getDelimitationVerticalApproximativePourcent() / 2) * multiplicateur;
+        System.out.println("longueurHorizontal: " + longueurHorizontal + " longueurVertical: " + longueurVertical);
 
         double[] cropValues = new double[4];
-        cropValues[0] = x1 - horizontalSidelenght;
-        cropValues[1] = x1 + horizontalSidelenght;
-        cropValues[2] = y1 - verticalSidelenght;
-        cropValues[3] = y1 + verticalSidelenght;
+        cropValues[0] = x1 - longueurHorizontal;
+        cropValues[1] = x1 + longueurHorizontal;
+        cropValues[2] = y1 - longueurVertical;
+        cropValues[3] = y1 + longueurVertical;
 
         //System.out.println("x0: " + cropValues[0] + " y0: " + cropValues[1] + " x1: " + cropValues[2] + " y1: " + cropValues[3]);
 
-        networkTable.getEntry("crop").setDoubleArray(cropValues);
+        setDecoupageCamera(cropValues);
     }
 
     /**
@@ -147,7 +170,7 @@ public class Limelight {
         cropValues[2] = -1; // y0
         cropValues[3] = 1; // y1
 
-        networkTable.getEntry("crop").setDoubleArray(cropValues);
+        setDecoupageCamera(cropValues);
     }
 
     /**
@@ -158,5 +181,12 @@ public class Limelight {
      */
     public void setMultiplicateur(double multiplicateur) {
         this.multiplicateur = multiplicateur;
+    }
+
+    /**
+     * @param coordonnees coordonnées de la zone de découpage (x0, x1, y0, y1)
+     */
+    public void setDecoupageCamera(double[] coordonnees) {
+        networkTable.getEntry("crop").setDoubleArray(coordonnees);
     }
 }
