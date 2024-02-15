@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
-import frc.robot.composant.Limelight;
+import frc.robot.interaction.Limelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
