@@ -83,13 +83,13 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
 
     public double getPressionMainGauche() 
     {
-      System.out.println("Pression main gauche" + manette.getRawAxis(MAIN_GAUCHE_AXE));
+      //System.out.println("Pression main gauche" + manette.getRawAxis(MAIN_GAUCHE_AXE));
     	return manette.getRawAxis(MAIN_GAUCHE_AXE);
     }
 
     public double getPressionMainDroite() 
     {
-      System.out.println("Pression main droite" + manette.getRawAxis(MAIN_DROITE_AXE));
+      //System.out.println("Pression main droite" + manette.getRawAxis(MAIN_DROITE_AXE));
     	return manette.getRawAxis(MAIN_DROITE_AXE);
     }
 

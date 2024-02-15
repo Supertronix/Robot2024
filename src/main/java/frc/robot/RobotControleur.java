@@ -76,13 +76,32 @@ public class RobotControleur extends TimedRobot {
     //System.out.println("teleopPeriodic()");
     
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
-    manette.executerActions();
+    // Méthode vide mais cause des exceptions lorsque gâchette droite utilisée?
+    //manette.executerActions();
 
+    // Lanceur avec toggle on/off
+    /*
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       System.out.println("BOUTON Y PRESSE");
+
+      if (robot.lanceur.lanceurOn())
+        robot.lanceur.arreterLanceur();
+      else
+        robot.lanceur.demarrerLanceur();
+    }*/
+
+    // Lanceur contrôlable avec gâchette
+    double pressionMainDroite = manette.getPressionMainDroite();
+    double pressionMainGauche = manette.getPressionMainGauche();
+
+    if (pressionMainDroite > 0.05) {
+      robot.lanceur.demarrerLanceur(pressionMainDroite);
+    }
+    else if (pressionMainGauche > 0.05) {
+      robot.lanceur.demarrerLanceur(-pressionMainGauche);
     }
     else {
-      System.out.println("BOUTON Y NON PRESSE");
+      robot.lanceur.arreterLanceur();
     }
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
