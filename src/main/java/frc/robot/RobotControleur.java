@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
 import frc.robot.interaction.CameraLimelight;
-import frc.robot.composant.Limelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -78,7 +77,6 @@ public class RobotControleur extends TimedRobot {
     
     robot.roues.conduireAvecManette(this.manette);
     manette.executerActions();
-    limelight.decoupageCameraDynamique();
 
     robot.intake.setSpeed();
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
