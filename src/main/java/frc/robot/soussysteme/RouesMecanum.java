@@ -16,17 +16,14 @@ public class RouesMecanum extends Roues {
     public RouesMecanum()
     {
         this.facteur = FACTEUR_ROUES;
-        this.roueAvantGauche.setInverted(true);
-        this.roueArriereGauche.setInverted(true);
-        this.roueArriereDroite.setInverted(true);
-        this.roueAvantDroite.setInverted(true);
+        this.activerModeHolonomique();
     }
     public void activerModeHolonomique()
     {
         this.roueAvantGauche.setInverted(true);
         this.roueArriereGauche.setInverted(true);
-        this.roueArriereDroite.setInverted(true);
-        this.roueAvantDroite.setInverted(true);
+        this.roueArriereDroite.setInverted(false);
+        this.roueAvantDroite.setInverted(false);
     }
     public void setFacteur(double facteur)
     {

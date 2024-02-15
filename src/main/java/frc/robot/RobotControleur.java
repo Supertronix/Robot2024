@@ -2,14 +2,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
-import frc.robot.interaction.Limelight;
+import frc.robot.composant.Limelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -23,9 +22,6 @@ public class RobotControleur extends TimedRobot {
   private Robot robot;
   private Manette manette;
   private Limelight limelight;
-  private DriverCamera driverCamera;
-
-  private CapteurLuminosite capteurLuminosite;
   //private Command trajetAutonome;
 
   @Override
@@ -34,14 +30,6 @@ public class RobotControleur extends TimedRobot {
     this.manette = RobotControleur.ActionManette.getInstance();
     this.limelight = new Limelight();
     DriverStation.silenceJoystickConnectionWarning(true);
-
-    // Tests
-    this.driverCamera = new DriverCamera();
-
-    //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
-
-    //this.capteurLuminosite = new CapteurLuminosite();
-
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -60,9 +48,6 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     //limelight.decoupageCameraDynamique();
-    //if (this.capteurLuminosite.getLuminosite()) {
-    //  System.out.println("Luminosité détectée");
-    //}
   }
 
   @Override
@@ -129,7 +114,7 @@ public class RobotControleur extends TimedRobot {
       //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
       protected ActionManette()
       {
-  
+
           /* 
           Command commandeCalibration = new CommandeCalibrerBras();
           this.boutonMaison.whenPressed(commandeCalibration);
