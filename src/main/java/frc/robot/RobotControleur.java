@@ -24,6 +24,8 @@ public class RobotControleur extends TimedRobot {
   private Manette manette;
   private Limelight limelight;
   private DriverCamera driverCamera;
+
+  private CapteurLuminosite capteurLuminosite;
   //private Command trajetAutonome;
 
   @Override
@@ -37,6 +39,9 @@ public class RobotControleur extends TimedRobot {
     this.driverCamera = new DriverCamera();
 
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
+
+    //this.capteurLuminosite = new CapteurLuminosite();
+
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -55,6 +60,9 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     //limelight.decoupageCameraDynamique();
+    //if (this.capteurLuminosite.getLuminosite()) {
+    //  System.out.println("Luminosité détectée");
+    //}
   }
 
   @Override
