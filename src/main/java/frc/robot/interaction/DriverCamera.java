@@ -41,7 +41,9 @@ public class DriverCamera {
             Imgproc.rectangle(source, new Point(5, 5), new Point(100, 100),
             new Scalar(255, 255, 255), 2);
 
-            // Put
+            Imgproc.putText(source, "Hello World!!!", new Point(5, 125),
+            Imgproc.FONT_HERSHEY_SIMPLEX, 1.0, new Scalar(255, 255, 255));
+
             // Give the output stream a new image to display
             outputStream.putFrame(source);
         }
