@@ -3,7 +3,7 @@ package frc.robot.interaction;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class Limelight {
+public class CameraLimelight {
 
     private NetworkTable networkTable = null;
     private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
@@ -15,7 +15,7 @@ public class Limelight {
     /**
      * Instancie une caméra Limelight 2
      */
-    public Limelight() {
+    public CameraLimelight() {
         System.out.println("Limelight()");
         try {
             networkTable = NetworkTableInstance.getDefault().getTable("limelight");
