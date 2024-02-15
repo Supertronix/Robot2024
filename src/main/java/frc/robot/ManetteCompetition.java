@@ -1,5 +1,6 @@
-package frc.robot.interaction;
+package frc.robot;
 
+import frc.robot.interaction.*;
 // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/Joystick.html
 import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj2.command.Command;
@@ -10,6 +11,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 // https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
 public class ManetteCompetition extends Manette {
 
+    protected static ManetteCompetition instance = null;
+    public static ManetteCompetition getInstance()
+    {
+      if(null == ManetteCompetition.instance) ManetteCompetition.instance = new ManetteCompetition();
+      return ManetteCompetition.instance;
+    };
     // protected JoystickButton boutonControllerAttrapeur;
     protected JoystickButton boutonMaison;
     protected JoystickButton boutonDemarrer;

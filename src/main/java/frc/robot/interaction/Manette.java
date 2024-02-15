@@ -19,18 +19,11 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     {
         this.manette = new Joystick(MANETTE);
         this.commandes = new ArrayList<Command>();
-    }
-    
-    protected static Manette instance = null;
-    public static Manette getInstance()
-    {
-      if(null == Manette.instance) Manette.instance = new ManetteCompetition();
-      return Manette.instance;
-    };
-    public static void desactiverInstance()
-    {
-    	Manette.instance = null;    	
-    }
+    }    
+    //public static void desactiverInstance()
+    //{
+    //	Manette.instance = null;    	
+    //}
 
     public class Axe 
     {

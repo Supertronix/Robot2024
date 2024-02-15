@@ -22,7 +22,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    this.manette = Manette.getInstance();
+    this.manette = ManetteCompetition.getInstance();
     this.limelight = new Limelight();
     DriverStation.silenceJoystickConnectionWarning(true);
   }
