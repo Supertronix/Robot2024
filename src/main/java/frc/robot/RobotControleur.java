@@ -2,6 +2,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
@@ -22,6 +23,7 @@ public class RobotControleur extends TimedRobot {
   private Robot robot;
   private Manette manette;
   private Limelight limelight;
+  private DriverCamera driverCamera;
   //private Command trajetAutonome;
 
   @Override
@@ -30,6 +32,11 @@ public class RobotControleur extends TimedRobot {
     this.manette = RobotControleur.ActionManette.getInstance();
     this.limelight = new Limelight();
     DriverStation.silenceJoystickConnectionWarning(true);
+
+    // Tests
+    this.driverCamera = new DriverCamera();
+
+    //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
