@@ -3,7 +3,7 @@ package frc.robot.interaction;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class Limelight {
+public class CameraLimelight {
 
     private NetworkTable networkTable = null;
     private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
@@ -15,13 +15,14 @@ public class Limelight {
     /**
      * Instancie une caméra Limelight 2
      */
-    public Limelight() {
+    public CameraLimelight() {
         System.out.println("Limelight()");
         try {
             networkTable = NetworkTableInstance.getDefault().getTable("limelight");
         } catch (Exception e) {
             System.out.println("Limelight() exception: " + e.getMessage());
         }
+        setStreamMode(1);
     }
 
     // ------------------- GETTERS -------------------
@@ -144,6 +145,17 @@ public class Limelight {
      */
     public void setDecoupageCamera(double[] coordonnees) {
         networkTable.getEntry("crop").setDoubleArray(coordonnees);
+    }
+
+    /**
+     * Sets limelight's streaming mode
+     * @param mode
+     * 0	Standard - Side-by-side streams if a webcam is attached to Limelight
+     * 1	PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
+     * 2	PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
+     */
+    public void setStreamMode(int mode) {
+        networkTable.getEntry("<variablename>").setNumber(mode);
     }
 
     // ------------------- METHODES -------------------

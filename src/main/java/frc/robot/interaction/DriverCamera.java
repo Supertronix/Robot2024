@@ -44,11 +44,9 @@ public class DriverCamera {
                 // Put a rectangle on the image
                 //Imgproc.rectangle(source, new Point(5, 5), new Point(100, 100),
                 //        new Scalar(255, 255, 255), 2);
+
                 String capteurLuminosite = "false";
-                if (this.capteurLuminosite.getLuminosite())
-                {
-                    capteurLuminosite = "true";
-                }
+                if (this.capteurLuminosite.getLuminosite()) capteurLuminosite = "true";
 
                 Imgproc.putText(source, capteurLuminosite, new Point(10, 125),
                         Imgproc.FONT_HERSHEY_SIMPLEX, 1, new Scalar(255, 255, 255));

@@ -2,14 +2,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
-import frc.robot.interaction.Limelight;
+import frc.robot.interaction.CameraLimelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -22,26 +21,18 @@ public class RobotControleur extends TimedRobot {
 
   private Robot robot;
   private Manette manette;
-  private Limelight limelight;
-  private DriverCamera driverCamera;
 
-  private CapteurLuminosite capteurLuminosite;
   //private Command trajetAutonome;
 
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = RobotControleur.ActionManette.getInstance();
-    this.limelight = new Limelight();
     DriverStation.silenceJoystickConnectionWarning(true);
 
-    // Tests
-    this.driverCamera = new DriverCamera();
+    // --------------- Tests --------------- //
 
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
-
-    //this.capteurLuminosite = new CapteurLuminosite();
-
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -54,15 +45,12 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    limelight.resetDecoupageCamera();
+    Robot.getInstance().cameraLimelight.resetDecoupageCamera();
   }
 
   @Override
   public void disabledPeriodic() {
-    //limelight.decoupageCameraDynamique();
-    //if (this.capteurLuminosite.getLuminosite()) {
-    //  System.out.println("Luminosité détectée");
-    //}
+    //Robot.getInstance().limelight.decoupageCameraDynamique();
   }
 
   @Override
@@ -93,6 +81,7 @@ public class RobotControleur extends TimedRobot {
     limelight.decoupageCameraDynamique();
 
     robot.intake.setSpeed();
+    Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
   }
 
   @Override
