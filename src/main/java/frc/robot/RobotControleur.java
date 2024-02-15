@@ -91,6 +91,8 @@ public class RobotControleur extends TimedRobot {
     robot.roues.conduireAvecManette(this.manette);
     manette.executerActions();
     limelight.decoupageCameraDynamique();
+
+    robot.intake.setSpeed();
   }
 
   @Override

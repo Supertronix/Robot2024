@@ -53,6 +53,13 @@ public interface Materiel {
             );
     
     }
+
+    // Config intake (entrée notes)
+    public interface Intake
+    {
+      public static final int ID_TALON_INTAKE = 11; // CAN ID Moteur intake
+      public static final double VITESSE_TALON_INTAKE = 0.2;
+    }
     /*
     public interface Bras
     {
