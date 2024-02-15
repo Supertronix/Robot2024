@@ -15,8 +15,11 @@ import com.revrobotics.SparkMaxLimitSwitch;
 
 @SuppressWarnings({"removal"}) 
 public class Moteur extends CANSparkMax{
+
+
     private SparkMaxLimitSwitch limiteAvant;
     private SparkMaxLimitSwitch limiteArriere;
+
     public Moteur(int id)
     {
         // CANSparkMax​(int deviceId, CANSparkMaxLowLevel.MotorType type)        
@@ -36,10 +39,18 @@ public class Moteur extends CANSparkMax{
         this.restoreFactoryDefaults();
         this.setIdleMode(IdleMode.kBrake);
     }
+
+    private static double LIMIT_MIN = -1;
+    private static double LIMIT_MAX =  1;
 	public static double limiter(double vitesse) 
 	{
-		return Math.max(-1, Math.min(1, vitesse));
+		return Math.max(LIMIT_MIN, Math.min(LIMIT_MAX, vitesse));
 	}
+    @Override
+    public void set(double vitesse){
+        super.set(limiter(vitesse));
+    }
+
 
     // pattern Builder = Monteur
     public Moteur avecLimites()

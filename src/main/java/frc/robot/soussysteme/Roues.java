@@ -24,7 +24,9 @@ interface Roulable
 }
 interface Dirigeable
 {
-    public void conduireAvecManette(Manette manette);
+    // @Deprecated
+    // public void conduireAvecManette(Manette manette);
+    public void conduireAvecAxes(double vitesseAvantArriere, double vitesseDroiteGauche, double vitesseRotationDroiteGauche);
     public void conduire(double vitesseX, double vitesseY);
     public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite);
     public void conduireAvecAngle(double vitesse, double angle, double vitesseRotation);

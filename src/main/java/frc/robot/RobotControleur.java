@@ -73,9 +73,9 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    //System.out.println("teleopPeriodic()");   
+    //System.out.println("teleopPeriodic()");
     
-    robot.roues.conduireAvecManette(this.manette);
+    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
     manette.executerActions();
 
     robot.intake.setSpeed();
