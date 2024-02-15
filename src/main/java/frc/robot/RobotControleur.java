@@ -12,6 +12,11 @@ import frc.robot.composant.Limelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
+// https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/Joystick.html
+//import edu.wpi.first.wpilibj2.command.Command;
+// https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/JoystickButton.html
+
+
 public class RobotControleur extends TimedRobot {
 
   private Robot robot;
@@ -22,7 +27,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    this.manette = ManetteCompetition.getInstance();
+    this.manette = RobotControleur.ActionManette.getInstance();
     this.limelight = new Limelight();
     DriverStation.silenceJoystickConnectionWarning(true);
   }
@@ -92,5 +97,65 @@ public class RobotControleur extends TimedRobot {
   private void lierInteractions() {
     new Trigger(robot.partie::exampleCondition).onTrue(new MouvementDuRobot(robot.partie));
   }
+
+  
+  // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
+  // https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
+  static public class ActionManette extends Manette {
+  
+      protected static ActionManette instance = null;
+      public static ActionManette getInstance()
+      {
+        if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
+        return ActionManette.instance;
+      };
+      // protected JoystickButton boutonControllerAttrapeur;
+  
+      //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
+      protected ActionManette()
+      {
+  
+          /* 
+          Command commandeCalibration = new CommandeCalibrerBras();
+          this.boutonMaison.whenPressed(commandeCalibration);
+  
+          Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
+          this.boutonDemarrer.whenPressed(commandeMilieu);
+  
+          Command commandeArriere = new CommandeDeplacerBras(POSITION.POSITION_AVANT);
+          this.boutonArriere.whenPressed(commandeArriere);
+  
+          Command commandePencheDevant = new CommandeDeplacerBras(POSITION.POSITION_ARRIERE);
+          this.boutonPencheDevant.whenPressed(commandePencheDevant);
+  
+          Command commandeDevant = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_AVANT);
+          this.boutonDevant.whenPressed(commandeDevant);
+  
+          Command commandePencheArriere = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_ARRIERE);
+          this.boutonPencheArriere.whenPressed(commandePencheArriere);
+          
+          Command commandeOuvrirMachoire = new CommandeOuvrirMachoire();
+          Command commandeFermerMachoire = new CommandeFermerMachoire();
+          this.boutonMainDroite.whenPressed(commandeFermerMachoire);
+          this.boutonMainGauche.whenPressed(commandeOuvrirMachoire);
+          */
+  
+      }
+   
+      public void executerActions()
+      {
+        if(this.boutonPressionMainGauche.getAsBoolean())
+          {
+              this.boutonPressionMainGauche.declencher();;
+          }
+        if(this.boutonPressionMainDroite.getAsBoolean())
+          {
+              this.boutonPressionMainDroite.declencher();
+          }
+      }
+      
+  }
+  // this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
+  
 
 }

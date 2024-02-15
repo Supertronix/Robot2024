@@ -15,10 +15,39 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     protected Joystick manette = null;
     protected List<Command> commandes;
 
+    protected JoystickButton boutonMaison;
+    protected JoystickButton boutonDemarrer;
+    protected JoystickButton boutonDevant;
+    protected JoystickButton boutonArriere;
+    protected JoystickButton boutonPencheDevant;
+    protected JoystickButton boutonPencheArriere;
+    protected JoystickButton boutonMainDroite;
+    protected JoystickButton boutonMainGauche;
+
+    protected BoutonDeclencheur boutonPressionMainDroite;
+    protected BoutonDeclencheur boutonPressionMainGauche;
+
     protected Manette() // pour design pattern singleton
     {
         this.manette = new Joystick(MANETTE);
+
+        this.manette = new Joystick(MANETTE);
         this.commandes = new ArrayList<Command>();
+
+        this.boutonPressionMainGauche = new BoutonDeclencheur(manette, MAIN_GAUCHE_AXE);
+        this.boutonPressionMainDroite = new BoutonDeclencheur(manette, MAIN_DROITE_AXE);
+        //this.boutonPressionMainGauche.setCommande(new CommandeAjusterBras(-0.15));
+        //this.boutonPressionMainDroite.setCommande(new CommandeAjusterBras(0.15 ));
+
+
+        this.boutonMaison = new JoystickButton(this.manette, BOUTON_Y);
+        this.boutonDemarrer = new JoystickButton(this.manette, BOUTON_A);
+        this.boutonArriere = new JoystickButton(this.manette, BOUTON_X);
+        this.boutonPencheDevant = new JoystickButton(this.manette, BOUTON_B);
+        this.boutonDevant = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        this.boutonPencheArriere = new JoystickButton(this.manette, BOUTON_RETOUR);
+        this.boutonMainDroite = new JoystickButton(this.manette, BOUTON_MAIN_DROITE);
+        this.boutonMainGauche = new JoystickButton(this.manette, BOUTON_MAIN_GAUCHE);        
     }    
     //public static void desactiverInstance()
     //{
