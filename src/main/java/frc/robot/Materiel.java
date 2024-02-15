@@ -58,8 +58,17 @@ public interface Materiel {
     public interface Intake
     {
       public static final int ID_TALON_INTAKE = 11; // CAN ID Moteur intake
-      public static final double VITESSE_TALON_INTAKE = 0.2;
+      public static final double VITESSE_TALON_INTAKE = 0.2; // Vitesse par défaut moteur intake
     }
+
+    // Config lanceur (pour lancer les notes)
+    public interface Lanceur
+    {
+      public static final int ID_LANCEUR_MAITRE = 5;
+      public static final int ID_LANCEUR_ESCLAVE = 6;
+      public static final double VITESSE_LANCEUR = 0.1;
+    }
+
     /*
     public interface Bras
     {

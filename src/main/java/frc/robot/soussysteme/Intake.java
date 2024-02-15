@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
@@ -9,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
-/** Add your docs here. */
+// L'intake qui permet de faire rentrer les notes, fonctionne avec un Talon SRX
 public class Intake extends SousSysteme implements Materiel.Intake
 {
     protected MoteurTalon moteurTalon;
@@ -17,10 +13,11 @@ public class Intake extends SousSysteme implements Materiel.Intake
     public Intake() {
         moteurTalon = new MoteurTalon(ID_TALON_INTAKE);
         moteurTalon.setInverted(true);
+        moteurTalon.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_INTAKE);
     }
 
-    public void setSpeed()
+    public void setVitesse(double vitesse)
     {
-        moteurTalon.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_INTAKE);
+        moteurTalon.set(TalonSRXControlMode.PercentOutput, vitesse);
     }
 }

@@ -14,6 +14,7 @@ public class Robot {
   public PartieDuRobot partie = new PartieDuRobot();
   public Roues roues = null;
   public Intake intake;
+  public Lanceur lanceur;
   public CameraLimelight cameraLimelight;
   public DriverCamera driverCamera;
 
@@ -24,6 +25,7 @@ public class Robot {
   {
     this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
     this.intake = new Intake();
+    this.lanceur = new Lanceur();
     this.cameraLimelight = new CameraLimelight();
     this.driverCamera = new DriverCamera();
   }
