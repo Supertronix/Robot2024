@@ -13,11 +13,14 @@ public class Intake extends SousSysteme implements Materiel.Intake
     public Intake() {
         moteurTalon = new MoteurTalon(ID_TALON_INTAKE);
         moteurTalon.setInverted(true);
+    }
+
+    public void setVitesse() {
         moteurTalon.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_INTAKE);
     }
 
-    public void setVitesse(double vitesse)
-    {
+    // Démarre le moteur d'intake avec la vitesse passée en paramètre
+    public void setVitesse(double vitesse) {
         moteurTalon.set(TalonSRXControlMode.PercentOutput, vitesse);
     }
 }

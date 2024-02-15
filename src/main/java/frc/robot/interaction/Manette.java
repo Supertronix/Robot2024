@@ -34,11 +34,10 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
         this.manette = new Joystick(MANETTE);
         this.commandes = new ArrayList<Command>();
 
-        this.boutonPressionMainGauche = new BoutonDeclencheur(manette, MAIN_GAUCHE_AXE);
-        this.boutonPressionMainDroite = new BoutonDeclencheur(manette, MAIN_DROITE_AXE);
         //this.boutonPressionMainGauche.setCommande(new CommandeAjusterBras(-0.15));
         //this.boutonPressionMainDroite.setCommande(new CommandeAjusterBras(0.15 ));
-
+        this.boutonPressionMainGauche = new BoutonDeclencheur(this.manette, MAIN_GAUCHE_AXE);
+        this.boutonPressionMainDroite = new BoutonDeclencheur(this.manette, MAIN_DROITE_AXE);
 
         this.boutonMaison = new JoystickButton(this.manette, BOUTON_Y);
         this.boutonDemarrer = new JoystickButton(this.manette, BOUTON_A);
@@ -48,7 +47,8 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
         this.boutonPencheArriere = new JoystickButton(this.manette, BOUTON_RETOUR);
         this.boutonMainDroite = new JoystickButton(this.manette, BOUTON_MAIN_DROITE);
         this.boutonMainGauche = new JoystickButton(this.manette, BOUTON_MAIN_GAUCHE);        
-    }    
+    }
+
     //public static void desactiverInstance()
     //{
     //	Manette.instance = null;    	
@@ -65,12 +65,13 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     protected Axe axeMainDroite = null;
     protected Axe axeMainGauche = null;
 
-   public Axe getAxeMainDroite()
+    public Axe getAxeMainDroite()
     {
       this.axeMainDroite = new Axe(manette.getRawAxis(BATON_DROIT_AXE_X), manette.getRawAxis(BATON_DROIT_AXE_Y));
       // System.out.println("axe main droite " + this.axeMainDroite.x + " " + this.axeMainDroite.y);
       return this.axeMainDroite;
     }
+
     public Axe getAxeMainGauche()
     {
       this.axeMainGauche = new Axe(manette.getRawAxis(BATON_GAUCHE_AXE_X), manette.getRawAxis(BATON_GAUCHE_AXE_Y));
@@ -79,11 +80,13 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       this.axeMainGauche.y = this.axeMainGauche.y - BIAIS_AXE_GAUCHE_Y;
       return this.axeMainGauche;
     }
+
     public double getPressionMainGauche() 
     {
       System.out.println("Pression main gauche" + manette.getRawAxis(MAIN_GAUCHE_AXE));
     	return manette.getRawAxis(MAIN_GAUCHE_AXE);
     }
+
     public double getPressionMainDroite() 
     {
       System.out.println("Pression main droite" + manette.getRawAxis(MAIN_DROITE_AXE));
@@ -98,6 +101,11 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       return 0;
     }
     
+    // Retourne l'état du bouton passé en paramètre
+    public boolean getBoutonPresse(int bouton) {
+      return this.manette.getRawButtonPressed(bouton);
+    }
+
     public boolean savoirSiBoutonDroitPresse()
     {
     	System.out.println("Manette.savoirSiBoutonDroitPresse()");

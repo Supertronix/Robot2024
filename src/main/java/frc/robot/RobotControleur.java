@@ -78,7 +78,13 @@ public class RobotControleur extends TimedRobot {
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
     manette.executerActions();
 
-    robot.intake.setSpeed();
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
+      System.out.println("BOUTON Y PRESSE");
+    }
+    else {
+      System.out.println("BOUTON Y NON PRESSE");
+    }
+
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
   }
 
@@ -118,7 +124,6 @@ public class RobotControleur extends TimedRobot {
       //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
       protected ActionManette()
       {
-
           /* 
           Command commandeCalibration = new CommandeCalibrerBras();
           this.boutonMaison.whenPressed(commandeCalibration);
