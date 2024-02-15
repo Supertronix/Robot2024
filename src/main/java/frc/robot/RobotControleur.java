@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
+import frc.robot.interaction.CameraLimelight;
 import frc.robot.composant.Limelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
@@ -21,15 +22,17 @@ public class RobotControleur extends TimedRobot {
 
   private Robot robot;
   private Manette manette;
-  private Limelight limelight;
   //private Command trajetAutonome;
 
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = RobotControleur.ActionManette.getInstance();
-    this.limelight = new Limelight();
     DriverStation.silenceJoystickConnectionWarning(true);
+
+    // --------------- Tests --------------- //
+
+    //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -42,12 +45,12 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    limelight.resetDecoupageCamera();
+    Robot.getInstance().cameraLimelight.resetDecoupageCamera();
   }
 
   @Override
   public void disabledPeriodic() {
-    //limelight.decoupageCameraDynamique();
+    //Robot.getInstance().limelight.decoupageCameraDynamique();
   }
 
   @Override
@@ -76,6 +79,9 @@ public class RobotControleur extends TimedRobot {
     robot.roues.conduireAvecManette(this.manette);
     manette.executerActions();
     limelight.decoupageCameraDynamique();
+
+    robot.intake.setSpeed();
+    Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
   }
 
   @Override
