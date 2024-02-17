@@ -1,6 +1,7 @@
 package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Materiel;
 import frc.robot.Robot;
 import frc.robot.RobotControleur;
 import frc.robot.interaction.CapteurLuminosite;
@@ -15,7 +16,6 @@ import frc.robot.mesure.DetecteurDuree;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvalerSelonBouton extends CommandeAvaler {
-
 
     protected Manette manette = null;
 
@@ -45,7 +45,7 @@ public class CommandeAvalerSelonBouton extends CommandeAvaler {
     public boolean isFinished() 
     {
         if(super.isFinished() == true) return true;
-        // test du bouton de manette  return false
+        if(this.manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) return false;
         return true;
     }
 }

@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
-import frc.robot.interaction.CameraLimelight;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -150,13 +149,13 @@ public class RobotControleur extends TimedRobot {
     double pressionMainGauche = manette.getPressionMainGauche();
 
     if (pressionMainDroite > 0.05) {
-      robot.lanceur.demarrerMoteur(pressionMainDroite);
+      robot.lanceur.activer(pressionMainDroite);
     }
     else if (pressionMainGauche > 0.05) {
-      robot.lanceur.demarrerMoteur(-pressionMainGauche);
+      robot.lanceur.activer(-pressionMainGauche);
     }
     else {
-      robot.lanceur.arreterMoteur();
+      robot.lanceur.desactiver();
     }*/
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
