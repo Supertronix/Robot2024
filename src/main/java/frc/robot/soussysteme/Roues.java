@@ -4,7 +4,6 @@ import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Materiel;
 import frc.robot.Cinematique;
-import frc.robot.interaction.Manette;
 import frc.robot.composant.Moteur;
 
 interface Roulable
