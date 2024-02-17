@@ -123,6 +123,16 @@ public class RobotControleur extends TimedRobot {
         robot.lanceur.demarrerMoteur();
     }
 
+    // Winch avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
+      System.out.println("BOUTON DEMARRER PRESSE:" + robot.winch.moteurOn());
+
+      if (robot.winch.moteurOn())
+        robot.winch.arreterMoteur();
+      else
+        robot.winch.demarrerMoteur();
+    }
+
     // Lanceur contrôlable avec gâchette
     /*
     double pressionMainDroite = manette.getPressionMainDroite();
