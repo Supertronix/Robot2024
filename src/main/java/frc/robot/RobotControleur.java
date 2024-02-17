@@ -120,7 +120,8 @@ public class RobotControleur extends TimedRobot {
         robot.lanceur.activer();
     }
 
-    // Winch avec toggle on/off
+    /*
+    // Treuil avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
       System.out.println("BOUTON DEMARRER PRESSE:" + robot.bras.estActif());
 
@@ -129,7 +130,19 @@ public class RobotControleur extends TimedRobot {
       else
         robot.bras.activer(false);
     }
+    */
 
+    // Treuil avec pression on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
+      System.out.println("BOUTON DEMARRER PRESSE");
+
+      robot.bras.activer(false);
+    } else {
+      robot.bras.desactiver();
+    }
+
+    /*
+    // Treuil avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
       System.out.println("BOUTON RETOUR PRESSE:" + robot.bras.estActif());
 
@@ -137,6 +150,16 @@ public class RobotControleur extends TimedRobot {
         robot.bras.desactiver();
       else
         robot.bras.activer(true);
+    }
+     */
+
+    // Treuil avec pression on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
+      System.out.println("BOUTON RETOUR PRESSE");
+
+      robot.bras.activer(true);
+    } else {
+      robot.bras.desactiver();
     }
 
     // smartdashboard
