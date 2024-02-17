@@ -15,8 +15,10 @@ public class Convoyeur2 extends SousSysteme implements Materiel.Convoyeur2
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
 
-        moteurTalonEsclave.setInverted(true);
+        moteurTalonMaitre.setInverted(true);
+        moteurTalonEsclave.setInverted(false);
         moteurTalonEsclave.follow(moteurTalonMaitre);
+
     }
 
     // Démarre le moteur d'intake avec la vitesse définie dans la config
