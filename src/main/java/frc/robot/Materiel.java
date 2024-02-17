@@ -85,10 +85,10 @@ public interface Materiel {
       public static final double VITESSE_LANCEUR = 0.2;
     }
 
-    public interface Winch
+    public interface TREUIL
     {
-      public static final int ID_WINCH = 10;
-      public static final double VITESSE_WINCH = 1.0;
+      public static final int ID_TREUIL = 10;
+      public static final double VITESSE_TREUIL = 1.0;
     }
 
     /*

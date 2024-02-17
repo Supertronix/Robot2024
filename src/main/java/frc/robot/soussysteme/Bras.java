@@ -5,14 +5,14 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
-public class Bras implements Materiel.Winch {
+public class Bras implements Materiel.TREUIL {
     protected boolean actif;
 
     protected MoteurTalon moteur;
 
     public Bras() {
         actif = false;
-        moteur = new MoteurTalon(ID_WINCH);
+        moteur = new MoteurTalon(ID_TREUIL);
     }
 
      public void descendre() {
@@ -31,7 +31,7 @@ public class Bras implements Materiel.Winch {
      // Démarre les moteurs avec la vitesse par défaut
      public void activer(boolean descendre) {
         moteur.setInverted(descendre);
-        moteur.set(TalonSRXControlMode.PercentOutput, VITESSE_WINCH);
+        moteur.set(TalonSRXControlMode.PercentOutput, VITESSE_TREUIL);
         actif = true;
     }
 
