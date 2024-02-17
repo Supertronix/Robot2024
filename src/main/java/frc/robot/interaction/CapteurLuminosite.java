@@ -11,7 +11,7 @@ public class CapteurLuminosite {
     }
     
     /** 
-     * @return boolean
+     * @return True si la luminosité est faible, false sinon
      */
     public boolean getLuminosite()
     {

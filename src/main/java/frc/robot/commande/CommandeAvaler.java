@@ -63,11 +63,12 @@ public class CommandeAvaler extends Command {
     @Override
     public boolean isFinished() 
     {
-        if(this.detecteurDuree.estTropLongue())
+        if (this.detecteurDuree.estTropLongue())
             return true;
-        
-        // test de luminosite return true
-        
+
+        if (this.capteurLuminosite.getLuminosite())
+            return true;
+
         return false;
     }
 }

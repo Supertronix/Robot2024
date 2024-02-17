@@ -22,11 +22,7 @@ public class MouvementDuRobot extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
-
   
-  /** 
-   * @param isFinished(
-   */
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
