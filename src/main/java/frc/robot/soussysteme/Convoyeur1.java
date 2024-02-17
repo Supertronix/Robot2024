@@ -4,14 +4,13 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
-// Le deuxième convoyeur qui transporte la note du convoyeur 1 à l'intake
+// Le premier convoyeur qui transporte la note du convoyeur 1 au convoyeur 2
 // Fonctionne avec 2 talons SRX
-public class Convoyeur2 extends SousSysteme implements Materiel.Convoyeur2
-{
+public class Convoyeur1 extends SousSysteme implements Materiel.Convoyeur1{
     protected MoteurTalon moteurTalonMaitre;
     protected MoteurTalon moteurTalonEsclave;
 
-    public Convoyeur2() {
+    public Convoyeur1() {
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
 
