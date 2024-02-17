@@ -17,7 +17,8 @@ public class Bras implements Materiel.Winch {
     }
 
      // Démarre les moteurs avec la vitesse par défaut
-     public void demarrerMoteur() {
+     public void demarrerMoteur(boolean descendre) {
+        moteur.setInverted(descendre);
         moteur.set(TalonSRXControlMode.PercentOutput, VITESSE_WINCH);
         toggleOnOff = true;
     }
@@ -26,7 +27,8 @@ public class Bras implements Materiel.Winch {
      * Démarre les moteurs du lanceur avec la vitesse passée en paramètre
      * @param vitesse La vitesse du lanceur entre 0.00 et 1.00
      */
-    public void demarrerMoteur(double vitesse) {
+    public void demarrerMoteur(boolean descendre, double vitesse) {
+        moteur.setInverted(descendre);
         moteur.set(TalonSRXControlMode.PercentOutput, vitesse);
         toggleOnOff = true;
     }

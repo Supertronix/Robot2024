@@ -86,8 +86,8 @@ public interface Materiel {
 
     public interface Winch
     {
-      public static final int ID_WINCH = 13;
-      public static final double VITESSE_WINCH = 0.1;
+      public static final int ID_WINCH = 10;
+      public static final double VITESSE_WINCH = 1.0;
     }
 
     /*
