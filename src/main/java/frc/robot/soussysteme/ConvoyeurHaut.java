@@ -22,7 +22,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
     }
 
     // Démarre le moteur d'intake avec la vitesse définie dans la config
-    public void demarrerMoteur() {
+    public void activer() {
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_CONVOYEUR);
         actif = true;
     }
@@ -31,13 +31,13 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
      * @param vitesse
      */
     // Démarre le moteur d'intake avec la vitesse passée en paramètre
-    public void demarrerMoteur(double vitesse) {
+    public void activer(double vitesse) {
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, vitesse);
         actif = true;
     }
 
     // Arrêter les moteurs du convoyeur
-    public void arreterMoteur() {
+    public void desactiver() {
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, 0);
         actif = false;
     }

@@ -96,9 +96,9 @@ public class RobotControleur extends TimedRobot {
       System.out.println("BOUTON X PRESSE");
       
       if (robot.convoyeurBas.estActif())
-        robot.convoyeurBas.arreterMoteur();
+        robot.convoyeurBas.desactiver();
       else
-        robot.convoyeurBas.demarrerMoteur();
+        robot.convoyeurBas.activer();
     }
 
     // Convoyeur haut avec toggle on/off
@@ -106,9 +106,9 @@ public class RobotControleur extends TimedRobot {
       System.out.println("BOUTON Y PRESSE");
       
       if (robot.convoyeurHaut.estActif())
-        robot.convoyeurHaut.arreterMoteur();
+        robot.convoyeurHaut.desactiver();
       else
-        robot.convoyeurHaut.demarrerMoteur();
+        robot.convoyeurHaut.activer();
     }
 
     // Lanceur avec toggle on/off
@@ -116,9 +116,9 @@ public class RobotControleur extends TimedRobot {
       System.out.println("BOUTON B PRESSE:" + robot.lanceur.estActif());
 
       if (robot.lanceur.estActif())
-        robot.lanceur.arreterMoteur();
+        robot.lanceur.desactiver();
       else
-        robot.lanceur.demarrerMoteur();
+        robot.lanceur.activer();
     }
 
     // Winch avec toggle on/off

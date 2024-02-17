@@ -32,7 +32,7 @@ public class Lanceur implements Materiel.Lanceur {
     }
 
     // Démarre les moteurs avec la vitesse par défaut
-    public void demarrerMoteur() {
+    public void activer() {
         moteurMaitre.set(VITESSE_LANCEUR);
         actif = true;
     }
@@ -41,13 +41,13 @@ public class Lanceur implements Materiel.Lanceur {
      * Démarre les moteurs du lanceur avec la vitesse passée en paramètre
      * @param vitesse La vitesse du lanceur entre 0.00 et 1.00
      */
-    public void demarrerMoteur(double vitesse) {
+    public void activer(double vitesse) {
         moteurMaitre.set(vitesse);
         actif = true;
     }
 
     // Arrête les moteurs du lanceur
-    public void arreterMoteur() {
+    public void desactiver() {
         moteurMaitre.set(0);
         actif = false;
     }
