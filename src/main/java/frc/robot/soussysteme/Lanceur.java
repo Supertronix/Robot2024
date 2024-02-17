@@ -27,9 +27,9 @@ public class Lanceur implements Materiel.Lanceur {
 
     
     /** 
-     * @param vitesse
+     * Démarre les moteurs du lanceur avec la vitesse passée en paramètre
+     * @param vitesse La vitesse du lanceur entre 0.00 et 1.00
      */
-    // Démarre les moteurs du lanceur avec la vitesse passée en paramètre
     public void demarrerLanceur(double vitesse) {
         moteurMaitre.set(vitesse);
         toggleLanceur = true;

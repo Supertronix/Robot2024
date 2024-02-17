@@ -15,12 +15,12 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     protected Joystick manette = null;
     protected List<Command> commandes;
 
-    protected JoystickButton boutonMaison;
+    protected JoystickButton boutonY;
+    protected JoystickButton boutonA;
     protected JoystickButton boutonDemarrer;
-    protected JoystickButton boutonDevant;
-    protected JoystickButton boutonArriere;
-    protected JoystickButton boutonPencheDevant;
-    protected JoystickButton boutonPencheArriere;
+    protected JoystickButton boutonX;
+    protected JoystickButton boutonB;
+    protected JoystickButton boutonRetour;
     protected JoystickButton boutonMainDroite;
     protected JoystickButton boutonMainGauche;
 
@@ -39,14 +39,14 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
         this.boutonPressionMainGauche = new BoutonDeclencheur(this.manette, MAIN_GAUCHE_AXE);
         this.boutonPressionMainDroite = new BoutonDeclencheur(this.manette, MAIN_DROITE_AXE);
 
-        this.boutonMaison = new JoystickButton(this.manette, BOUTON_Y);
-        this.boutonDemarrer = new JoystickButton(this.manette, BOUTON_A);
-        this.boutonArriere = new JoystickButton(this.manette, BOUTON_X);
-        this.boutonPencheDevant = new JoystickButton(this.manette, BOUTON_B);
-        this.boutonDevant = new JoystickButton(this.manette, BOUTON_DEMARRER);
-        this.boutonPencheArriere = new JoystickButton(this.manette, BOUTON_RETOUR);
+        this.boutonY = new JoystickButton(this.manette, BOUTON_Y);
+        this.boutonA = new JoystickButton(this.manette, BOUTON_A);
+        this.boutonX = new JoystickButton(this.manette, BOUTON_X);
+        this.boutonB = new JoystickButton(this.manette, BOUTON_B);
+        this.boutonDemarrer = new JoystickButton(this.manette, BOUTON_DEMARRER);
+        this.boutonRetour = new JoystickButton(this.manette, BOUTON_RETOUR);
         this.boutonMainDroite = new JoystickButton(this.manette, BOUTON_MAIN_DROITE);
-        this.boutonMainGauche = new JoystickButton(this.manette, BOUTON_MAIN_GAUCHE);        
+        this.boutonMainGauche = new JoystickButton(this.manette, BOUTON_MAIN_GAUCHE);   
     }
 
     //public static void desactiverInstance()
