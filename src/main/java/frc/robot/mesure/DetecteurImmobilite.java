@@ -48,6 +48,10 @@ public class DetecteurImmobilite implements Cinematique.Bras{
 		}		
 	}
 		
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean estImmobile()
 	{
 		return this.estImmobile;

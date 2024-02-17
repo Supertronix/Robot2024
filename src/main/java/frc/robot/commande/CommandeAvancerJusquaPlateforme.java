@@ -44,6 +44,10 @@ public class CommandeAvancerJusquaPlateforme extends Command {
         }
     }
 
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isFinished() 
     {

@@ -57,6 +57,10 @@ public class RobotControleur extends TimedRobot {
     //trajetAutonome = new CommandeTrajetAutonome();
     //trajetAutonome.schedule();
   }
+  
+  /** 
+   * @param teleopInit(
+   */
   @Override
   public void autonomousPeriodic() {}
 

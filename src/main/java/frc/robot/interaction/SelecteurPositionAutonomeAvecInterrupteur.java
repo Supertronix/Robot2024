@@ -19,6 +19,10 @@ public class SelecteurPositionAutonomeAvecInterrupteur implements Materiel{
     }
     
     static protected SelecteurPositionAutonomeAvecInterrupteur instance = null;
+    
+    /** 
+     * @return SelecteurPositionAutonomeAvecInterrupteur
+     */
     static public SelecteurPositionAutonomeAvecInterrupteur getInstance()
     {
     	if(null == instance) instance = new SelecteurPositionAutonomeAvecInterrupteur();

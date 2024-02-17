@@ -23,6 +23,10 @@ public class MouvementDuRobot extends Command {
     addRequirements(subsystem);
   }
 
+  
+  /** 
+   * @param isFinished(
+   */
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}

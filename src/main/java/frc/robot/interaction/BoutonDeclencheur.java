@@ -37,6 +37,10 @@ public class BoutonDeclencheur extends JoystickButton{
         this.commande = commande;
     }
 
+    
+    /** 
+     * @return Command
+     */
     public Command getCommande()
     {
         return this.commande;

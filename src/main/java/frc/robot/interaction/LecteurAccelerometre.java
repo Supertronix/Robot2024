@@ -35,6 +35,10 @@ public class LecteurAccelerometre {
 
     // singleton pour calibrer une seule fois
     protected static LecteurAccelerometre instance = null;
+    
+    /** 
+     * @return LecteurAccelerometre
+     */
     public static LecteurAccelerometre getInstance()
     {
         if(instance == null) instance = new LecteurAccelerometre();

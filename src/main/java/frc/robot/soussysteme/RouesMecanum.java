@@ -25,6 +25,10 @@ public class RouesMecanum extends Roues {
         this.roueArriereDroite.setInverted(false);
         this.roueAvantDroite.setInverted(false);
     }
+    
+    /** 
+     * @param facteur
+     */
     public void setFacteur(double facteur)
     {
         this.facteur = facteur;

@@ -42,7 +42,12 @@ public class Moteur extends CANSparkMax{
 
     private static double LIMIT_MIN = -1;
     private static double LIMIT_MAX =  1;
-	public static double limiter(double vitesse) 
+	
+    /** 
+     * @param vitesse
+     * @return double
+     */
+    public static double limiter(double vitesse) 
 	{
 		return Math.max(LIMIT_MIN, Math.min(LIMIT_MAX, vitesse));
 	}

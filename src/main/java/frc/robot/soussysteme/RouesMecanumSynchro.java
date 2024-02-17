@@ -26,6 +26,10 @@ public class RouesMecanumSynchro extends RouesMecanum {
         this.preparerConsigneInitiale();
     }
 
+    
+    /** 
+     * @return RouesMecanum
+     */
     public RouesMecanum convertirEnRouesHolonomiques()
     {
         this.annulerConsigneInitiale();

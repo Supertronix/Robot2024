@@ -40,6 +40,10 @@ public class CommandeAvancer extends Command {
         //this.detecteur.mesurer();
     }
 
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isFinished() 
     {

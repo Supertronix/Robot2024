@@ -30,6 +30,10 @@ public class DetecteurDuree{
 		this.tempsActuel = System.currentTimeMillis();				
 	}
 
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean estTropLongue()
 	{
 		this.estTropLong = (this.tempsActuel - this.tempsDebut) > this.limite;

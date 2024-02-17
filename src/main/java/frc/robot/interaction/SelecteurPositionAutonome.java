@@ -12,6 +12,10 @@ public class SelecteurPositionAutonome implements Materiel{
     }
     
     static protected SelecteurPositionAutonome instance = null;
+    
+    /** 
+     * @return SelecteurPositionAutonome
+     */
     static public SelecteurPositionAutonome getInstance()
     {
     	if(null == instance) instance = new SelecteurPositionAutonome();

@@ -13,6 +13,10 @@ public class ManetteTestMoteurs {
 
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean getAButton() {
         return true;
     }

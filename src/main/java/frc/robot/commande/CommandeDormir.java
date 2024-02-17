@@ -29,6 +29,10 @@ public class CommandeDormir extends Command {
         this.detecteur.mesurer();
     }
 
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isFinished() 
     {

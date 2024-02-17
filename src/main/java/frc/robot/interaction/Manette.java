@@ -65,6 +65,10 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     protected Axe axeMainDroite = null;
     protected Axe axeMainGauche = null;
 
+    
+    /** 
+     * @return Axe
+     */
     public Axe getAxeMainDroite()
     {
       this.axeMainDroite = new Axe(manette.getRawAxis(BATON_DROIT_AXE_X), manette.getRawAxis(BATON_DROIT_AXE_Y));

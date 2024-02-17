@@ -23,6 +23,10 @@ public class Convoyeur1 extends SousSysteme implements Materiel.Convoyeur1{
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_CONVOYEUR);
     }
     
+    
+    /** 
+     * @param vitesse
+     */
     // Démarre le moteur d'intake avec la vitesse passée en paramètre
     public void setVitesse(double vitesse) {
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, vitesse);

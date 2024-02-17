@@ -35,6 +35,10 @@ public class Robot {
   }
 
   public static Robot instance = null;
+  
+  /** 
+   * @return Robot
+   */
   public static Robot getInstance()
   {
       if(Robot.instance == null) Robot.instance = new Robot();

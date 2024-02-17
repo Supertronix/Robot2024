@@ -19,6 +19,10 @@ public class Intake extends SousSysteme implements Materiel.Intake
         moteurTalon.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_INTAKE);
     }
 
+    
+    /** 
+     * @param vitesse
+     */
     // Démarre le moteur d'intake avec la vitesse passée en paramètre
     public void setVitesse(double vitesse) {
         moteurTalon.set(TalonSRXControlMode.PercentOutput, vitesse);
