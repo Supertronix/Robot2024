@@ -83,29 +83,58 @@ public class RobotControleur extends TimedRobot {
     // Méthode vide mais cause des exceptions lorsque gâchette droite utilisée?
     //manette.executerActions();
 
-    // Lanceur avec toggle on/off
-    /*
+    // Intake avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
+      System.out.println("BOUTON A PRESSE");
+      
+      if (robot.intake.moteurOn())
+        robot.intake.arreterMoteur();
+      else
+        robot.intake.demarrerMoteur();
+    }
+
+    // Convoyeur bas avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
+      System.out.println("BOUTON X PRESSE");
+      
+      if (robot.convoyeurBas.moteurOn())
+        robot.convoyeurBas.arreterMoteur();
+      else
+        robot.convoyeurBas.demarrerMoteur();
+    }
+
+    // Convoyeur haut avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       System.out.println("BOUTON Y PRESSE");
-
-      if (robot.lanceur.lanceurOn())
-        robot.lanceur.arreterLanceur();
+      
+      if (robot.convoyeurHaut.moteurOn())
+        robot.convoyeurHaut.arreterMoteur();
       else
-        robot.lanceur.demarrerLanceur();
-    }*/
+        robot.convoyeurHaut.demarrerMoteur();
+    }
+
+    // Lanceur avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
+      System.out.println("BOUTON B PRESSE");
+
+      if (robot.lanceur.moteurOn())
+        robot.lanceur.arreterMoteur();
+      else
+        robot.lanceur.demarrerMoteur();
+    }
 
     // Lanceur contrôlable avec gâchette
     double pressionMainDroite = manette.getPressionMainDroite();
     double pressionMainGauche = manette.getPressionMainGauche();
 
     if (pressionMainDroite > 0.05) {
-      robot.lanceur.demarrerLanceur(pressionMainDroite);
+      robot.lanceur.demarrerMoteur(pressionMainDroite);
     }
     else if (pressionMainGauche > 0.05) {
-      robot.lanceur.demarrerLanceur(-pressionMainGauche);
+      robot.lanceur.demarrerMoteur(-pressionMainGauche);
     }
     else {
-      robot.lanceur.arreterLanceur();
+      robot.lanceur.arreterMoteur();
     }
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();

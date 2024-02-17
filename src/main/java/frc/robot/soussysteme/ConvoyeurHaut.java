@@ -6,12 +6,13 @@ import frc.robot.composant.MoteurTalon;
 
 // Le deuxième convoyeur qui transporte la note du convoyeur 1 à l'intake
 // Fonctionne avec 2 talons SRX
-public class Convoyeur2 extends SousSysteme implements Materiel.Convoyeur2
-{
+public class ConvoyeurHaut extends SousSysteme implements Materiel.Convoyeur2 {
+    protected boolean toggleOnOff;
+
     protected MoteurTalon moteurTalonMaitre;
     protected MoteurTalon moteurTalonEsclave;
 
-    public Convoyeur2() {
+    public ConvoyeurHaut() {
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
 
@@ -20,16 +21,28 @@ public class Convoyeur2 extends SousSysteme implements Materiel.Convoyeur2
     }
 
     // Démarre le moteur d'intake avec la vitesse définie dans la config
-    public void setVitesse() {
+    public void demarrerMoteur() {
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_CONVOYEUR);
+        toggleOnOff = true;
     }
-    
     
     /** 
      * @param vitesse
      */
     // Démarre le moteur d'intake avec la vitesse passée en paramètre
-    public void setVitesse(double vitesse) {
+    public void demarrerMoteur(double vitesse) {
         moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, vitesse);
+        toggleOnOff = true;
+    }
+
+    // Arrêter les moteurs du convoyeur
+    public void arreterMoteur() {
+        moteurTalonMaitre.set(TalonSRXControlMode.PercentOutput, 0);
+        toggleOnOff = false;
+    }
+
+    // Retourne l'état des moteurs (allumé/éteint)
+    public boolean moteurOn() {
+        return this.toggleOnOff;
     }
 }
