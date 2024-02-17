@@ -85,10 +85,10 @@ public class RobotControleur extends TimedRobot {
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
       System.out.println("BOUTON A PRESSE");
       
-      if (robot.intake.moteurOn())
-        robot.intake.arreterMoteur();
+      if (robot.intake.estActif())
+        robot.intake.desactiver();
       else
-        robot.intake.demarrerMoteur();
+        robot.intake.activer();
     }
 
     // Convoyeur bas avec toggle on/off
