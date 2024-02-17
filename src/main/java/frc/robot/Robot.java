@@ -14,6 +14,7 @@ public class Robot {
   public PartieDuRobot partie = new PartieDuRobot();
   public Roues roues = null;
   public Intake intake;
+  public Convoyeur2 convoyeur2;
   public Lanceur lanceur;
   public CameraLimelight cameraLimelight;
   public DriverCamera driverCamera;
@@ -28,6 +29,9 @@ public class Robot {
     this.lanceur = new Lanceur();
     this.cameraLimelight = new CameraLimelight();
     this.driverCamera = new DriverCamera();
+
+    // tests
+    this.convoyeur2 = new Convoyeur2();
   }
 
   public static Robot instance = null;

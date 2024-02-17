@@ -61,6 +61,13 @@ public interface Materiel {
       public static final double VITESSE_TALON_INTAKE = 0.2; // Vitesse par défaut moteur intake
     }
 
+    public interface Convoyeur2
+    {
+      public static final int ID_TALON_CONVOYEUR_MAITRE = 14; // CAN ID Moteur convoyeur
+      public static final int ID_TALON_CONVOYEUR_ESCLAVE = 15; // CAN ID Moteur convoyeur
+      public static final double VITESSE_TALON_INTAKE = 0.2; // Vitesse par défaut moteur convoyeur
+    }
+
     // Config lanceur (pour lancer les notes)
     public interface Lanceur
     {

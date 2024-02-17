@@ -3,6 +3,7 @@ package frc.robot.interaction;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -54,6 +55,10 @@ public class DriverCamera {
                 // Give the output stream a new image to display
                 outputStream.putFrame(source);
             }
+
+            // Add the limelight camera stream to the dashboard
+            //HttpCamera limelightCamera = new HttpCamera("limelight", "http://10.59.10.97:5800/stream.mjpg");
+            //CameraServer.startAutomaticCapture(limelightCamera);
         });
         m_visionThread.setDaemon(true);
         m_visionThread.start();

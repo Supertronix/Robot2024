@@ -105,6 +105,9 @@ public class RobotControleur extends TimedRobot {
     }
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
+
+    // test
+    //Robot.getInstance().convoyeur2.setVitesse(1);
   }
 
   @Override
