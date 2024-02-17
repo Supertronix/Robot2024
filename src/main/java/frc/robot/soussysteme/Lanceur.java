@@ -1,48 +1,59 @@
 package frc.robot.soussysteme;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Materiel;
 import frc.robot.composant.Moteur;
 
 // Le lanceur du robot, composé de 2 moteurs SparkMAX
 public class Lanceur implements Materiel.Lanceur {
-    boolean toggleLanceur;
+    protected boolean toggleOnOff;
 
     protected Moteur moteurMaitre;
     protected Moteur moteurEsclave;
+    public RelativeEncoder encodeurMaitre;
+    public RelativeEncoder encodeurEsclave;
 
     public Lanceur() {
-        toggleLanceur = false;
+        toggleOnOff = false;
 
         moteurMaitre = new Moteur(ID_LANCEUR_MAITRE);
         moteurEsclave = new Moteur(ID_LANCEUR_ESCLAVE);
+        this.moteurMaitre.setIdleMode(IdleMode.kCoast);
+        this.moteurEsclave.setIdleMode(IdleMode.kCoast);
+
+        encodeurMaitre = moteurMaitre.getEncoder();
+        encodeurEsclave = moteurEsclave.getEncoder();
+        SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitre.getVelocity());
+        SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclave.getVelocity());
 
         moteurEsclave.follow(moteurMaitre, true);
     }
 
     // Démarre les moteurs avec la vitesse par défaut
-    public void demarrerLanceur() {
+    public void demarrerMoteur() {
         moteurMaitre.set(VITESSE_LANCEUR);
-        toggleLanceur = true;
+        toggleOnOff = true;
     }
 
-    
     /** 
      * Démarre les moteurs du lanceur avec la vitesse passée en paramètre
      * @param vitesse La vitesse du lanceur entre 0.00 et 1.00
      */
-    public void demarrerLanceur(double vitesse) {
+    public void demarrerMoteur(double vitesse) {
         moteurMaitre.set(vitesse);
-        toggleLanceur = true;
+        toggleOnOff = true;
     }
 
     // Arrête les moteurs du lanceur
-    public void arreterLanceur() {
+    public void arreterMoteur() {
         moteurMaitre.set(0);
-        toggleLanceur = false;
+        toggleOnOff = false;
     }
 
-    // Retourne l'état du lanceur (allumé/éteint)
-    public boolean lanceurOn() {
-        return this.toggleLanceur;
+    // Retourne l'état des moteurs (allumé/éteint)
+    public boolean moteurOn() {
+        return this.toggleOnOff;
     }
 }

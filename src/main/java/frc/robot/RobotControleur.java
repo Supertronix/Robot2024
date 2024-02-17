@@ -5,6 +5,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
@@ -57,10 +58,7 @@ public class RobotControleur extends TimedRobot {
     //trajetAutonome = new CommandeTrajetAutonome();
     //trajetAutonome.schedule();
   }
-  
-  /** 
-   * @param teleopInit(
-   */
+
   @Override
   public void autonomousPeriodic() {}
 
@@ -83,35 +81,69 @@ public class RobotControleur extends TimedRobot {
     // Méthode vide mais cause des exceptions lorsque gâchette droite utilisée?
     //manette.executerActions();
 
-    // Lanceur avec toggle on/off
-    /*
+    // Intake avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
+      System.out.println("BOUTON A PRESSE");
+      
+      if (robot.intake.moteurOn())
+        robot.intake.arreterMoteur();
+      else
+        robot.intake.demarrerMoteur();
+    }
+
+    // Convoyeur bas avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
+      System.out.println("BOUTON X PRESSE");
+      
+      if (robot.convoyeurBas.moteurOn())
+        robot.convoyeurBas.arreterMoteur();
+      else
+        robot.convoyeurBas.demarrerMoteur();
+    }
+
+    // Convoyeur haut avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       System.out.println("BOUTON Y PRESSE");
-
-      if (robot.lanceur.lanceurOn())
-        robot.lanceur.arreterLanceur();
+      
+      if (robot.convoyeurHaut.moteurOn())
+        robot.convoyeurHaut.arreterMoteur();
       else
-        robot.lanceur.demarrerLanceur();
-    }*/
+        robot.convoyeurHaut.demarrerMoteur();
+    }
+
+    // Lanceur avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
+      System.out.println("BOUTON B PRESSE:" + robot.lanceur.moteurOn());
+
+      if (robot.lanceur.moteurOn())
+        robot.lanceur.arreterMoteur();
+      else
+        robot.lanceur.demarrerMoteur();
+    }
+
+    // smartdashboard
+    SmartDashboard.putNumber("RPM Lanceur Maitre", Robot.getInstance().lanceur.encodeurMaitre.getVelocity());
+    SmartDashboard.putNumber("RPM Lanceur Esclave", Robot.getInstance().lanceur.encodeurEsclave.getVelocity());
 
     // Lanceur contrôlable avec gâchette
+    /*
     double pressionMainDroite = manette.getPressionMainDroite();
     double pressionMainGauche = manette.getPressionMainGauche();
 
     if (pressionMainDroite > 0.05) {
-      robot.lanceur.demarrerLanceur(pressionMainDroite);
+      robot.lanceur.demarrerMoteur(pressionMainDroite);
     }
     else if (pressionMainGauche > 0.05) {
-      robot.lanceur.demarrerLanceur(-pressionMainGauche);
+      robot.lanceur.demarrerMoteur(-pressionMainGauche);
     }
     else {
-      robot.lanceur.arreterLanceur();
-    }
+      robot.lanceur.arreterMoteur();
+    }*/
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
 
     // test
-    //Robot.getInstance().convoyeur2.setVitesse(1);
+    //Robot.getInstance().convoyeur2.setVitesse(0.2);
   }
 
   @Override

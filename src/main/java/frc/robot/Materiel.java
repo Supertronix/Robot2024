@@ -61,19 +61,20 @@ public interface Materiel {
       public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
     }
 
-    public interface Convoyeur1
+    public interface ConvoyeurBas
     {  
-      public static final int ID_TALON_CONVOYEUR_MAITRE = 12;
+      public static final int ID_TALON_CONVOYEUR_MAITRE = 16;
       public static final int ID_TALON_CONVOYEUR_ESCLAVE = 13;
-      public static final double VITESSE_TALON_CONVOYEUR = 0.2;
+      public static final double VITESSE_TALON_CONVOYEUR = 0.1;
     }
 
-    public interface Convoyeur2
+    public interface ConvoyeurHaut
     {
       public static final int ID_TALON_CONVOYEUR_MAITRE = 14; // CAN ID Moteur convoyeur
       public static final boolean INVERSION_TALON_CONVOYEUR_MAITRE = true;
       public static final int ID_TALON_CONVOYEUR_ESCLAVE = 15; // CAN ID Moteur convoyeur
-      public static final double VITESSE_TALON_CONVOYEUR = 0.2; // Vitesse par défaut moteur convoyeur
+      public static final double VITESSE_TALON_CONVOYEUR = 0.1; // Vitesse par défaut moteur convoyeur
+
     }
 
     // Config lanceur (pour lancer les notes)
@@ -81,7 +82,7 @@ public interface Materiel {
     {
       public static final int ID_LANCEUR_MAITRE = 5;
       public static final int ID_LANCEUR_ESCLAVE = 6;
-      public static final double VITESSE_LANCEUR = 1.0;
+      public static final double VITESSE_LANCEUR = 0.2;
     }
 
     /*
