@@ -4,6 +4,7 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.cscore.HttpCamera;
+import frc.robot.Robot;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
@@ -14,7 +15,7 @@ public class CameraConducteur {
 
     public CameraConducteur()
     {
-        this.capteurLuminosite = new CapteurLuminosite();
+        this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
 
         Thread m_visionThread = new Thread(() -> {
             // Creates UsbCamera and MjpegServer [1] and connects them
