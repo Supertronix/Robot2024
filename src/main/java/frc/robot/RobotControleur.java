@@ -203,22 +203,22 @@ public class RobotControleur extends TimedRobot {
       {
           /* 
           Command commandeCalibration = new CommandeCalibrerBras();
-          this.boutonMaison.whenPressed(commandeCalibration);
+          this.boutonY.whenPressed(commandeCalibration);
   
           Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
-          this.boutonDemarrer.whenPressed(commandeMilieu);
+          this.boutonA.whenPressed(commandeMilieu);
   
           Command commandeArriere = new CommandeDeplacerBras(POSITION.POSITION_AVANT);
-          this.boutonArriere.whenPressed(commandeArriere);
+          this.boutonX.whenPressed(commandeArriere);
   
           Command commandePencheDevant = new CommandeDeplacerBras(POSITION.POSITION_ARRIERE);
-          this.boutonPencheDevant.whenPressed(commandePencheDevant);
+          this.boutonB.whenPressed(commandePencheDevant);
   
           Command commandeDevant = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_AVANT);
-          this.boutonDevant.whenPressed(commandeDevant);
+          this.boutonRetour.whenPressed(commandeDevant);
   
           Command commandePencheArriere = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_ARRIERE);
-          this.boutonPencheArriere.whenPressed(commandePencheArriere);
+          this.boutonRetour.whenPressed(commandePencheArriere);
           
           Command commandeOuvrirMachoire = new CommandeOuvrirMachoire();
           Command commandeFermerMachoire = new CommandeFermerMachoire();
