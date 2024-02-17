@@ -4,7 +4,7 @@ package frc.robot;
 
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.CapteurLuminosite;
-import frc.robot.interaction.DriverCamera;
+import frc.robot.interaction.CameraConducteur;
 import frc.robot.soussysteme.*;
 
 /**
@@ -21,7 +21,7 @@ public class Robot {
   public Bras bras;
 
   public CameraLimelight cameraLimelight;
-  public DriverCamera driverCamera;
+  public CameraConducteur driverCamera;
   public CapteurLuminosite capteurLuminosite;
 
 
@@ -38,7 +38,7 @@ public class Robot {
     this.bras = new Bras();
 
     this.cameraLimelight = new CameraLimelight();
-    this.driverCamera = new DriverCamera();
+    this.driverCamera = new CameraConducteur();
     this.capteurLuminosite = new CapteurLuminosite();
   }
 

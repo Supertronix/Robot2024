@@ -9,10 +9,10 @@ import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
-public class DriverCamera {
+public class CameraConducteur {
     private CapteurLuminosite capteurLuminosite;
 
-    public DriverCamera()
+    public CameraConducteur()
     {
         this.capteurLuminosite = new CapteurLuminosite();
 
