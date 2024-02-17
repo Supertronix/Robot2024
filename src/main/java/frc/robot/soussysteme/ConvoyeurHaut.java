@@ -6,7 +6,7 @@ import frc.robot.composant.MoteurTalon;
 
 // Le deuxième convoyeur qui transporte la note du convoyeur 1 à l'intake
 // Fonctionne avec 2 talons SRX
-public class ConvoyeurHaut extends SousSysteme implements Materiel.Convoyeur2 {
+public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut {
     protected boolean toggleOnOff;
 
     protected MoteurTalon moteurTalonMaitre;
@@ -19,7 +19,6 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.Convoyeur2 {
         moteurTalonMaitre.setInverted(true);
         moteurTalonEsclave.setInverted(false);
         moteurTalonEsclave.follow(moteurTalonMaitre);
-
     }
 
     // Démarre le moteur d'intake avec la vitesse définie dans la config

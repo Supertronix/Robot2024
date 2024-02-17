@@ -6,7 +6,7 @@ import frc.robot.composant.MoteurTalon;
 
 // Le premier convoyeur qui transporte la note du convoyeur 1 au convoyeur 2
 // Fonctionne avec 2 talons SRX
-public class ConvoyeurBas extends SousSysteme implements Materiel.Convoyeur1 {
+public class ConvoyeurBas extends SousSysteme implements Materiel.ConvoyeurBas {
     protected boolean toggleOnOff;
 
     protected MoteurTalon moteurTalonMaitre;
@@ -18,7 +18,8 @@ public class ConvoyeurBas extends SousSysteme implements Materiel.Convoyeur1 {
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
 
-        moteurTalonEsclave.setInverted(true);
+        moteurTalonMaitre.setInverted(true);
+        moteurTalonEsclave.setInverted(false);
         moteurTalonEsclave.follow(moteurTalonMaitre);
     }
 
