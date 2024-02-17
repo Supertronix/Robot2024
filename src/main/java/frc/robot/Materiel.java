@@ -85,6 +85,12 @@ public interface Materiel {
       public static final double VITESSE_LANCEUR = 0.2;
     }
 
+    public interface Winch
+    {
+      public static final int ID_WINCH = 10;
+      public static final double VITESSE_WINCH = 1.0;
+    }
+
     /*
     public interface Bras
     {

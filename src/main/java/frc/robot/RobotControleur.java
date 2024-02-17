@@ -121,6 +121,25 @@ public class RobotControleur extends TimedRobot {
         robot.lanceur.demarrerMoteur();
     }
 
+    // Winch avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
+      System.out.println("BOUTON DEMARRER PRESSE:" + robot.winch.moteurOn());
+
+      if (robot.winch.moteurOn())
+        robot.winch.arreterMoteur();
+      else
+        robot.winch.demarrerMoteur(false);
+    }
+
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
+      System.out.println("BOUTON RETOUR PRESSE:" + robot.winch.moteurOn());
+
+      if (robot.winch.moteurOn())
+        robot.winch.arreterMoteur();
+      else
+        robot.winch.demarrerMoteur(true);
+    }
+
     // smartdashboard
     SmartDashboard.putNumber("RPM Lanceur Maitre", Robot.getInstance().lanceur.encodeurMaitre.getVelocity());
     SmartDashboard.putNumber("RPM Lanceur Esclave", Robot.getInstance().lanceur.encodeurEsclave.getVelocity());
