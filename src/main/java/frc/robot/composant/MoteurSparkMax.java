@@ -14,20 +14,20 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxLimitSwitch;
 
 @SuppressWarnings({"removal"}) 
-public class Moteur extends CANSparkMax{
+public class MoteurSparkMax extends CANSparkMax{
 
 
     private SparkMaxLimitSwitch limiteAvant;
     private SparkMaxLimitSwitch limiteArriere;
 
-    public Moteur(int id)
+    public MoteurSparkMax(int id)
     {
         // CANSparkMax​(int deviceId, CANSparkMaxLowLevel.MotorType type)        
         super(id, MotorType.kBrushless);
         this.restoreFactoryDefaults();
         this.setIdleMode(IdleMode.kBrake);
     }
-    public Moteur(int id, boolean avecBroches) // argument dummy
+    public MoteurSparkMax(int id, boolean avecBroches) // argument dummy
     {
         // CANSparkMax​(int deviceId, CANSparkMaxLowLevel.MotorType type)        
         super(id, MotorType.kBrushed);
@@ -58,7 +58,7 @@ public class Moteur extends CANSparkMax{
 
 
     // pattern Builder = Monteur
-    public Moteur avecLimites()
+    public MoteurSparkMax avecLimites()
     {
         this.limiteAvant = this.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
         this.limiteArriere = this.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);

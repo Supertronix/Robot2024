@@ -4,7 +4,7 @@ import com.revrobotics.RelativeEncoder;
 
 import frc.robot.Materiel;
 import frc.robot.Cinematique;
-import frc.robot.composant.Moteur;
+import frc.robot.composant.MoteurSparkMax;
 
 interface Roulable
 {
@@ -34,10 +34,10 @@ interface Dirigeable
 
 abstract public class Roues extends SousSysteme implements Roulable, Dirigeable, Materiel.Roues, Cinematique.Roues {
 
-    protected Moteur roueAvantDroite;
-    protected Moteur roueAvantGauche;
-    protected Moteur roueArriereDroite;
-    protected Moteur roueArriereGauche;
+    protected MoteurSparkMax roueAvantDroite;
+    protected MoteurSparkMax roueAvantGauche;
+    protected MoteurSparkMax roueArriereDroite;
+    protected MoteurSparkMax roueArriereGauche;
     protected RelativeEncoder encodeurAvantDroit;
     protected RelativeEncoder encodeurAvantGauche;
     protected RelativeEncoder encodeurArriereDroit;
@@ -45,10 +45,10 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
 
     public Roues()
     {
-        this.roueAvantDroite = new Moteur(ROUE_AVANT_DROITE);
-        this.roueAvantGauche = new Moteur(ROUE_AVANT_GAUCHE);
-        this.roueArriereDroite = new Moteur(ROUE_ARRIERE_DROITE);
-        this.roueArriereGauche = new Moteur(ROUE_ARRIERE_GAUCHE);
+        this.roueAvantDroite = new MoteurSparkMax(ROUE_AVANT_DROITE);
+        this.roueAvantGauche = new MoteurSparkMax(ROUE_AVANT_GAUCHE);
+        this.roueArriereDroite = new MoteurSparkMax(ROUE_ARRIERE_DROITE);
+        this.roueArriereGauche = new MoteurSparkMax(ROUE_ARRIERE_GAUCHE);
 
         // lire sur getAbsoluteEncoder et getAlternateEncoder()
         // this.encodeurAvantDroit = this.roueAvantDroite.getEncoder();

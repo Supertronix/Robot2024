@@ -4,22 +4,22 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Materiel;
-import frc.robot.composant.Moteur;
+import frc.robot.composant.MoteurSparkMax;
 
 // Le lanceur du robot, composé de 2 moteurs SparkMAX
 public class Lanceur implements Materiel.Lanceur {
     protected boolean actif;
 
-    protected Moteur moteurMaitre;
-    protected Moteur moteurEsclave;
+    protected MoteurSparkMax moteurMaitre;
+    protected MoteurSparkMax moteurEsclave;
     public RelativeEncoder encodeurMaitre;
     public RelativeEncoder encodeurEsclave;
 
     public Lanceur() {
         actif = false;
 
-        moteurMaitre = new Moteur(ID_LANCEUR_MAITRE);
-        moteurEsclave = new Moteur(ID_LANCEUR_ESCLAVE);
+        moteurMaitre = new MoteurSparkMax(ID_LANCEUR_MAITRE);
+        moteurEsclave = new MoteurSparkMax(ID_LANCEUR_ESCLAVE);
         this.moteurMaitre.setIdleMode(IdleMode.kCoast);
         this.moteurEsclave.setIdleMode(IdleMode.kCoast);
 
