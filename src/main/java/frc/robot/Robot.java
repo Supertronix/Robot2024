@@ -3,6 +3,7 @@
 package frc.robot;
 
 import frc.robot.interaction.CameraLimelight;
+import frc.robot.interaction.CapteurLuminosite;
 import frc.robot.interaction.DriverCamera;
 import frc.robot.soussysteme.*;
 
@@ -17,9 +18,12 @@ public class Robot {
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
   public Lanceur lanceur;
-  public Bras winch;
+  public Bras bras;
+
   public CameraLimelight cameraLimelight;
   public DriverCamera driverCamera;
+  public CapteurLuminosite capteurLuminosite;
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandXboxController m_driverController = new CommandXboxController(0);
@@ -31,9 +35,11 @@ public class Robot {
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
-    this.winch = new Bras();
+    this.bras = new Bras();
+
     this.cameraLimelight = new CameraLimelight();
     this.driverCamera = new DriverCamera();
+    this.capteurLuminosite = new CapteurLuminosite();
   }
 
   public static Robot instance = null;
