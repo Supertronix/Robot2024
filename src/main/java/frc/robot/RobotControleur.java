@@ -123,21 +123,21 @@ public class RobotControleur extends TimedRobot {
 
     // Winch avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
-      System.out.println("BOUTON DEMARRER PRESSE:" + robot.winch.moteurOn());
+      System.out.println("BOUTON DEMARRER PRESSE:" + robot.winch.estActif());
 
-      if (robot.bras.moteurOn())
-        robot.bras.arreterMoteur();
+      if (robot.bras.estActif())
+        robot.bras.desactiver();
       else
-        robot.bras.demarrerMoteur(false);
+        robot.bras.activer(false);
     }
 
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
-      System.out.println("BOUTON RETOUR PRESSE:" + robot.winch.moteurOn());
+      System.out.println("BOUTON RETOUR PRESSE:" + robot.winch.estActif());
 
-      if (robot.bras.moteurOn())
-        robot.bras.arreterMoteur();
+      if (robot.bras.estActif())
+        robot.bras.desactiver();
       else
-        robot.bras.demarrerMoteur(true);
+        robot.bras.activer(true);
     }
 
     // smartdashboard

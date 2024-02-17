@@ -6,41 +6,53 @@ import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
 public class Bras implements Materiel.Winch {
-    protected boolean toggleOnOff;
+    protected boolean actif;
 
     protected MoteurTalon moteur;
 
     public Bras() {
-        toggleOnOff = false;
-
+        actif = false;
         moteur = new MoteurTalon(ID_WINCH);
     }
 
+     public void descendre() {
+        this.activer(true);
+    }
+     public void monter() {
+        this.activer(false);
+    }
+     public void descendreSelonVitesse(double vitesse) {
+        this.activerSelonVitesse(true,vitesse);
+    }
+     public void monterSelonVitesse(double vitesse) {
+        this.activerSelonVitesse(false,vitesse);
+    }
+
      // Démarre les moteurs avec la vitesse par défaut
-     public void demarrerMoteur(boolean descendre) {
+     public void activer(boolean descendre) {
         moteur.setInverted(descendre);
         moteur.set(TalonSRXControlMode.PercentOutput, VITESSE_WINCH);
-        toggleOnOff = true;
+        actif = true;
     }
 
     /** 
      * Démarre les moteurs du lanceur avec la vitesse passée en paramètre
      * @param vitesse La vitesse du lanceur entre 0.00 et 1.00
      */
-    public void demarrerMoteur(boolean descendre, double vitesse) {
+    public void activerSelonVitesse(boolean descendre, double vitesse) {
         moteur.setInverted(descendre);
         moteur.set(TalonSRXControlMode.PercentOutput, vitesse);
-        toggleOnOff = true;
+        actif = true;
     }
 
     // Arrête les moteurs du lanceur
-    public void arreterMoteur() {
+    public void desactiver() {
         moteur.set(TalonSRXControlMode.PercentOutput, 0);
-        toggleOnOff = false;
+        actif = false;
     }
 
     // Retourne l'état des moteurs (allumé/éteint)
-    public boolean moteurOn() {
-        return this.toggleOnOff;
+    public boolean estActif() {
+        return this.actif;
     }
 }
