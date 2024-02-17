@@ -1,5 +1,7 @@
 package frc.robot.soussysteme;
 
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import frc.robot.Materiel;
 import frc.robot.composant.Moteur;
 
@@ -15,6 +17,8 @@ public class Lanceur implements Materiel.Lanceur {
 
         moteurMaitre = new Moteur(ID_LANCEUR_MAITRE);
         moteurEsclave = new Moteur(ID_LANCEUR_ESCLAVE);
+        this.moteurMaitre.setIdleMode(IdleMode.kCoast);
+        this.moteurEsclave.setIdleMode(IdleMode.kCoast);
 
         moteurEsclave.follow(moteurMaitre, true);
     }

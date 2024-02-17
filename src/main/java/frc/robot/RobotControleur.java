@@ -115,7 +115,7 @@ public class RobotControleur extends TimedRobot {
 
     // Lanceur avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
-      System.out.println("BOUTON B PRESSE");
+      System.out.println("BOUTON B PRESSE:" + robot.lanceur.moteurOn());
 
       if (robot.lanceur.moteurOn())
         robot.lanceur.arreterMoteur();
@@ -124,6 +124,7 @@ public class RobotControleur extends TimedRobot {
     }
 
     // Lanceur contrôlable avec gâchette
+    /*
     double pressionMainDroite = manette.getPressionMainDroite();
     double pressionMainGauche = manette.getPressionMainGauche();
 
@@ -135,7 +136,7 @@ public class RobotControleur extends TimedRobot {
     }
     else {
       robot.lanceur.arreterMoteur();
-    }
+    }*/
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
 
