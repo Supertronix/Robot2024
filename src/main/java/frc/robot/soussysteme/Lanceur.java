@@ -8,7 +8,7 @@ import frc.robot.composant.Moteur;
 
 // Le lanceur du robot, composé de 2 moteurs SparkMAX
 public class Lanceur implements Materiel.Lanceur {
-    protected boolean toggleOnOff;
+    protected boolean actif;
 
     protected Moteur moteurMaitre;
     protected Moteur moteurEsclave;
@@ -16,7 +16,7 @@ public class Lanceur implements Materiel.Lanceur {
     public RelativeEncoder encodeurEsclave;
 
     public Lanceur() {
-        toggleOnOff = false;
+        actif = false;
 
         moteurMaitre = new Moteur(ID_LANCEUR_MAITRE);
         moteurEsclave = new Moteur(ID_LANCEUR_ESCLAVE);
@@ -34,7 +34,7 @@ public class Lanceur implements Materiel.Lanceur {
     // Démarre les moteurs avec la vitesse par défaut
     public void demarrerMoteur() {
         moteurMaitre.set(VITESSE_LANCEUR);
-        toggleOnOff = true;
+        actif = true;
     }
 
     /** 
@@ -43,17 +43,17 @@ public class Lanceur implements Materiel.Lanceur {
      */
     public void demarrerMoteur(double vitesse) {
         moteurMaitre.set(vitesse);
-        toggleOnOff = true;
+        actif = true;
     }
 
     // Arrête les moteurs du lanceur
     public void arreterMoteur() {
         moteurMaitre.set(0);
-        toggleOnOff = false;
+        actif = false;
     }
 
     // Retourne l'état des moteurs (allumé/éteint)
-    public boolean moteurOn() {
-        return this.toggleOnOff;
+    public boolean estActif() {
+        return this.actif;
     }
 }

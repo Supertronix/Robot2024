@@ -95,7 +95,7 @@ public class RobotControleur extends TimedRobot {
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
       System.out.println("BOUTON X PRESSE");
       
-      if (robot.convoyeurBas.moteurOn())
+      if (robot.convoyeurBas.estActif())
         robot.convoyeurBas.arreterMoteur();
       else
         robot.convoyeurBas.demarrerMoteur();
@@ -105,7 +105,7 @@ public class RobotControleur extends TimedRobot {
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       System.out.println("BOUTON Y PRESSE");
       
-      if (robot.convoyeurHaut.moteurOn())
+      if (robot.convoyeurHaut.estActif())
         robot.convoyeurHaut.arreterMoteur();
       else
         robot.convoyeurHaut.demarrerMoteur();
@@ -113,9 +113,9 @@ public class RobotControleur extends TimedRobot {
 
     // Lanceur avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
-      System.out.println("BOUTON B PRESSE:" + robot.lanceur.moteurOn());
+      System.out.println("BOUTON B PRESSE:" + robot.lanceur.estActif());
 
-      if (robot.lanceur.moteurOn())
+      if (robot.lanceur.estActif())
         robot.lanceur.arreterMoteur();
       else
         robot.lanceur.demarrerMoteur();
