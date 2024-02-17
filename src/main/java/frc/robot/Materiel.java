@@ -57,7 +57,7 @@ public interface Materiel {
     // Config intake (entrée notes)
     public interface Intake
     {
-      public static final int ID_TALON_INTAKE = 11; // CAN ID Moteur intake
+      public static final int ID_TALON_INTAKE = 10; // CAN ID Moteur intake
       public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
     }
 
@@ -87,8 +87,8 @@ public interface Materiel {
 
     public interface TREUIL
     {
-      public static final int ID_TREUIL = 10;
-      public static final double VITESSE_TREUIL = 1.0;
+      public static final int ID_TREUIL = 11;
+      public static final double VITESSE_TREUIL = 0.2;
     }
 
     /*

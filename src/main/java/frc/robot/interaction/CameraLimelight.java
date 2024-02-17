@@ -185,10 +185,10 @@ public class CameraLimelight {
         System.out.println("longueurHorizontal: " + longueurHorizontal + " longueurVertical: " + longueurVertical);
 
         double[] cropValues = new double[4];
-        cropValues[0] = x1 - longueurHorizontal;
-        cropValues[1] = x1 + longueurHorizontal;
-        cropValues[2] = y1 - longueurVertical;
-        cropValues[3] = y1 + longueurVertical;
+        cropValues[0] = Math.max(x1 - longueurHorizontal, -1);
+        cropValues[1] = Math.min(x1 + longueurHorizontal, 1);
+        cropValues[2] = Math.max(y1 - longueurVertical, -1);
+        cropValues[3] = Math.min(y1 + longueurVertical, 1);
 
         //System.out.println("x0: " + cropValues[0] + " y0: " + cropValues[1] + " x1: " + cropValues[2] + " y1: " + cropValues[3]);
 
