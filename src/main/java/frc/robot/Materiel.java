@@ -81,7 +81,7 @@ public interface Materiel {
     {
       public static final int ID_LANCEUR_MAITRE = 5;
       public static final int ID_LANCEUR_ESCLAVE = 6;
-      public static final double VITESSE_LANCEUR = 0.1;
+      public static final double VITESSE_LANCEUR = 0.2;
     }
 
     public interface Winch

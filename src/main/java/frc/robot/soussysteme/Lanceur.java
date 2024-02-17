@@ -1,7 +1,8 @@
 package frc.robot.soussysteme;
 
 import com.revrobotics.CANSparkBase.IdleMode;
-
+import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Materiel;
 import frc.robot.composant.Moteur;
 
@@ -11,6 +12,8 @@ public class Lanceur implements Materiel.Lanceur {
 
     protected Moteur moteurMaitre;
     protected Moteur moteurEsclave;
+    public RelativeEncoder encodeurMaitre;
+    public RelativeEncoder encodeurEsclave;
 
     public Lanceur() {
         toggleOnOff = false;
@@ -19,6 +22,11 @@ public class Lanceur implements Materiel.Lanceur {
         moteurEsclave = new Moteur(ID_LANCEUR_ESCLAVE);
         this.moteurMaitre.setIdleMode(IdleMode.kCoast);
         this.moteurEsclave.setIdleMode(IdleMode.kCoast);
+
+        encodeurMaitre = moteurMaitre.getEncoder();
+        encodeurEsclave = moteurEsclave.getEncoder();
+        SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitre.getVelocity());
+        SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclave.getVelocity());
 
         moteurEsclave.follow(moteurMaitre, true);
     }

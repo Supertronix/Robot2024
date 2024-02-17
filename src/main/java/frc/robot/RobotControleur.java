@@ -5,6 +5,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.MouvementDuRobot;
@@ -57,10 +58,7 @@ public class RobotControleur extends TimedRobot {
     //trajetAutonome = new CommandeTrajetAutonome();
     //trajetAutonome.schedule();
   }
-  
-  /** 
-   * @param teleopInit(
-   */
+
   @Override
   public void autonomousPeriodic() {}
 
@@ -132,6 +130,10 @@ public class RobotControleur extends TimedRobot {
       else
         robot.winch.demarrerMoteur();
     }
+
+    // smartdashboard
+    SmartDashboard.putNumber("RPM Lanceur Maitre", Robot.getInstance().lanceur.encodeurMaitre.getVelocity());
+    SmartDashboard.putNumber("RPM Lanceur Esclave", Robot.getInstance().lanceur.encodeurEsclave.getVelocity());
 
     // Lanceur contrôlable avec gâchette
     /*
