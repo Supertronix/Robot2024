@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class CapteurLuminosite {
     private static DigitalInput input;
+
+
     public CapteurLuminosite()
     {
         // Initalisation du capteur de luminosité

@@ -30,6 +30,7 @@ public class Robot {
 
   public Robot() 
   {
+    this.capteurLuminosite = new CapteurLuminosite();
     this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
     this.intake = new Intake();
     this.convoyeurBas = new ConvoyeurBas();
@@ -38,8 +39,7 @@ public class Robot {
     this.bras = new Bras();
 
     this.cameraLimelight = new CameraLimelight();
-    this.driverCamera = new CameraConducteur();
-    this.capteurLuminosite = new CapteurLuminosite();
+    //this.driverCamera = new CameraConducteur();
   }
 
   public static Robot instance = null;
@@ -52,6 +52,4 @@ public class Robot {
       if(Robot.instance == null) Robot.instance = new Robot();
       return Robot.instance;
   }
-
-
 }
