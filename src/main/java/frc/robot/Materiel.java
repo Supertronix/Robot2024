@@ -31,6 +31,8 @@ public interface Materiel {
       public static final int BOUTON_MAIN_DROITE = 6;
       public static final int BOUTON_RETOUR = 7;
       public static final int BOUTON_DEMARRER = 8;
+      public static final int CROIX_HAUT = 9;
+      public static final int CROIX_BAS = 10;
     
       public static final int BATON_GAUCHE_AXE_X = 0;
       public static final int BATON_GAUCHE_AXE_Y = 1;

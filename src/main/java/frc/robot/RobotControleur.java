@@ -50,6 +50,35 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     //Robot.getInstance().limelight.decoupageCameraDynamique();
+    // Treuil avec pression on/off
+    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.HAUT)) {
+      System.out.println("CROIX HAUT PRESSE");
+
+      //robot.bras.activer(false);
+    } else {
+      //robot.bras.desactiver();
+    }
+
+    /*
+    // Treuil avec toggle on/off
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
+      System.out.println("BOUTON RETOUR PRESSE:" + robot.bras.estActif());
+
+      if (robot.bras.estActif())
+        robot.bras.desactiver();
+      else
+        robot.bras.activer(true);
+    }
+     */
+
+    // Treuil avec pression on/off
+    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.BAS)) {
+      System.out.println("CROIX BAS PRESSE");
+
+      //robot.bras.activer(true);
+    } else {
+      //robot.bras.desactiver();
+    }
   }
 
   @Override
@@ -133,12 +162,12 @@ public class RobotControleur extends TimedRobot {
     */
 
     // Treuil avec pression on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
-      System.out.println("BOUTON DEMARRER PRESSE");
+    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.HAUT)) {
+      System.out.println("CROIX HAUT PRESSE");
 
-      robot.bras.activer(false);
+      //robot.bras.activer(false);
     } else {
-      robot.bras.desactiver();
+      //robot.bras.desactiver();
     }
 
     /*
@@ -154,12 +183,12 @@ public class RobotControleur extends TimedRobot {
      */
 
     // Treuil avec pression on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
-      System.out.println("BOUTON RETOUR PRESSE");
+    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.BAS)) {
+      System.out.println("CROIX BAS PRESSE");
 
-      robot.bras.activer(true);
+      //robot.bras.activer(true);
     } else {
-      robot.bras.desactiver();
+      //robot.bras.desactiver();
     }
 
     // smartdashboard
