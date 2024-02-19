@@ -12,12 +12,20 @@ import org.opencv.imgproc.Imgproc;
 
 public class CameraConducteur {
     private CapteurLuminosite capteurLuminosite;
+    private Thread m_visionThread;
+    private boolean actif;
 
     public CameraConducteur()
     {
-        this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
+    }
 
-        Thread m_visionThread = new Thread(() -> {
+    public void activer () {
+        if (actif) return;
+        else actif = true;
+
+        this.capteurLuminosite = Robot.getInstance().capteurLuminosite; // ne peut pas être dans le constructeur car le robot n'est pas encore initialisé
+
+        m_visionThread = new Thread(() -> {
             // Creates UsbCamera and MjpegServer [1] and connects them
             CameraServer.startAutomaticCapture();
 
@@ -63,5 +71,10 @@ public class CameraConducteur {
         });
         m_visionThread.setDaemon(true);
         m_visionThread.start();
+    }
+
+    public void desactiver() {
+        actif = false;
+        m_visionThread.interrupt();
     }
 }
