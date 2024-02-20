@@ -26,8 +26,6 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
 
     protected BoutonDeclencheur boutonPressionMainDroite;
     protected BoutonDeclencheur boutonPressionMainGauche;
-    protected CroixDirectionnelle croixHaut;
-    protected CroixDirectionnelle croixBas;
 
     protected Manette() // pour design pattern singleton
     {
@@ -48,10 +46,6 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
         this.boutonRetour = new JoystickButton(this.manette, BOUTON_RETOUR);
         this.boutonMainDroite = new JoystickButton(this.manette, BOUTON_MAIN_DROITE);
         this.boutonMainGauche = new JoystickButton(this.manette, BOUTON_MAIN_GAUCHE);
-
-        // croix directionnelle ?
-        this.croixHaut = new CroixDirectionnelle(this.manette, CroixDirectionnelle.Direction.UP);
-        this.croixBas = new CroixDirectionnelle(this.manette, CroixDirectionnelle.Direction.DOWN);
     }
 
     //public static void desactiverInstance()
