@@ -21,7 +21,7 @@ public class Robot {
   public Bras bras;
 
   public CameraLimelight cameraLimelight;
-  public CameraConducteur driverCamera;
+  public CameraConducteur cameraConducteur;
   public CapteurLuminosite capteurLuminosite;
 
 
@@ -39,7 +39,7 @@ public class Robot {
     this.bras = new Bras();
 
     this.cameraLimelight = new CameraLimelight();
-    //this.driverCamera = new CameraConducteur();
+    this.cameraConducteur = new CameraConducteur();
   }
 
   public static Robot instance = null;
