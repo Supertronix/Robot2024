@@ -19,6 +19,12 @@ public class CameraConducteur {
     {
     }
 
+    public void initialiser() {
+        actif = false;
+        this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
+        activer();
+    }
+
     public void activer () {
         if (actif) return;
         else actif = true;

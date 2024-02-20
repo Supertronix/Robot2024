@@ -155,7 +155,7 @@ public class CameraLimelight {
      * 2	PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
      */
     public void setStreamMode(int mode) {
-        networkTable.getEntry("<variablename>").setNumber(mode);
+        networkTable.getEntry("stream>").setNumber(mode);
     }
 
     // ------------------- METHODES -------------------
@@ -182,7 +182,7 @@ public class CameraLimelight {
 
         double longueurHorizontal = (getDelimitationHorizontalApproximativePourcent() / 2) * multiplicateur;
         double longueurVertical = (getDelimitationVerticalApproximativePourcent() / 2) * multiplicateur;
-        System.out.println("longueurHorizontal: " + longueurHorizontal + " longueurVertical: " + longueurVertical);
+        //System.out.println("longueurHorizontal: " + longueurHorizontal + " longueurVertical: " + longueurVertical);
 
         double[] cropValues = new double[4];
         cropValues[0] = Math.max(x1 - longueurHorizontal, -1);

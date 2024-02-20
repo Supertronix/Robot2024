@@ -28,7 +28,7 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = RobotControleur.ActionManette.getInstance();
-    this.robot.cameraConducteur.activer();
+    this.robot.cameraConducteur.initialiser();
     DriverStation.silenceJoystickConnectionWarning(true);
 
     // --------------- Tests --------------- //
