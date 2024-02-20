@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commande.CommandeAvaler;
 import frc.robot.commande.MouvementDuRobot;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
@@ -50,35 +51,6 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     //Robot.getInstance().limelight.decoupageCameraDynamique();
-    // Treuil avec pression on/off
-    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.HAUT)) {
-      System.out.println("CROIX HAUT PRESSE");
-
-      //robot.bras.activer(false);
-    } else {
-      //robot.bras.desactiver();
-    }
-
-    /*
-    // Treuil avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
-      System.out.println("BOUTON RETOUR PRESSE:" + robot.bras.estActif());
-
-      if (robot.bras.estActif())
-        robot.bras.desactiver();
-      else
-        robot.bras.activer(true);
-    }
-     */
-
-    // Treuil avec pression on/off
-    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.BAS)) {
-      System.out.println("CROIX BAS PRESSE");
-
-      //robot.bras.activer(true);
-    } else {
-      //robot.bras.desactiver();
-    }
   }
 
   @Override
@@ -90,12 +62,15 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void autonomousPeriodic() {}
 
+  CommandeAvaler commandeAvaler;
   @Override
   public void teleopInit() {
 
     System.out.println("teleopInit()");
     ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
     ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
+    commandeAvaler = new CommandeAvaler();
+    manette.getBoutonA().toggleOnTrue(commandeAvaler);
     //    if (trajetAutonome != null) {
      // trajetAutonome.cancel();
     //}
@@ -110,14 +85,16 @@ public class RobotControleur extends TimedRobot {
     //manette.executerActions();
 
     // Intake avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
-      System.out.println("BOUTON A PRESSE");
+    // if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
+    //   System.out.println("BOUTON A PRESSE");
       
-      if (robot.intake.estActif())
-        robot.intake.desactiver();
-      else
-        robot.intake.activer();
-    }
+    //   if (robot.intake.estActif())
+    //     robot.intake.desactiver();
+    //   else
+    //     robot.intake.activer();
+    // }
+    
+    // Toggle avaller
 
     // Convoyeur bas avec toggle on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
@@ -162,12 +139,12 @@ public class RobotControleur extends TimedRobot {
     */
 
     // Treuil avec pression on/off
-    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.HAUT)) {
-      System.out.println("CROIX HAUT PRESSE");
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
+      System.out.println("BOUTON DEMARRER PRESSE");
 
-      //robot.bras.activer(false);
+      robot.bras.activer(false);
     } else {
-      //robot.bras.desactiver();
+      robot.bras.desactiver();
     }
 
     /*
@@ -183,12 +160,12 @@ public class RobotControleur extends TimedRobot {
      */
 
     // Treuil avec pression on/off
-    if (manette.getPOVBoutonPresse(Materiel.Manette.ANGLE.BAS)) {
-      System.out.println("CROIX BAS PRESSE");
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
+      System.out.println("BOUTON RETOUR PRESSE");
 
-      //robot.bras.activer(true);
+      robot.bras.activer(true);
     } else {
-      //robot.bras.desactiver();
+      robot.bras.desactiver();
     }
 
     // smartdashboard

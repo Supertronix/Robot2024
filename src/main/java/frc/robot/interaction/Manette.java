@@ -33,7 +33,6 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     {
         this.manette = new Joystick(MANETTE);
 
-        this.manette = new Joystick(MANETTE);
         this.commandes = new ArrayList<Command>();
 
         //this.boutonPressionMainGauche.setCommande(new CommandeAjusterBras(-0.15));
@@ -87,8 +86,11 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       this.axeMainGauche = new Axe(manette.getRawAxis(BATON_GAUCHE_AXE_X), manette.getRawAxis(BATON_GAUCHE_AXE_Y));
       // System.out.println("axe main gauche " + this.axeMainGauche.x + " " + this.axeMainGauche.y);
       this.axeMainGauche.x = this.axeMainGauche.x - BIAIS_AXE_GAUCHE_X;
-      this.axeMainGauche.y = this.axeMainGauche.y - BIAIS_AXE_GAUCHE_Y;
       return this.axeMainGauche;
+    }
+
+    public JoystickButton getBoutonA(){
+      return this.boutonA;
     }
 
     public double getPressionMainGauche() 

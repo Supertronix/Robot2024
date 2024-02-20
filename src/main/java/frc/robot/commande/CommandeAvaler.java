@@ -16,7 +16,6 @@ public class CommandeAvaler extends Command {
 
     protected static int DUREE = 5000;
 
-    protected boolean finie = false;
     protected DetecteurDuree detecteurDuree;
     protected CapteurLuminosite capteurLuminosite;
 
@@ -28,6 +27,11 @@ public class CommandeAvaler extends Command {
     public CommandeAvaler()
     {
         System.out.println("new CommandeAvaler()");
+        this.intake = Robot.getInstance().intake;
+        this.convoyeurBas = Robot.getInstance().convoyeurBas;
+        this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
+        this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
+
         this.addRequirements(this.intake);
         this.addRequirements(this.convoyeurBas);
         this.addRequirements(this.convoyeurHaut);
@@ -37,22 +41,17 @@ public class CommandeAvaler extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvancer.initialize()");
-        this.intake = Robot.getInstance().intake;
-        this.convoyeurBas = Robot.getInstance().convoyeurBas;
-        this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
-        this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
-
-        this.finie = false;
+        System.out.println("CommandeAvaler.initialize()");
+        
         this.detecteurDuree.initialiser();
         
-        this.intake.activer();
-        this.convoyeurBas.activer();
-        this.convoyeurHaut.activer();
+        this.intake.activer(1);
+        this.convoyeurBas.activer(1);
+        this.convoyeurHaut.activer(0.2);
     }
     @Override
     public void execute() {
-        System.out.println("CommandeAvancer.execute()");
+        //System.out.println("CommandeAvaler.execute()");
         this.detecteurDuree.mesurer();
     }
 
@@ -70,5 +69,13 @@ public class CommandeAvaler extends Command {
             return true;
 
         return false;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeAvaler.end()");
+        this.intake.desactiver();
+        this.convoyeurBas.desactiver();
+        this.convoyeurHaut.desactiver();
     }
 }
