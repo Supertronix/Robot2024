@@ -155,7 +155,7 @@ public class CameraLimelight {
      * 2	PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
      */
     public void setStreamMode(int mode) {
-        networkTable.getEntry("stream>").setNumber(mode);
+        networkTable.getEntry("stream").setNumber(mode);
     }
 
     // ------------------- METHODES -------------------
