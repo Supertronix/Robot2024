@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.CommandeAvaler;
+import frc.robot.commande.CommandeLancerHaut;
 import frc.robot.commande.MouvementDuRobot;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
@@ -63,15 +64,15 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void autonomousPeriodic() {}
 
-  CommandeAvaler commandeAvaler;
   @Override
   public void teleopInit() {
 
     System.out.println("teleopInit()");
     ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
     ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
-    commandeAvaler = new CommandeAvaler();
-    manette.getBoutonA().toggleOnTrue(commandeAvaler);
+    manette.getBoutonA().toggleOnTrue(new CommandeAvaler());    
+    manette.getBoutonB().onTrue(new CommandeLancerHaut());
+
     //    if (trajetAutonome != null) {
      // trajetAutonome.cancel();
     //}
@@ -118,14 +119,14 @@ public class RobotControleur extends TimedRobot {
     }
 
     // Lanceur avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
-      System.out.println("BOUTON B PRESSE:" + robot.lanceur.estActif());
+    // if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
+    //   System.out.println("BOUTON B PRESSE:" + robot.lanceur.estActif());
 
-      if (robot.lanceur.estActif())
-        robot.lanceur.desactiver();
-      else
-        robot.lanceur.activer();
-    }
+    //   if (robot.lanceur.estActif())
+    //     robot.lanceur.desactiver();
+    //   else
+    //     robot.lanceur.activer();
+    // }
 
     /*
     // Treuil avec toggle on/off

@@ -37,7 +37,7 @@ public class CommandeAvaler extends Command {
         this.addRequirements(this.convoyeurHaut);
         this.detecteurDuree = new DetecteurDuree(DUREE);
     }
-       
+    
     @Override
     public void initialize() 
     {

@@ -2,9 +2,7 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.interaction.CapteurLuminosite;
-import frc.robot.soussysteme.Intake;
-import frc.robot.soussysteme.ConvoyeurBas;
+import frc.robot.soussysteme.Lanceur;
 import frc.robot.soussysteme.ConvoyeurHaut;
 import frc.robot.mesure.DetecteurDuree;
 
@@ -14,22 +12,34 @@ import frc.robot.mesure.DetecteurDuree;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeLancerHaut extends Command {
 
-    protected static int DUREE = 5000;
+    protected int DUREE = 2000;
 
-    protected boolean finie = false;
     protected DetecteurDuree detecteurDuree;
-    protected CapteurLuminosite capteurLuminosite;
+    protected ConvoyeurHaut convoyeurHaut;
+    protected Lanceur lanceur;
 
     public CommandeLancerHaut()
     {
+        System.out.println("new CommandeLancerHaut()");
+        convoyeurHaut = Robot.getInstance().convoyeurHaut;
+        lanceur = Robot.getInstance().lanceur;
+        detecteurDuree = new DetecteurDuree(DUREE);
+
+        addRequirements(convoyeurHaut);
+        addRequirements(lanceur);
     }
        
     @Override
     public void initialize() 
     {
+        this.detecteurDuree.initialiser();
+        lanceur.activer(1);
     }
     @Override
     public void execute() {
+        detecteurDuree.mesurer();
+        if (detecteurDuree.getDuree() > 700)
+            convoyeurHaut.activer(1);
     }
 
     
@@ -39,6 +49,12 @@ public class CommandeLancerHaut extends Command {
     @Override
     public boolean isFinished() 
     {
-        return true;
+        return detecteurDuree.estTropLongue();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        convoyeurHaut.desactiver();
+        lanceur.desactiver();
     }
 }

@@ -93,6 +93,10 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       return this.boutonA;
     }
 
+    public JoystickButton getBoutonB(){
+      return this.boutonB;
+    }
+
     public double getPressionMainGauche() 
     {
       //System.out.println("Pression main gauche" + manette.getRawAxis(MAIN_GAUCHE_AXE));

@@ -7,7 +7,7 @@ import frc.robot.Materiel;
 import frc.robot.composant.MoteurSparkMax;
 
 // Le lanceur du robot, composé de 2 moteurs SparkMAX
-public class Lanceur implements Materiel.Lanceur {
+public class Lanceur extends SousSysteme implements Materiel.Lanceur {
     protected boolean actif;
 
     protected MoteurSparkMax moteurMaitre;
