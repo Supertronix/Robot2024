@@ -38,7 +38,7 @@ public class CommandeLancerHaut extends Command {
     @Override
     public void execute() {
         detecteurDuree.mesurer();
-        if (detecteurDuree.getDuree() > 700)
+        if (detecteurDuree.getDuree() > 800)
             convoyeurHaut.activer(1);
     }
 

@@ -14,7 +14,7 @@ import frc.robot.mesure.DetecteurDuree;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvaler extends Command {
 
-    protected static int DUREE = 5000;
+    protected static int DUREE = 10000;
 
     protected DetecteurDuree detecteurDuree;
     protected CapteurLuminosite capteurLuminosite;
