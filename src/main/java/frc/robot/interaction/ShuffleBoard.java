@@ -38,7 +38,12 @@ public class ShuffleBoard {
         SmartDashboard.putBoolean("Note chargée", capteurLuminosite.getLuminosite());
     }
 
+    /**
+     * Changer l'alliance du robot manuellement verrouillera le changement d'alliance automatique
+     */
     public void changerEquipe() {
+        Robot.getInstance().setVerrouChangementAlliance(false);
         Robot.getInstance().setAlliance(!Robot.getInstance().getEstAllianceRouge());
+        Robot.getInstance().setVerrouChangementAlliance(true);
     }
 }

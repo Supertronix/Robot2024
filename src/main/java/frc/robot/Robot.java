@@ -29,6 +29,7 @@ public class Robot {
   public CapteurLuminosite capteurLuminosite;
   public ShuffleBoard shuffleBoard;
   private boolean estAllianceRouge = true;
+  private boolean verrouChangementAlliance = false;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandXboxController m_driverController = new CommandXboxController(0);
@@ -63,6 +64,8 @@ public class Robot {
   }
 
   public void miseAJourAlliance() {
+      if (this.verrouChangementAlliance) return;
+
       Optional<DriverStation.Alliance> couleur = DriverStation.getAlliance();
       if (couleur.isEmpty()) {
           System.out.println("Alliance introuvable, défaut à rouge");
@@ -73,7 +76,16 @@ public class Robot {
   }
 
   public void setAlliance(boolean estRouge) {
+      if (this.verrouChangementAlliance) return;
       this.estAllianceRouge = estRouge;
+  }
+
+  /**
+   * @param verrou
+   * Empêche le changement d'alliance si la méthode automatique ne fonctionne pas
+   */
+  public void setVerrouChangementAlliance(boolean verrou) {
+      this.verrouChangementAlliance = verrou;
   }
 
   public boolean getEstAllianceRouge() {
