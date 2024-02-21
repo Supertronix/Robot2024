@@ -17,10 +17,10 @@ public class CameraConducteur {
 
     public CameraConducteur()
     {
+        actif = false;
     }
 
     public void initialiser() {
-        actif = false;
         this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
         activer();
     }
@@ -29,7 +29,7 @@ public class CameraConducteur {
         if (actif) return;
         else actif = true;
 
-        this.capteurLuminosite = Robot.getInstance().capteurLuminosite; // ne peut pas être dans le constructeur car le robot n'est pas encore initialisé
+        if (m_visionThread != null && m_visionThread.isAlive()) return;
 
         m_visionThread = new Thread(() -> {
             // Creates UsbCamera and MjpegServer [1] and connects them
