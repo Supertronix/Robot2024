@@ -5,6 +5,7 @@ package frc.robot;
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.CapteurLuminosite;
 import frc.robot.interaction.CameraConducteur;
+import frc.robot.interaction.ShuffleBoard;
 import frc.robot.soussysteme.*;
 
 /**
@@ -23,7 +24,7 @@ public class Robot {
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
   public CapteurLuminosite capteurLuminosite;
-
+  public ShuffleBoard shuffleBoard;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandXboxController m_driverController = new CommandXboxController(0);
@@ -40,6 +41,8 @@ public class Robot {
 
     this.cameraLimelight = new CameraLimelight();
     this.cameraConducteur = new CameraConducteur();
+
+    this.shuffleBoard = new ShuffleBoard();
   }
 
   public static Robot instance = null;

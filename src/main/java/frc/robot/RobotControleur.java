@@ -30,6 +30,7 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     this.manette = RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
+    this.robot.shuffleBoard.initialiser();
     DriverStation.silenceJoystickConnectionWarning(true);
 
     // --------------- Tests --------------- //
@@ -43,6 +44,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    this.robot.shuffleBoard.mettreAJour();
   }
 
   @Override
@@ -169,10 +171,6 @@ public class RobotControleur extends TimedRobot {
     } else {
       robot.bras.desactiver();
     }
-
-    // smartdashboard
-    SmartDashboard.putNumber("RPM Lanceur Maitre", Robot.getInstance().lanceur.encodeurMaitre.getVelocity());
-    SmartDashboard.putNumber("RPM Lanceur Esclave", Robot.getInstance().lanceur.encodeurEsclave.getVelocity());
 
     // Lanceur contrôlable avec gâchette
     /*
