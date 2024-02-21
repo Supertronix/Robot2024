@@ -22,7 +22,7 @@ public class CameraLimelight {
         } catch (Exception e) {
             System.out.println("Limelight() exception: " + e.getMessage());
         }
-        setStreamMode(1);
+        setModeStream(1);
     }
 
     // ------------------- GETTERS -------------------
@@ -64,6 +64,14 @@ public class CameraLimelight {
      */
     public double getDecalageVerticalPourcent() {
         return getDecalageVertical() / VERTICAL_FOV;
+    }
+
+    /**
+     * A TESTER
+     * @return Taille de la cible (0% of image to 100% of image)
+     */
+    public double getZoneCible() {
+        return networkTable.getEntry("ta").getDouble(0);
     }
 
     /**
@@ -127,17 +135,262 @@ public class CameraLimelight {
         return getLatencePipeline() + getLatencePipelineTracking();
     }
 
+    /**
+     * A TESTER
+     * @return True active pipeline index of the camera (0 .. 9)
+     */
+    public double getFlux() {
+        return networkTable.getEntry("getpipe").getDouble(0);
+    }
+
+    /**
+     * A TESTER
+     * @return Full JSON dump of targeting results
+     */
+    public String getJson() {
+        return networkTable.getEntry("json").getString("");
+    }
+
+    /**
+     * A TESTER
+     * @return Class ID of primary neural detector result or neural classifier result
+     */
+    public double getTClass() {
+        return networkTable.getEntry("tclass").getDouble(0);
+    }
+
+    /**
+     * A TESTER
+     * @return Get the average HSV color underneath the crosshair region as a NumberArray
+     */
+    public double[] getMoyenneCouleurs() {
+        return networkTable.getEntry("tc").getDoubleArray(new double[6]);
+    }
+
+    // ------------------- GETTERS CIBLAGE 3D -------------------
+
+    /**
+     * A TESTER
+     * @return Robot transform in field-space. Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
+     */
+    public double[] getBotpose() {
+        return networkTable.getEntry("botpose").getDoubleArray(new double[8]);
+    }
+
+    /**
+     * A TESTER
+     * @return Robot transform in field-space (blue driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
+     */
+    public double[] getBotposeWPIBleu() {
+        return networkTable.getEntry("botpose_wpiblue").getDoubleArray(new double[8]);
+    }
+
+    /**
+     * A TESTER
+     * @return Robot transform in field-space (red driverstation WPILIB origin). Translation (X,Y,Z) Rotation(Roll,Pitch,Yaw), total latency (cl+tl)
+     */
+    public double[] getBotposeWPIRouge() {
+        return networkTable.getEntry("botpose_wpired").getDoubleArray(new double[8]);
+    }
+
+    /**
+     * A TESTER
+     * @return 3D transform of the camera in the coordinate system of the primary in-view AprilTag (array (6))
+     */
+    public double[] getCameraPositionRelatifTag() {
+        return networkTable.getEntry("camerapose_targetspace").getDoubleArray(new double[6]);
+    }
+
+    /**
+     * A TESTER
+     * @return 3D transform of the primary in-view AprilTag in the coordinate system of the Camera (array (6))
+     */
+    public double[] getTagPositionRelatifCamera() {
+        return networkTable.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
+    }
+
+    /**
+     * A TESTER
+     * @return 3D transform of the primary in-view AprilTag in the coordinate system of the Robot (array (6))
+     */
+    public double[] getTagPositionRelatifRobot() {
+        return networkTable.getEntry("targetpose_robotspace").getDoubleArray(new double[6]);
+    }
+
+    /**
+     * A TESTER
+     * @return 3D transform of the robot in the coordinate system of the primary in-view AprilTag (array (6))
+     */
+    public double[] getRobotPositionRelatifTag() {
+        return networkTable.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
+    }
+
+    /**
+     * A TESTER
+     * @return 3D transform of the camera in the coordinate system of the robot (array (6))
+     */
+    public double[] getCameraPositionRelatifRobot() {
+        return networkTable.getEntry("camerapose_robotspace").getDoubleArray(new double[6]);
+    }
+
+    /**
+     * A TESTER
+     * @return ID of the primary in-view AprilTag
+     */
+    public double getTagID() {
+        return networkTable.getEntry("tid").getDouble(0);
+    }
+
+    // ------------------- RAW GETTERS -------------------
+
+    /**
+     * A TESTER
+     * @return Number array of corner coordinates [x0,y0,x1,y1......]
+     * Moi non plus je ne sais pas ce que ça fait
+     */
+    public double[] getTCornX() {
+        return networkTable.getEntry("tcornx").getDoubleArray(new double[4]);
+    }
+
+    /*
+    "Limelight posts three raw contours to NetworkTables that are not influenced by your grouping mode.
+    That is, they are filtered with your pipeline parameters, but never grouped. X and Y are returned
+    in normalized screen space (-1 to 1) rather than degrees."
+     */
+
+    /**
+     * @return Raw Screenspace X0
+     */
+    public double getRawScreenSpaceX(int id) {
+        if (id == 0) return networkTable.getEntry("tx0").getDouble(0);
+        else if (id == 1) return networkTable.getEntry("tx1").getDouble(0);
+        else if (id == 2) return networkTable.getEntry("tx2").getDouble(0);
+        else {
+            System.out.println("getRawScreenSpaceX() id incorrect");
+            return 0;
+        }
+    }
+
+    /**
+     * @return Raw Screenspace Y0
+     */
+    public double getRawScreenSpaceY(int id) {
+        if (id == 0) return networkTable.getEntry("ty0").getDouble(0);
+        else if (id == 1) return networkTable.getEntry("ty1").getDouble(0);
+        else if (id == 2) return networkTable.getEntry("ty2").getDouble(0);
+        else {
+            System.out.println("getRawScreenSpaceY() id incorrect");
+            return 0;
+        }
+    }
+
+    /**
+     * @return Area (0% of image to 100% of image)
+     */
+    public double getRawArea(int id) {
+        if (id == 0) return networkTable.getEntry("ta0").getDouble(0);
+        else if (id == 1) return networkTable.getEntry("ta1").getDouble(0);
+        else if (id == 2) return networkTable.getEntry("ta2").getDouble(0);
+        else {
+            System.out.println("getRawArea() id incorrect");
+            return 0;
+        }
+    }
+
+    /**
+     * @return Skew or rotation (-90 degrees to 0 degrees)
+     */
+    public double getRawRotation(int id) {
+        if (id == 0) return networkTable.getEntry("ts0").getDouble(0);
+        else if (id == 1) return networkTable.getEntry("ts1").getDouble(0);
+        else if (id == 2) return networkTable.getEntry("ts2").getDouble(0);
+        else {
+            System.out.println("getRawSkew() id incorrect");
+            return 0;
+        }
+    }
+
+    // If you are using raw targeting data, you can still utilize your calibrated crosshairs:
+
+    /**
+     * @return Crosshair A X in normalized screen space
+     */
+    public double getCrosshairAX() {
+        return networkTable.getEntry("cx0").getDouble(0);
+    }
+
+    /**
+     * @return Crosshair A Y in normalized screen space
+     */
+    public double getCrosshairAY() {
+        return networkTable.getEntry("cy0").getDouble(0);
+    }
+
+    /**
+     * @return Crosshair B X in normalized screen space
+     */
+    public double getCrosshairBX() {
+        return networkTable.getEntry("cx1").getDouble(0);
+    }
+
+    /**
+     * @return Crosshair B Y in normalized screen space
+     */
+    public double getCrosshairBY() {
+        return networkTable.getEntry("cy1").getDouble(0);
+    }
 
     // ------------------- SETTERS -------------------
 
     /**
-     * @param multiplicateur multiplicateur de la zone de découpage
-     * (plus le multiplicateur est grand, plus la zone de découpage est grande)
-     * Plus grand : permet un meilleur suivi de la cible
-     * Plus petit : permet un meilleur FPS
+     * @param mode
+     * Sets limelight's LED state
+     * [0]	use the LED Mode set in the current pipeline
+     * [1]	force off
+     * [2]	force blink
+     * [3]	force on
      */
-    public void setMultiplicateur(double multiplicateur) {
-        this.multiplicateur = multiplicateur;
+    public void setModeLeds(int mode) {
+        networkTable.getEntry("ledMode").setNumber(mode);
+    }
+
+    /**
+     * @param mode
+     * Sets limelight's operation mode
+     * [0]  Vision processor
+     * [1]  Driver Camera (Increases exposure, disables vision processing)
+     */
+    public void setModeCamera(int mode) {
+        networkTable.getEntry("camMode").setNumber(mode);
+    }
+
+    /**
+     * @param idPipeline
+     * Sets limelight's current pipeline
+     */
+    public void setPipeline(int idPipeline) {
+        networkTable.getEntry("pipeline").setNumber(idPipeline);
+    }
+
+    /**
+     * Sets limelight's streaming mode
+     * @param mode
+     * 0	Standard - Side-by-side streams if a webcam is attached to Limelight
+     * 1	PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
+     * 2	PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
+     */
+    public void setModeStream(int mode) {
+        networkTable.getEntry("stream").setNumber(mode);
+    }
+
+    /**
+     * @param mode
+     * Allows users to take snapshots during a match
+     * 0	Reset snapshot mode
+     * 1	Take exactly one snapshot
+     */
+    public void setModeSnapshot(int mode) {
+        networkTable.getEntry("snapshot").setNumber(mode);
     }
 
     /**
@@ -148,14 +401,21 @@ public class CameraLimelight {
     }
 
     /**
-     * Sets limelight's streaming mode
-     * @param mode
-     * 0	Standard - Side-by-side streams if a webcam is attached to Limelight
-     * 1	PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream
-     * 2	PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream
+     * @param position
+     * (Array) Set the camera's pose in the coordinate system of the robot.
      */
-    public void setStreamMode(int mode) {
-        networkTable.getEntry("stream").setNumber(mode);
+    public void setCameraPose(double[] position) {
+        networkTable.getEntry("camerapose_robotspace_set").setDoubleArray(position);
+    }
+
+    /**
+     * @param multiplicateur multiplicateur de la zone de découpage
+     * (plus le multiplicateur est grand, plus la zone de découpage est grande)
+     * Plus grand : permet un meilleur suivi de la cible
+     * Plus petit : permet un meilleur FPS
+     */
+    public void setMultiplicateur(double multiplicateur) {
+        this.multiplicateur = multiplicateur;
     }
 
     // ------------------- METHODES -------------------
@@ -209,6 +469,4 @@ public class CameraLimelight {
 
         setDecoupageCamera(cropValues);
     }
-
-    
 }
