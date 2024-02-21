@@ -188,30 +188,115 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
+          "0,1": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/RPM Lanceur Esclave",
+              "_title": "SmartDashboard/RPM Lanceur Esclave",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/RPM Lanceur Esclave": true
+            }
+          },
+          "3,1": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/RPM Lanceur Maitre",
+              "_title": "SmartDashboard/RPM Lanceur Maitre",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/RPM Lanceur Maitre": true
+            }
+          },
           "0,0": {
             "size": [
-              2,
+              1,
               1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RPM Lanceur Esclave",
-              "_title": "SmartDashboard/RPM Lanceur Esclave",
+              "_type": "Boolean Box",
+              "_source0": "network_table:///FMSInfo/IsRedAlliance",
+              "_title": "FMSInfo/IsRedAlliance",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Commande Avaler",
+              "_title": "SmartDashboard/Commande Avaler",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "0,1": {
+          "4,0": {
             "size": [
-              2,
+              1,
               1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RPM Lanceur Maitre",
-              "_title": "SmartDashboard/RPM Lanceur Maitre",
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Commande Lancer Haut",
+              "_title": "SmartDashboard/Commande Lancer Haut",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Alliance Rouge",
+              "_title": "SmartDashboard/Alliance Rouge",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Note chargee",
+              "_title": "SmartDashboard/Note chargee",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }

@@ -26,7 +26,7 @@ public class ShuffleBoard {
 
         SmartDashboard.putNumber("RPM Lanceur Maitre", 0);
         SmartDashboard.putNumber("RPM Lanceur Esclave", 0);
-        SmartDashboard.putBoolean("Note chargée", false);
+        SmartDashboard.putBoolean("Note chargee", false);
         SmartDashboard.putBoolean("Alliance Rouge", true);
 
         SmartDashboard.putData("Commande Avaler", new CommandeAvaler());
@@ -36,7 +36,7 @@ public class ShuffleBoard {
     public void mettreAJour() {
         SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitreLanceur.getVelocity());
         SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclaveLanceur.getVelocity());
-        SmartDashboard.putBoolean("Note chargée", capteurLuminosite.getLuminosite());
+        SmartDashboard.putBoolean("Note chargee", capteurLuminosite.getLuminosite());
         SmartDashboard.putBoolean("Alliance Rouge", Robot.getInstance().getEstAllianceRouge());
     }
 
