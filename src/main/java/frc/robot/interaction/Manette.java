@@ -111,9 +111,20 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       return 0;
     }
     
-    // Retourne l'état du bouton passé en paramètre
+    /*
+     * Retourne l'état du bouton passé en paramètre
+     * @return boolean True si le bouton vient de passer de non-pressé à pressé, sinon False
+     */
     public boolean getBoutonPresse(int bouton) {
       return this.manette.getRawButtonPressed(bouton);
+    }
+
+    /*
+     * Retourne l'état du bouton passé en paramètre
+     * @return boolean True si le bouton est maintenu, sinon False
+     */
+    public boolean getBoutonMaintenu(int bouton) {
+      return this.manette.getRawButton(bouton);
     }
 
     public boolean getPOVBoutonPresse(Materiel.Manette.ANGLE angle) {

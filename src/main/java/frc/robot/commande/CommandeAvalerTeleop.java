@@ -1,15 +1,8 @@
 package frc.robot.commande;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Materiel;
-import frc.robot.Robot;
 import frc.robot.RobotControleur;
-import frc.robot.interaction.CapteurLuminosite;
 import frc.robot.interaction.Manette;
-import frc.robot.soussysteme.Intake;
-import frc.robot.soussysteme.ConvoyeurBas;
-import frc.robot.soussysteme.ConvoyeurHaut;
-import frc.robot.mesure.DetecteurDuree;
 
 //import frc.robot.Cinematique;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,7 +39,7 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
         if (this.capteurLuminosite.getLuminosite())
             return true;
 
-        if (this.manette.getBoutonPresse(Materiel.Manette.BOUTON_A))
+        if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_A))
             return false;
 
         return true;

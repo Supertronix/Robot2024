@@ -68,7 +68,7 @@ public class Robot {
 
       Optional<DriverStation.Alliance> couleur = DriverStation.getAlliance();
       if (couleur.isEmpty()) {
-          System.out.println("Alliance introuvable, défaut à rouge");
+          //System.out.println("Alliance introuvable, défaut à rouge");
           this.estAllianceRouge = true;
           return;
       }
