@@ -15,37 +15,40 @@ import frc.robot.mesure.DetecteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvalerSelonBouton extends CommandeAvaler {
+public class CommandeAvalerTeleop extends CommandeAvaler {
+    protected Manette manette;
 
-    protected Manette manette = null;
-
-    public CommandeAvalerSelonBouton()
+    public CommandeAvalerTeleop()
     {
-        System.out.println("new CommandeAvalerSelonBouton()");
+        super();
+        System.out.println("new CommandeAvalerTeleop()");
+        this.manette = RobotControleur.ActionManette.getInstance();
     }
        
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvalerSelonBouton.initialize()");
+        System.out.println("CommandeAvalerTeleop.initialize()");
         super.initialize();
-        this.manette = RobotControleur.ActionManette.getInstance();
     }
     @Override
     public void execute() {
-        System.out.println("CommandeAvalerSelonBouton.execute()");
+        System.out.println("CommandeAvalerTeleop.execute()");
         super.execute();
     }
 
-    
     /** 
      * @return boolean
      */
     @Override
     public boolean isFinished() 
     {
-        if(super.isFinished() == true) return true;
-        if(this.manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) return false;
+        if (this.capteurLuminosite.getLuminosite())
+            return true;
+
+        if (this.manette.getBoutonPresse(Materiel.Manette.BOUTON_A))
+            return false;
+
         return true;
     }
 }

@@ -1,15 +1,10 @@
 package frc.robot.interaction;
 
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.Robot;
-import frc.robot.commande.CommandeAvaler;
+import frc.robot.commande.CommandeAvalerAutonomous;
 import frc.robot.commande.CommandeLancerHaut;
-
-import java.sql.Driver;
-import java.util.Optional;
 
 public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
@@ -29,7 +24,7 @@ public class ShuffleBoard {
         SmartDashboard.putBoolean("Note chargee", false);
         SmartDashboard.putBoolean("Alliance Rouge", true);
 
-        SmartDashboard.putData("Commande Avaler", new CommandeAvaler());
+        SmartDashboard.putData("Commande Avaler", new CommandeAvalerAutonomous());
         SmartDashboard.putData("Commande Lancer Haut", new CommandeLancerHaut());
     }
 
