@@ -15,28 +15,32 @@ import frc.robot.mesure.DetecteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvalerSelonBouton extends CommandeAvaler {
+public class CommandeAvalerAutonomous extends CommandeAvaler {
+    protected static final int DUREE = 10000;
+    protected DetecteurDuree detecteurDuree;
 
-    protected Manette manette = null;
-
-    public CommandeAvalerSelonBouton()
+    public CommandeAvalerAutonomous()
     {
-        System.out.println("new CommandeAvalerSelonBouton()");
+        super();
+        System.out.println("new CommandeAvalerAutonomous()");
+        this.detecteurDuree = new DetecteurDuree(DUREE);
     }
        
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvalerSelonBouton.initialize()");
+        System.out.println("CommandeAvalerAutonomous.initialize()");
         super.initialize();
-        this.manette = RobotControleur.ActionManette.getInstance();
-    }
-    @Override
-    public void execute() {
-        System.out.println("CommandeAvalerSelonBouton.execute()");
-        super.execute();
+        
+        this.detecteurDuree.initialiser();
     }
 
+    @Override
+    public void execute() {
+        super.execute();
+        System.out.println("CommandeAvalerAutonomous.execute()");
+        this.detecteurDuree.mesurer();
+    }
     
     /** 
      * @return boolean
@@ -44,8 +48,12 @@ public class CommandeAvalerSelonBouton extends CommandeAvaler {
     @Override
     public boolean isFinished() 
     {
-        if(super.isFinished() == true) return true;
-        if(this.manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) return false;
-        return true;
+        if (this.detecteurDuree.estTropLongue())
+            return true;
+
+        if (this.capteurLuminosite.getLuminosite())
+            return true;
+
+        return false;
     }
 }

@@ -12,21 +12,14 @@ import frc.robot.mesure.DetecteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvaler extends Command {
-
-    protected static int DUREE = 10000;
-
-    protected DetecteurDuree detecteurDuree;
+public abstract class CommandeAvaler extends Command {
+    protected Intake intake;
+    protected ConvoyeurBas convoyeurBas;
+    protected ConvoyeurHaut convoyeurHaut;
     protected CapteurLuminosite capteurLuminosite;
-
-    protected Intake intake = null;
-    protected ConvoyeurBas convoyeurBas = null;
-    protected ConvoyeurHaut convoyeurHaut = null;
-    //protected double pas;
 
     public CommandeAvaler()
     {
-        System.out.println("new CommandeAvaler()");
         this.intake = Robot.getInstance().intake;
         this.convoyeurBas = Robot.getInstance().convoyeurBas;
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
@@ -35,7 +28,6 @@ public class CommandeAvaler extends Command {
         this.addRequirements(this.intake);
         this.addRequirements(this.convoyeurBas);
         this.addRequirements(this.convoyeurHaut);
-        this.detecteurDuree = new DetecteurDuree(DUREE);
     }
     
     @Override
@@ -43,33 +35,19 @@ public class CommandeAvaler extends Command {
     {
         System.out.println("CommandeAvaler.initialize()");
         
-        this.detecteurDuree.initialiser();
-        
         this.intake.activer(1);
         this.convoyeurBas.activer(1);
         this.convoyeurHaut.activer(0.2);
     }
-    @Override
-    public void execute() {
-        //System.out.println("CommandeAvaler.execute()");
-        this.detecteurDuree.mesurer();
-    }
 
+    @Override
+    public void execute() {}
     
     /** 
      * @return boolean
      */
     @Override
-    public boolean isFinished() 
-    {
-        if (this.detecteurDuree.estTropLongue())
-            return true;
-
-        if (this.capteurLuminosite.getLuminosite())
-            return true;
-
-        return false;
-    }
+    public abstract boolean isFinished();
 
     @Override
     public void end(boolean interrupted) {

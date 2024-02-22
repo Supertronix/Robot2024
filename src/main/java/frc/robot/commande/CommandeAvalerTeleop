@@ -1,0 +1,54 @@
+package frc.robot.commande;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Materiel;
+import frc.robot.Robot;
+import frc.robot.RobotControleur;
+import frc.robot.interaction.CapteurLuminosite;
+import frc.robot.interaction.Manette;
+import frc.robot.soussysteme.Intake;
+import frc.robot.soussysteme.ConvoyeurBas;
+import frc.robot.soussysteme.ConvoyeurHaut;
+import frc.robot.mesure.DetecteurDuree;
+
+//import frc.robot.Cinematique;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
+public class CommandeAvalerTeleop extends CommandeAvaler {
+    protected Manette manette;
+
+    public CommandeAvalerTeleop()
+    {
+        super();
+        System.out.println("new CommandeAvalerTeleop()");
+        this.manette = RobotControleur.ActionManette.getInstance();
+    }
+       
+    @Override
+    public void initialize() 
+    {
+        System.out.println("CommandeAvalerTeleop.initialize()");
+        super.initialize();
+    }
+    @Override
+    public void execute() {
+        System.out.println("CommandeAvalerTeleop.execute()");
+        super.execute();
+    }
+
+    /** 
+     * @return boolean
+     */
+    @Override
+    public boolean isFinished() 
+    {
+        if (this.capteurLuminosite.getLuminosite())
+            return true;
+
+        if (this.manette.getBoutonPresse(Materiel.Manette.BOUTON_A))
+            return false;
+
+        return true;
+    }
+}
