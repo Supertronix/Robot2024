@@ -55,8 +55,11 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
 
     public class Axe 
     {
-      public Axe(double x, double y) 
-      { this.x = (Math.abs(x)>SEUIL_ZERO)?x:0; this.y = (Math.abs(y)>SEUIL_ZERO)?-y:0;}
+      public Axe(double x, double y)
+      {
+        this.x = ( Math.abs(x) > SEUIL_ZERO )?  x : 0;
+        this.y = ( Math.abs(y) > SEUIL_ZERO )? -y : 0;
+      }
       public double x;
       public double y;
     }

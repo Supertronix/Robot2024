@@ -22,6 +22,7 @@ public class Robot {
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
   public Lanceur lanceur;
+  public LanceurAngle lanceurAngle;
   public Bras bras;
 
   public CameraLimelight cameraLimelight;
@@ -42,6 +43,7 @@ public class Robot {
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
+    this.lanceurAngle = new LanceurAngle();
     this.bras = new Bras();
 
     this.cameraLimelight = new CameraLimelight();

@@ -84,6 +84,14 @@ public class RobotControleur extends TimedRobot {
     
     System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
+      robot.lanceurAngle.ajusterHaut();
+    }
+    else {
+      robot.lanceurAngle.ajusterBas();
+    }
+
     // Méthode vide mais cause des exceptions lorsque gâchette droite utilisée?
     //manette.executerActions();
 
