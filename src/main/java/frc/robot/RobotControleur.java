@@ -82,72 +82,15 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     //System.out.println("teleopPeriodic()");
     
-    System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
+    //System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
       robot.lanceurAngle.ajusterHaut();
     }
-    else {
+    else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       robot.lanceurAngle.ajusterBas();
     }
-
-    // Méthode vide mais cause des exceptions lorsque gâchette droite utilisée?
-    //manette.executerActions();
-
-    // Intake avec toggle on/off
-    // if (manette.getBoutonPresse(Materiel.Manette.BOUTON_A)) {
-    //   System.out.println("BOUTON A PRESSE");
-      
-    //   if (robot.intake.estActif())
-    //     robot.intake.desactiver();
-    //   else
-    //     robot.intake.activer();
-    // }
-    
-    // Toggle avaller
-
-    // Convoyeur bas avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
-      System.out.println("BOUTON X PRESSE");
-      
-      if (robot.convoyeurBas.estActif())
-        robot.convoyeurBas.desactiver();
-      else
-        robot.convoyeurBas.activer();
-    }
-
-    // Convoyeur haut avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
-      System.out.println("BOUTON Y PRESSE");
-      
-      if (robot.convoyeurHaut.estActif())
-        robot.convoyeurHaut.desactiver();
-      else
-        robot.convoyeurHaut.activer();
-    }
-
-    // Lanceur avec toggle on/off
-    // if (manette.getBoutonPresse(Materiel.Manette.BOUTON_B)) {
-    //   System.out.println("BOUTON B PRESSE:" + robot.lanceur.estActif());
-
-    //   if (robot.lanceur.estActif())
-    //     robot.lanceur.desactiver();
-    //   else
-    //     robot.lanceur.activer();
-    // }
-
-    /*
-    // Treuil avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
-      System.out.println("BOUTON DEMARRER PRESSE:" + robot.bras.estActif());
-
-      if (robot.bras.estActif())
-        robot.bras.desactiver();
-      else
-        robot.bras.activer(false);
-    }
-    */
 
     // Treuil avec pression on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
@@ -158,18 +101,6 @@ public class RobotControleur extends TimedRobot {
       robot.bras.desactiver();
     }
 
-    /*
-    // Treuil avec toggle on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
-      System.out.println("BOUTON RETOUR PRESSE:" + robot.bras.estActif());
-
-      if (robot.bras.estActif())
-        robot.bras.desactiver();
-      else
-        robot.bras.activer(true);
-    }
-     */
-
     // Treuil avec pression on/off
     if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
       System.out.println("BOUTON RETOUR PRESSE");
@@ -178,21 +109,6 @@ public class RobotControleur extends TimedRobot {
     } else {
       robot.bras.desactiver();
     }
-
-    // Lanceur contrôlable avec gâchette
-    /*
-    double pressionMainDroite = manette.getPressionMainDroite();
-    double pressionMainGauche = manette.getPressionMainGauche();
-
-    if (pressionMainDroite > 0.05) {
-      robot.lanceur.activer(pressionMainDroite);
-    }
-    else if (pressionMainGauche > 0.05) {
-      robot.lanceur.activer(-pressionMainGauche);
-    }
-    else {
-      robot.lanceur.desactiver();
-    }*/
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
 
