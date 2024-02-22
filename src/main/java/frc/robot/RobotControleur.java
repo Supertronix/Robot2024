@@ -86,7 +86,8 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //System.out.println("teleopPeriodic()");
-    
+
+    /*
     //System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
@@ -96,6 +97,8 @@ public class RobotControleur extends TimedRobot {
     else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       robot.lanceurAngle.ajusterBas();
     }
+     */
+
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
 

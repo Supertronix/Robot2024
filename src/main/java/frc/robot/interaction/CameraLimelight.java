@@ -2,6 +2,10 @@ package frc.robot.interaction;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.Robot;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class CameraLimelight {
 
@@ -9,6 +13,23 @@ public class CameraLimelight {
     private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
     private final double VERTICAL_FOV = 24.85; // A verifier
     private double multiplicateur = 1.2; // Augmenter pour augmenter la zone de découpage
+
+    private final double[] ID_TAGS_BLEU = {1, 2, 6, 7, 8, 14, 15, 16};
+    private final double[] ID_TAGS_ROUGE = {3, 4, 5, 9, 10, 11, 12, 13};
+    private static HashMap<String, List<Integer>> mapIDTagsRouge = new HashMap<>();
+    static {
+        mapIDTagsRouge.put("SOURCE", List.of(9, 10));
+        mapIDTagsRouge.put("AMP", List.of(5));
+        mapIDTagsRouge.put("SPEAKER", List.of(3, 4));
+        mapIDTagsRouge.put("SCENE", List.of(11, 12, 13));
+    }
+    private static HashMap<String, List<Integer>> mapIDTagsBleu = new HashMap<>();
+    static {
+        mapIDTagsBleu.put("SOURCE", List.of(1, 2));
+        mapIDTagsBleu.put("AMP", List.of(6));
+        mapIDTagsBleu.put("SPEAKER", List.of(7, 8));
+        mapIDTagsBleu.put("SCENE", List.of(14, 15, 16));
+    }
 
     // ------------------- CONSTRUCTEUR -------------------
 
@@ -237,8 +258,8 @@ public class CameraLimelight {
      * A TESTER
      * @return ID of the primary in-view AprilTag
      */
-    public double getTagID() {
-        return networkTable.getEntry("tid").getDouble(0);
+    public int getTagID() {
+        return (int) networkTable.getEntry("tid").getDouble(0);
     }
 
     // ------------------- RAW GETTERS -------------------
@@ -431,11 +452,26 @@ public class CameraLimelight {
         }
     }
 
+    public boolean estIDValide(int id) {
+        if (Robot.getInstance().getEstAllianceRouge()) {
+            if (mapIDTagsRouge.get("SPEAKER").contains(id)) return true;
+            if (mapIDTagsRouge.get("AMP").contains(id)) return true;
+        } else {
+            if (mapIDTagsBleu.get("SPEAKER").contains(id)) return true;
+            if (mapIDTagsBleu.get("AMP").contains(id)) return true;
+        }
+        return false;
+    }
+
     /**
      * Découpe la caméra autour de la cible
      */
     public void decoupageCamera() {
         //System.out.println("Découpage");
+        if (!estIDValide(getTagID())) {
+            resetDecoupageCamera();
+            return;
+        }
 
         double x1 = getDecalageHorizonPourcent();
         double y1 = getDecalageVerticalPourcent();
