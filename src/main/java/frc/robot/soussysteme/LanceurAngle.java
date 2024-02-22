@@ -7,11 +7,12 @@ import edu.wpi.first.wpilibj.Compressor;
 public class LanceurAngle {
     private Solenoid solenoideGauche;
     private Solenoid solenoideDroite;
-    private Compressor compressor;
+    //private Compressor compressor;
 
     public LanceurAngle() {
-        this.solenoideGauche = new Solenoid(22, PneumaticsModuleType.CTREPCM, 1);
-        this.solenoideDroite = new Solenoid(22, PneumaticsModuleType.CTREPCM, 2);
+        this.solenoideGauche = new Solenoid(21, PneumaticsModuleType.CTREPCM, 6);
+        this.solenoideDroite = new Solenoid(21, PneumaticsModuleType.CTREPCM, 4);
+        //this.compressor = new Compressor(21, PneumaticsModuleType.CTREPCM);
     }
 
     public void ajusterHaut() {
