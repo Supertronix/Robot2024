@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.CommandeAvaler;
+import frc.robot.commande.CommandeAvalerAutonomous;
 import frc.robot.commande.CommandeLancerHaut;
 import frc.robot.commande.MouvementDuRobot;
 import frc.robot.soussysteme.*;
@@ -69,7 +70,7 @@ public class RobotControleur extends TimedRobot {
     System.out.println("teleopInit()");
     ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
     ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
-    manette.getBoutonA().toggleOnTrue(new CommandeAvaler());    
+    manette.getBoutonA().toggleOnTrue(new CommandeAvalerAutonomous());    
     manette.getBoutonB().onTrue(new CommandeLancerHaut());
 
     //    if (trajetAutonome != null) {
