@@ -90,7 +90,7 @@ public interface Materiel {
     public interface TREUIL
     {
       public static final int ID_TREUIL = 11;
-      public static final double VITESSE_TREUIL = 0.2;
+      public static final double VITESSE_TREUIL = 1.0;
     }
 
     /*

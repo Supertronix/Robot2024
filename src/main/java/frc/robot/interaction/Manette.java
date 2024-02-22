@@ -86,12 +86,20 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       return this.axeMainGauche;
     }
 
-    public JoystickButton getBoutonA(){
+    public JoystickButton getBoutonA() {
       return this.boutonA;
     }
 
-    public JoystickButton getBoutonB(){
+    public JoystickButton getBoutonB() {
       return this.boutonB;
+    }
+
+    public JoystickButton getBoutonDemarrer() {
+      return this.boutonDemarrer;
+    }
+
+    public JoystickButton getBoutonRetour() {
+      return this.boutonRetour;
     }
 
     public double getPressionMainGauche() 

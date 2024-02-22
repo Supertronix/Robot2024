@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.CommandeAvalerAutonomous;
 import frc.robot.commande.CommandeAvalerTeleop;
+import frc.robot.commande.CommandeBrasDescendre;
+import frc.robot.commande.CommandeBrasMonter;
 import frc.robot.commande.CommandeLancerHaut;
 import frc.robot.commande.MouvementDuRobot;
 import frc.robot.soussysteme.*;
@@ -70,8 +72,11 @@ public class RobotControleur extends TimedRobot {
     System.out.println("teleopInit()");
     ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
     ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
+    
     manette.getBoutonA().toggleOnTrue(new CommandeAvalerTeleop());    
     manette.getBoutonB().onTrue(new CommandeLancerHaut());
+    manette.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
+    manette.getBoutonRetour().onTrue(new CommandeBrasDescendre());
 
     //    if (trajetAutonome != null) {
      // trajetAutonome.cancel();
@@ -90,24 +95,6 @@ public class RobotControleur extends TimedRobot {
     }
     else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
       robot.lanceurAngle.ajusterBas();
-    }
-
-    // Treuil avec pression on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_DEMARRER)) {
-      System.out.println("BOUTON DEMARRER PRESSE");
-
-      robot.bras.activer(false);
-    } else {
-      robot.bras.desactiver();
-    }
-
-    // Treuil avec pression on/off
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_RETOUR)) {
-      System.out.println("BOUTON RETOUR PRESSE");
-
-      robot.bras.activer(true);
-    } else {
-      robot.bras.desactiver();
     }
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
