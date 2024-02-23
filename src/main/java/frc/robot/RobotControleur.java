@@ -104,7 +104,7 @@ public class RobotControleur extends TimedRobot {
   
   @SuppressWarnings({"unused"})
   private void lierInteractions() {
-    new Trigger(robot.partie::exampleCondition).onTrue(new MouvementDuRobot(robot.partie));
+    new Trigger(robot.partie::exampleCondition).onTrue(new ExempleMouvementDuRobot(robot.partie));
   }
   // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
   // https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html

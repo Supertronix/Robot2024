@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.soussysteme.ExemplePartieDuRobot;
 
 /** An example command that uses an example subsystem. */
-public class MouvementDuRobot extends Command {
+public class ExempleMouvementDuRobot extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField", "unused"})
   private final ExemplePartieDuRobot m_subsystem;
 
@@ -17,7 +17,7 @@ public class MouvementDuRobot extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public MouvementDuRobot(ExemplePartieDuRobot subsystem) {
+  public ExempleMouvementDuRobot(ExemplePartieDuRobot subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
