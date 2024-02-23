@@ -6,11 +6,11 @@ import frc.robot.mesure.DetecteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvalerAutonomous extends CommandeAvaler {
+public class CommandeAvalerAutomatique extends CommandeAvaler {
     protected static final int DUREE = 10000;
     protected DetecteurDuree detecteurDuree;
 
-    public CommandeAvalerAutonomous()
+    public CommandeAvalerAutomatique()
     {
         super();
         System.out.println("new CommandeAvalerAutonomous()");
