@@ -54,6 +54,7 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    this.robot = Robot.getInstance();    
     //trajetAutonome = new CommandeTrajetAutonome();
     //trajetAutonome.schedule();
   }
@@ -63,13 +64,13 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
+    this.robot = Robot.getInstance();
 
 
 
     System.out.println("teleopInit()");
-    ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
-    ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
+    ((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques();
+    ((RouesMecanumSynchro)robot.roues).setFacteur(1); // 0.8
     
 
     //    if (trajetAutonome != null) {
@@ -81,21 +82,21 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     //System.out.println("teleopPeriodic()");
 
-    Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
+    robot.cameraLimelight.decoupageCameraDynamique();
     manette.activerBoutons();
 
 
-    if (Robot.getInstance().capteurMagnetiqueHaut.estActive()) {
+    if (robot.capteurMagnetiqueHaut.estActive()) {
       System.out.println("capteur magnetique haut active");
     } else {
       System.out.println("capteur magnetique haut non active");
     }
 
-    //if (Robot.getInstance().capteurMagnetiqueBas.estActive()) {
+    //if (robot.capteurMagnetiqueBas.estActive()) {
     //  System.out.println("capteur magnetique bas active");
     //}
     // test
-    //Robot.getInstance().convoyeur2.setVitesse(0.2);
+    //robot.convoyeur2.setVitesse(0.2);
   }
 
   @Override
