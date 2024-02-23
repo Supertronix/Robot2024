@@ -19,7 +19,7 @@ public class CommandeLanceurRetracter extends Command {
     public void initialize() 
     {
         System.out.println("CommandeLanceurRetracter.initialize()");
-        lanceurExtension.allonger();
+        lanceurExtension.retracter();
     }
 
     @Override
