@@ -7,13 +7,13 @@ import frc.robot.RobotControleur;
 import frc.robot.interaction.Manette;
 import frc.robot.soussysteme.Bras;
 
-public class CommandeBrasDescendre extends Command {
+public class CommandeGrimpageRedescendre extends Command {
     protected Bras bras;
     protected Manette manette;
 
-    public CommandeBrasDescendre()
+    public CommandeGrimpageRedescendre() // CommandeBrasMonter
     {
-        System.out.println("new CommandeBrasDescendre()");
+        System.out.println("new CommandeGrimpageRedescendre()");
         this.bras = Robot.getInstance().bras;
         this.manette = RobotControleur.ActionManette.getInstance();
     }
@@ -21,8 +21,8 @@ public class CommandeBrasDescendre extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeBrasDescendre initialize()");
-        bras.activer(true);
+        System.out.println("CommandeGrimpageRedescendre.initialize()");
+        bras.activer(false);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CommandeBrasDescendre extends Command {
     @Override
     public boolean isFinished() 
     {
-        if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_RETOUR))
+        if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_DEMARRER))
             return false;
 
         return true;
@@ -42,7 +42,7 @@ public class CommandeBrasDescendre extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeBrasDescendre.end()");
+        System.out.println("CommandeGrimpageRedescendre.end()");
         this.bras.desactiver();
     }
 }
