@@ -26,9 +26,9 @@ public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Ex
         this.mouvementExtension = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
     }
 
-    public void deployer()
+    public void allonger()
     {
-        System.out.println("LanceurExtension.deployer()");
+        System.out.println("LanceurExtension.allonger()");
         this.mouvementExtension.set(true);
         this.compresseur.enableDigital();
     }
