@@ -68,7 +68,9 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
+    manette.activerBoutons();
     manette.activerBoutonsTests(); // autres boutons
+
   }
 
   private int periode;
@@ -123,6 +125,10 @@ public class RobotControleur extends TimedRobot {
       protected ActionManette()
       {
         System.out.println("new ActionManette()");
+      }
+
+      public void activerBoutons()
+      {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         this.boutonMainDroite.onTrue(new CommandeLancerHaut());
         this.boutonMainGauche.onTrue(new CommandeLancerBas());
