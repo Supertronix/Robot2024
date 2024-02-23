@@ -4,6 +4,8 @@ import static java.util.Map.entry;
 
 public interface Materiel {
 
+    public static int COMPRESSEUR_MODULE = 21;
+
     public static int INTERRUPTEUR_DROIT = 1;
     public static int INTERRUPTEUR_GAUCHE = 2;
 
@@ -93,6 +95,7 @@ public interface Materiel {
         public static int MOUVEMENT_ANGLE_GAUCHE = 6;
         public static int MOUVEMENT_ANGLE_DROITE = 1;
         public static int MOUVEMENT_EXTENSION = 5;
+        
        }
     }
 

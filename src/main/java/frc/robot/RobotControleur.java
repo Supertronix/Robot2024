@@ -80,9 +80,9 @@ public class RobotControleur extends TimedRobot {
 
     if((periode % 100) == 0) // pour limiter les logs
     {
-      String etatLanceurDeploye = "capteur magnetique haut (deploye) " + ((robot.lanceurExtension.estOuvert())?"deploye":"non deploye");
+      String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
       System.out.println(etatLanceurDeploye);
-      String etatLanceurRetracte = "capteur magnetique bas (retracte)" + ((robot.lanceurExtension.estFerme())?"retracte":"non retracte");
+      String etatLanceurRetracte = "capteur magnetique bas (non flippe)" + ((robot.lanceurExtension.estFerme())?"ferne":"non ferme");
       System.out.println(etatLanceurRetracte);
     }
   }
