@@ -7,7 +7,7 @@ import frc.robot.soussysteme.LanceurExtension;
 
 public class CommandeLanceurOuvrir extends Command {
     protected LanceurExtension lanceurExtension;
-    protected static final int DUREE = 10000;
+    protected static final int DUREE = 1000;
     protected DetecteurDuree detecteurDuree;
 
     //protected Manette manette;

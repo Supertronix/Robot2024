@@ -9,7 +9,7 @@ public class CommandeLanceurFermer extends Command {
     protected LanceurExtension lanceurExtension;
     //protected Manette manette;
     protected DetecteurDuree detecteurDuree;
-    protected static final int DUREE = 10000;
+    protected static final int DUREE = 1000;
 
     public CommandeLanceurFermer()
     {
