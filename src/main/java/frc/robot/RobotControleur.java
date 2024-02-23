@@ -71,28 +71,26 @@ public class RobotControleur extends TimedRobot {
     manette.activerBoutons();
   }
 
+  private int periode;
   @Override
   public void teleopPeriodic() {
+    periode++;
 
     robot.cameraLimelight.decoupageCameraDynamique();
 
-    if (robot.capteurMagnetiqueHaut.estActive()) {
-      System.out.println("capteur magnetique haut active");
-    } else {
-      System.out.println("capteur magnetique haut non active");
+    if((periode % 100) == 0)
+    {
+      String etatCapteurMagnetiqueHaut = "capteur magnetique haut " + ((robot.capteurMagnetiqueHaut.estActive())?"actif":"non actif");
+      System.out.println(etatCapteurMagnetiqueHaut);
+      //String etatCapteurMachetiqueBas = "capteur magnetique bas " + ((robot.capteurMagnetiqueBas.estActive())?"actif":"non actif");
+      //System.out.println(etatCapteurMachetiqueBas);
     }
-
-    //if (robot.capteurMagnetiqueBas.estActive()) {
-    //  System.out.println("capteur magnetique bas active");
-    //}
-    // test
-    //robot.convoyeur2.setVitesse(0.2);
   }
 
   @Override
   public void testInit() {
-    // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
+    
+    CommandScheduler.getInstance().cancelAll();// Cancelle les commandes 
   }
 
   @Override
