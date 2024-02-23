@@ -6,9 +6,6 @@ public interface Materiel {
 
     public static int COMPRESSEUR_MODULE = 21;
 
-    public static int INTERRUPTEUR_DROIT = 1;
-    public static int INTERRUPTEUR_GAUCHE = 2;
-
     public interface Affichage
     {
       public static int SIGNAL_ANIMATION_LED = 1; // et plusieurs autres pour les modes
