@@ -4,8 +4,7 @@ import static java.util.Map.entry;
 
 public interface Materiel {
 
-    public static int INTERRUPTEUR_DROIT = 1;
-    public static int INTERRUPTEUR_GAUCHE = 2;
+    public static int COMPRESSEUR_MODULE = 21;
 
     public interface Affichage
     {
@@ -57,10 +56,11 @@ public interface Materiel {
     }
 
     // Config intake (entrée notes)
-    public interface Intake
+    public interface Avaleur
     {
       public static final int ID_TALON_INTAKE = 10; // CAN ID Moteur intake
       public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
+      public static int MOUVEMENT_BOUCHE = 2; // PNEUMATIQUE
     }
 
     public interface ConvoyeurBas
@@ -85,6 +85,15 @@ public interface Materiel {
       public static final int ID_LANCEUR_MAITRE = 5;
       public static final int ID_LANCEUR_ESCLAVE = 6;
       public static final double VITESSE_LANCEUR = 0.5;
+      public interface Extension
+      {
+        public static final int PORT_CAPTEUR_MAGNETIQUE_DEPLOYE = 1;
+        public static final int PORT_CAPTEUR_MAGNETIQUE_RETRACTE = 2;
+        public static int MOUVEMENT_ANGLE_GAUCHE = 6;
+        public static int MOUVEMENT_ANGLE_DROITE = 1;
+        public static int MOUVEMENT_EXTENSION = 5;
+        
+       }
     }
 
     public interface TREUIL
@@ -92,19 +101,5 @@ public interface Materiel {
       public static final int ID_TREUIL = 11;
       public static final double VITESSE_TREUIL = 1.0;
     }
-
-    /*
-    public interface Bras
-    {
-      public static final int MOTEUR_PRINCIPAL = 5; // tourne vers la batterie
-      public static final int MOTEUR_SECONDAIRE = 6; // tourne vers la batterie
-
-      public void abaisser();
-    }
-    public interface Machoire
-    {
-      public static final int MOTEUR = 7;
-    }
-    */
     
 }

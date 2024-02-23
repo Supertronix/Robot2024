@@ -6,12 +6,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commande.CommandeAvalerAutonomous;
-import frc.robot.commande.CommandeAvalerTeleop;
-import frc.robot.commande.CommandeBrasDescendre;
-import frc.robot.commande.CommandeBrasMonter;
-import frc.robot.commande.CommandeLancerHaut;
-import frc.robot.commande.MouvementDuRobot;
+import frc.robot.commande.*;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -23,13 +18,13 @@ import frc.robot.interaction.*;
 public class RobotControleur extends TimedRobot {
 
   private Robot robot;
-  private Manette manette;
+  private ActionManette manette;
   //private Command trajetAutonome;
 
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    this.manette = RobotControleur.ActionManette.getInstance();
+    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
     this.robot.shuffleBoard.initialiser();
 
@@ -59,6 +54,7 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    this.robot = Robot.getInstance();    
     //trajetAutonome = new CommandeTrajetAutonome();
     //trajetAutonome.schedule();
   }
@@ -68,48 +64,34 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopInit() {
-
     System.out.println("teleopInit()");
-    ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
-    ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
-    
-    manette.getBoutonA().toggleOnTrue(new CommandeAvalerTeleop());    
-    manette.getBoutonB().onTrue(new CommandeLancerHaut());
-    manette.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
-    manette.getBoutonRetour().onTrue(new CommandeBrasDescendre());
-
-    //    if (trajetAutonome != null) {
-     // trajetAutonome.cancel();
-    //}
+    this.robot = Robot.getInstance();
+    //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
+    robot.roues.setFacteur(1); // 0.8
+    manette.activerBoutonsTests(); // autres boutons
   }
 
+  private int periode;
   @Override
   public void teleopPeriodic() {
-    //System.out.println("teleopPeriodic()");
+    periode++;
 
-    /*
-    //System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
+    robot.cameraLimelight.decoupageCameraDynamique();
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
-      robot.lanceurAngle.ajusterHaut();
+    if((periode % 100) == 0) // pour limiter les logs
+    {
+      String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
+      System.out.println(etatLanceurDeploye);
+      String etatLanceurRetracte = "capteur magnetique bas (non flippe)" + ((robot.lanceurExtension.estFerme())?"ferne":"non ferme");
+      System.out.println(etatLanceurRetracte);
     }
-    else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
-      robot.lanceurAngle.ajusterBas();
-    }
-     */
-
-
-    Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
-
-    // test
-    //Robot.getInstance().convoyeur2.setVitesse(0.2);
   }
 
   @Override
   public void testInit() {
-    // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
+    
+    CommandScheduler.getInstance().cancelAll();// Cancelle les commandes 
   }
 
   @Override
@@ -123,12 +105,11 @@ public class RobotControleur extends TimedRobot {
   
   @SuppressWarnings({"unused"})
   private void lierInteractions() {
-    new Trigger(robot.partie::exampleCondition).onTrue(new MouvementDuRobot(robot.partie));
+    new Trigger(robot.partie::exampleCondition).onTrue(new ExempleMouvementDuRobot(robot.partie));
   }
-
-  
   // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
   // https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
+  // https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html  
   static public class ActionManette extends Manette {
   
       protected static ActionManette instance = null;
@@ -137,38 +118,29 @@ public class RobotControleur extends TimedRobot {
         if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
         return ActionManette.instance;
       };
-      // protected JoystickButton boutonControllerAttrapeur;
   
       //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
       protected ActionManette()
       {
-          /* 
-          Command commandeCalibration = new CommandeCalibrerBras();
-          this.boutonY.whenPressed(commandeCalibration);
-  
-          Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
-          this.boutonA.whenPressed(commandeMilieu);
-  
-          Command commandeArriere = new CommandeDeplacerBras(POSITION.POSITION_AVANT);
-          this.boutonX.whenPressed(commandeArriere);
-  
-          Command commandePencheDevant = new CommandeDeplacerBras(POSITION.POSITION_ARRIERE);
-          this.boutonB.whenPressed(commandePencheDevant);
-  
-          Command commandeDevant = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_AVANT);
-          this.boutonRetour.whenPressed(commandeDevant);
-  
-          Command commandePencheArriere = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_ARRIERE);
-          this.boutonRetour.whenPressed(commandePencheArriere);
-          
-          Command commandeOuvrirMachoire = new CommandeOuvrirMachoire();
-          Command commandeFermerMachoire = new CommandeFermerMachoire();
-          this.boutonMainDroite.whenPressed(commandeFermerMachoire);
-          this.boutonMainGauche.whenPressed(commandeOuvrirMachoire);
-          */
-  
+        //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
+        this.boutonMainDroite.onTrue(new CommandeLancerHaut());
+        this.boutonMainGauche.onTrue(new CommandeLancerBas());
+        this.boutonDemarrer.onTrue(new CommandeGrimper());
+        this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
+
+        this.povBas.onTrue(new CommandeAvalerAutomatique());
+        this.boutonPressionMainGauche.onTrue(new CommandeAvalerTeleop());   
+      }
+
+      public void activerBoutonsTests()
+      {
+          this.boutonB.onTrue(new CommandeLanceurOuvrir());
+          this.boutonX.onTrue(new CommandeLanceurFermer());
+          this.boutonY.onTrue(new CommandeLanceurAllonger());
+          this.boutonA.onTrue(new CommandeLanceurRetracter());
       }
    
+      
       public void executerActions()
       {
         if(this.boutonPressionMainGauche.getAsBoolean())
@@ -179,10 +151,12 @@ public class RobotControleur extends TimedRobot {
           {
               this.boutonPressionMainDroite.declencher();
           }
+
       }
       
   }
-  // this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
   
+  //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
+  //Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
 
 }

@@ -3,10 +3,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.interaction.CameraLimelight;
-import frc.robot.interaction.CapteurLuminosite;
-import frc.robot.interaction.CameraConducteur;
-import frc.robot.interaction.ShuffleBoard;
+import frc.robot.interaction.*;
 import frc.robot.soussysteme.*;
 
 import java.util.Optional;
@@ -16,13 +13,14 @@ import java.util.Optional;
  */
 public class Robot {
 
-  public PartieDuRobot partie = new PartieDuRobot();
-  public Roues roues = null;
-  public Intake intake;
+  public ExemplePartieDuRobot partie = new ExemplePartieDuRobot();
+  public RouesMecanum roues;
+  public Avaleur intake;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
+  
   public Lanceur lanceur;
-  public LanceurAngle lanceurAngle;
+  public LanceurExtension lanceurExtension;
   public Bras bras;
 
   public CameraLimelight cameraLimelight;
@@ -39,11 +37,11 @@ public class Robot {
   {
     this.capteurLuminosite = new CapteurLuminosite();
     this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
-    this.intake = new Intake();
+    this.intake = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
-    this.lanceurAngle = new LanceurAngle();
+    this.lanceurExtension = new LanceurExtension();
     this.bras = new Bras();
 
     this.cameraLimelight = new CameraLimelight();

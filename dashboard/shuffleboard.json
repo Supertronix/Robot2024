@@ -178,7 +178,7 @@
       }
     },
     {
-      "title": "Tab 3",
+      "title": "Debug",
       "autoPopulate": false,
       "autoPopulatePrefix": "",
       "widgetPane": {
@@ -304,8 +304,8 @@
     }
   ],
   "windowGeometry": {
-    "x": -5.599999904632568,
-    "y": 0.800000011920929,
+    "x": -6.400000095367432,
+    "y": 1.600000023841858,
     "width": 1547.199951171875,
     "height": 828.7999877929688
   }

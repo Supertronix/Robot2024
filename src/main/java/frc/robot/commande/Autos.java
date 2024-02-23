@@ -6,12 +6,12 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.soussysteme.PartieDuRobot;
+import frc.robot.soussysteme.ExemplePartieDuRobot;
 
 public final class Autos {
   /** Example static factory for an autonomous command. */
-  public static Command exampleAuto(PartieDuRobot subsystem) {
-    return Commands.sequence(subsystem.exampleMethodCommand(), new MouvementDuRobot(subsystem));
+  public static Command exampleAuto(ExemplePartieDuRobot subsystem) {
+    return Commands.sequence(subsystem.exampleMethodCommand(), new ExempleMouvementDuRobot(subsystem));
   }
 
   private Autos() {
