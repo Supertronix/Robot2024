@@ -1,10 +1,8 @@
 package frc.robot.mesure;
 
-public class DetecteurDuree{
+public class DetecteurDuree extends Chronometre{
 
-	protected double tempsDebut; 
-	protected double tempsActuel; 
-	protected boolean estTropLong;
+	protected boolean estTropLong = false; // default anyway
 	protected double limite;
 	
 	public interface Immobilisable
@@ -13,36 +11,29 @@ public class DetecteurDuree{
 	}
 	public DetecteurDuree(double limite)
 	{
+		super();
 		System.out.println("new DetecteurDelais()");
 		this.limite = limite;
-		this.initialiser();
 	}
 	
 	public void initialiser()
 	{
-		this.tempsDebut = System.currentTimeMillis();
-		this.estTropLong = false;
+		super.initialiser();
 	}
 
 	public void mesurer()
 	{
-		System.out.println("mesurer()");
-		this.tempsActuel = System.currentTimeMillis();				
+		super.mesurer();
+		//System.out.println("mesurer()");
+		this.estTropLong = (this.tempsActuel - this.tempsDebut) > this.limite;
+		if(this.estTropLong) System.out.println("Delais trop long !");	
 	}
-
 	
 	/** 
 	 * @return boolean
 	 */
 	public boolean estTropLongue()
 	{
-		this.estTropLong = (this.tempsActuel - this.tempsDebut) > this.limite;
-		if(this.estTropLong) System.out.println("Delais trop long !");
 		return this.estTropLong;
-	}
-
-	public double getDuree()
-	{
-		return (this.tempsActuel - this.tempsDebut);
 	}
 }
