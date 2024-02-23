@@ -68,7 +68,7 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
-    manette.activerBoutons();
+    //manette.activerBoutons(); // autres boutons
   }
 
   private int periode;
@@ -80,10 +80,10 @@ public class RobotControleur extends TimedRobot {
 
     if((periode % 100) == 0) // pour limiter les logs
     {
-      String etatCapteurMagnetiqueHaut = "capteur magnetique haut " + ((robot.capteurMagnetiqueHaut.estActive())?"actif":"non actif");
-      System.out.println(etatCapteurMagnetiqueHaut);
-      //String etatCapteurMachetiqueBas = "capteur magnetique bas " + ((robot.capteurMagnetiqueBas.estActive())?"actif":"non actif");
-      //System.out.println(etatCapteurMachetiqueBas);
+      String etatLanceurDeploye = "capteur magnetique haut (deploye) " + ((robot.lanceurAngle.estDeploye())?"deploye":"non deploye");
+      System.out.println(etatLanceurDeploye);
+      String etatLanceurRetracte = "capteur magnetique bas (retracte)" + ((robot.lanceurAngle.estRetracte())?"retracte":"non retracte");
+      System.out.println(etatLanceurRetracte);
     }
   }
 
@@ -132,21 +132,10 @@ public class RobotControleur extends TimedRobot {
   
           Command commandeArriere = new CommandeDeplacerBras(POSITION.POSITION_AVANT);
           this.boutonX.whenPressed(commandeArriere);
-  
-          Command commandePencheDevant = new CommandeDeplacerBras(POSITION.POSITION_ARRIERE);
-          this.boutonB.whenPressed(commandePencheDevant);
-  
-          Command commandeDevant = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_AVANT);
-          this.boutonRetour.whenPressed(commandeDevant);
-  
-          Command commandePencheArriere = new CommandeDeplacerBras(POSITION.POSITION_PENCHE_ARRIERE);
-          this.boutonRetour.whenPressed(commandePencheArriere);
-          
-          Command commandeOuvrirMachoire = new CommandeOuvrirMachoire();
-          Command commandeFermerMachoire = new CommandeFermerMachoire();
-          this.boutonMainDroite.whenPressed(commandeFermerMachoire);
-          this.boutonMainGauche.whenPressed(commandeOuvrirMachoire);
           */
+
+          this.getBoutonY().onTrue(new CommandeLanceurDeployer());
+          this.getBoutonX().onTrue(new CommandeLanceurRetracter());
   
       }
 

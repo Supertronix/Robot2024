@@ -37,8 +37,6 @@ public class Robot {
   public Robot() 
   {
     this.capteurLuminosite = new CapteurLuminosite();
-    this.capteurMagnetiqueHaut = new CapteurMagnetiqueHaut();
-    this.capteurMagnetiqueBas = new CapteurMagnetiqueBas();
     this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
     this.intake = new Intake();
     this.convoyeurBas = new ConvoyeurBas();
