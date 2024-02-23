@@ -6,9 +6,9 @@ package frc.robot.soussysteme;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class PartieDuRobot extends SousSysteme {
+public class ExemplePartieDuRobot extends SousSysteme {
   /** Creates a new ExampleSubsystem. */
-  public PartieDuRobot() {}
+  public ExemplePartieDuRobot() {}
 
   /**
    * Example command factory method.

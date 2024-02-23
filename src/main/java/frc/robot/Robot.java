@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public class Robot {
 
-  public PartieDuRobot partie = new PartieDuRobot();
+  public ExemplePartieDuRobot partie = new ExemplePartieDuRobot();
   public RouesMecanum roues;
   public Intake intake;
   public ConvoyeurBas convoyeurBas;
