@@ -64,26 +64,17 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    this.robot = Robot.getInstance();
-
-
-
     System.out.println("teleopInit()");
+    this.robot = Robot.getInstance();
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
-    
-    //    if (trajetAutonome != null) {
-     // trajetAutonome.cancel();
-    //}
+    manette.activerBoutons();
   }
 
   @Override
   public void teleopPeriodic() {
-    //System.out.println("teleopPeriodic()");
 
     robot.cameraLimelight.decoupageCameraDynamique();
-    manette.activerBoutons();
-
 
     if (robot.capteurMagnetiqueHaut.estActive()) {
       System.out.println("capteur magnetique haut active");
