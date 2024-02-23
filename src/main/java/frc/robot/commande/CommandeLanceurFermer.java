@@ -6,7 +6,7 @@ import frc.robot.mesure.DetecteurDuree;
 import frc.robot.soussysteme.LanceurExtension;
 
 public class CommandeLanceurFermer extends Command {
-    protected LanceurExtension lancerurExtension;
+    protected LanceurExtension lanceurExtension;
     //protected Manette manette;
     protected DetecteurDuree detecteurDuree;
     protected static final int DUREE = 10000;
@@ -14,8 +14,8 @@ public class CommandeLanceurFermer extends Command {
     public CommandeLanceurFermer()
     {
         System.out.println("new CommandeLanceurFermer()");
-        this.lancerurExtension = Robot.getInstance().lanceurExtension;
-        addRequirements(this.lancerurExtension);
+        this.lanceurExtension = Robot.getInstance().lanceurExtension;
+        addRequirements(this.lanceurExtension);
         this.detecteurDuree = new DetecteurDuree(DUREE);
     }
        
@@ -23,14 +23,14 @@ public class CommandeLanceurFermer extends Command {
     public void initialize() 
     {
         System.out.println("CommandeLanceurFermer.initialize()");
-        lancerurExtension.fermer();
+        lanceurExtension.fermer();
         this.detecteurDuree.initialiser();
     }
 
     @Override
     public void execute() {
-        System.out.println("Capteur deploye " + lancerurExtension.estOuvert() );
-        System.out.println("Capteur retracte " + lancerurExtension.estFerme() );
+        System.out.println("Capteur deploye " + lanceurExtension.estOuvert() );
+        System.out.println("Capteur retracte " + lanceurExtension.estFerme() );
         this.detecteurDuree.mesurer();
     }
 
@@ -40,7 +40,7 @@ public class CommandeLanceurFermer extends Command {
     @Override
     public boolean isFinished() 
     {
-        if(lancerurExtension.estFerme()) return true;
+        if(lanceurExtension.estFerme()) return true;
         if(this.detecteurDuree.estTropLongue()) return true;
         return false;
     }

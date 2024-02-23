@@ -5,21 +5,21 @@ import frc.robot.Robot;
 import frc.robot.soussysteme.LanceurExtension;
 
 public class CommandeLanceurRetracter extends Command {
-    protected LanceurExtension lancerurExtension;
+    protected LanceurExtension lanceurExtension;
     //protected Manette manette;
 
     public CommandeLanceurRetracter()
     {
         System.out.println("new CommandeLanceurRetracter()");
-        this.lancerurExtension = Robot.getInstance().lanceurExtension;
-        addRequirements(this.lancerurExtension);
+        this.lanceurExtension = Robot.getInstance().lanceurExtension;
+        addRequirements(this.lanceurExtension);
     }
        
     @Override
     public void initialize() 
     {
         System.out.println("CommandeLanceurRetracter.initialize()");
-        lancerurExtension.allonger();
+        lanceurExtension.allonger();
     }
 
     @Override
