@@ -136,7 +136,7 @@ public class RobotControleur extends TimedRobot {
         this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
 
         this.povBas.onTrue(new CommandeAvalerAutomatique());
-        this.boutonPressionMainGauche.whileTrue(new CommandeAvalerTeleop());   
+        this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
       }
 
       public void activerBoutonsTests()
@@ -150,13 +150,13 @@ public class RobotControleur extends TimedRobot {
       
       public void executerActions()
       {
-        if(this.boutonPressionMainGauche.getAsBoolean())
+        if(this.boutonGachetteMainGauche.getAsBoolean())
           {
-              this.boutonPressionMainGauche.declencher();;
+              this.boutonGachetteMainGauche.declencher();;
           }
-        if(this.boutonPressionMainDroite.getAsBoolean())
+        if(this.boutonGachetteMainDroite.getAsBoolean())
           {
-              this.boutonPressionMainDroite.declencher();
+              this.boutonGachetteMainDroite.declencher();
           }
 
       }

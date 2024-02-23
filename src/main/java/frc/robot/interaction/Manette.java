@@ -24,8 +24,8 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     protected JoystickButton boutonMainDroite;
     protected JoystickButton boutonMainGauche;
 
-    protected BoutonDeclencheur boutonPressionMainDroite;
-    protected BoutonDeclencheur boutonPressionMainGauche;
+    protected BoutonDeclencheur boutonGachetteMainDroite;
+    protected BoutonDeclencheur boutonGachetteMainGauche;
 
     protected Manette() // pour design pattern singleton
     {
@@ -37,8 +37,8 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
 
         //this.boutonPressionMainGauche.setCommande(new CommandeAjusterBras(-0.15));
         //this.boutonPressionMainDroite.setCommande(new CommandeAjusterBras(0.15 ));
-        this.boutonPressionMainGauche = new BoutonDeclencheur(this.manette, MAIN_GAUCHE_AXE);
-        this.boutonPressionMainDroite = new BoutonDeclencheur(this.manette, MAIN_DROITE_AXE);
+        this.boutonGachetteMainGauche = new BoutonDeclencheur(this.manette, GACHETTE_MAIN_GAUCHE);
+        this.boutonGachetteMainDroite = new BoutonDeclencheur(this.manette, GACHETTE_MAIN_DROITE);
 
         this.boutonY = new JoystickButton(this.manette, BOUTON_Y);
         this.boutonA = new JoystickButton(this.manette, BOUTON_A);
@@ -75,14 +75,14 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
      */
     public Axe getAxeMainDroite()
     {
-      this.axeMainDroite = new Axe(manette.getRawAxis(BATON_DROIT_AXE_X), manette.getRawAxis(BATON_DROIT_AXE_Y));
+      this.axeMainDroite = new Axe(manette.getRawAxis(AXE_DROIT_X), manette.getRawAxis(AXE_DROIT_Y));
       // System.out.println("axe main droite " + this.axeMainDroite.x + " " + this.axeMainDroite.y);
       return this.axeMainDroite;
     }
 
     public Axe getAxeMainGauche()
     {
-      this.axeMainGauche = new Axe(manette.getRawAxis(BATON_GAUCHE_AXE_X), manette.getRawAxis(BATON_GAUCHE_AXE_Y));
+      this.axeMainGauche = new Axe(manette.getRawAxis(AXE_GAUCHE_X), manette.getRawAxis(AXE_GAUCHE_Y));
       // System.out.println("axe main gauche " + this.axeMainGauche.x + " " + this.axeMainGauche.y);
       this.axeMainGauche.x = this.axeMainGauche.x - BIAIS_AXE_GAUCHE_X;
       return this.axeMainGauche;
@@ -112,16 +112,16 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       return this.boutonRetour;
     }
 
-    public double getPressionMainGauche() 
+    public double getGachetteMainGauche() 
     {
       //System.out.println("Pression main gauche" + manette.getRawAxis(MAIN_GAUCHE_AXE));
-    	return manette.getRawAxis(MAIN_GAUCHE_AXE);
+    	return manette.getRawAxis(GACHETTE_MAIN_GAUCHE);
     }
 
-    public double getPressionMainDroite() 
+    public double getGachetteMainDroite() 
     {
       //System.out.println("Pression main droite" + manette.getRawAxis(MAIN_DROITE_AXE));
-    	return manette.getRawAxis(MAIN_DROITE_AXE);
+    	return manette.getRawAxis(GACHETTE_MAIN_DROITE);
     }
 
     // 1 = droite, 0 tout droit, -1 = gauche

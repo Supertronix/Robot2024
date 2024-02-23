@@ -26,19 +26,20 @@ public interface Materiel {
       public static final int BOUTON_B = 2;
       public static final int BOUTON_X = 3;		
       public static final int BOUTON_Y = 4;
-      public static final int BOUTON_MAIN_GAUCHE = 5; 
-      public static final int BOUTON_MAIN_DROITE = 6;
       public static final int BOUTON_RETOUR = 7;
       public static final int BOUTON_DEMARRER = 8;
       public static final int CROIX_HAUT = 9;
       public static final int CROIX_BAS = 10;
     
-      public static final int BATON_GAUCHE_AXE_X = 0;
-      public static final int BATON_GAUCHE_AXE_Y = 1;
-      public static final int BATON_DROIT_AXE_X = 4;    
-      public static final int BATON_DROIT_AXE_Y = 5;
-      public static final int MAIN_GAUCHE_AXE = 2;
-      public static final int MAIN_DROITE_AXE = 3;
+      public static final int AXE_GAUCHE_X = 0;
+      public static final int AXE_GAUCHE_Y = 1;
+      public static final int AXE_DROIT_X = 4;    
+      public static final int AXE_DROIT_Y = 5;
+      
+      public static final int GACHETTE_MAIN_GAUCHE = 2;
+      public static final int GACHETTE_MAIN_DROITE = 3;
+      public static final int BOUTON_MAIN_GAUCHE = 5; 
+      public static final int BOUTON_MAIN_DROITE = 6;
 
       public enum ANGLE {HAUT, HAUT_DROIT, DROIT, BAS_DROIT, BAS, BAS_GAUCHE, GAUCHE, HAUT_GAUCHE};
         
