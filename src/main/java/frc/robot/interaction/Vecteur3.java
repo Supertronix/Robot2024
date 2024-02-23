@@ -55,9 +55,9 @@ public class Vecteur3 {
 
     public static Vecteur3 Soustraire(Vecteur3 vecteur1, Vecteur3 vecteur2) {
         Vecteur3 resultat = new Vecteur3(vecteur1);
-        resultat.x += vecteur2.x;
-        resultat.y += vecteur2.y;
-        resultat.z += vecteur2.z;
+        resultat.x -= vecteur2.x;
+        resultat.y -= vecteur2.y;
+        resultat.z -= vecteur2.z;
 
         return resultat;
     }
