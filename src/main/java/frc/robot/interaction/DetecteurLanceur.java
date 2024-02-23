@@ -14,11 +14,11 @@ public class DetecteurLanceur implements Materiel.Lanceur.Extension {
         this.capteurMagnetiqueRetraction = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
     }
 
-    public boolean estDeploye()
+    public boolean estOuvert()
     {
         return this.capteurMagnetiqueDeploiement.estActif();
     }
-    public boolean estRetracte()
+    public boolean estFerme()
     {
         return this.capteurMagnetiqueRetraction.estActif();
     }

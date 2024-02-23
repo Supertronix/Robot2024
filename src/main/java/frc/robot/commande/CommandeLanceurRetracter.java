@@ -24,14 +24,14 @@ public class CommandeLanceurRetracter extends Command {
     public void initialize() 
     {
         System.out.println("CommandeLanceurAngleRaccourcir initialize()");
-        lanceurAngle.retracter();
+        lanceurAngle.fermer();
         this.detecteurDuree.initialiser();
     }
 
     @Override
     public void execute() {
-        System.out.println("Capteur deploye " + lanceurAngle.estDeploye() );
-        System.out.println("Capteur retracte " + lanceurAngle.estRetracte() );
+        System.out.println("Capteur deploye " + lanceurAngle.estOuvert() );
+        System.out.println("Capteur retracte " + lanceurAngle.estFerme() );
         this.detecteurDuree.mesurer();
     }
 
@@ -41,7 +41,7 @@ public class CommandeLanceurRetracter extends Command {
     @Override
     public boolean isFinished() 
     {
-        if(lanceurAngle.estRetracte()) return true;
+        if(lanceurAngle.estFerme()) return true;
         if(this.detecteurDuree.estTropLongue()) return true;
         return false;
     }

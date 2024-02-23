@@ -15,7 +15,7 @@ public class Robot {
 
   public ExemplePartieDuRobot partie = new ExemplePartieDuRobot();
   public RouesMecanum roues;
-  public Intake intake;
+  public Avaleur intake;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
   
@@ -37,7 +37,7 @@ public class Robot {
   {
     this.capteurLuminosite = new CapteurLuminosite();
     this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
-    this.intake = new Intake();
+    this.intake = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();

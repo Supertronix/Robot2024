@@ -3,7 +3,7 @@ package frc.robot.commande;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.interaction.CapteurLuminosite;
-import frc.robot.soussysteme.Intake;
+import frc.robot.soussysteme.Avaleur;
 import frc.robot.soussysteme.ConvoyeurBas;
 import frc.robot.soussysteme.ConvoyeurHaut;
 
@@ -12,7 +12,7 @@ import frc.robot.soussysteme.ConvoyeurHaut;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public abstract class CommandeAvaler extends Command {
-    protected Intake intake;
+    protected Avaleur intake;
     protected ConvoyeurBas convoyeurBas;
     protected ConvoyeurHaut convoyeurHaut;
     protected CapteurLuminosite capteurLuminosite;

@@ -16,9 +16,6 @@ public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Ex
     //private DigitalInput capteurDeploiement = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_DEPLOYE);// flippe aussi
     //private DigitalInput capteurRetraction = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
 
-    public static int MOUVEMENT_ANGLE_GAUCHE = 6;
-    public static int MOUVEMENT_ANGLE_DROITE = 1;
-    public static int MOUVEMENT_EXTENSION = 5;
 
     public LanceurExtension() {
         this.detecteurLanceur = new DetecteurLanceur();
@@ -29,29 +26,42 @@ public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Ex
         this.mouvementExtension = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
     }
 
-    public void deployer() {
-        System.out.println("Deployer solenoides");
+    public void deployer()
+    {
+        System.out.println("LanceurExtension.deployer()");
+        this.mouvementExtension.set(true);
+        this.compresseur.enableDigital();
+    }
+    public void retracter()
+    {
+        System.out.println("LanceurExtension.retracter()");
+        this.mouvementExtension.set(false);
+        this.compresseur.enableDigital();
+    }
+    
+    public void ouvrir() {
+        System.out.println("LanceurExtension.ouvrir()");
         this.compresseur.enableDigital();
         this.mouvementAngleGauche.set(true);
         this.mouvementAngleDroite.set(true);
     }
 
-    public void retracter() {
-        System.out.println("Retracter solenoides");
+    public void fermer() {
+        System.out.println("LanceurExtension.fermer()");
         this.compresseur.enableDigital();
         this.mouvementAngleGauche.set(false);
         this.mouvementAngleDroite.set(false);
     }
 
-    public boolean estDeploye()
+    public boolean estOuvert()
     {
         //return this.capteurDeploiement.get();
-        return this.detecteurLanceur.estDeploye();
+        return this.detecteurLanceur.estOuvert();
     }
 
-    public boolean estRetracte()
+    public boolean estFerme()
     {
         //return this.capteurRetraction.get();
-        return this.detecteurLanceur.estRetracte();
+        return this.detecteurLanceur.estFerme();
     }
 }

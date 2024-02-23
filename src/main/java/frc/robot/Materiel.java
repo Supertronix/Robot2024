@@ -57,10 +57,11 @@ public interface Materiel {
     }
 
     // Config intake (entrée notes)
-    public interface Intake
+    public interface Avaleur
     {
       public static final int ID_TALON_INTAKE = 10; // CAN ID Moteur intake
       public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
+      public static int MOUVEMENT_BOUCHE = 2; // PNEUMATIQUE
     }
 
     public interface ConvoyeurBas
@@ -89,7 +90,10 @@ public interface Materiel {
       {
         public static final int PORT_CAPTEUR_MAGNETIQUE_DEPLOYE = 1;
         public static final int PORT_CAPTEUR_MAGNETIQUE_RETRACTE = 2;
-      }
+        public static int MOUVEMENT_ANGLE_GAUCHE = 6;
+        public static int MOUVEMENT_ANGLE_DROITE = 1;
+        public static int MOUVEMENT_EXTENSION = 5;
+       }
     }
 
     public interface TREUIL
