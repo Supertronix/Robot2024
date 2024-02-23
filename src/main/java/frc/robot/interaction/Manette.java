@@ -33,6 +33,8 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
 
         this.commandes = new ArrayList<Command>();
 
+        this.preparerPointDeVue();
+
         //this.boutonPressionMainGauche.setCommande(new CommandeAjusterBras(-0.15));
         //this.boutonPressionMainDroite.setCommande(new CommandeAjusterBras(0.15 ));
         this.boutonPressionMainGauche = new BoutonDeclencheur(this.manette, MAIN_GAUCHE_AXE);

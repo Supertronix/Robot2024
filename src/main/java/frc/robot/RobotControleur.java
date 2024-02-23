@@ -68,7 +68,7 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
-    //manette.activerBoutons(); // autres boutons
+    manette.activerBoutonsTests(); // autres boutons
   }
 
   private int periode;
@@ -77,6 +77,7 @@ public class RobotControleur extends TimedRobot {
     periode++;
 
     robot.cameraLimelight.decoupageCameraDynamique();
+    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
     if((periode % 100) == 0) // pour limiter les logs
     {
@@ -117,26 +118,26 @@ public class RobotControleur extends TimedRobot {
         if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
         return ActionManette.instance;
       };
-      // protected JoystickButton boutonControllerAttrapeur;
   
       //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
       protected ActionManette()
+      {
+        //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
+        this.boutonMainDroite.onTrue(new CommandeLancerHaut());
+        this.boutonMainGauche.onTrue(new CommandeLancerBas());
+        this.boutonDemarrer.onTrue(new CommandeBrasMonter());
+        this.boutonRetour.onTrue(new CommandeBrasDescendre());
+
+        this.povBas.onTrue(new CommandeAvalerAutomatique());
+        this.boutonPressionMainGauche.onTrue(new CommandeAvalerAutomatique());       
+      }
+
+      public void activerBoutonsTests()
       {
           this.boutonB.onTrue(new CommandeLanceurOuvrir());
           this.boutonX.onTrue(new CommandeLanceurFermer());
           this.boutonY.onTrue(new CommandeLanceurAllonger());
           this.boutonA.onTrue(new CommandeLanceurRetracter());
-      }
-
-      public void activerBoutons()
-      {
-        //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
-        this.boutonMainDroite.onTrue(new CommandeLancerHaut());
-        this.boutonMainGauche.onTrue(new CommandeLancerBas());
-        this.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
-        this.getBoutonRetour().onTrue(new CommandeBrasDescendre());
-
-        //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
       }
    
       
@@ -151,25 +152,11 @@ public class RobotControleur extends TimedRobot {
               this.boutonPressionMainDroite.declencher();
           }
 
-    /*
-    //System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
-    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
-
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
-      robot.lanceurAngle.ajusterHaut();
-    }
-    else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
-      robot.lanceurAngle.ajusterBas();
-    }
-     */
       }
       
   }
-  // this.boutonControllerAttrapeur.whenReleased(new CommandeArmerAttrapeur());
   
-          /* 
-          Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
-          this.boutonA.whenPressed(commandeMilieu);
-          */
+  //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
+  //Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
 
 }
