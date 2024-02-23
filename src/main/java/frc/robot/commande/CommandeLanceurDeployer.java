@@ -5,12 +5,15 @@ import frc.robot.Materiel;
 import frc.robot.Robot;
 import frc.robot.RobotControleur;
 import frc.robot.interaction.Manette;
+import frc.robot.mesure.DetecteurDuree;
 import frc.robot.soussysteme.Bras;
 import frc.robot.soussysteme.LanceurAngle;
 
 public class CommandeLanceurDeployer extends Command {
     protected LanceurAngle lanceurAngle;
-    
+    protected static final int DUREE = 10000;
+    protected DetecteurDuree detecteurDuree;
+
     //protected Manette manette;
 
     public CommandeLanceurDeployer()
@@ -18,6 +21,7 @@ public class CommandeLanceurDeployer extends Command {
         System.out.println("new CommandeLanceurAngleAllonger()");
         this.lanceurAngle = Robot.getInstance().lanceurAngle;
         addRequirements(this.lanceurAngle);
+        this.detecteurDuree = new DetecteurDuree(DUREE);
     }
        
     @Override
@@ -25,12 +29,14 @@ public class CommandeLanceurDeployer extends Command {
     {
         System.out.println("CommandeLanceurAngleAllonger initialize()");
         lanceurAngle.deployer();
+        this.detecteurDuree.initialiser();
     }
 
     @Override
     public void execute() {
         System.out.println("Capteur deploye " + lanceurAngle.estDeploye() );
         System.out.println("Capteur retracte " + lanceurAngle.estRetracte() );
+        this.detecteurDuree.mesurer();
     }
 
     /** 
@@ -40,7 +46,7 @@ public class CommandeLanceurDeployer extends Command {
     public boolean isFinished() 
     {
         if(lanceurAngle.estDeploye()) return true;
-        // t
+        if(this.detecteurDuree.estTropLongue()) return true;
         return false;
     }
 
