@@ -7,33 +7,40 @@ import frc.robot.interaction.DetecteurLanceur;
 import edu.wpi.first.wpilibj.Compressor;
 
 public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Extension{
-    private Solenoid solenoideGauche;
-    private Solenoid solenoideDroite;
+    private Solenoid mouvementAngleGauche;
+    private Solenoid mouvementAngleDroite;
+    private Solenoid mouvementExtension;
     private Compressor compresseur;
 
     public DetecteurLanceur detecteurLanceur;  // PUBLIC
     //private DigitalInput capteurDeploiement = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_DEPLOYE);// flippe aussi
     //private DigitalInput capteurRetraction = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
 
+    public static int MOUVEMENT_ANGLE_GAUCHE = 6;
+    public static int MOUVEMENT_ANGLE_DROITE = 1;
+    public static int MOUVEMENT_EXTENSION = 5;
+
     public LanceurExtension() {
         this.detecteurLanceur = new DetecteurLanceur();
-        this.solenoideGauche = new Solenoid(21, PneumaticsModuleType.CTREPCM, 6);
-        this.solenoideDroite = new Solenoid(21, PneumaticsModuleType.CTREPCM, 4);
         this.compresseur = new Compressor(21, PneumaticsModuleType.CTREPCM);
+
+        this.mouvementAngleGauche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
+        this.mouvementAngleDroite = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
+        this.mouvementExtension = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
     }
 
     public void deployer() {
         System.out.println("Deployer solenoides");
         this.compresseur.enableDigital();
-        this.solenoideGauche.set(true);
-        this.solenoideDroite.set(true);
+        this.mouvementAngleGauche.set(true);
+        this.mouvementAngleDroite.set(true);
     }
 
     public void retracter() {
         System.out.println("Retracter solenoides");
         this.compresseur.enableDigital();
-        this.solenoideGauche.set(false);
-        this.solenoideDroite.set(false);
+        this.mouvementAngleGauche.set(false);
+        this.mouvementAngleDroite.set(false);
     }
 
     public boolean estDeploye()

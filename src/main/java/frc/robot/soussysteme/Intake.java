@@ -2,6 +2,9 @@ package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
@@ -11,8 +14,12 @@ public class Intake extends SousSysteme implements Materiel.Intake
     protected boolean estActif; // toggle
 
     protected MoteurTalon moteur;
+    protected Solenoid mouvementBouche;
+    public static int MOUVEMENT_BOUCHE = 2;
 
     public Intake() {
+        //this.compresseur = new Compressor(21, PneumaticsModuleType.CTREPCM); - singleton
+        this.mouvementBouche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_BOUCHE);
         moteur = new MoteurTalon(ID_TALON_INTAKE);
         moteur.setInverted(true);
     }
