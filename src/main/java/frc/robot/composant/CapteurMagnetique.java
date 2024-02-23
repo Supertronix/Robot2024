@@ -13,7 +13,7 @@ public class CapteurMagnetique extends DigitalInput{
     /** 
      * @return True si la luminosité est faible, false sinon
      */
-    public boolean estActive()
+    public boolean estActif()
     {
         return this.get();
     }

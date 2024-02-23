@@ -18,6 +18,7 @@ public class Robot {
   public Intake intake;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
+  
   public Lanceur lanceur;
   public LanceurExtension lanceurExtension;
   public Bras bras;
@@ -25,8 +26,6 @@ public class Robot {
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
   public CapteurLuminosite capteurLuminosite;
-  public CapteurMagnetiqueHaut capteurMagnetiqueHaut;
-  public CapteurMagnetiqueBas capteurMagnetiqueBas;
   public ShuffleBoard shuffleBoard;
   private boolean estAllianceRouge = true;
   private boolean verrouChangementAlliance = false;
