@@ -2,10 +2,10 @@ package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Materiel;
+import frc.robot.composant.Compresseur;
 import frc.robot.composant.MoteurTalon;
 
 // L'intake qui permet de faire rentrer les notes, fonctionne avec un Talon SRX
@@ -15,9 +15,10 @@ public class Avaleur extends SousSysteme implements Materiel.Avaleur
 
     protected MoteurTalon moteurIntake;
     protected Solenoid mouvementBouche;
+    protected Compresseur compresseur;
 
     public Avaleur() {
-        //this.compresseur = new Compressor(21, PneumaticsModuleType.CTREPCM); - singleton
+        this.compresseur = this.compresseur = Compresseur.getInstance();
         this.mouvementBouche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_BOUCHE);
         moteurIntake = new MoteurTalon(ID_TALON_INTAKE);
         moteurIntake.setInverted(true);
