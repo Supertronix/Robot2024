@@ -3,14 +3,11 @@ package frc.robot.commande;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Materiel;
 import frc.robot.Robot;
-import frc.robot.RobotControleur;
-import frc.robot.interaction.Manette;
 import frc.robot.mesure.DetecteurDuree;
-import frc.robot.soussysteme.Bras;
-import frc.robot.soussysteme.LanceurAngle;
+import frc.robot.soussysteme.LanceurExtension;
 
 public class CommandeLanceurRetracter extends Command {
-    protected LanceurAngle lanceurAngle;
+    protected LanceurExtension lanceurAngle;
     //protected Manette manette;
     protected DetecteurDuree detecteurDuree;
     protected static final int DUREE = 10000;
@@ -18,7 +15,7 @@ public class CommandeLanceurRetracter extends Command {
     public CommandeLanceurRetracter()
     {
         System.out.println("new CommandeLanceurAngleRaccourcir()");
-        this.lanceurAngle = Robot.getInstance().lanceurAngle;
+        this.lanceurAngle = Robot.getInstance().lanceurExtension;
         addRequirements(this.lanceurAngle);
         this.detecteurDuree = new DetecteurDuree(DUREE);
     }

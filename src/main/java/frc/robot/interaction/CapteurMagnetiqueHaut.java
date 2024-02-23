@@ -1,22 +1,12 @@
 package frc.robot.interaction;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.Materiel;
+import frc.robot.composant.CapteurMagnetique;
 
-public class CapteurMagnetiqueHaut {
-    private static DigitalInput input;
-
+public class CapteurMagnetiqueHaut extends CapteurMagnetique {
 
     public CapteurMagnetiqueHaut()
     {
-        // Initalisation du capteur de luminosité
-        input = new DigitalInput(2);
-    }
-    
-    /** 
-     * @return True si la luminosité est faible, false sinon
-     */
-    public boolean estActive()
-    {
-        return input.get();
-    }
+        super(Materiel.Lanceur.Extension.PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
+    }    
 }

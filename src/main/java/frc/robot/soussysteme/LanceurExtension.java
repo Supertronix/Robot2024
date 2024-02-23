@@ -2,20 +2,20 @@ package frc.robot.soussysteme;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.Materiel;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class LanceurAngle extends SousSysteme{
+public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Extension{
     private Solenoid solenoideGauche;
     private Solenoid solenoideDroite;
     private Compressor compresseur;
-    private DigitalInput capteurMagnetiquePositionDeploye = new DigitalInput(1);// flippe aussi
-    private DigitalInput capteurMagnetiquePositionRetracte = new DigitalInput(2);
+    private DigitalInput capteurMagnetiquePositionDeploye = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_DEPLOYE);// flippe aussi
+    private DigitalInput capteurMagnetiquePositionRetracte = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
     //this.capteurMagnetiqueHaut = new CapteurMagnetiqueHaut();
     //this.capteurMagnetiqueBas = new CapteurMagnetiqueBas();
     
-
-    public LanceurAngle() {
+    public LanceurExtension() {
         this.solenoideGauche = new Solenoid(21, PneumaticsModuleType.CTREPCM, 6);
         this.solenoideDroite = new Solenoid(21, PneumaticsModuleType.CTREPCM, 4);
         this.compresseur = new Compressor(21, PneumaticsModuleType.CTREPCM);
