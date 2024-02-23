@@ -78,7 +78,7 @@ public class RobotControleur extends TimedRobot {
 
     robot.cameraLimelight.decoupageCameraDynamique();
 
-    if((periode % 100) == 0)
+    if((periode % 100) == 0) // pour limiter les logs
     {
       String etatCapteurMagnetiqueHaut = "capteur magnetique haut " + ((robot.capteurMagnetiqueHaut.estActive())?"actif":"non actif");
       System.out.println(etatCapteurMagnetiqueHaut);
@@ -157,7 +157,6 @@ public class RobotControleur extends TimedRobot {
         //manette.getBoutonX().toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
         this.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
         this.getBoutonRetour().onTrue(new CommandeBrasDescendre());
-    
       }
    
       
