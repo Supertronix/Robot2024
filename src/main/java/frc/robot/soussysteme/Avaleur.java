@@ -18,7 +18,7 @@ public class Avaleur extends SousSysteme implements Materiel.Avaleur
     protected Compresseur compresseur;
 
     public Avaleur() {
-        this.compresseur = this.compresseur = Compresseur.getInstance();
+        this.compresseur = Compresseur.getInstance();
         this.mouvementBouche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_BOUCHE);
         moteurIntake = new MoteurTalon(ID_TALON_INTAKE);
         moteurIntake.setInverted(true);
