@@ -76,16 +76,16 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
-    robot.cameraLimelight.decoupageCameraDynamique();
-    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+    //robot.cameraLimelight.decoupageCameraDynamique();
+    //robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
-    if((periode % 100) == 0) // pour limiter les logs
-    {
-      String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
-      System.out.println(etatLanceurDeploye);
-      String etatLanceurRetracte = "capteur magnetique bas (non flippe)" + ((robot.lanceurExtension.estFerme())?"ferne":"non ferme");
-      System.out.println(etatLanceurRetracte);
-    }
+    //if((periode % 100) == 0) // pour limiter les logs
+    //{
+    //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
+    //  System.out.println(etatLanceurDeploye);
+    //  String etatLanceurRetracte = "capteur magnetique bas (non flippe)" + ((robot.lanceurExtension.estFerme())?"ferne":"non ferme");
+    //  System.out.println(etatLanceurRetracte);
+    //}
   }
 
   @Override
@@ -122,6 +122,7 @@ public class RobotControleur extends TimedRobot {
       //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
       protected ActionManette()
       {
+        System.out.println("new ActionManette()");
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         this.boutonMainDroite.onTrue(new CommandeLancerHaut());
         this.boutonMainGauche.onTrue(new CommandeLancerBas());

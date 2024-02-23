@@ -9,13 +9,13 @@ import frc.robot.interaction.Manette;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvalerTeleop extends CommandeAvaler {
-    protected Manette manette;
+    //protected RobotControleur.ActionManette manette;
 
     public CommandeAvalerTeleop()
     {
         super();
         System.out.println("new CommandeAvalerTeleop()");
-        this.manette = RobotControleur.ActionManette.getInstance();
+        //this.manette = RobotControleur.ActionManette.getInstance();
     }
        
     @Override
@@ -39,8 +39,8 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
         if (this.capteurLuminosite.getLuminosite())
             return true;
 
-        if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_A))
-            return false;
+        //if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_A))
+        //    return false;
 
         return true;
     }

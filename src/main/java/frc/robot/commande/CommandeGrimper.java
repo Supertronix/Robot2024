@@ -15,7 +15,7 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
     {
         System.out.println("new CommandeGrimper()");
         this.bras = Robot.getInstance().bras;
-        this.manette = RobotControleur.ActionManette.getInstance();
+        //this.manette = RobotControleur.ActionManette.getInstance();
     }
        
     @Override
@@ -34,8 +34,8 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
     @Override
     public boolean isFinished() 
     {
-        if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_RETOUR))
-            return false;
+        //if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_RETOUR))
+        //    return false;
 
         return true;
     }

@@ -15,7 +15,7 @@ public class CommandeGrimpageRedescendre extends Command {
     {
         System.out.println("new CommandeGrimpageRedescendre()");
         this.bras = Robot.getInstance().bras;
-        this.manette = RobotControleur.ActionManette.getInstance();
+        //this.manette = RobotControleur.ActionManette.getInstance();
     }
        
     @Override
@@ -34,8 +34,8 @@ public class CommandeGrimpageRedescendre extends Command {
     @Override
     public boolean isFinished() 
     {
-        if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_DEMARRER))
-            return false;
+        //if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_DEMARRER))
+        //    return false;
 
         return true;
     }
