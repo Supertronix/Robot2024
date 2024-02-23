@@ -134,8 +134,8 @@ public class RobotControleur extends TimedRobot {
           this.boutonX.whenPressed(commandeArriere);
           */
 
-          this.getBoutonY().onTrue(new CommandeLanceurDeployer());
-          this.getBoutonX().onTrue(new CommandeLanceurRetracter());
+          this.getBoutonY().onTrue(new CommandeLanceurOuvrir());
+          this.getBoutonX().onTrue(new CommandeLanceurFermer());
   
       }
 

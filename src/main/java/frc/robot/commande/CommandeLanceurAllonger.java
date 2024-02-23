@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.soussysteme.LanceurExtension;
 
-public class CommandeLanceurRetracter extends Command {
+public class CommandeLanceurAllonger extends Command {
     protected LanceurExtension lancerurExtension;
     //protected Manette manette;
 
-    public CommandeLanceurRetracter()
+    public CommandeLanceurAllonger()
     {
-        System.out.println("new CommandeLanceurRetracter()");
+        System.out.println("new CommandeLanceurAllonger()");
         this.lancerurExtension = Robot.getInstance().lanceurExtension;
         addRequirements(this.lancerurExtension);
     }
@@ -18,7 +18,7 @@ public class CommandeLanceurRetracter extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeLanceurRetracter.initialize()");
+        System.out.println("CommandeLanceurAllonger.initialize()");
         lancerurExtension.allonger();
     }
 
@@ -37,6 +37,6 @@ public class CommandeLanceurRetracter extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeLanceurRetracter.end()");
+        System.out.println("CommandeLanceurAllonger.end()");
     }
 }
