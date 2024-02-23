@@ -44,7 +44,7 @@ public class Vecteur3 {
     /*
      * Méthode statique qui additionne deux vecteurs entre eux
      */
-    public static Vecteur3 Ajouter(Vecteur3 vecteur1, Vecteur3 vecteur2) {
+    public static Vecteur3 Additionner(Vecteur3 vecteur1, Vecteur3 vecteur2) {
         Vecteur3 resultat = new Vecteur3(vecteur1);
         resultat.x += vecteur2.x;
         resultat.y += vecteur2.y;
@@ -53,10 +53,19 @@ public class Vecteur3 {
         return resultat;
     }
 
+    public static Vecteur3 Soustraire(Vecteur3 vecteur1, Vecteur3 vecteur2) {
+        Vecteur3 resultat = new Vecteur3(vecteur1);
+        resultat.x += vecteur2.x;
+        resultat.y += vecteur2.y;
+        resultat.z += vecteur2.z;
+
+        return resultat;
+    }
+    
     /*
      * Méthode statique qui multiplie un vecteur par un scalaire
      */
-    public static Vecteur3 Multiplier(Vecteur3 vecteur1, double scalaire) {
+    public static Vecteur3 produitScalaire(Vecteur3 vecteur1, double scalaire) {
         Vecteur3 resultat = new Vecteur3(vecteur1);
         resultat.x *= scalaire;
         resultat.y *= scalaire;
@@ -65,14 +74,11 @@ public class Vecteur3 {
         return resultat;
     }
 
-    /*
-     * Méthode statique qui multiplie deux vecteurs entre eux
-     */
-    public static Vecteur3 ProduitScalaire(Vecteur3 vecteur1, Vecteur3 vecteur2) {
-        Vecteur3 resultat = new Vecteur3(vecteur1);
+    public Vecteur3 normaliser(){
+        return Vecteur3.produitScalaire(this, 1/getLongueur());
+    }
 
-
-
-        return resultat;
+    public String toString(){
+        return "x : " + x + ", y : " + y + ", z : " + z;
     }
 }
