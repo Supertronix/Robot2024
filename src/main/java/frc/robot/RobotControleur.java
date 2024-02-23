@@ -6,12 +6,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commande.CommandeAvalerAutonomous;
-import frc.robot.commande.CommandeAvalerTeleop;
-import frc.robot.commande.CommandeBrasDescendre;
-import frc.robot.commande.CommandeBrasMonter;
-import frc.robot.commande.CommandeLancerHaut;
-import frc.robot.commande.MouvementDuRobot;
+import frc.robot.commande.*;
 import frc.robot.soussysteme.*;
 import frc.robot.interaction.*;
 
@@ -75,6 +70,7 @@ public class RobotControleur extends TimedRobot {
     
     manette.getBoutonA().toggleOnTrue(new CommandeAvalerTeleop());    
     manette.getBoutonB().onTrue(new CommandeLancerHaut());
+    //manette.getBoutonX().toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
     manette.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
     manette.getBoutonRetour().onTrue(new CommandeBrasDescendre());
 
@@ -98,6 +94,16 @@ public class RobotControleur extends TimedRobot {
       robot.lanceurAngle.ajusterBas();
     }
      */
+
+
+    if (Robot.getInstance().capteurMagnetiqueHaut.estActive()) {
+      System.out.println("capteur magnetique haut active");
+    } else {
+      System.out.println("capteur magnetique haut non active");
+    }
+    //if (Robot.getInstance().capteurMagnetiqueBas.estActive()) {
+    //  System.out.println("capteur magnetique bas active");
+    //}
 
 
     Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
