@@ -69,10 +69,9 @@ public class RobotControleur extends TimedRobot {
 
 
     System.out.println("teleopInit()");
-    ((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques();
-    ((RouesMecanumSynchro)robot.roues).setFacteur(1); // 0.8
+    //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
+    robot.roues.setFacteur(1); // 0.8
     
-
     //    if (trajetAutonome != null) {
      // trajetAutonome.cancel();
     //}

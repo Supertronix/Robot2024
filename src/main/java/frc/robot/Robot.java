@@ -14,8 +14,7 @@ import java.util.Optional;
 public class Robot {
 
   public PartieDuRobot partie = new PartieDuRobot();
-  public Roues roues;
-  public RouesMecanum rouesMecanum;
+  public RouesMecanum roues;
   public Intake intake;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
