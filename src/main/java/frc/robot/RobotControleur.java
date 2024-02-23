@@ -18,13 +18,13 @@ import frc.robot.interaction.*;
 public class RobotControleur extends TimedRobot {
 
   private Robot robot;
-  private Manette manette;
+  private ActionManette manette;
   //private Command trajetAutonome;
 
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    this.manette = RobotControleur.ActionManette.getInstance();
+    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
     this.robot.shuffleBoard.initialiser();
 
@@ -64,15 +64,13 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopInit() {
 
+
+
+
     System.out.println("teleopInit()");
     ((RouesMecanumSynchro)Robot.getInstance().roues).convertirEnRouesHolonomiques();
     ((RouesMecanumSynchro)Robot.getInstance().roues).setFacteur(1); // 0.8
     
-    manette.getBoutonA().toggleOnTrue(new CommandeAvalerTeleop());    
-    manette.getBoutonB().onTrue(new CommandeLancerHaut());
-    //manette.getBoutonX().toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
-    manette.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
-    manette.getBoutonRetour().onTrue(new CommandeBrasDescendre());
 
     //    if (trajetAutonome != null) {
      // trajetAutonome.cancel();
@@ -83,17 +81,8 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     //System.out.println("teleopPeriodic()");
 
-    /*
-    //System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
-    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
-
-    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
-      robot.lanceurAngle.ajusterHaut();
-    }
-    else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
-      robot.lanceurAngle.ajusterBas();
-    }
-     */
+    Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
+    manette.activerBoutons();
 
 
     if (Robot.getInstance().capteurMagnetiqueHaut.estActive()) {
@@ -101,13 +90,10 @@ public class RobotControleur extends TimedRobot {
     } else {
       System.out.println("capteur magnetique haut non active");
     }
+
     //if (Robot.getInstance().capteurMagnetiqueBas.estActive()) {
     //  System.out.println("capteur magnetique bas active");
     //}
-
-
-    Robot.getInstance().cameraLimelight.decoupageCameraDynamique();
-
     // test
     //Robot.getInstance().convoyeur2.setVitesse(0.2);
   }
@@ -174,7 +160,18 @@ public class RobotControleur extends TimedRobot {
           */
   
       }
+
+      public void activerBoutons()
+      {
+        this.getBoutonA().toggleOnTrue(new CommandeAvalerTeleop());    
+        this.getBoutonB().onTrue(new CommandeLancerHaut());
+        //manette.getBoutonX().toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
+        this.getBoutonDemarrer().onTrue(new CommandeBrasMonter());
+        this.getBoutonRetour().onTrue(new CommandeBrasDescendre());
+    
+      }
    
+      
       public void executerActions()
       {
         if(this.boutonPressionMainGauche.getAsBoolean())
@@ -185,6 +182,18 @@ public class RobotControleur extends TimedRobot {
           {
               this.boutonPressionMainDroite.declencher();
           }
+
+    /*
+    //System.out.println(" ly: " + this.manette.getAxeMainGauche().y + " lx: " + this.manette.getAxeMainGauche().x + " rx: " + this.manette.getAxeMainDroite().x);
+    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+
+    if (manette.getBoutonPresse(Materiel.Manette.BOUTON_X)) {
+      robot.lanceurAngle.ajusterHaut();
+    }
+    else if (manette.getBoutonPresse(Materiel.Manette.BOUTON_Y)) {
+      robot.lanceurAngle.ajusterBas();
+    }
+     */
       }
       
   }
