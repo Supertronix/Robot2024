@@ -58,7 +58,7 @@ public class RobotControleur extends TimedRobot {
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
     manette.activerBoutons();
-    manette.activerBoutonsTests(); // autres boutons
+    manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
   }
 
   @Override
