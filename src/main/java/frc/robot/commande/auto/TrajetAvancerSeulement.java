@@ -6,7 +6,7 @@ public class TrajetAvancerSeulement extends SequentialCommandGroup{
 	
 	public TrajetAvancerSeulement()
 	{
-		//addSequential(new CommandeRouesAvancer(5350));
+		//addCommands(new CommandeRouesAvancer(5350));
 	}
 	
 }
