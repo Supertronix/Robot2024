@@ -1,5 +1,8 @@
 package frc.robot;
 
+/*
+ * Interface pour configurer les VITESSE, SEUIL, BIAIS, PID, DUREE et autre constantes de cinematique
+ */
 public interface Cinematique {
     public static double DISTANCE_NULLE = 2; 
     public static int INTERVALLE_IMMOBILITE = 250;
