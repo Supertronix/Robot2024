@@ -22,9 +22,9 @@ public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Ex
         this.detecteurLanceur = new DetecteurLanceur();
         this.compresseur = Compresseur.getInstance();
 
-        this.mouvementAngleGauche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
-        this.mouvementAngleDroite = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
-        this.mouvementExtension = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
+        this.mouvementAngleGauche = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
+        this.mouvementAngleDroite = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
+        this.mouvementExtension   = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
     }
 
     public void allonger()

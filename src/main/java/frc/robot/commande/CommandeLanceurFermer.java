@@ -2,13 +2,13 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.mesure.DetecteurDuree;
+import frc.robot.mesure.LimiteurDuree;
 import frc.robot.soussysteme.LanceurExtension;
 
 public class CommandeLanceurFermer extends Command {
     protected LanceurExtension lanceurExtension;
     //protected Manette manette;
-    protected DetecteurDuree detecteurDuree;
+    protected LimiteurDuree detecteurDuree;
     protected static final int DUREE = 1000;
 
     public CommandeLanceurFermer()
@@ -16,7 +16,7 @@ public class CommandeLanceurFermer extends Command {
         System.out.println("new CommandeLanceurFermer()");
         this.lanceurExtension = Robot.getInstance().lanceurExtension;
         addRequirements(this.lanceurExtension);
-        this.detecteurDuree = new DetecteurDuree(DUREE);
+        this.detecteurDuree = new LimiteurDuree(DUREE);
     }
        
     @Override

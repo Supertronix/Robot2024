@@ -5,21 +5,21 @@ import frc.robot.composant.CapteurMagnetique;
 
 public class DetecteurLanceur implements Materiel.Lanceur.Extension {
 
-    protected CapteurMagnetique capteurMagnetiqueDeploiement;
-    protected CapteurMagnetique capteurMagnetiqueRetraction;
+    protected CapteurMagnetique capteurMagnetiqueOuverture;
+    protected CapteurMagnetique capteurMagnetiqueFermeture;
 
     public DetecteurLanceur()
     {
-        this.capteurMagnetiqueDeploiement = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_DEPLOYE);
-        this.capteurMagnetiqueRetraction = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
+        this.capteurMagnetiqueOuverture = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_OUVERTURE);
+        this.capteurMagnetiqueFermeture = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_FERMETURE);
     }
 
     public boolean estOuvert()
     {
-        return this.capteurMagnetiqueDeploiement.estActif();
+        return this.capteurMagnetiqueOuverture.estActif();
     }
     public boolean estFerme()
     {
-        return this.capteurMagnetiqueRetraction.estActif();
+        return this.capteurMagnetiqueFermeture.estActif();
     }
 }

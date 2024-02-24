@@ -2,13 +2,17 @@ package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
+import frc.robot.Cinematique;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
-public class Bras implements Materiel.TREUIL {
+public class Bras implements Materiel.Bras, Cinematique.Bras {
     protected boolean actif;
-
     protected MoteurTalon moteur;
+
+    // TODO peut-etre enum
+    public static boolean ACTION_MONTER = false;
+    public static boolean ACTION_DESCENDRE = true;
 
     public Bras() {
         actif = false;
@@ -16,10 +20,10 @@ public class Bras implements Materiel.TREUIL {
     }
 
      public void descendre() {
-        this.activer(true);
+        this.activer(ACTION_DESCENDRE);
     }
      public void monter() {
-        this.activer(false);
+        this.activer(ACTION_MONTER);
     }
      public void descendreSelonVitesse(double vitesse) {
         this.activerSelonVitesse(true,vitesse);

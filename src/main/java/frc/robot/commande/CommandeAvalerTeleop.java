@@ -26,7 +26,7 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
     }
     @Override
     public void execute() {
-        System.out.println("CommandeAvalerTeleop.execute()");
+        //System.out.println("CommandeAvalerTeleop.execute()");
         super.execute();
     }
 
@@ -43,5 +43,9 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
         //    return false;
 
         return true;
+    }
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeAvalerTeleop.end()");
     }
 }
