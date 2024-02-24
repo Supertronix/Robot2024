@@ -86,8 +86,8 @@ public interface Materiel {
       public interface Extension
       {
         public static final int ID_MODULE_PNEUMATIQUE = 21;
-        public static final int PORT_CAPTEUR_MAGNETIQUE_DEPLOYE = 1;
-        public static final int PORT_CAPTEUR_MAGNETIQUE_RETRACTE = 2;
+        public static final int PORT_CAPTEUR_MAGNETIQUE_OUVERTURE = 1;
+        public static final int PORT_CAPTEUR_MAGNETIQUE_FERMETURE = 2;
         public static int MOUVEMENT_ANGLE_GAUCHE = 6;
         public static int MOUVEMENT_ANGLE_DROITE = 1;
         public static int MOUVEMENT_EXTENSION = 5;

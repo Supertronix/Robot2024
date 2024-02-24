@@ -10,8 +10,8 @@ public class DetecteurLanceur implements Materiel.Lanceur.Extension {
 
     public DetecteurLanceur()
     {
-        this.capteurMagnetiqueDeploiement = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_DEPLOYE);
-        this.capteurMagnetiqueRetraction = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_RETRACTE);
+        this.capteurMagnetiqueDeploiement = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_OUVERTURE);
+        this.capteurMagnetiqueRetraction = new CapteurMagnetique(PORT_CAPTEUR_MAGNETIQUE_FERMETURE);
     }
 
     public boolean estOuvert()
