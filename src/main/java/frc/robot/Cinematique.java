@@ -30,13 +30,9 @@ public interface Cinematique {
     {
       public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
     }
-    public interface ConvoyeurHaut
+    public interface Convoyeurs
     {
       public static final double VITESSE_TALON_CONVOYEUR = 0.5; // Vitesse par défaut moteur convoyeur
-    }
-    public interface ConvoyeurBas
-    {  
-      public static final double VITESSE_TALON_CONVOYEUR = 0.5;
     }
     public interface Lanceur
     {

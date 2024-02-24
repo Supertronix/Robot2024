@@ -8,7 +8,7 @@ import frc.robot.composant.MoteurTalon;
 
 // Le premier convoyeur qui transporte la note du convoyeur 1 au convoyeur 2
 // Fonctionne avec 2 talons SRX
-public class ConvoyeurBas extends SousSysteme implements Materiel.ConvoyeurBas, Cinematique.ConvoyeurBas {
+public class ConvoyeurBas extends SousSysteme implements Materiel.ConvoyeurBas, Cinematique.Convoyeurs {
     protected boolean actif;
 
     protected MoteurTalon moteurTalonMaitre;
