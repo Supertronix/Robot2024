@@ -3,7 +3,7 @@ package frc.robot.mesure;
 import frc.robot.Cinematique;
 
 
-public class DetecteurImmobilite implements Cinematique.Bras{
+public class DetecteurImmobilite implements Cinematique{
 
 	protected Immobilisable objet;
 	protected double tempsDernier; 

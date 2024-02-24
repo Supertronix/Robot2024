@@ -3,11 +3,12 @@ package frc.robot.soussysteme;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Cinematique;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurSparkMax;
 
 // Le lanceur du robot, composé de 2 moteurs SparkMAX
-public class Lanceur extends SousSysteme implements Materiel.Lanceur {
+public class Lanceur extends SousSysteme implements Materiel.Lanceur, Cinematique.Lanceur {
     protected boolean actif;
 
     protected MoteurSparkMax moteurMaitre;

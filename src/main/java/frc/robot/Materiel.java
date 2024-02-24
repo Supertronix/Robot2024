@@ -1,7 +1,9 @@
 package frc.robot;
 import java.util.Map;
 import static java.util.Map.entry; 
-
+/*
+ * Fichier qui prend en note les constantes de ports et id dans le mapping Electro
+ */
 public interface Materiel {
 
     public static int COMPRESSEUR_MODULE = 21;
@@ -56,11 +58,9 @@ public interface Materiel {
     
     }
 
-    // Config intake (entrée notes)
-    public interface Avaleur
+    public interface Avaleur // entrée notes
     {
       public static final int ID_TALON_INTAKE = 10; // CAN ID Moteur intake
-      public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
       public static int MOUVEMENT_BOUCHE = 2; // PNEUMATIQUE
     }
 
@@ -68,7 +68,6 @@ public interface Materiel {
     {  
       public static final int ID_TALON_CONVOYEUR_MAITRE = 16;
       public static final int ID_TALON_CONVOYEUR_ESCLAVE = 13;
-      public static final double VITESSE_TALON_CONVOYEUR = 0.5;
     }
 
     public interface ConvoyeurHaut
@@ -76,8 +75,6 @@ public interface Materiel {
       public static final int ID_TALON_CONVOYEUR_MAITRE = 14; // CAN ID Moteur convoyeur
       public static final boolean INVERSION_TALON_CONVOYEUR_MAITRE = true;
       public static final int ID_TALON_CONVOYEUR_ESCLAVE = 15; // CAN ID Moteur convoyeur
-      public static final double VITESSE_TALON_CONVOYEUR = 0.5; // Vitesse par défaut moteur convoyeur
-
     }
 
     // Config lanceur (pour lancer les notes)
@@ -85,7 +82,7 @@ public interface Materiel {
     {
       public static final int ID_LANCEUR_MAITRE = 5;
       public static final int ID_LANCEUR_ESCLAVE = 6;
-      public static final double VITESSE_LANCEUR = 0.5;
+
       public interface Extension
       {
         public static final int ID_MODULE_PNEUMATIQUE = 21;
@@ -98,10 +95,9 @@ public interface Materiel {
        }
     }
 
-    public interface TREUIL
+    public interface Bras
     {
       public static final int ID_TREUIL = 11;
-      public static final double VITESSE_TREUIL = 1.0;
     }
     
 }

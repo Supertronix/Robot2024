@@ -4,12 +4,13 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.Cinematique;
 import frc.robot.Materiel;
 import frc.robot.composant.Compresseur;
 import frc.robot.composant.MoteurTalon;
 
 // L'intake qui permet de faire rentrer les notes, fonctionne avec un Talon SRX
-public class Avaleur extends SousSysteme implements Materiel.Avaleur
+public class Avaleur extends SousSysteme implements Materiel.Avaleur, Cinematique.Avaleur
 {
     protected boolean estActif; // toggle
 

@@ -1,12 +1,14 @@
 package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+
+import frc.robot.Cinematique;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
 // Le deuxième convoyeur qui transporte la note du convoyeur 1 à l'intake
 // Fonctionne avec 2 talons SRX
-public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut {
+public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut, Cinematique.ConvoyeurHaut {
     protected boolean actif;
 
     protected MoteurTalon moteurTalonMaitre;

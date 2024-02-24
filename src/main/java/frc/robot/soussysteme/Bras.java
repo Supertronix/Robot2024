@@ -2,10 +2,11 @@ package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
+import frc.robot.Cinematique;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
-public class Bras implements Materiel.TREUIL {
+public class Bras implements Materiel.Bras, Cinematique.Bras {
     protected boolean actif;
     protected MoteurTalon moteur;
 

@@ -1,27 +1,73 @@
 package frc.robot;
 
-//import java.util.Map;
-//import static java.util.Map.entry; 
-
 public interface Cinematique {
+    public static double DISTANCE_NULLE = 2; 
+    public static int INTERVALLE_IMMOBILITE = 250;
 
-    public interface Roues
-    {
-      public double FACTEUR_ROUES = 1; // 0.7
-    }
     public interface Manette
     {
       enum Direction {DEVANT, DERRIERE, LATERAL_DROIT, LATERAL_GAUCHE, ROTATION_DROITE, ROTATION_GAUCHE};
 
       public static final double SEUIL_ZERO = 0.09; // 0.02 // 0.08
       public static final double SEUIL_AXES_OPPOSES = 0.3;
-      //static double BIAIS_AXE_GAUCHE_X = 0.06299212574958801;
-      //static double BIAIS_AXE_GAUCHE_Y = -0.06299212574958801;
-      static double BIAIS_AXE_GAUCHE_X = 0;
-      static double BIAIS_AXE_GAUCHE_Y = -0;
+      public static double BIAIS_AXE_GAUCHE_X = 0;
+      public static double BIAIS_AXE_GAUCHE_Y = -0;
+      //public static double BIAIS_AXE_GAUCHE_X = 0.06299212574958801;
+      //public static double BIAIS_AXE_GAUCHE_Y = -0.06299212574958801;
     } 
+    public interface Roues
+    {
+      public double FACTEUR_ROUES = 1; // 0.7
+    }
     public interface Bras
     {
+      public static final double VITESSE_TREUIL = 1.0;
+    }
+    public interface Avaleur // entrée notes
+    {
+      public static final double VITESSE_TALON_INTAKE = 0.5; // Vitesse par défaut moteur intake
+    }
+    public interface ConvoyeurHaut
+    {
+      public static final double VITESSE_TALON_CONVOYEUR = 0.5; // Vitesse par défaut moteur convoyeur
+    }
+    public interface ConvoyeurBas
+    {  
+      public static final double VITESSE_TALON_CONVOYEUR = 0.5;
+    }
+    public interface Lanceur
+    {
+      public static final double VITESSE_LANCEUR = 0.5;
+    }    
+}
+
+
+
+
+
+
+
+
+/* 
+public interface Machoire
+{
+  public double VITESSE = 1;
+  public double VITESSE_OUVRIR = 0.5;
+  public double VITESSE_FERMER = 0.5;
+  public double TEMPS_MAXIMUM_OUVRIR = 1000; // ms
+  public double TEMPS_MAXIMUM_FERMER = 1000; // ms
+}*/
+
+/**
+ * 
+       public static final float POSITION_AVANT = 12.75f;
+      public static final float POSTIION_MILIEU = 6.5f;
+      public static final float POSITION_ARRIERE = 0.875f;
+      public static final float POSITION_PENCHE_AVANT = 8.5f;
+      public static final float POSITION_PENCHE_ARRIERE = 4.5f;
+
+
+      public interface Bras{
     /*
       // B = 0 - A = 6.5 - X = 13
       // arriere pour scorer- centrer pour deplacement - devant pour ramasser
@@ -80,26 +126,3 @@ public interface Cinematique {
       public static double TEMPS_MAXIMUM_CALIBRER = 800;
       public static double TEMPS_MAXIMUM_CALIBRER_AVANT = 1600;
       */
-      public static double DISTANCE_NULLE = 2; 
-      public static int INTERVALLE_IMMOBILITE = 250;
-    }
-    /* 
-    public interface Machoire
-    {
-      public double VITESSE = 1;
-      public double VITESSE_OUVRIR = 0.5;
-      public double VITESSE_FERMER = 0.5;
-      public double TEMPS_MAXIMUM_OUVRIR = 1000; // ms
-      public double TEMPS_MAXIMUM_FERMER = 1000; // ms
-    }*/
-    
-}
-/**
- * 
-       public static final float POSITION_AVANT = 12.75f;
-      public static final float POSTIION_MILIEU = 6.5f;
-      public static final float POSITION_ARRIERE = 0.875f;
-      public static final float POSITION_PENCHE_AVANT = 8.5f;
-      public static final float POSITION_PENCHE_ARRIERE = 4.5f;
-
- */
