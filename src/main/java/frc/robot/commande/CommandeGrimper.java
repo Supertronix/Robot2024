@@ -1,15 +1,13 @@
 package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Materiel;
 import frc.robot.Robot;
-import frc.robot.RobotControleur;
-import frc.robot.interaction.Manette;
 import frc.robot.soussysteme.Bras;
+//import frc.robot.interaction.Manette;
 
 public class CommandeGrimper extends Command { // CommandeBrasDescendre
     protected Bras bras;
-    protected Manette manette;
+    //protected Manette manette;
 
     public CommandeGrimper()
     {
@@ -21,7 +19,7 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
     public void initialize() 
     {
         System.out.println("CommandeGrimper initialize()");
-        bras.activer(true);
+        bras.activer(Bras.ACTION_DESCENDRE);
         //this.manette = RobotControleur.ActionManette.getInstance();
     }
 
