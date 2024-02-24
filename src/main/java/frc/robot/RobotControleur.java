@@ -1,11 +1,8 @@
 // Code de CONTROLE du robot 2024 de Supertronix
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commande.*;
 import frc.robot.interaction.*;
 
@@ -18,7 +15,7 @@ public class RobotControleur extends TimedRobot {
 
   private Robot robot;
   private ActionManette manette;
-  //private Command trajetAutonome;
+  private int periode;
 
   @Override
   public void robotInit() {
@@ -26,9 +23,7 @@ public class RobotControleur extends TimedRobot {
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
     this.robot.shuffleBoard.initialiser();
-
     // --------------- Tests --------------- //
-
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
 
@@ -48,66 +43,46 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    //Robot.getInstance().limelight.decoupageCameraDynamique();
   }
 
   @Override
   public void autonomousInit() {
+    this.periode = 0;
     this.robot = Robot.getInstance();    
     //trajetAutonome = new CommandeTrajetAutonome();
     //trajetAutonome.schedule();
   }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    this.periode++;
+  }
 
   @Override
   public void teleopInit() {
     System.out.println("teleopInit()");
+    this.periode = 0;
     this.robot = Robot.getInstance();
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
     manette.activerBoutons();
     manette.activerBoutonsTests(); // autres boutons
-
   }
 
-  private int periode;
   @Override
   public void teleopPeriodic() {
     periode++;
 
-    //robot.cameraLimelight.decoupageCameraDynamique();
-    //robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+    robot.cameraLimelight.decoupageCameraDynamique();
+    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
-    //if((periode % 100) == 0) // pour limiter les logs
-    //{
+    if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
+    {
     //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
     //  System.out.println(etatLanceurDeploye);
-    //  String etatLanceurRetracte = "capteur magnetique bas (non flippe)" + ((robot.lanceurExtension.estFerme())?"ferne":"non ferme");
-    //  System.out.println(etatLanceurRetracte);
-    //}
+    }
   }
-
-  @Override
-  public void testInit() {
-    
-    CommandScheduler.getInstance().cancelAll();// Cancelle les commandes 
-  }
-
-  @Override
-  public void testPeriodic() {}
-
-  @Override
-  public void simulationInit() {}
-
-  @Override
-  public void simulationPeriodic() {}
   
-  @SuppressWarnings({"unused"})
-  private void lierInteractions() {
-    new Trigger(robot.partie::exampleCondition).onTrue(new ExempleMouvementDuRobot(robot.partie));
-  }
   // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
   // https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
   // https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html  
@@ -136,6 +111,7 @@ public class RobotControleur extends TimedRobot {
 
         this.povBas.onTrue(new CommandeAvalerAutomatiquement());
         this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
+        //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
       }
 
       public void activerBoutonsTests()
@@ -146,23 +122,19 @@ public class RobotControleur extends TimedRobot {
           this.boutonA.onTrue(new CommandeLanceurRetracter());
       }
    
-      
       public void executerActions()
       {
         if(this.boutonGachetteMainGauche.getAsBoolean())
           {
-              this.boutonGachetteMainGauche.declencher();;
+              this.boutonGachetteMainGauche.declencher();
           }
         if(this.boutonGachetteMainDroite.getAsBoolean())
           {
               this.boutonGachetteMainDroite.declencher();
           }
-
       }
-      
   }
-  
-  //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
-  //Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
-
 }
+
+//Exemple d'option sur une commande avec enum
+//Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
