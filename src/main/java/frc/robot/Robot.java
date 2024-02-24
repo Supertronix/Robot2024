@@ -13,25 +13,22 @@ import java.util.Optional;
  */
 public class Robot {
 
-  public ExemplePartieDuRobot partie = new ExemplePartieDuRobot();
   public RouesMecanum roues;
+  public Bras bras;
+
   public Avaleur intake;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
-  
   public Lanceur lanceur;
   public LanceurExtension lanceurExtension;
-  public Bras bras;
 
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
   public CapteurLuminosite capteurLuminosite;
+
   public ShuffleBoard shuffleBoard;
   private boolean estAllianceRouge = true;
   private boolean verrouChangementAlliance = false;
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  //private final CommandXboxController m_driverController = new CommandXboxController(0);
 
   public Robot() 
   {
