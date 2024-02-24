@@ -189,10 +189,17 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     
     public void executerActions()
     {
+      if(this.boutonGachetteMainGauche.getAsBoolean())
+      {
+        this.boutonGachetteMainGauche.declencher();
+      }
+      if(this.boutonGachetteMainDroite.getAsBoolean())
+      {
+        this.boutonGachetteMainDroite.declencher();
+      }
     	//for(Command commande : this.commandes)
       //{
       //  commande.initialize();
       //}
-    }
-         
+    }         
 }

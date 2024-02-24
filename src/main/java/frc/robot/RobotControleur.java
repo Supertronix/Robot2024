@@ -77,19 +77,6 @@ public class RobotControleur extends TimedRobot {
   
   static public class ActionManette extends Manette {
   
-      protected static ActionManette instance = null;
-      public static ActionManette getInstance()
-      {
-        if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
-        return ActionManette.instance;
-      };
-  
-      //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
-      protected ActionManette()
-      {
-        System.out.println("new ActionManette()");
-      }
-
       public void activerBoutons()
       {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
@@ -110,18 +97,21 @@ public class RobotControleur extends TimedRobot {
           this.boutonY.onTrue(new CommandeLanceurAllonger());
           this.boutonA.onTrue(new CommandeLanceurRetracter());
       }
-   
-      public void executerActions()
+
+      protected static ActionManette instance = null;
+      public static ActionManette getInstance()
       {
-        if(this.boutonGachetteMainGauche.getAsBoolean())
-          {
-              this.boutonGachetteMainGauche.declencher();
-          }
-        if(this.boutonGachetteMainDroite.getAsBoolean())
-          {
-              this.boutonGachetteMainDroite.declencher();
-          }
+        if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
+        return ActionManette.instance;
+      };
+  
+      //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
+      protected ActionManette()
+      {
+        System.out.println("new ActionManette()");
       }
+
+
   }
 }
 // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
