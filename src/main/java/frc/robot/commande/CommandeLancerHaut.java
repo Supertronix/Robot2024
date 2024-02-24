@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.soussysteme.Lanceur;
 import frc.robot.soussysteme.ConvoyeurHaut;
-import frc.robot.mesure.DetecteurDuree;
+import frc.robot.mesure.LimiteurDuree;
 
 //import frc.robot.Cinematique;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,7 +14,7 @@ public class CommandeLancerHaut extends Command {
 
     protected int DUREE = 2000;
 
-    protected DetecteurDuree detecteurDuree;
+    protected LimiteurDuree detecteurDuree;
     protected ConvoyeurHaut convoyeurHaut;
     protected Lanceur lanceur;
 
@@ -23,7 +23,7 @@ public class CommandeLancerHaut extends Command {
         System.out.println("new CommandeLancerHaut()");
         convoyeurHaut = Robot.getInstance().convoyeurHaut;
         lanceur = Robot.getInstance().lanceur;
-        detecteurDuree = new DetecteurDuree(DUREE);
+        detecteurDuree = new LimiteurDuree(DUREE);
 
         addRequirements(convoyeurHaut);
         addRequirements(lanceur);

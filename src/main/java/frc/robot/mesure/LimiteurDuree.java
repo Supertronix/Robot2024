@@ -1,6 +1,6 @@
 package frc.robot.mesure;
 
-public class DetecteurDuree extends Chronometre{
+public class LimiteurDuree extends Chronometre{
 
 	protected boolean estTropLong = false; // default anyway
 	protected double limite;
@@ -9,7 +9,7 @@ public class DetecteurDuree extends Chronometre{
 	{
 		public double getDistancePourImmobilite();
 	}
-	public DetecteurDuree(double limite)
+	public LimiteurDuree(double limite)
 	{
 		super();
 		System.out.println("new DetecteurDelais()");

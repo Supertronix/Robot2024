@@ -3,7 +3,7 @@ package frc.robot.commande;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
-import frc.robot.mesure.DetecteurDuree;
+import frc.robot.mesure.LimiteurDuree;
 
 //import frc.robot.Cinematique;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +13,7 @@ public class CommandeAvancer extends Command {
 
     protected Roues roues = null;
     protected boolean finie = false;
-    protected DetecteurDuree detecteur;
+    protected LimiteurDuree detecteur;
     protected double pas;
 
     public CommandeAvancer(int pas)

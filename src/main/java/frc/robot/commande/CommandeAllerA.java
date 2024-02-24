@@ -14,14 +14,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.Vecteur3;
-import frc.robot.mesure.DetecteurDuree;
-import frc.robot.soussysteme.Roues;
+import frc.robot.mesure.LimiteurDuree;
 import frc.robot.soussysteme.RouesMecanum;
 
 public class CommandeAllerA extends Command {
 
     protected RouesMecanum roues;
-    protected DetecteurDuree detecteur;
+    protected LimiteurDuree detecteur;
 
     protected PIDController xControleur;
     protected PIDController yControleur;
@@ -38,7 +37,7 @@ public class CommandeAllerA extends Command {
 
         this.addRequirements(this.roues);
 
-        this.detecteur = new DetecteurDuree(5000);
+        this.detecteur = new LimiteurDuree(5000);
 
         this.xControleur = new PIDController(1, 0, 0);
         this.yControleur = new PIDController(1, 0, 0);
@@ -50,12 +49,12 @@ public class CommandeAllerA extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvancer.initialize()");
+        System.out.println("CommandeAllerA.initialize()");
         this.detecteur.initialiser();
     }
     @Override
     public void execute() {
-        System.out.println("CommandeAvancer.execute()");
+        System.out.println("CommandeAllerA.execute()");
 
         double[] donneesPosition = limelight.getBotpose();
         if (donneesPosition[0] == 0 && donneesPosition[2] == 0)
@@ -87,7 +86,7 @@ public class CommandeAllerA extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvaler.end()");
+        System.out.println("CommandeAllerA.end()");
         this.roues.arreter();
     }
 }

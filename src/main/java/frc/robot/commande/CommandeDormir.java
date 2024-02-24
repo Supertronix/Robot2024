@@ -2,19 +2,19 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
 //import frc.robot.Cinematique;
-import frc.robot.mesure.DetecteurDuree;
+import frc.robot.mesure.LimiteurDuree;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeDormir extends Command {
 
-    protected DetecteurDuree detecteur;
+    protected LimiteurDuree detecteur;
     protected int delais;
 
     public CommandeDormir(int delais)
     {
         System.out.println("new CommandeDormir()");
         this.delais = delais;
-        this.detecteur = new DetecteurDuree(delais);
+        this.detecteur = new LimiteurDuree(delais);
     }
        
     @Override

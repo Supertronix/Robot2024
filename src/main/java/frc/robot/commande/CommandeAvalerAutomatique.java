@@ -1,6 +1,6 @@
 package frc.robot.commande;
 
-import frc.robot.mesure.DetecteurDuree;
+import frc.robot.mesure.LimiteurDuree;
 
 //import frc.robot.Cinematique;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,13 +8,13 @@ import frc.robot.mesure.DetecteurDuree;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvalerAutomatique extends CommandeAvaler {
     protected static final int DUREE = 10000;
-    protected DetecteurDuree detecteurDuree;
+    protected LimiteurDuree detecteurDuree;
 
     public CommandeAvalerAutomatique()
     {
         super();
         System.out.println("new CommandeAvalerAutonomous()");
-        this.detecteurDuree = new DetecteurDuree(DUREE);
+        this.detecteurDuree = new LimiteurDuree(DUREE);
     }
        
     @Override

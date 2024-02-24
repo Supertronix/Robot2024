@@ -2,7 +2,7 @@ package frc.robot.commande;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.interaction.CapteurLuminosite;
-import frc.robot.mesure.DetecteurDuree;
+import frc.robot.mesure.LimiteurDuree;
 
 //import frc.robot.Cinematique;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +13,7 @@ public class CommandeLancerBas extends Command {
     protected static int DUREE = 5000;
 
     protected boolean finie = false;
-    protected DetecteurDuree detecteurDuree;
+    protected LimiteurDuree detecteurDuree;
     protected CapteurLuminosite capteurLuminosite;
 
     public CommandeLancerBas()
