@@ -6,11 +6,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.*;
 import frc.robot.interaction.*;
 
-// https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/Joystick.html
-//import edu.wpi.first.wpilibj2.command.Command;
-// https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj2/command/button/JoystickButton.html
-
-
 public class RobotControleur extends TimedRobot {
 
   private Robot robot;
@@ -23,13 +18,10 @@ public class RobotControleur extends TimedRobot {
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
     this.robot.shuffleBoard.initialiser();
-    // --------------- Tests --------------- //
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
-  // polling buttons // adding newly-scheduled commands, // running already-scheduled commands, removing finished or interrupted commands // running subsystem periodic() methods.  
-  // This must be called from the robot's periodic block in order for anything in the Command-based framework to work.
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
@@ -83,9 +75,6 @@ public class RobotControleur extends TimedRobot {
     }
   }
   
-  // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
-  // https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
-  // https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html  
   static public class ActionManette extends Manette {
   
       protected static ActionManette instance = null;
@@ -135,6 +124,9 @@ public class RobotControleur extends TimedRobot {
       }
   }
 }
+// https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
+// https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html  
 
 //Exemple d'option sur une commande avec enum
 //Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
