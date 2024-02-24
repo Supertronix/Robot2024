@@ -32,6 +32,7 @@ public class CommandeLancerHaut extends Command {
     @Override
     public void initialize() 
     {
+        System.out.println("CommandeLancerHaut.initialize()");
         this.detecteurDuree.initialiser();
         lanceur.activer(1);
     }
@@ -54,6 +55,7 @@ public class CommandeLancerHaut extends Command {
 
     @Override
     public void end(boolean interrupted) {
+        System.out.println("CommandeLancerHaut.end()");
         convoyeurHaut.desactiver();
         lanceur.desactiver();
     }

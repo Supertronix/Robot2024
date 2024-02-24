@@ -18,7 +18,7 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeGrimper initialize()");
+        System.out.println("CommandeGrimper.initialize()");
         bras.activer(Bras.ACTION_DESCENDRE);
         //this.manette = RobotControleur.ActionManette.getInstance();
     }

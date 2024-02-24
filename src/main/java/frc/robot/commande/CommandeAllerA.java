@@ -54,7 +54,7 @@ public class CommandeAllerA extends Command {
     }
     @Override
     public void execute() {
-        System.out.println("CommandeAllerA.execute()");
+        //System.out.println("CommandeAllerA.execute()"); // commenter les logs d'execute en version finale
 
         double[] donneesPosition = limelight.getBotpose();
         if (donneesPosition[0] == 0 && donneesPosition[2] == 0)

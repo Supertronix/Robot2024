@@ -6,21 +6,21 @@ import frc.robot.mesure.LimiteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvalerAutomatique extends CommandeAvaler {
+public class CommandeAvalerAutomatiquement extends CommandeAvaler {
     protected static final int DUREE = 10000;
     protected LimiteurDuree detecteurDuree;
 
-    public CommandeAvalerAutomatique()
+    public CommandeAvalerAutomatiquement()
     {
         super();
-        System.out.println("new CommandeAvalerAutonomous()");
+        System.out.println("new CommandeAvalerAutomatiquement()");
         this.detecteurDuree = new LimiteurDuree(DUREE);
     }
        
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvalerAutonomous.initialize()");
+        System.out.println("CommandeAvalerAutomatiquement.initialize()");
         super.initialize();
         
         this.detecteurDuree.initialiser();
@@ -29,7 +29,7 @@ public class CommandeAvalerAutomatique extends CommandeAvaler {
     @Override
     public void execute() {
         super.execute();
-        System.out.println("CommandeAvalerAutonomous.execute()");
+        System.out.println("CommandeAvalerAutomatiquement.execute()");
         this.detecteurDuree.mesurer();
     }
     
@@ -46,5 +46,9 @@ public class CommandeAvalerAutomatique extends CommandeAvaler {
             return true;
 
         return false;
+    }
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeAvalerAutomatiquement.end()");
     }
 }

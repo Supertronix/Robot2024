@@ -18,11 +18,13 @@ public class CommandeLancerBas extends Command {
 
     public CommandeLancerBas()
     {
+        System.out.println("new CommandeLancerBas()");        
     }
        
     @Override
     public void initialize() 
     {
+        System.out.println("CommandeLancerBas.initialize()");
     }
     @Override
     public void execute() {
@@ -37,4 +39,10 @@ public class CommandeLancerBas extends Command {
     {
         return true;
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeLancerBas.end()");
+    }
+
 }

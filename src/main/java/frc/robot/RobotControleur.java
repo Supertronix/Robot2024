@@ -135,7 +135,7 @@ public class RobotControleur extends TimedRobot {
         this.boutonDemarrer.onTrue(new CommandeGrimper());
         this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
 
-        this.povBas.onTrue(new CommandeAvalerAutomatique());
+        this.povBas.onTrue(new CommandeAvalerAutomatiquement());
         this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
       }
 

@@ -50,4 +50,8 @@ public class CommandeAvancer extends Command {
         //if(this.machoire.estOuverte() || this.detecteur.estTropLongue())
         return true;
     }
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeAvancer.end()");
+    }
 }

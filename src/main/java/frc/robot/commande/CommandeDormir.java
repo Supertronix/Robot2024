@@ -29,7 +29,6 @@ public class CommandeDormir extends Command {
         this.detecteur.mesurer();
     }
 
-    
     /** 
      * @return boolean
      */
@@ -37,5 +36,10 @@ public class CommandeDormir extends Command {
     public boolean isFinished() 
     {
         return this.detecteur.estTropLongue();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeDormir.end()");
     }
 }

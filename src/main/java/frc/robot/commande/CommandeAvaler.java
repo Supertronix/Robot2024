@@ -19,6 +19,8 @@ public abstract class CommandeAvaler extends Command {
 
     public CommandeAvaler()
     {
+        System.out.println("new CommandeAvaler()");
+
         this.intake = Robot.getInstance().intake;
         this.convoyeurBas = Robot.getInstance().convoyeurBas;
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;

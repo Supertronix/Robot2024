@@ -44,7 +44,6 @@ public class CommandeAvancerJusquaPlateforme extends Command {
         }
     }
 
-    
     /** 
      * @return boolean
      */
@@ -58,4 +57,10 @@ public class CommandeAvancerJusquaPlateforme extends Command {
         }
         return false;
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeAvancerJusquaPlateforme.end()");
+    }
+
 }

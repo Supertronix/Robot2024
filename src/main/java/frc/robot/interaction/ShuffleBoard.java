@@ -3,7 +3,7 @@ package frc.robot.interaction;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.commande.CommandeAvalerAutomatique;
+import frc.robot.commande.CommandeAvalerAutomatiquement;
 import frc.robot.commande.CommandeLancerHaut;
 
 public class ShuffleBoard {
@@ -24,7 +24,7 @@ public class ShuffleBoard {
         SmartDashboard.putBoolean("Note chargee", false);
         SmartDashboard.putBoolean("Alliance Rouge", true);
 
-        SmartDashboard.putData("Commande Avaler", new CommandeAvalerAutomatique());
+        SmartDashboard.putData("Commande Avaler", new CommandeAvalerAutomatiquement());
         SmartDashboard.putData("Commande Lancer Haut", new CommandeLancerHaut());
     }
 
