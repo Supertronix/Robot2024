@@ -3,10 +3,10 @@ package frc.robot.commande;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.mesure.LimiteurDuree;
-import frc.robot.soussysteme.LanceurExtension;
+import frc.robot.soussysteme.ConvoyeurHaut;
 
 public class CommandeLanceurFermer extends Command {
-    protected LanceurExtension lanceurExtension;
+    protected ConvoyeurHaut convoyeurHaut;
     //protected Manette manette;
     protected LimiteurDuree detecteurDuree;
     protected static final int DUREE = 1000;
@@ -14,8 +14,8 @@ public class CommandeLanceurFermer extends Command {
     public CommandeLanceurFermer()
     {
         System.out.println("new CommandeLanceurFermer()");
-        this.lanceurExtension = Robot.getInstance().lanceurExtension;
-        addRequirements(this.lanceurExtension);
+        this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
+        addRequirements(this.convoyeurHaut);
         this.detecteurDuree = new LimiteurDuree(DUREE);
     }
        
@@ -23,14 +23,14 @@ public class CommandeLanceurFermer extends Command {
     public void initialize() 
     {
         System.out.println("CommandeLanceurFermer.initialize()");
-        lanceurExtension.fermer();
+        convoyeurHaut.fermer();
         this.detecteurDuree.initialiser();
     }
 
     @Override
     public void execute() {
-        System.out.println("Capteur deploye " + lanceurExtension.estOuvert() );
-        System.out.println("Capteur retracte " + lanceurExtension.estFerme() );
+        System.out.println("Capteur ouvert " + convoyeurHaut.estOuvert() );
+        System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
         this.detecteurDuree.mesurer();
     }
 
@@ -40,7 +40,7 @@ public class CommandeLanceurFermer extends Command {
     @Override
     public boolean isFinished() 
     {
-        if(lanceurExtension.estFerme()) return true;
+        if(convoyeurHaut.estRetracte()) return true;
         if(this.detecteurDuree.estTropLongue()) return true;
         return false;
     }

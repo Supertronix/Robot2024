@@ -75,6 +75,12 @@ public interface Materiel {
       public static final int ID_TALON_CONVOYEUR_MAITRE = 14; // CAN ID Moteur convoyeur
       public static final boolean INVERSION_TALON_CONVOYEUR_MAITRE = true;
       public static final int ID_TALON_CONVOYEUR_ESCLAVE = 15; // CAN ID Moteur convoyeur
+      public static final int ID_MODULE_PNEUMATIQUE = 21;
+      public static final int PORT_CAPTEUR_MAGNETIQUE_OUVERTURE = 1;
+      public static final int PORT_CAPTEUR_MAGNETIQUE_RETRACTAGE = 2;
+      public static int MOUVEMENT_ANGLE_GAUCHE = 6;
+      public static int MOUVEMENT_ANGLE_DROITE = 1;
+      public static int MOUVEMENT_EXTENSION = 5;
     }
 
     // Config lanceur (pour lancer les notes)
@@ -82,17 +88,6 @@ public interface Materiel {
     {
       public static final int ID_LANCEUR_MAITRE = 5;
       public static final int ID_LANCEUR_ESCLAVE = 6;
-
-      public interface Extension
-      {
-        public static final int ID_MODULE_PNEUMATIQUE = 21;
-        public static final int PORT_CAPTEUR_MAGNETIQUE_OUVERTURE = 1;
-        public static final int PORT_CAPTEUR_MAGNETIQUE_FERMETURE = 2;
-        public static int MOUVEMENT_ANGLE_GAUCHE = 6;
-        public static int MOUVEMENT_ANGLE_DROITE = 1;
-        public static int MOUVEMENT_EXTENSION = 5;
-        
-       }
     }
 
     public interface Bras
