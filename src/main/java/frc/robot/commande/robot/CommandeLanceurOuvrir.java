@@ -8,7 +8,7 @@ import frc.robot.soussysteme.ConvoyeurHaut;
 
 public class CommandeLanceurOuvrir extends Command {
     protected ConvoyeurHaut convoyeurHaut;
-    protected static final int DUREE = 1000;
+    protected static final int DUREE = 3000;
     protected LimiteurDuree detecteurDuree;
 
     //protected Manette manette;
@@ -31,8 +31,8 @@ public class CommandeLanceurOuvrir extends Command {
 
     @Override
     public void execute() {
-        System.out.println("Capteur deploye " + convoyeurHaut.estOuvert() );
-        System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
+        //System.out.println("Capteur deploye " + convoyeurHaut.estOuvert() );
+        //System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
         this.detecteurDuree.mesurer();
     }
 

@@ -1,8 +1,6 @@
-package frc.robot.commande.exemple;
+package frc.robot.commande.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commande.robot.CommandeLanceurAllonger;
-import frc.robot.commande.robot.CommandeLanceurOuvrir;
 
 public class CommandeLanceurOuvrirEtAllonger extends Command {
     
@@ -15,7 +13,6 @@ public class CommandeLanceurOuvrirEtAllonger extends Command {
     public CommandeLanceurOuvrirEtAllonger()
     {
         System.out.println("new CommandeLanceurOuvrirEtAllonger()");
-
     }
        
     @Override
@@ -33,6 +30,7 @@ public class CommandeLanceurOuvrirEtAllonger extends Command {
             {
                 commandeAllonger.schedule();
                 this.commandeEnCours = COMMANDE_EN_COURS.ALLONGER;
+                System.out.println("Commande allonger simulee");
             }
         }
     }
@@ -40,6 +38,7 @@ public class CommandeLanceurOuvrirEtAllonger extends Command {
     @Override
     public boolean isFinished() 
     {
+        if(this.commandeOuvrir.estAnormale()) System.out.println("Premiere commande anormale");
         if(this.commandeOuvrir.estAnormale()) return true;
         if(this.commandeEnCours == COMMANDE_EN_COURS.ALLONGER)
             if(this.commandeAllonger.isFinished()) return true;
