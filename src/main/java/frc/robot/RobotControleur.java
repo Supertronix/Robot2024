@@ -2,6 +2,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.*;
 import frc.robot.composant.Compresseur;
@@ -76,6 +77,9 @@ public class RobotControleur extends TimedRobot {
     //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
     //  System.out.println(etatLanceurDeploye);
     }
+
+    SmartDashboard.putNumber("angleRobot", robot.cameraLimelight.getBotpose()[5]);
+    SmartDashboard.putNumber("angleTag", robot.cameraLimelight.getTagPositionRelatifRobot()[5]);
   }
   
   static public class ActionManette extends Manette {

@@ -21,16 +21,6 @@ import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
 public class CommandeAllerA extends Command {
-
-    protected RouesMecanum roues;
-    protected LimiteurDuree detecteur;
-
-    protected PIDController xControleur;
-    protected PIDController yControleur;
-    protected ProfiledPIDController angleControleur;
-    protected HolonomicDriveController driveControleur;
-    protected CameraLimelight limelight;
-
     // PID axe X
     protected static double x_kP = 0.05;
     protected static double x_kI = 0.00;
@@ -45,12 +35,23 @@ public class CommandeAllerA extends Command {
     protected static double ang_kP = 0.05;
     protected static double ang_kI = 0.00;
     protected static double ang_kD = 0.00;
-    protected static double angMaxVitesse = 2.00; // m/s
-    protected static double angMaxAcceleration = 8.00; // m2/s
+    protected static double angMaxVitesse = 999.00; // m/s
+    protected static double angMaxAcceleration = 999.00; // m2/s
 
     // Pour le calcul de déplacement des roues mecanum
     protected static double longueurDuCentre = 0.38;
     protected static double largeurDuCentre = 0.43;
+
+    protected RouesMecanum roues;
+    protected LimiteurDuree detecteur;
+
+    protected PIDController xControleur;
+    protected PIDController yControleur;
+    protected ProfiledPIDController angleControleur;
+    protected HolonomicDriveController driveControleur;
+    protected CameraLimelight limelight;
+
+    protected MecanumDriveKinematics kinematics;
 
     public CommandeAllerA(Vecteur3 cible, double angle)
     {
@@ -78,6 +79,7 @@ public class CommandeAllerA extends Command {
     {
         System.out.println("CommandeAllerA.initialize()");
         this.detecteur.initialiser();
+        kinematics = new MecanumDriveKinematics(new Translation2d(-largeurDuCentre, longueurDuCentre), new Translation2d(largeurDuCentre, longueurDuCentre), new Translation2d(-largeurDuCentre, -longueurDuCentre), new Translation2d(largeurDuCentre, -longueurDuCentre));
     }
 
     @Override
@@ -85,21 +87,40 @@ public class CommandeAllerA extends Command {
         //System.out.println("CommandeAllerA.execute()"); // commenter les logs d'execute en version finale
 
         double[] donneesPosition = limelight.getBotpose();
+        double[] donneesCible = limelight.getTagPositionRelatifRobot();
+
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return;
 
-        Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromRotations(donneesPosition[6]));
-        Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromRotations(donneesPosition[6]));
+        Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
+        Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromDegrees(donneesCible[5]));
 
-        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.12, Rotation2d.fromDegrees(0));
-        MecanumDriveKinematics kinematics = new MecanumDriveKinematics(new Translation2d(-largeurDuCentre, longueurDuCentre), new Translation2d(largeurDuCentre, longueurDuCentre), new Translation2d(-largeurDuCentre, -longueurDuCentre), new Translation2d(largeurDuCentre, -longueurDuCentre));
+        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.12, Rotation2d.fromDegrees(donneesCible[5]));
         MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
-        roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
+
+        double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
+        
+        if (distance < Math.pow(0.5, 2)) {
+            if ((donneesCible[5] - donneesPosition[5]) > 0.0)
+                roues.tournerGauche(vitesseAjustee.omegaRadiansPerSecond);
+            else
+                roues.tournerDroite(vitesseAjustee.omegaRadiansPerSecond);
+        }
+        else {
+            roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
+        }
+        
+        /*
+        if (vitesseAjustee.omegaRadiansPerSecond > 180.0)
+            roues.tournerGauche(0.1);
+        else
+            roues.tournerDroite(0.1);*/
+
+        
 
         SmartDashboard.putNumber("vitesseAjustee.vxMetersPerSecond", vitesseAjustee.vxMetersPerSecond);
         SmartDashboard.putNumber("vitesseAjustee.vyMetersPerSecond", vitesseAjustee.vyMetersPerSecond);
         SmartDashboard.putNumber("vitesseAjustee.omegaDegreesPerSecond", vitesseAjustee.omegaRadiansPerSecond*180/Math.PI);
-        SmartDashboard.putNumber("angleRobot", donneesPosition[6]);
     }
 
     
@@ -110,15 +131,18 @@ public class CommandeAllerA extends Command {
     public boolean isFinished() 
     {
         double[] donneesPosition = limelight.getBotpose();
+        double[] donneesCible = limelight.getTagPositionRelatifRobot();
 
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
 
         System.out.println("CommandeAllerA.isFinished() donneesPosition " + donneesPosition[0] + " " + donneesPosition[1]);
+        
         double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
+        boolean seuilAngleAtteint = Math.abs((donneesCible[5] - donneesPosition[5])) < 5.0;
         System.out.println("CommandeAllerA.isFinished() distance " + distance);
 
-        if (distance < Math.pow(0.5, 2)) {
+        if (distance < Math.pow(0.5, 2) && seuilAngleAtteint) {
             System.out.println("CommandeAllerA.isFinished() distance < 0.5");
             return true;
         }
