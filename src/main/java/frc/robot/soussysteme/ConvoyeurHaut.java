@@ -2,13 +2,11 @@ package frc.robot.soussysteme;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Cinematique;
 import frc.robot.Materiel;
-import frc.robot.Robot;
-import frc.robot.composant.CapteurMagnetique;
+import frc.robot.composant.Compresseur;
 import frc.robot.composant.MoteurTalon;
 import frc.robot.interaction.DetecteurConvoyeurHaut;
 
@@ -28,6 +26,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
 
+        Compresseur.getInstance();
         this.mouvementOuvertureGauche = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
         this.mouvementOuvertureDroite = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
         this.mouvementExtension   = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
@@ -67,35 +66,39 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
     public void allonger()
     {
         System.out.println("LanceurExtension.allonger()");
-        //tExtension.set(true);
+        if(this.detecteurConvoyeurHaut.estOuvert())
+        {
+            this.mouvementExtension.set(true);
+        }
     }
     public void retracter()
     {
         System.out.println("LanceurExtension.retracter()");
-        // this.mouvementExtension.set(false);
+        this.mouvementExtension.set(false);
     }
     
     public void ouvrir() {
         System.out.println("LanceurExtension.ouvrir()");
-        // this.mouvementOuvertureGauche.set(true);
-        // this.mouvementOuvertureDroite.set(true);
+        this.mouvementOuvertureGauche.set(true);
+        this.mouvementOuvertureDroite.set(true);
     }
 
     public void fermer() {
         System.out.println("LanceurExtension.fermer()");
-        // this.mouvementOuvertureGauche.set(false);
-        // this.mouvementOuvertureDroite.set(false);
+        if(this.detecteurConvoyeurHaut.estRetracte())
+        {
+            this.mouvementOuvertureGauche.set(false);
+            this.mouvementOuvertureDroite.set(false);
+        }
     }
 
     public boolean estOuvert()
     {
-        //return this.capteurDeploiement.get();
         return this.detecteurConvoyeurHaut.estOuvert();
     }
 
     public boolean estRetracte()
     {
-        //return this.capteurRetraction.get();
-return this.detecteurConvoyeurHaut.estRetracte();
+        return this.detecteurConvoyeurHaut.estRetracte();
     }
 }
