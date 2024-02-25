@@ -7,9 +7,10 @@ import frc.robot.Robot;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.soussysteme.ConvoyeurHaut;
 
+
 public class CommandeLanceurOuvrir extends Command {
     protected ConvoyeurHaut convoyeurHaut;
-    protected static final int DUREE = 5000;
+    protected static final int DUREE = 3000;
     protected LimiteurDuree detecteurDuree;
 
     //protected Manette manette;
@@ -40,11 +41,21 @@ public class CommandeLanceurOuvrir extends Command {
     /** 
      * @return boolean
      */
+
+    public boolean anormale = false;
+    public boolean estAnormale()
+    {
+        return this.anormale;
+    }
     @Override
     public boolean isFinished() 
     {
         if(convoyeurHaut.estOuvert()) return true;
-        if(this.detecteurDuree.estTropLongue()) return true;
+        if(this.detecteurDuree.estTropLongue()) 
+        {
+            this.anormale = true;
+            return true;
+        }
         return false;
     }
 

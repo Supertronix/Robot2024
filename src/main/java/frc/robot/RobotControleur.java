@@ -7,6 +7,8 @@ import frc.robot.commande.*;
 import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
 import frc.robot.commande.robot.CommandeAvalerTeleop;
 import frc.robot.commande.robot.CommandeLancerSpeaker;
+import frc.robot.commande.robot.CommandeLanceurOuvrirEtAllonger;
+import frc.robot.commande.robot.CommandeLanceurRetracterEtFermer;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 
@@ -19,7 +21,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    Compresseur.getInstance().desactiver();
+    Compresseur.getInstance().activer();
     robot.setAveugle();
     if(!robot.estAveugle())
     {
@@ -113,10 +115,12 @@ public class RobotControleur extends TimedRobot {
         //this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonMainGauche.onTrue(new CommandeAvalerAutomatiquement());
-        this.gachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
+        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
+        //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
         //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
+        this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
+        this.boutonA.onTrue(new CommandeLanceurRetracterEtFermer());
       }
 
       public void activerBoutonsTests()

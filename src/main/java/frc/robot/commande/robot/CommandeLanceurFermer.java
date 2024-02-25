@@ -29,8 +29,6 @@ public class CommandeLanceurFermer extends Command {
 
     @Override
     public void execute() {
-        System.out.println("Capteur ouvert " + convoyeurHaut.estOuvert() );
-        System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
         this.detecteurDuree.mesurer();
     }
 
@@ -40,7 +38,6 @@ public class CommandeLanceurFermer extends Command {
     @Override
     public boolean isFinished() 
     {
-        if(convoyeurHaut.estRetracte()) return true;
         if(this.detecteurDuree.estTropLongue()) return true;
         return false;
     }

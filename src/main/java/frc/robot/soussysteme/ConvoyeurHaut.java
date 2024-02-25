@@ -65,27 +65,27 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
 
     public void allonger()
     {
-        System.out.println("LanceurExtension.allonger()");
-        if(this.detecteurConvoyeurHaut.estOuvert())
+        System.out.println("ConvoyeurHaut.allonger()");
+        //if(this.detecteurConvoyeurHaut.estOuvert()) // machine etat a la place
         {
             this.mouvementExtension.set(true);
         }
     }
     public void retracter()
     {
-        System.out.println("LanceurExtension.retracter()");
+        System.out.println("ConvoyeurHaut.retracter()");
         this.mouvementExtension.set(false);
     }
     
     public void ouvrir() {
-        System.out.println("LanceurExtension.ouvrir()");
+        System.out.println("ConvoyeurHaut.ouvrir()");
         this.mouvementOuvertureGauche.set(true);
         this.mouvementOuvertureDroite.set(true);
     }
 
     public void fermer() {
-        System.out.println("LanceurExtension.fermer()");
-        if(this.detecteurConvoyeurHaut.estRetracte())
+        System.out.println("ConvoyeurHaut.fermer()");
+        //if(this.detecteurConvoyeurHaut.estRetracte()) // machine etat a la place
         {
             this.mouvementOuvertureGauche.set(false);
             this.mouvementOuvertureDroite.set(false);

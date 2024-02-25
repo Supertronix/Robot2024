@@ -2,10 +2,13 @@ package frc.robot.commande.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
+import frc.robot.mesure.LimiteurDuree;
 import frc.robot.soussysteme.ConvoyeurHaut;
 
 public class CommandeLanceurRetracter extends Command {
     protected ConvoyeurHaut convoyeurHaut;
+    protected static final int DUREE = 1000;
+    protected LimiteurDuree detecteurDuree;
     //protected Manette manette;
 
     public CommandeLanceurRetracter()
@@ -13,6 +16,7 @@ public class CommandeLanceurRetracter extends Command {
         System.out.println("new CommandeLanceurRetracter()");
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
         addRequirements(this.convoyeurHaut);
+        this.detecteurDuree = new LimiteurDuree(DUREE);
     }
        
     @Override
@@ -26,12 +30,20 @@ public class CommandeLanceurRetracter extends Command {
     public void execute() {
     }
 
-    /** 
-     * @return boolean
-     */
+    public boolean anormale = false;
+    public boolean estAnormale()
+    {
+        return this.anormale;
+    }
     @Override
     public boolean isFinished() 
     {
+        if(convoyeurHaut.estRetracte()) return true;
+        if(this.detecteurDuree.estTropLongue()) 
+        {
+            this.anormale = true;
+            return true;
+        }
         return true;
     }
 
