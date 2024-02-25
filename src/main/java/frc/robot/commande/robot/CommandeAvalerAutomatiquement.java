@@ -29,7 +29,7 @@ public class CommandeAvalerAutomatiquement extends CommandeAvaler {
     @Override
     public void execute() {
         super.execute();
-        System.out.println("CommandeAvalerAutomatiquement.execute()");
+        //System.out.println("CommandeAvalerAutomatiquement.execute()");
         this.detecteurDuree.mesurer();
     }
     

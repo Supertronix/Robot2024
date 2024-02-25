@@ -1,13 +1,15 @@
 package frc.robot.commande.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.soussysteme.ConvoyeurHaut;
 
 public class CommandeLanceurOuvrir extends Command {
     protected ConvoyeurHaut convoyeurHaut;
-    protected static final int DUREE = 1000;
+    protected static final int DUREE = 5000;
     protected LimiteurDuree detecteurDuree;
 
     //protected Manette manette;
@@ -30,8 +32,8 @@ public class CommandeLanceurOuvrir extends Command {
 
     @Override
     public void execute() {
-        System.out.println("Capteur deploye " + convoyeurHaut.estOuvert() );
-        System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
+        // System.out.println("Capteur deploye " + convoyeurHaut.estOuvert() );
+        // System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
         this.detecteurDuree.mesurer();
     }
 
@@ -50,4 +52,14 @@ public class CommandeLanceurOuvrir extends Command {
     public void end(boolean interrupted) {
         System.out.println("CommandeLanceurOuvrir.end()");
     }
+
+    @Override
+    public SequentialCommandGroup andThen(Command... next) {
+        System.out.println("CommandeLanceurOuvrir.andThen()");
+        return super.andThen(new WaitCommand(0));
+    }
+
+
+
+
 }
