@@ -1,8 +1,8 @@
 package frc.robot.commande.auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commande.CommandeAllerA;
-import frc.robot.commande.CommandeLancerSpeaker;
+import frc.robot.commande.robot.CommandeLancerSpeaker;
+import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.mesure.Vecteur3;
 
 public class TrajetNoteDansAmpli extends SequentialCommandGroup{

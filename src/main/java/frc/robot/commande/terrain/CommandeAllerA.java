@@ -1,4 +1,4 @@
-package frc.robot.commande;
+package frc.robot.commande.terrain;
 
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;

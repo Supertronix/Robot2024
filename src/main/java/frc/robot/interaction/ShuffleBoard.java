@@ -3,8 +3,8 @@ package frc.robot.interaction;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.commande.CommandeAvalerAutomatiquement;
-import frc.robot.commande.CommandeLancerSpeaker;
+import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
+import frc.robot.commande.robot.CommandeLancerSpeaker;
 
 public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;

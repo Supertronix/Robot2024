@@ -1,4 +1,4 @@
-package frc.robot.commande;
+package frc.robot.commande.robot;
 
 import frc.robot.RobotControleur;
 import frc.robot.interaction.Manette;

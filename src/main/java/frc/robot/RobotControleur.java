@@ -4,6 +4,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.*;
+import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
+import frc.robot.commande.robot.CommandeAvalerTeleop;
+import frc.robot.commande.robot.CommandeLancerSpeaker;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 
@@ -21,8 +24,8 @@ public class RobotControleur extends TimedRobot {
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();
-      this.robot.shuffleBoard.initialiser();
       //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
+      this.robot.shuffleBoard.initialiser();
     }
   }
 
@@ -88,7 +91,7 @@ public class RobotControleur extends TimedRobot {
     }
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
-    if((periode % 100) == 0)
+    if((periode % 100) == 0 && !robot.estAveugle())
     {
       this.robot.shuffleBoard.mettreAJour();
     }

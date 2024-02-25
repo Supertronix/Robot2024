@@ -1,16 +1,16 @@
-package frc.robot.commande;
+package frc.robot.commande.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.soussysteme.ConvoyeurHaut;
 
-public class CommandeLanceurRetracter extends Command {
+public class CommandeLanceurAllonger extends Command {
     protected ConvoyeurHaut convoyeurHaut;
     //protected Manette manette;
 
-    public CommandeLanceurRetracter()
+    public CommandeLanceurAllonger()
     {
-        System.out.println("new CommandeLanceurRetracter()");
+        System.out.println("new CommandeLanceurAllonger()");
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
         addRequirements(this.convoyeurHaut);
     }
@@ -18,8 +18,8 @@ public class CommandeLanceurRetracter extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeLanceurRetracter.initialize()");
-        convoyeurHaut.retracter();
+        System.out.println("CommandeLanceurAllonger.initialize()");
+        convoyeurHaut.allonger();
     }
 
     @Override
@@ -37,6 +37,6 @@ public class CommandeLanceurRetracter extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeLanceurRetracter.end()");
+        System.out.println("CommandeLanceurAllonger.end()");
     }
 }
