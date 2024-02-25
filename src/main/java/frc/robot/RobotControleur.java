@@ -19,7 +19,7 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    Compresseur.getInstance().desactiver();
+    Compresseur.getInstance().activer();
     robot.setAveugle();
     if(!robot.estAveugle())
     {

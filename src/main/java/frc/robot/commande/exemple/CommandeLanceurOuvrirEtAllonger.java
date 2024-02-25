@@ -1,6 +1,8 @@
-package frc.robot.commande.robot;
+package frc.robot.commande.exemple;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commande.robot.CommandeLanceurAllonger;
+import frc.robot.commande.robot.CommandeLanceurOuvrir;
 
 public class CommandeLanceurOuvrirEtAllonger extends Command {
     
