@@ -24,8 +24,8 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     protected JoystickButton boutonMainDroite;
     protected JoystickButton boutonMainGauche;
 
-    protected BoutonDeclencheur boutonGachetteMainDroite;
-    protected BoutonDeclencheur boutonGachetteMainGauche;
+    protected BoutonDeclencheur gachetteMainDroite;
+    protected BoutonDeclencheur gachetteMainGauche;
 
     protected Manette() // pour design pattern singleton
     {
@@ -37,8 +37,8 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
 
         //this.boutonPressionMainGauche.setCommande(new CommandeAjusterBras(-0.15));
         //this.boutonPressionMainDroite.setCommande(new CommandeAjusterBras(0.15 ));
-        this.boutonGachetteMainGauche = new BoutonDeclencheur(this.manette, GACHETTE_MAIN_GAUCHE);
-        this.boutonGachetteMainDroite = new BoutonDeclencheur(this.manette, GACHETTE_MAIN_DROITE);
+        this.gachetteMainGauche = new BoutonDeclencheur(this.manette, GACHETTE_MAIN_GAUCHE);
+        this.gachetteMainDroite = new BoutonDeclencheur(this.manette, GACHETTE_MAIN_DROITE);
 
         this.boutonY = new JoystickButton(this.manette, BOUTON_Y);
         this.boutonA = new JoystickButton(this.manette, BOUTON_A);
@@ -189,13 +189,13 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
     
     public void executerActions()
     {
-      if(this.boutonGachetteMainGauche.getAsBoolean())
+      if(this.gachetteMainGauche.getAsBoolean())
       {
-        this.boutonGachetteMainGauche.declencher();
+        this.gachetteMainGauche.declencher();
       }
-      if(this.boutonGachetteMainDroite.getAsBoolean())
+      if(this.gachetteMainDroite.getAsBoolean())
       {
-        this.boutonGachetteMainDroite.declencher();
+        this.gachetteMainDroite.declencher();
       }
     	//for(Command commande : this.commandes)
       //{

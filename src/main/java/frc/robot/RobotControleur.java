@@ -82,14 +82,15 @@ public class RobotControleur extends TimedRobot {
       public void activerBoutons()
       {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
-        //this.boutonMainDroite.onTrue(new CommandeLancerHaut());
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
         //this.boutonDemarrer.onTrue(new CommandeGrimper());
         //this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonMainGauche.onTrue(new CommandeAvalerTeleop());
+        this.boutonMainGauche.onTrue(new CommandeAvalerAutomatiquement());
+        this.gachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
         //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
       }
 

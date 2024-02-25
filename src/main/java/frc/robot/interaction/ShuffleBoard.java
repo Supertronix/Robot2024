@@ -4,7 +4,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.commande.CommandeAvalerAutomatiquement;
-import frc.robot.commande.CommandeLancerHaut;
+import frc.robot.commande.CommandeLancerSpeaker;
 
 public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
@@ -25,7 +25,7 @@ public class ShuffleBoard {
         SmartDashboard.putBoolean("Alliance Rouge", true);
 
         SmartDashboard.putData("Commande Avaler", new CommandeAvalerAutomatiquement());
-        SmartDashboard.putData("Commande Lancer Haut", new CommandeLancerHaut());
+        SmartDashboard.putData("Commande Lancer Haut", new CommandeLancerSpeaker());
     }
 
     public void mettreAJour() {

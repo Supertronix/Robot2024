@@ -8,7 +8,7 @@ import frc.robot.mesure.LimiteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeLancerBas extends Command {
+public class CommandeLancerAmplificateur extends Command {
 
     protected static int DUREE = 5000;
 
@@ -16,7 +16,7 @@ public class CommandeLancerBas extends Command {
     protected LimiteurDuree detecteurDuree;
     protected DetecteurNote capteurLuminosite;
 
-    public CommandeLancerBas()
+    public CommandeLancerAmplificateur()
     {
         System.out.println("new CommandeLancerBas()");        
     }

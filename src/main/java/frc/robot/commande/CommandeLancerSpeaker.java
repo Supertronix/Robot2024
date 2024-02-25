@@ -10,16 +10,16 @@ import frc.robot.mesure.LimiteurDuree;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeLancerHaut extends Command {
+public class CommandeLancerSpeaker extends Command {
 
     public static int DUREE = 3000;
-    public static int DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR = 1500;
+    public static int DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR = 800;
 
     protected LimiteurDuree detecteurDuree;
     protected ConvoyeurHaut convoyeurHaut;
     protected Lanceur lanceur;
 
-    public CommandeLancerHaut()
+    public CommandeLancerSpeaker()
     {
         System.out.println("new CommandeLancerHaut()");
         convoyeurHaut = Robot.getInstance().convoyeurHaut;
