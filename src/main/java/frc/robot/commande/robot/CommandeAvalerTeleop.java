@@ -26,7 +26,7 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
     @Override
     public void execute() {
         //System.out.println("CommandeAvalerTeleop.execute()");
-        //super.execute();
+        super.execute();
     }
 
     /** 
