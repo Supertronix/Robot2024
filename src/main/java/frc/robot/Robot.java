@@ -33,7 +33,7 @@ public class Robot {
   public Robot() 
   {
     this.detecteurNote = new DetecteurNote();
-    this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
+    this.roues = new RouesMecanum();  //this.roues = new RouesMecanum();
     this.avaleur = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
