@@ -42,11 +42,15 @@ public class CommandeAllerA extends Command {
 
         this.detecteur = new LimiteurDuree(5000);
 
-        this.xControleur = new PIDController(0.1, 0, 0);
-        this.yControleur = new PIDController(0.1, 0, 0);
-        this.angleControleur = new ProfiledPIDController(0, 0, 0,
+        this.xControleur = new PIDController(0.05, 0, 0);
+        this.yControleur = new PIDController(0.05, 0, 0);
+        this.angleControleur = new ProfiledPIDController(0.05, 0, 0,
                 new TrapezoidProfile.Constraints(6.28, 3.14));
         this.driveControleur = new HolonomicDriveController(xControleur, yControleur, angleControleur);
+
+        SmartDashboard.putData("PID x", xControleur);
+        SmartDashboard.putData("PID y", yControleur);
+        SmartDashboard.putData("PID angle", angleControleur);
     }
        
     @Override
@@ -66,10 +70,10 @@ public class CommandeAllerA extends Command {
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromRotations(donneesPosition[6]));
         Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromRotations(donneesPosition[6]));
 
-        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromRotations(0));
+        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromRotations(0.3));
         SmartDashboard.putNumber("vitesseAjustee.vxMetersPerSecond", vitesseAjustee.vxMetersPerSecond);
         SmartDashboard.putNumber("vitesseAjustee.vyMetersPerSecond", vitesseAjustee.vyMetersPerSecond);
-        SmartDashboard.putNumber("vitesseAjustee.omegaRadiansPerSecond", vitesseAjustee.omegaRadiansPerSecond);
+        SmartDashboard.putNumber("vitesseAjustee.omegaDegreesPerSecond", vitesseAjustee.omegaRadiansPerSecond*180/Math.PI);
         double longueurDuCentre = 0.38; // 0.635
         double largeurDuCentre = 0.43; // 0.508
         MecanumDriveKinematics kinematics = new MecanumDriveKinematics(new Translation2d(-largeurDuCentre, longueurDuCentre), new Translation2d(largeurDuCentre, longueurDuCentre), new Translation2d(-largeurDuCentre, -longueurDuCentre), new Translation2d(largeurDuCentre, -longueurDuCentre));
