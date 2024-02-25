@@ -18,4 +18,13 @@ public class Compresseur extends Compressor{
     {
         super(id, PneumaticsModuleType.CTREPCM);
     }
+
+    public void desactiver()
+    {
+        this.disable();
+    }
+    public void activer()
+    {
+        this.enableDigital();
+    }
 }

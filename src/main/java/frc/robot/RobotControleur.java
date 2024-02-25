@@ -4,6 +4,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.*;
+import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 
 public class RobotControleur extends TimedRobot {
@@ -18,6 +19,7 @@ public class RobotControleur extends TimedRobot {
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
     this.robot.shuffleBoard.initialiser();
+    Compresseur.getInstance().activer();
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
 
@@ -58,7 +60,7 @@ public class RobotControleur extends TimedRobot {
     //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
     manette.activerBoutons();
-    manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
+    //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
   }
 
   @Override
@@ -85,7 +87,6 @@ public class RobotControleur extends TimedRobot {
         this.boutonDemarrer.onTrue(new CommandeGrimper());
         this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
 
-        this.povBas.onTrue(new CommandeAvalerAutomatiquement());
         this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
         //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
       }
@@ -96,6 +97,7 @@ public class RobotControleur extends TimedRobot {
           this.boutonX.onTrue(new CommandeLanceurFermer());
           this.boutonY.onTrue(new CommandeLanceurAllonger());
           this.boutonA.onTrue(new CommandeLanceurRetracter());
+          this.povBas.onTrue(new CommandeAvalerAutomatiquement());
       }
 
       protected static ActionManette instance = null;
