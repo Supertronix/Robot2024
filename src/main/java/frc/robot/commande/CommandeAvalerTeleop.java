@@ -1,6 +1,5 @@
 package frc.robot.commande;
 
-import frc.robot.Materiel;
 import frc.robot.RobotControleur;
 import frc.robot.interaction.Manette;
 
@@ -22,12 +21,12 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
     {
         System.out.println("CommandeAvalerTeleop.initialize()");
         super.initialize();
-        this.manette = RobotControleur.ActionManette.getInstance();
+        //this.manette = RobotControleur.ActionManette.getInstance();
     }
     @Override
     public void execute() {
         //System.out.println("CommandeAvalerTeleop.execute()");
-        super.execute();
+        //super.execute();
     }
 
     /** 
@@ -36,16 +35,18 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
     @Override
     public boolean isFinished() 
     {
-        if (this.capteurLuminosite.getLuminosite())
-            return true;
+        //if(super.isFinished()) return true; // detecte la note
+        if(this.detecteurNote.detecteNote()) return true;
 
+        // condition geree par le whileTrue d'attachement de la commande
         //if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_A))
         //    return false;
 
-        return true;
+        return false;
     }
     @Override
     public void end(boolean interrupted) {
         System.out.println("CommandeAvalerTeleop.end()");
+        super.end(interrupted);
     }
 }

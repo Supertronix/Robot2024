@@ -14,7 +14,7 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 public class CameraConducteur {
-    private CapteurLuminosite capteurLuminosite;
+    private DetecteurNote capteurLuminosite;
     private Thread m_visionThread;
     private boolean actif;
     private int hauteur = (int) (480 / 1); // Limite bande passante et FPS
@@ -26,7 +26,7 @@ public class CameraConducteur {
     }
 
     public void initialiser() {
-        this.capteurLuminosite = Robot.getInstance().capteurLuminosite;
+        this.capteurLuminosite = Robot.getInstance().detecteurNote;
         activer();
     }
 
@@ -101,7 +101,7 @@ public class CameraConducteur {
         int LARGEUR = source.width();
         int HAUTEUR = source.height();
 
-        System.out.println("LARGEUR: " + LARGEUR + " HAUTEUR: " + HAUTEUR);
+        //System.out.println("LARGEUR: " + LARGEUR + " HAUTEUR: " + HAUTEUR);
 
         dessinerCoins(source);
         dessinerHorloge(source, tempsMatch);

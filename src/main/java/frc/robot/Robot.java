@@ -16,7 +16,7 @@ public class Robot {
   public RouesMecanum roues;
   public Bras bras;
 
-  public Avaleur intake;
+  public Avaleur avaleur;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
   public Lanceur lanceur;
@@ -24,7 +24,7 @@ public class Robot {
 
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
-  public CapteurLuminosite capteurLuminosite;
+  public DetecteurNote detecteurNote;
 
   public ShuffleBoard shuffleBoard;
   private boolean estAllianceRouge = true;
@@ -32,9 +32,9 @@ public class Robot {
 
   public Robot() 
   {
-    this.capteurLuminosite = new CapteurLuminosite();
+    this.detecteurNote = new DetecteurNote();
     this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
-    this.intake = new Avaleur();
+    this.avaleur = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();

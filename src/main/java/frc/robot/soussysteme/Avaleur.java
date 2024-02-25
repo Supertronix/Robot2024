@@ -16,11 +16,11 @@ public class Avaleur extends SousSysteme implements Materiel.Avaleur, Cinematiqu
 
     protected MoteurTalon moteurIntake;
     protected Solenoid mouvementBouche;
-    protected Compresseur compresseur;
+    //protected Compresseur compresseur;
 
     public Avaleur() {
-        this.compresseur = Compresseur.getInstance();
-        this.mouvementBouche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_BOUCHE);
+        //this.compresseur = Compresseur.getInstance();
+        //this.mouvementBouche = new Solenoid(21, PneumaticsModuleType.CTREPCM, MOUVEMENT_BOUCHE);
         moteurIntake = new MoteurTalon(ID_TALON_INTAKE);
         moteurIntake.setInverted(true);
     }
@@ -28,13 +28,13 @@ public class Avaleur extends SousSysteme implements Materiel.Avaleur, Cinematiqu
     // Démarre le moteur d'intake avec la vitesse définie dans la config
     public void activer() {
         moteurIntake.set(TalonSRXControlMode.PercentOutput, VITESSE_TALON_INTAKE);
-        mouvementBouche.set(true);
+        //mouvementBouche.set(true);
         estActif = true;
     }
 
     public void activer(int vitesse) {
         moteurIntake.set(TalonSRXControlMode.PercentOutput, vitesse);
-        mouvementBouche.set(true);
+        //mouvementBouche.set(true);
         estActif = true;
     }
     

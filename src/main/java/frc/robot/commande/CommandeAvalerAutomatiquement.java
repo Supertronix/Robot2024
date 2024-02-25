@@ -39,10 +39,10 @@ public class CommandeAvalerAutomatiquement extends CommandeAvaler {
     @Override
     public boolean isFinished() 
     {
-        if (this.detecteurDuree.estTropLongue())
-            return true;
+        //if(super.isFinished()) return true; // detecte la note
+        if(this.detecteurNote.detecteNote()) return true;
 
-        if (this.capteurLuminosite.getLuminosite())
+        if (this.detecteurDuree.estTropLongue())
             return true;
 
         return false;
@@ -50,5 +50,6 @@ public class CommandeAvalerAutomatiquement extends CommandeAvaler {
     @Override
     public void end(boolean interrupted) {
         System.out.println("CommandeAvalerAutomatiquement.end()");
+        super.end(interrupted);
     }
 }

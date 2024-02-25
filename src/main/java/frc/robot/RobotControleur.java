@@ -19,7 +19,7 @@ public class RobotControleur extends TimedRobot {
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.robot.cameraConducteur.initialiser();
     this.robot.shuffleBoard.initialiser();
-    Compresseur.getInstance().activer();
+    Compresseur.getInstance().desactiver();
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
 
@@ -82,22 +82,24 @@ public class RobotControleur extends TimedRobot {
       public void activerBoutons()
       {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
-        this.boutonMainDroite.onTrue(new CommandeLancerHaut());
-        this.boutonMainGauche.onTrue(new CommandeLancerBas());
-        this.boutonDemarrer.onTrue(new CommandeGrimper());
-        this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
+        //this.boutonMainDroite.onTrue(new CommandeLancerHaut());
+        //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
-        this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
+        //this.boutonDemarrer.onTrue(new CommandeGrimper());
+        //this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
+
+        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
+        this.boutonMainGauche.onTrue(new CommandeAvalerTeleop());
         //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
       }
 
       public void activerBoutonsTests()
       {
-          this.boutonB.onTrue(new CommandeLanceurOuvrir());
-          this.boutonX.onTrue(new CommandeLanceurFermer());
-          this.boutonY.onTrue(new CommandeLanceurAllonger());
-          this.boutonA.onTrue(new CommandeLanceurRetracter());
-          this.povBas.onTrue(new CommandeAvalerAutomatiquement());
+          //this.boutonB.onTrue(new CommandeLanceurOuvrir());
+          //this.boutonX.onTrue(new CommandeLanceurFermer());
+          //this.boutonY.onTrue(new CommandeLanceurAllonger());
+          //this.boutonA.onTrue(new CommandeLanceurRetracter());
+          //this.povBas.onTrue(new CommandeAvalerAutomatiquement());
       }
 
       protected static ActionManette instance = null;

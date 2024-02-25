@@ -17,6 +17,7 @@ public class Compresseur extends Compressor{
     private Compresseur(int id)
     {
         super(id, PneumaticsModuleType.CTREPCM);
+        this.disable();
     }
 
     public void desactiver()

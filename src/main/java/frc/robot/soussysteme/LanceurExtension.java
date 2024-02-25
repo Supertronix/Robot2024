@@ -8,10 +8,10 @@ import frc.robot.interaction.DetecteurLanceur;
 import edu.wpi.first.wpilibj.Compressor;
 
 public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Extension{
-    private Solenoid mouvementAngleGauche;
-    private Solenoid mouvementAngleDroite;
-    private Solenoid mouvementExtension;
-    private Compressor compresseur;
+    //private Solenoid mouvementAngleGauche;
+    //private Solenoid mouvementAngleDroite;
+    //private Solenoid mouvementExtension;
+    //private Compressor compresseur;
 
     public DetecteurLanceur detecteurLanceur;  // PUBLIC
     //private DigitalInput capteurDeploiement = new DigitalInput(PORT_CAPTEUR_MAGNETIQUE_DEPLOYE);// flippe aussi
@@ -20,38 +20,38 @@ public class LanceurExtension extends SousSysteme implements Materiel.Lanceur.Ex
 
     public LanceurExtension() {
         this.detecteurLanceur = new DetecteurLanceur();
-        this.compresseur = Compresseur.getInstance();
+        //this.compresseur = Compresseur.getInstance();
 
-        this.mouvementAngleGauche = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
-        this.mouvementAngleDroite = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
-        this.mouvementExtension   = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
+        //this.mouvementAngleGauche = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
+        //this.mouvementAngleDroite = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
+        //this.mouvementExtension   = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
     }
 
     public void allonger()
     {
         System.out.println("LanceurExtension.allonger()");
-        this.mouvementExtension.set(true);
-        this.compresseur.enableDigital();
+        //this.mouvementExtension.set(true);
+        //this.compresseur.enableDigital();
     }
     public void retracter()
     {
         System.out.println("LanceurExtension.retracter()");
-        this.mouvementExtension.set(false);
-        this.compresseur.enableDigital();
+        //this.mouvementExtension.set(false);
+        //this.compresseur.enableDigital();
     }
     
     public void ouvrir() {
         System.out.println("LanceurExtension.ouvrir()");
-        this.compresseur.enableDigital();
-        this.mouvementAngleGauche.set(true);
-        this.mouvementAngleDroite.set(true);
+        //this.compresseur.enableDigital();
+        //this.mouvementAngleGauche.set(true);
+        //this.mouvementAngleDroite.set(true);
     }
 
     public void fermer() {
         System.out.println("LanceurExtension.fermer()");
-        this.compresseur.enableDigital();
-        this.mouvementAngleGauche.set(false);
-        this.mouvementAngleDroite.set(false);
+        //this.compresseur.enableDigital();
+        //this.mouvementAngleGauche.set(false);
+        //this.mouvementAngleDroite.set(false);
     }
 
     public boolean estOuvert()

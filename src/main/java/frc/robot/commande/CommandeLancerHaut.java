@@ -12,7 +12,8 @@ import frc.robot.mesure.LimiteurDuree;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeLancerHaut extends Command {
 
-    protected int DUREE = 2000;
+    public static int DUREE = 3000;
+    public static int DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR = 1500;
 
     protected LimiteurDuree detecteurDuree;
     protected ConvoyeurHaut convoyeurHaut;
@@ -36,10 +37,11 @@ public class CommandeLancerHaut extends Command {
         this.detecteurDuree.initialiser();
         lanceur.activer(1);
     }
+
     @Override
     public void execute() {
         detecteurDuree.mesurer();
-        if (detecteurDuree.getDuree() > 800)
+        if (detecteurDuree.getDuree() > DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR)
             convoyeurHaut.activer(1);
     }
 

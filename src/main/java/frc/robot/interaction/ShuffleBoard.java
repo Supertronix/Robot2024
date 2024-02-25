@@ -9,7 +9,7 @@ import frc.robot.commande.CommandeLancerHaut;
 public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
     RelativeEncoder encodeurEsclaveLanceur;
-    CapteurLuminosite capteurLuminosite;
+    DetecteurNote capteurLuminosite;
     public ShuffleBoard() {
         System.out.println("new ShuffleBoard()");
     }
@@ -17,7 +17,7 @@ public class ShuffleBoard {
     public void initialiser() {
         encodeurMaitreLanceur = Robot.getInstance().lanceur.encodeurMaitre;
         encodeurEsclaveLanceur = Robot.getInstance().lanceur.encodeurEsclave;
-        capteurLuminosite = Robot.getInstance().capteurLuminosite;
+        capteurLuminosite = Robot.getInstance().detecteurNote;
 
         SmartDashboard.putNumber("RPM Lanceur Maitre", 0);
         SmartDashboard.putNumber("RPM Lanceur Esclave", 0);
