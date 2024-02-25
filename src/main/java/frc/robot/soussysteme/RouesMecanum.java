@@ -114,6 +114,21 @@ public class RouesMecanum extends Roues {
 	    //Formule 2017 (x + yGauche, yDroite - x, yGauche - x, x + yDroite);
     //     conduireAvecAxes(manette.getAxeMainGauche().y, manette.getAxeMainGauche().x, manette.getAxeMainDroite().x);
     // }
+    public void conduireAvecAxesEtFacteurs(double vitesseAvantArriere, double vitesseDroiteGauche, double vitesseRotationDroiteGauche) {
+
+        // System.out.println("vitesseAvantArriere="+vitesseAvantArriere+" vitesseDroiteGauche="+vitesseDroiteGauche+" vitesseRotationDroiteGauche="+vitesseRotationDroiteGauche);
+
+        //this.mecanum.driveCartesian(
+        //     vitesseAvantArriere         * facteur,
+        //     vitesseDroiteGauche         * facteur,
+        //     vitesseRotationDroiteGauche * facteur);
+
+        this.roueAvantGauche  .set( facteur * ( vitesseAvantArriere + vitesseDroiteGauche + vitesseRotationDroiteGauche ) );
+        this.roueAvantDroite  .set( facteur * ( vitesseAvantArriere - vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
+        this.roueArriereGauche.set( facteur * ( vitesseAvantArriere - vitesseDroiteGauche + vitesseRotationDroiteGauche ) );
+        this.roueArriereDroite.set( facteur * ( vitesseAvantArriere + vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
+
+    }
 
     /**
      * @param vitesseAvantArriere         1 pour avancer, -1 pour reculer
@@ -129,10 +144,10 @@ public class RouesMecanum extends Roues {
         //     vitesseDroiteGauche         * facteur,
         //     vitesseRotationDroiteGauche * facteur);
 
-        this.roueAvantGauche  .set( facteur * ( vitesseAvantArriere + vitesseDroiteGauche + vitesseRotationDroiteGauche ) );
-        this.roueAvantDroite  .set( facteur * ( vitesseAvantArriere - vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
-        this.roueArriereGauche.set( facteur * ( vitesseAvantArriere - vitesseDroiteGauche + vitesseRotationDroiteGauche ) );
-        this.roueArriereDroite.set( facteur * ( vitesseAvantArriere + vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
+        this.roueAvantGauche  .set(  ( vitesseAvantArriere + vitesseDroiteGauche + vitesseRotationDroiteGauche ) );
+        this.roueAvantDroite  .set(  ( vitesseAvantArriere - vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
+        this.roueArriereGauche.set(  ( vitesseAvantArriere - vitesseDroiteGauche + vitesseRotationDroiteGauche ) );
+        this.roueArriereDroite.set(  ( vitesseAvantArriere + vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
 
     }
 
