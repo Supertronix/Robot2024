@@ -6,7 +6,7 @@ package frc.robot.commande.exemple;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.soussysteme.ExemplePartieDuRobot;
+import frc.robot.soussysteme.exemple.ExemplePartieDuRobot;
 
 public final class ExempleAutos {
   /** Example static factory for an autonomous command. */

@@ -1,10 +1,12 @@
-package frc.robot.soussysteme;
+package frc.robot.soussysteme.exemple;
 
 // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html
 // https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html    
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.soussysteme.RouesMecanum;
+
 import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMax;
 

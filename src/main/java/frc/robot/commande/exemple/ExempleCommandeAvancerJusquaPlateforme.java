@@ -3,9 +3,7 @@ package frc.robot.commande.exemple;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.interaction.LecteurAccelerometre;
-import frc.robot.soussysteme.RouesMecanumSynchro;
-//import frc.robot.mesure.DetecteurDuree;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.soussysteme.exemple.RouesMecanumSynchro;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class ExempleCommandeAvancerJusquaPlateforme extends Command {

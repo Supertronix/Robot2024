@@ -5,7 +5,7 @@
 package frc.robot.commande.exemple;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.soussysteme.ExemplePartieDuRobot;
+import frc.robot.soussysteme.exemple.ExemplePartieDuRobot;
 
 /** An example command that uses an example subsystem. */
 public class ExempleMouvementDuRobot extends Command {
