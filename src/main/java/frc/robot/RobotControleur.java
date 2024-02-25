@@ -17,10 +17,14 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
-    //this.robot.cameraConducteur.initialiser();
-    //this.robot.shuffleBoard.initialiser();
     Compresseur.getInstance().desactiver();
-    //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
+    robot.setAveugle();
+    if(!robot.estAveugle())
+    {
+      this.robot.cameraConducteur.initialiser();
+      this.robot.shuffleBoard.initialiser();
+      //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
+    }
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -32,7 +36,10 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    //Robot.getInstance().cameraLimelight.resetDecoupageCamera();
+    if(robot.estVoyant())
+    {
+      Robot.getInstance().cameraLimelight.resetDecoupageCamera();
+    }
   }
 
   @Override
@@ -67,7 +74,10 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
-    //robot.cameraLimelight.decoupageCameraDynamique();
+    if(!robot.estAveugle())
+    {
+      robot.cameraLimelight.decoupageCameraDynamique();
+    }
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100

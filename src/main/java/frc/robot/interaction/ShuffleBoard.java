@@ -32,7 +32,7 @@ public class ShuffleBoard {
         SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitreLanceur.getVelocity());
         SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclaveLanceur.getVelocity());
         SmartDashboard.putBoolean("Note chargee", capteurLuminosite.getLuminosite());
-        SmartDashboard.putBoolean("Alliance Rouge", Robot.getInstance().getEstAllianceRouge());
+        SmartDashboard.putBoolean("Alliance Rouge", Robot.getInstance().getAllianceRouge());
     }
 
     /**
@@ -40,7 +40,7 @@ public class ShuffleBoard {
      */
     public void changerEquipe() {
         Robot.getInstance().setVerrouChangementAlliance(false);
-        Robot.getInstance().setAlliance(!Robot.getInstance().getEstAllianceRouge());
+        Robot.getInstance().setAlliance(!Robot.getInstance().getAllianceRouge());
         Robot.getInstance().setVerrouChangementAlliance(true);
     }
 }

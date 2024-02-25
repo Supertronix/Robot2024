@@ -13,36 +13,39 @@ import java.util.Optional;
  */
 public class Robot {
 
-  public RouesMecanumSynchro roues;
+  public RouesMecanum roues;
   public Bras bras;
 
   public Avaleur avaleur;
   public ConvoyeurBas convoyeurBas;
   public ConvoyeurHaut convoyeurHaut;
   public Lanceur lanceur;
+  public DetecteurNote detecteurNote;
 
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
-  public DetecteurNote detecteurNote;
-
   public ShuffleBoard shuffleBoard;
-  private boolean estAllianceRouge = true;
+
+  private boolean allianceRouge = true;
   private boolean verrouChangementAlliance = false;
+  private boolean aveugle = true;
 
   public Robot() 
   {
     this.detecteurNote = new DetecteurNote();
-    this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
+    this.roues = new RouesMecanum();  //this.roues = new RouesMecanum();
     this.avaleur = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
     this.bras = new Bras();
 
-    //this.cameraLimelight = new CameraLimelight();
-    //this.cameraConducteur = new CameraConducteur();
-
-    this.shuffleBoard = new ShuffleBoard();
+    if(!this.aveugle)
+    {
+        this.cameraLimelight = new CameraLimelight();
+        this.cameraConducteur = new CameraConducteur();
+        this.shuffleBoard = new ShuffleBoard();
+    }
 
     DriverStation.silenceJoystickConnectionWarning(true);
   }
@@ -64,15 +67,15 @@ public class Robot {
       Optional<DriverStation.Alliance> couleur = DriverStation.getAlliance();
       if (couleur.isEmpty()) {
           //System.out.println("Alliance introuvable, défaut à rouge");
-          this.estAllianceRouge = true;
+          this.allianceRouge = true;
           return;
       }
-      this.estAllianceRouge = couleur.get() != DriverStation.Alliance.Blue;
+      this.allianceRouge = couleur.get() != DriverStation.Alliance.Blue;
   }
 
   public void setAlliance(boolean estRouge) {
       if (this.verrouChangementAlliance) return;
-      this.estAllianceRouge = estRouge;
+      this.allianceRouge = estRouge;
   }
 
   /**
@@ -83,8 +86,25 @@ public class Robot {
       this.verrouChangementAlliance = verrou;
   }
 
-  public boolean getEstAllianceRouge() {
+  public boolean getAllianceRouge() {
       miseAJourAlliance();
-      return this.estAllianceRouge;
+      return this.allianceRouge;
   }
+  public boolean estAveugle()
+  {
+    return this.aveugle;
+  }
+  public boolean estVoyant()
+  {
+    return !this.aveugle;
+  }
+  public void setAveugle()
+  {
+    this.aveugle = true;
+  }
+  public void setVoyant()
+  {
+    this.aveugle = false;
+  }
+
 }
