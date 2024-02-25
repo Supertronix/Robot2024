@@ -16,7 +16,6 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
-    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     Compresseur.getInstance().desactiver();
     robot.setAveugle();
     if(!robot.estAveugle())
@@ -31,7 +30,6 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    //this.robot.shuffleBoard.mettreAJour();
   }
 
   @Override
@@ -57,11 +55,21 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     this.periode++;
+
+    // SHUFFLEBOARD SEULEMEMT POUR DES TESTS 
+    // TOUJOURS limiter la frequence avec periode en mode test
+    // NE PAS ACTIVER DANS LE VRAI MODE AUTONOME FINAL
+    //if((periode % 100) == 0)
+    {
+      //this.robot.shuffleBoard.mettreAJour();
+    }
+
   }
 
   @Override
   public void teleopInit() {
     System.out.println("teleopInit()");
+    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     this.periode = 0;
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
@@ -80,6 +88,10 @@ public class RobotControleur extends TimedRobot {
     }
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
+    if((periode % 100) == 0)
+    {
+      this.robot.shuffleBoard.mettreAJour();
+    }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
     //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
