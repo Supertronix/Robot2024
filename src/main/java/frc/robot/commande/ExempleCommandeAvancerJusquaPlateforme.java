@@ -8,14 +8,14 @@ import frc.robot.soussysteme.RouesMecanumSynchro;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public class CommandeAvancerJusquaPlateforme extends Command {
+public class ExempleCommandeAvancerJusquaPlateforme extends Command {
 
     protected RouesMecanumSynchro roues = null;
     protected LecteurAccelerometre lecteurEquilibre = null;
     //protected boolean finie = false;
     //protected DetecteurDuree detecteur;
 
-    public CommandeAvancerJusquaPlateforme()
+    public ExempleCommandeAvancerJusquaPlateforme()
     {
         System.out.println("new CommandeAvancerJusquaPlateforme()");
         this.lecteurEquilibre = LecteurAccelerometre.getInstance();

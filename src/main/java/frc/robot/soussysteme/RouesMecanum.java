@@ -15,6 +15,7 @@ public class RouesMecanum extends Roues {
     public RouesMecanum()
     {
         this.facteur = FACTEUR_ROUES;
+        this.reinitialiserMoteurs();
         this.activerModeHolonomique();
     }
     public void activerModeHolonomique()
@@ -24,10 +25,19 @@ public class RouesMecanum extends Roues {
         this.roueArriereDroite.setInverted(false);
         this.roueAvantDroite.setInverted(false);
     }
-    
-    /** 
-     * @param facteur
-     */
+    public RouesMecanum convertirEnRouesHolonomiques()
+    {
+        this.reinitialiserMoteurs();
+        this.activerModeHolonomique();
+        return (RouesMecanum)this;
+    }    
+    public void reinitialiserMoteurs()
+    {
+        this.roueAvantDroite.initialiser();
+        this.roueAvantGauche.initialiser();
+        this.roueArriereDroite.initialiser();
+        this.roueArriereGauche.initialiser();
+    }
     public void setFacteur(double facteur)
     {
         this.facteur = facteur;

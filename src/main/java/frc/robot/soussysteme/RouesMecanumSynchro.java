@@ -19,39 +19,28 @@ public class RouesMecanumSynchro extends RouesMecanum {
     protected double circonference = 18.45;
     protected int ticParTour = 42;
 
-
     public RouesMecanumSynchro()
     {
+        this.reinitialiserMoteurs();
         this.activerModeSynchronisees();
         this.preparerConsigneInitiale();
     }
-
-    
-    /** 
-     * @return RouesMecanum
-     */
     public RouesMecanum convertirEnRouesHolonomiques()
     {
         this.annulerConsigneInitiale();
         this.desactiverModeSynchronisees();
-        this.reinitialiserMoteurs();
-        this.activerModeHolonomique();
+        super.convertirEnRouesHolonomiques();
+        //this.reinitialiserMoteurs();
+        //this.activerModeHolonomique();
         return (RouesMecanum)this;
     }
     public RouesMecanum convertirEnRouesSynchro()
     {
         this.annulerConsigneInitiale();
-        //this.desactiverModeSynchronisees();
+        this.desactiverModeSynchronisees();
         this.reinitialiserMoteurs();
         this.activerModeSynchronisees();
         return (RouesMecanum)this;
-    }
-    public void reinitialiserMoteurs()
-    {
-        this.roueAvantDroite.initialiser();
-        this.roueAvantGauche.initialiser();
-        this.roueArriereDroite.initialiser();
-        this.roueArriereGauche.initialiser();
     }
 
     public void activerModeSynchronisees()
@@ -109,5 +98,3 @@ public class RouesMecanumSynchro extends RouesMecanum {
         //this.pid.setOutputRange(-MAX, MAX); 
     }
 }
-    //pid.setI(1e-4);
-        //pid.setD(1);

@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public class Robot {
 
-  public RouesMecanum roues;
+  public RouesMecanumSynchro roues;
   public Bras bras;
 
   public Avaleur avaleur;
@@ -32,15 +32,15 @@ public class Robot {
   public Robot() 
   {
     this.detecteurNote = new DetecteurNote();
-    this.roues = new RouesMecanum();  //this.roues = new RouesMecanum();
+    this.roues = new RouesMecanumSynchro();  //this.roues = new RouesMecanum();
     this.avaleur = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
     this.bras = new Bras();
 
-    this.cameraLimelight = new CameraLimelight();
-    this.cameraConducteur = new CameraConducteur();
+    //this.cameraLimelight = new CameraLimelight();
+    //this.cameraConducteur = new CameraConducteur();
 
     this.shuffleBoard = new ShuffleBoard();
 

@@ -17,8 +17,8 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
-    this.robot.cameraConducteur.initialiser();
-    this.robot.shuffleBoard.initialiser();
+    //this.robot.cameraConducteur.initialiser();
+    //this.robot.shuffleBoard.initialiser();
     Compresseur.getInstance().desactiver();
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
@@ -27,12 +27,12 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    this.robot.shuffleBoard.mettreAJour();
+    //this.robot.shuffleBoard.mettreAJour();
   }
 
   @Override
   public void disabledInit() {
-    Robot.getInstance().cameraLimelight.resetDecoupageCamera();
+    //Robot.getInstance().cameraLimelight.resetDecoupageCamera();
   }
 
   @Override
@@ -57,7 +57,7 @@ public class RobotControleur extends TimedRobot {
     System.out.println("teleopInit()");
     this.periode = 0;
     this.robot = Robot.getInstance();
-    //((RouesMecanumSynchro)robot.roues).convertirEnRouesHolonomiques(); // si necessaire
+    robot.roues.convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
     manette.activerBoutons();
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
@@ -67,7 +67,7 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
-    robot.cameraLimelight.decoupageCameraDynamique();
+    //robot.cameraLimelight.decoupageCameraDynamique();
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
