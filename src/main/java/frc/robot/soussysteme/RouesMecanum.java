@@ -3,6 +3,7 @@ package frc.robot.soussysteme;
 // Doc https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/math/geometry/Rotation2d.html
 // import edu.wpi.first.math.geometry.Rotation2d;
 // Doc https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html    
+import com.revrobotics.CANSparkBase;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class RouesMecanum extends Roues {
@@ -16,6 +17,10 @@ public class RouesMecanum extends Roues {
     {
         this.facteur = FACTEUR_ROUES;
         this.activerModeHolonomique();
+        this.roueAvantGauche.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        this.roueArriereGauche.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        this.roueArriereDroite.setIdleMode(CANSparkBase.IdleMode.kCoast);
+        this.roueAvantDroite.setIdleMode(CANSparkBase.IdleMode.kCoast);
     }
     public void activerModeHolonomique()
     {

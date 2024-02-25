@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.*;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
+import frc.robot.mesure.Vecteur3;
 
 public class RobotControleur extends TimedRobot {
 
@@ -17,8 +18,8 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
-    this.robot.cameraConducteur.initialiser();
-    this.robot.shuffleBoard.initialiser();
+    //this.robot.cameraConducteur.initialiser();
+    //this.robot.shuffleBoard.initialiser();
     Compresseur.getInstance().desactiver();
     //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
   }
@@ -26,13 +27,14 @@ public class RobotControleur extends TimedRobot {
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-    this.robot.shuffleBoard.mettreAJour();
+      CommandScheduler.getInstance().run();
+      //this.robot.shuffleBoard.mettreAJour();
+      //robot.cameraLimelight.decoupageCameraDynamique();
   }
 
   @Override
   public void disabledInit() {
-    Robot.getInstance().cameraLimelight.resetDecoupageCamera();
+    //Robot.getInstance().cameraLimelight.resetDecoupageCamera();
   }
 
   @Override
@@ -67,7 +69,6 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
-    robot.cameraLimelight.decoupageCameraDynamique();
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
@@ -88,10 +89,10 @@ public class RobotControleur extends TimedRobot {
         //this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonMainGauche.onTrue(new CommandeAvalerAutomatiquement());
-        this.gachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
-        //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
+        //this.boutonMainGauche.onTrue(new CommandeAvalerAutomatiquement());
+        //this.gachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
+        //this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
+        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
       }
 
       public void activerBoutonsTests()

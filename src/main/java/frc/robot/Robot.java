@@ -32,19 +32,19 @@ public class Robot {
 
   public Robot() 
   {
-    this.detecteurNote = new DetecteurNote();
+    //this.detecteurNote = new DetecteurNote();
     this.roues = new RouesMecanum();  //this.roues = new RouesMecanum();
-    this.avaleur = new Avaleur();
-    this.convoyeurBas = new ConvoyeurBas();
-    this.convoyeurHaut = new ConvoyeurHaut();
-    this.lanceur = new Lanceur();
-    this.lanceurExtension = new LanceurExtension();
-    this.bras = new Bras();
+    //this.avaleur = new Avaleur();
+    //this.convoyeurBas = new ConvoyeurBas();
+    //this.convoyeurHaut = new ConvoyeurHaut();
+    //this.lanceur = new Lanceur();
+    //this.lanceurExtension = new LanceurExtension();
+    //this.bras = new Bras();
 
     this.cameraLimelight = new CameraLimelight();
-    this.cameraConducteur = new CameraConducteur();
+    //this.cameraConducteur = new CameraConducteur();
 
-    this.shuffleBoard = new ShuffleBoard();
+    //this.shuffleBoard = new ShuffleBoard();
 
     DriverStation.silenceJoystickConnectionWarning(true);
   }
