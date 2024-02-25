@@ -31,8 +31,6 @@ public class CommandeLanceurOuvrir extends Command {
 
     @Override
     public void execute() {
-        //System.out.println("Capteur deploye " + convoyeurHaut.estOuvert() );
-        //System.out.println("Capteur retracte " + convoyeurHaut.estRetracte() );
         this.detecteurDuree.mesurer();
     }
 

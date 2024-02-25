@@ -8,6 +8,7 @@ import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
 import frc.robot.commande.robot.CommandeAvalerTeleop;
 import frc.robot.commande.robot.CommandeLancerSpeaker;
 import frc.robot.commande.robot.CommandeLanceurOuvrirEtAllonger;
+import frc.robot.commande.robot.CommandeLanceurRetracterEtFermer;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 
@@ -119,6 +120,7 @@ public class RobotControleur extends TimedRobot {
         this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
         //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0)); 
         this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
+        this.boutonA.onTrue(new CommandeLanceurRetracterEtFermer());
       }
 
       public void activerBoutonsTests()
