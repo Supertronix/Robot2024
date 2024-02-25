@@ -268,7 +268,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/vitesseAjustee.vxMetersPerSecond",
-              "_title": "SmartDashboard/vitesseAjustee.vxMetersPerSecond",
+              "_title": "Vitesse X (m/s)",
               "_glyph": 148,
               "_showGlyph": false,
               "Graph/Visible time": 30.0,
@@ -288,7 +288,7 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/vitesseAjustee.vyMetersPerSecond",
-              "_title": "SmartDashboard/vitesseAjustee.vyMetersPerSecond",
+              "_title": "Vitesse X (m/s)",
               "_glyph": 148,
               "_showGlyph": false,
               "Graph/Visible time": 30.0,
@@ -308,7 +308,7 @@
             "content": {
               "_type": "Profiled PID Controller",
               "_source0": "network_table:///SmartDashboard/PID angle",
-              "_title": "SmartDashboard/PID angle",
+              "_title": "PID Angle",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -321,7 +321,7 @@
             "content": {
               "_type": "PID Controller",
               "_source0": "network_table:///SmartDashboard/PID x",
-              "_title": "SmartDashboard/PID x",
+              "_title": "PID Axe X",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -334,7 +334,7 @@
             "content": {
               "_type": "PID Controller",
               "_source0": "network_table:///SmartDashboard/PID y",
-              "_title": "SmartDashboard/PID y",
+              "_title": "PID Axe Y",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -347,12 +347,12 @@
             "content": {
               "_type": "Graph",
               "_source0": "network_table:///SmartDashboard/vitesseAjustee.omegaDegreesPerSecond",
-              "_title": "SmartDashboard/vitesseAjustee.omegaDegreesPerSecond",
+              "_title": "Vitesse angulaire (deg/s)",
               "_glyph": 148,
               "_showGlyph": false,
               "Graph/Visible time": 30.0,
               "Graph/X-axis auto scrolling": true,
-              "Y-axis/Automatic bounds": true,
+              "Y-axis/Automatic bounds": false,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
               "Y-axis/Unit": "ul",
@@ -367,7 +367,41 @@
             "content": {
               "_type": "Gyro",
               "_source0": "network_table:///SmartDashboard/vitesseAjustee.omegaDegreesPerSecond",
-              "_title": "SmartDashboard/vitesseAjustee.omegaDegreesPerSecond",
+              "_title": "Vitesse angulaire (deg/s)",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "12,0": {
+            "size": [
+              4,
+              3
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/angleRobot",
+              "_title": "Angle robot (deg)",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Visuals/Major tick spacing": 45.0,
+              "Visuals/Starting angle": 180.0,
+              "Visuals/Show tick mark ring": true,
+              "Visuals/Counter clockwise": false
+            }
+          },
+          "9,0": {
+            "size": [
+              3,
+              3
+            ],
+            "content": {
+              "_type": "Gyro",
+              "_source0": "network_table:///SmartDashboard/angleTag",
+              "_title": "Angle tag (deg)",
               "_glyph": 148,
               "_showGlyph": false,
               "Visuals/Major tick spacing": 45.0,
@@ -381,9 +415,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -5.599999904632568,
-    "y": 0.800000011920929,
-    "width": 1547.199951171875,
-    "height": 828.7999877929688
+    "x": -7.333333492279053,
+    "y": -7.333333492279053,
+    "width": 1294.6666259765625,
+    "height": 694.6666870117188
   }
 }
