@@ -10,6 +10,7 @@ public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
     RelativeEncoder encodeurEsclaveLanceur;
     DetecteurNote capteurLuminosite;
+    int periode;
     public ShuffleBoard() {
         System.out.println("new ShuffleBoard()");
     }
@@ -31,7 +32,7 @@ public class ShuffleBoard {
     public void mettreAJour() {
         SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitreLanceur.getVelocity());
         SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclaveLanceur.getVelocity());
-        SmartDashboard.putBoolean("Note chargee", capteurLuminosite.getLuminosite());
+        SmartDashboard.putBoolean("Note chargee", capteurLuminosite.detecteNote());
         SmartDashboard.putBoolean("Alliance Rouge", Robot.getInstance().getAllianceRouge());
     }
 

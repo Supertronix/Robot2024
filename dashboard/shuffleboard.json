@@ -27,9 +27,9 @@
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
               "compression": 30.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "fps": 15,
+              "imageWidth": 0,
+              "imageHeight": 0
             }
           }
         }

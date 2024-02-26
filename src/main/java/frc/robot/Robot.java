@@ -28,7 +28,7 @@ public class Robot {
 
   private boolean allianceRouge = true;
   private boolean verrouChangementAlliance = false;
-  private boolean aveugle = true;
+  private boolean aveugle = false;
 
   public Robot() 
   {

@@ -22,7 +22,7 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     this.robot = Robot.getInstance();
     Compresseur.getInstance().activer();
-    robot.setAveugle();
+    robot.setVoyant();
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();

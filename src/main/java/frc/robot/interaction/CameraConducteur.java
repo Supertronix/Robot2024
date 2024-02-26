@@ -19,6 +19,8 @@ public class CameraConducteur {
     private boolean actif;
     private int hauteur = (int) (480 / 1); // Limite bande passante et FPS
     private int largeur = (int) (640 / 1);
+    private int timerVirtuel = 30;
+    private int compteur;
 
     public CameraConducteur()
     {
@@ -56,6 +58,12 @@ public class CameraConducteur {
             // lets the robot stop this thread when restarting robot code or
             // deploying.
             while (!Thread.interrupted()) {
+                // Mise a jour toute les 20ms max (limite bande passante) (15 FPS)
+                try {
+                    Thread.sleep(0);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 // Tell the CvSink to grab a frame from the camera and put it
                 // in the source mat.  If there is an error notify the output.
                 if (cvSink.grabFrame(source) == 0) {
@@ -79,6 +87,11 @@ public class CameraConducteur {
                 dessiner(source);
                 // Give the output stream a new image to display
                 outputStream.putFrame(source);
+
+                if (compteur % 10 == 0) {
+                    timerVirtuel--;
+                }
+                compteur++;
             }
 
             // Add the limelight camera stream to the dashboard
@@ -95,16 +108,17 @@ public class CameraConducteur {
     }
 
     public void dessiner(Mat source) {
-        int tempsMatchDouble = (int) DriverStation.getMatchTime();
-        String tempsMatch = String.valueOf(tempsMatchDouble);
+        int tempsMatchInt = (int) DriverStation.getMatchTime();
 
-        int LARGEUR = source.width();
-        int HAUTEUR = source.height();
+        largeur = source.width();
+        hauteur = source.height();
 
         //System.out.println("LARGEUR: " + LARGEUR + " HAUTEUR: " + HAUTEUR);
 
         dessinerCoins(source);
-        dessinerHorloge(source, tempsMatch);
+        //dessinerHorloge(source, timerVirtuel);
+        dessinerHorloge(source, tempsMatchInt);
+        dessinerAideNote(source);
     }
 
     public void dessinerCoins(Mat source) {
@@ -115,15 +129,28 @@ public class CameraConducteur {
         Imgproc.circle(source, new Point(largeur, hauteur), 5, new Scalar(255, 255, 255), -1);
     }
 
-    public void dessinerHorloge(Mat source, String tempsMatch) {
+    public void dessinerHorloge(Mat source, int tempsMatchInt) {
+        String tempsMatch = String.valueOf(tempsMatchInt);
+
+        Scalar couleurTexte = new Scalar(255, 255, 255);
+        if (tempsMatchInt < 15 && tempsMatchInt % 2 == 0) couleurTexte = new Scalar(80, 0, 255);
+
         // Rectangle noir, de longueur 30% Longueur, de couleur (46,46,46) positionné en haut au milieu
         double hauteurRectangle = hauteur * 0.05;
-        Imgproc.rectangle(source, new Point(largeur * 0.2, 0), new Point(largeur * 0.8, hauteurRectangle), new Scalar(46, 46, 46), -1);
+        Imgproc.rectangle(source, new Point(largeur * 0.45, 0), new Point(largeur * 0.55, hauteurRectangle), new Scalar(46, 46, 46), -1);
 
         double tailleTexte = 0.5;
         double tailleTexteLargeur = Imgproc.getTextSize(tempsMatch, Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, 1, null).width;
         double tailleTexteHauteur = Imgproc.getTextSize(tempsMatch, Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, 1, null).height;
-        Imgproc.putText(source, tempsMatch, new Point((double) largeur / 2 - tailleTexteLargeur / 2, hauteurRectangle - (tailleTexteHauteur/2) - 2), Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, new Scalar(255, 255, 255));
+        Imgproc.putText(source, tempsMatch, new Point((double) largeur / 2 - tailleTexteLargeur / 2, hauteurRectangle - (tailleTexteHauteur/2) - 2), Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, couleurTexte);
+    }
 
+    public void dessinerAideNote(Mat source) {
+        // couleur : orange
+        Scalar couleur = new Scalar(0, 140, 255);
+        // Dessine un trait qui part d'en bas à gauche de l'image et qui va vers 27% de la largeur et 50% de la hauteur
+        Imgproc.line(source, new Point(0, hauteur), new Point(largeur * 0.27, hauteur * 0.5), couleur, 2);
+        // Dessine un tait qui part d'en bas à 55% de la largeur et qui va vers 48% de la largeur et 50% de la hauteur
+        Imgproc.line(source, new Point(largeur * 0.55, hauteur), new Point(largeur * 0.49, hauteur * 0.5), couleur, 2);
     }
 }
