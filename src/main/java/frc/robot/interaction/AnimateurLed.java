@@ -18,9 +18,6 @@ public class AnimateurLed implements Materiel.Affichage{
     protected byte[] donnee = new byte[1];
     protected byte[] dummy = new byte[1];
 
-	protected DigitalOutput signal = null;
-	//protected DetecteurEcoutilleAttrapee detecteurEcoutille = null;
-	//public AnimateurLed(DetecteurEcoutilleAttrapee detecteurEcoutille)
 	public AnimateurLed()
 	{
         i2c = new I2C(port, 0x1E); // 0x1E est l'adresse du périphérique
