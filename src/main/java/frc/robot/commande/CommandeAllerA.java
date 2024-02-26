@@ -14,13 +14,17 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotControleur;
+import frc.robot.RobotControleur.ActionManette;
 import frc.robot.interaction.CameraLimelight;
+import frc.robot.interaction.Manette;
 import frc.robot.interaction.ShuffleBoard;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
 public class CommandeAllerA extends Command {
+
     // PID axe X
     protected static double x_kP = 0.05;
     protected static double x_kI = 0.00;
@@ -43,13 +47,15 @@ public class CommandeAllerA extends Command {
     protected static double largeurDuCentre = 0.43;
 
     protected RouesMecanum roues;
+    protected CameraLimelight limelight;
     protected LimiteurDuree detecteur;
+    protected Manette manette;
 
     protected PIDController xControleur;
     protected PIDController yControleur;
     protected ProfiledPIDController angleControleur;
     protected HolonomicDriveController driveControleur;
-    protected CameraLimelight limelight;
+    
 
     protected MecanumDriveKinematics kinematics;
 
@@ -61,6 +67,7 @@ public class CommandeAllerA extends Command {
         this.limelight = Robot.getInstance().cameraLimelight;
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(5000);
+        this.manette = ActionManette.getInstance();
 
         this.xControleur = new PIDController(x_kP, x_kI, x_kD);
         this.yControleur = new PIDController(y_kP, y_kI, y_kD);
@@ -85,6 +92,7 @@ public class CommandeAllerA extends Command {
     @Override
     public void execute() {
         //System.out.println("CommandeAllerA.execute()"); // commenter les logs d'execute en version finale
+        this.detecteur.mesurer();
 
         double[] donneesPosition = limelight.getBotpose();
         double[] donneesCible = limelight.getTagPositionRelatifRobot();
@@ -95,7 +103,7 @@ public class CommandeAllerA extends Command {
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
         Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromDegrees(donneesCible[5]));
 
-        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.12, Rotation2d.fromDegrees(donneesCible[5]));
+        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(donneesCible[5]));
         MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
         double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
@@ -110,14 +118,6 @@ public class CommandeAllerA extends Command {
             roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
         }
         
-        /*
-        if (vitesseAjustee.omegaRadiansPerSecond > 180.0)
-            roues.tournerGauche(0.1);
-        else
-            roues.tournerDroite(0.1);*/
-
-        
-
         SmartDashboard.putNumber("vitesseAjustee.vxMetersPerSecond", vitesseAjustee.vxMetersPerSecond);
         SmartDashboard.putNumber("vitesseAjustee.vyMetersPerSecond", vitesseAjustee.vyMetersPerSecond);
         SmartDashboard.putNumber("vitesseAjustee.omegaDegreesPerSecond", vitesseAjustee.omegaRadiansPerSecond*180/Math.PI);
@@ -133,11 +133,7 @@ public class CommandeAllerA extends Command {
         double[] donneesPosition = limelight.getBotpose();
         double[] donneesCible = limelight.getTagPositionRelatifRobot();
 
-        if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
-            return false;
-
         System.out.println("CommandeAllerA.isFinished() donneesPosition " + donneesPosition[0] + " " + donneesPosition[1]);
-        
         double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
         boolean seuilAngleAtteint = Math.abs((donneesCible[5] - donneesPosition[5])) < 5.0;
         System.out.println("CommandeAllerA.isFinished() distance " + distance);
@@ -151,6 +147,10 @@ public class CommandeAllerA extends Command {
             System.out.println("CommandeAllerA.isFinished() detecteur.estTropLongue()");
             return true;
         }
+
+        // Pas de tag
+        if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
+            return false;
 
         return false;
     }
