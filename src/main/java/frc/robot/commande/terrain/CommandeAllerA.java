@@ -43,8 +43,8 @@ public class CommandeAllerA extends Command {
     protected static double angMaxAcceleration = 999.00; // m2/s
 
     // Pour le calcul de déplacement des roues mecanum
-    protected static double longueurDuCentre = 0.38;
-    protected static double largeurDuCentre = 0.43;
+    protected static double longueurDuCentre = 0.635;
+    protected static double largeurDuCentre = 0.508;
 
     protected RouesMecanum roues;
     protected CameraLimelight limelight;
@@ -142,7 +142,16 @@ public class CommandeAllerA extends Command {
     @Override
     public boolean isFinished()
     {
+        // Pas de tag
+        if (!limelight.estIDValide(limelight.getTagID()))
+            return false;
+
         double[] donneesPosition = limelight.getBotpose();
+
+        // Pas de tag, verification redondante
+        if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
+            return false;
+
         double[] donneesCible = limelight.getTagPositionRelatifRobot();
 
         System.out.println("CommandeAllerA.isFinished() donneesPosition " + donneesPosition[0] + " " + donneesPosition[1]);
@@ -159,10 +168,6 @@ public class CommandeAllerA extends Command {
             System.out.println("CommandeAllerA.isFinished() detecteur.estTropLongue()");
             return true;
         }
-
-        // Pas de tag
-        if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
-            return false;
 
         return false;
     }
