@@ -107,8 +107,20 @@ public class CommandeAllerA extends Command {
         MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
         double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
-        
+        boolean seuilAngleAtteint = Math.abs((donneesCible[5] - donneesPosition[5])) < 5.0;
+
+        /*
         if (distance < Math.pow(0.5, 2)) {
+            if ((donneesCible[5] - donneesPosition[5]) > 0.0)
+                roues.tournerGauche(vitesseAjustee.omegaRadiansPerSecond);
+            else
+                roues.tournerDroite(vitesseAjustee.omegaRadiansPerSecond);
+        }
+        else {
+            roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
+        }*/
+
+        if (!seuilAngleAtteint) {
             if ((donneesCible[5] - donneesPosition[5]) > 0.0)
                 roues.tournerGauche(vitesseAjustee.omegaRadiansPerSecond);
             else
@@ -120,7 +132,7 @@ public class CommandeAllerA extends Command {
         
         SmartDashboard.putNumber("vitesseAjustee.vxMetersPerSecond", vitesseAjustee.vxMetersPerSecond);
         SmartDashboard.putNumber("vitesseAjustee.vyMetersPerSecond", vitesseAjustee.vyMetersPerSecond);
-        SmartDashboard.putNumber("vitesseAjustee.omegaDegreesPerSecond", vitesseAjustee.omegaRadiansPerSecond*180/Math.PI);
+        SmartDashboard.putNumber("vitesseAjustee.omegaDegreesPerSecond", vitesseAjustee.omegaRadiansPerSecond * 180 / Math.PI);
     }
 
     
