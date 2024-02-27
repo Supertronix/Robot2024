@@ -7,6 +7,7 @@ import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
+import frc.robot.interaction.SelecteurModeAutonome.MODE;
 import frc.robot.interaction.SelecteurModeAutonome.POSITION;
 import frc.robot.mesure.Vecteur3;
 
@@ -55,11 +56,14 @@ public class RobotControleur extends TimedRobot {
   }
 
   POSITION positionDepart;
+  MODE modeAutonome;
+
   @Override
   public void autonomousInit() {
     this.periode = 0;
     this.robot = Robot.getInstance(); 
     positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    modeAutonome = SelecteurModeAutonome.getInstance().lireMode();
     if(POSITION.GAUCHE == positionDepart)
     {
       System.out.println("Position gauche");
@@ -73,7 +77,15 @@ public class RobotControleur extends TimedRobot {
     if(POSITION.DROITE == positionDepart)
     {
       System.out.println("Position droite");
-      
+    }
+
+    if(MODE.AUTOMATIQUE == modeAutonome)
+    {
+      System.out.println("Mode automatique");
+    }
+    if(MODE.DESIGN == modeAutonome)
+    {
+      System.out.println("Mode design");
     }
   }
 
