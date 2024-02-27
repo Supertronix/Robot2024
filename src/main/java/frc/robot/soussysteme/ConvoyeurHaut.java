@@ -9,6 +9,7 @@ import frc.robot.Materiel;
 import frc.robot.composant.Compresseur;
 import frc.robot.composant.MoteurTalon;
 import frc.robot.interaction.DetecteurConvoyeurHaut;
+import frc.robot.mesure.Chronometre;
 
 // Le deuxième convoyeur qui transporte la note du convoyeur 1 à l'intake
 // Fonctionne avec 2 talons SRX
@@ -22,6 +23,11 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
     protected Solenoid mouvementExtension;
     protected DetecteurConvoyeurHaut detecteurConvoyeurHaut;
 
+    protected boolean estOuvert;
+    protected boolean estRetracte;
+    protected Chronometre chronoFermer;
+    protected Chronometre chronoAllonger;
+
     public ConvoyeurHaut() {
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
@@ -31,6 +37,8 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         this.mouvementOuvertureDroite = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
         this.mouvementExtension   = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
         this.detecteurConvoyeurHaut = new DetecteurConvoyeurHaut();
+        this.chronoFermer = new Chronometre();
+        this.chronoAllonger = new Chronometre();
 
         moteurTalonMaitre.setInverted(true);
         moteurTalonEsclave.setInverted(false);
@@ -66,10 +74,11 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
     public void allonger()
     {
         System.out.println("ConvoyeurHaut.allonger()");
-        //if(this.detecteurConvoyeurHaut.estOuvert()) // machine etat a la place
+        if(this.estOuvert()) // machine etat a la place
         {
+            this.chronoAllonger.initialiser();
             this.mouvementExtension.set(true);
-        }
+        }else System.out.println("Peut pas Allonger");
     }
     public void retracter()
     {
@@ -85,20 +94,31 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
 
     public void fermer() {
         System.out.println("ConvoyeurHaut.fermer()");
-        //if(this.detecteurConvoyeurHaut.estRetracte()) // machine etat a la place
+        if(this.estRetracte()) // machine etat a la place
         {
+            this.chronoFermer.initialiser();
             this.mouvementOuvertureGauche.set(false);
             this.mouvementOuvertureDroite.set(false);
-        }
+        }else System.out.println("Peut pas fermer");
     }
 
     public boolean estOuvert()
     {
-        return this.detecteurConvoyeurHaut.estOuvert();
+        if (this.chronoFermer.getDureeActuelle() >= 1000) {
+            this.estOuvert = false;
+            chronoFermer.desactiver();
+        }
+        if (this.detecteurConvoyeurHaut.estOuvert()) this.estOuvert = true;
+        return this.estOuvert;
     }
 
     public boolean estRetracte()
     {
-        return this.detecteurConvoyeurHaut.estRetracte();
+        if (this.chronoAllonger.getDureeActuelle() >= 1000) {
+            this.estRetracte = false;
+            chronoAllonger.desactiver();
+        }
+        if (this.detecteurConvoyeurHaut.estRetracte()) this.estRetracte = true;
+        return this.estRetracte;
     }
 }

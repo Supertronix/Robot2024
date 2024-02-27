@@ -22,6 +22,9 @@ public class CameraConducteur {
     private int timerVirtuel = 30;
     private int compteur;
     public boolean estAvaleurActif = false;
+    public boolean estSpeakerAcquit = false;
+    public boolean estAmplificateurAcquit = false;
+    public boolean estSceneAcquise = false;
 
     public CameraConducteur()
     {
@@ -120,6 +123,7 @@ public class CameraConducteur {
         //dessinerHorloge(source, timerVirtuel);
         dessinerHorloge(source, tempsMatchInt);
         dessinerAideNote(source, timerVirtuel);
+        dessinerAideVerouillage(source);
     }
 
     public void dessinerCoins(Mat source) {
@@ -163,5 +167,15 @@ public class CameraConducteur {
         Imgproc.line(source, new Point(0, hauteur), new Point(largeur * 0.27, hauteur * 0.5), couleur, 2);
         // Dessine un trait qui part d'en bas à 55% de la largeur et qui va vers 48% de la largeur et 50% de la hauteur
         Imgproc.line(source, new Point(largeur * 0.55, hauteur), new Point(largeur * 0.48, hauteur * 0.5), couleur, 2);
+    }
+
+    public void dessinerAideVerouillage(Mat source) {
+        // couleur par défaut : gris
+        Scalar couleur = new Scalar(80, 255, 255, 255);
+
+        double tailleTexte = 0.5;
+        double tailleTexteLargeur = Imgproc.getTextSize("Verrouillage", Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, 1, null).width;
+        double tailleTexteHauteur = Imgproc.getTextSize("Verrouillage", Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, 1, null).height;
+        Imgproc.putText(source, "Verrouillage", new Point((double) largeur / 2 - tailleTexteLargeur / 2, (double) hauteur / 2 - tailleTexteHauteur / 2), Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, couleur);
     }
 }

@@ -1,5 +1,6 @@
 package frc.robot.commande.auto;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commande.robot.CommandeGrimper;
@@ -13,7 +14,7 @@ public class TrajetComplique extends SequentialCommandGroup{
 	{
 		
 		// EXEMPLE pour la syntaxe comment ajouter des commandes paralleles dans une sequentielle
-		ParallelCommandGroup deuxCommandesEnMemeTemps = new ParallelCommandGroup(null);
+		ParallelCommandGroup deuxCommandesEnMemeTemps = new ParallelCommandGroup((Command) null);
 		deuxCommandesEnMemeTemps.addCommands(new CommandeGrimper(), new CommandeLancerSpeaker());
 
 		addCommands(new CommandeAllerA(new Vecteur3(5,5,5),10), deuxCommandesEnMemeTemps);

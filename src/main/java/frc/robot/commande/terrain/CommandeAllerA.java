@@ -9,16 +9,13 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotControleur;
 import frc.robot.RobotControleur.ActionManette;
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.Manette;
-import frc.robot.interaction.ShuffleBoard;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
@@ -142,13 +139,9 @@ public class CommandeAllerA extends Command {
     @Override
     public boolean isFinished()
     {
-        // Pas de tag
-        if (!limelight.estIDValide(limelight.getTagID()))
-            return false;
-
         double[] donneesPosition = limelight.getBotpose();
 
-        // Pas de tag, verification redondante
+        // Pas de données de tag valide cette frame
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
 

@@ -10,7 +10,7 @@ import frc.robot.soussysteme.ConvoyeurHaut;
 
 public class CommandeLanceurOuvrir extends Command {
     protected ConvoyeurHaut convoyeurHaut;
-    protected static final int DUREE = 3000;
+    protected static final int DUREE = 10000;
     protected LimiteurDuree detecteurDuree;
 
     //protected Manette manette;
