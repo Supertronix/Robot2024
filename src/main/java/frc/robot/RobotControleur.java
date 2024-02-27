@@ -3,11 +3,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commande.*;
 import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
+import frc.robot.interaction.SelecteurModeAutonome.POSITION;
 import frc.robot.mesure.Vecteur3;
 
 public class RobotControleur extends TimedRobot {
@@ -25,8 +25,9 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard = new ShuffleBoard();
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
-
     robot.setVoyant();
+    robot.setAveugle();
+
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();
@@ -53,12 +54,27 @@ public class RobotControleur extends TimedRobot {
   public void disabledPeriodic() {
   }
 
+  POSITION positionDepart;
   @Override
   public void autonomousInit() {
     this.periode = 0;
-    this.robot = Robot.getInstance();    
-    //trajetAutonome = new CommandeTrajetAutonome();
-    //trajetAutonome.schedule();
+    this.robot = Robot.getInstance(); 
+    positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    if(POSITION.GAUCHE == positionDepart)
+    {
+      System.out.println("Position gauche");
+      //trajetAutonome = new CommandeTrajetAutonome();
+      //trajetAutonome.schedule();
+    }
+    if(POSITION.MILIEU == positionDepart)
+    {
+      System.out.println("Position milieu");
+    }
+    if(POSITION.DROITE == positionDepart)
+    {
+      System.out.println("Position droite");
+      
+    }
   }
 
   @Override
@@ -84,6 +100,7 @@ public class RobotControleur extends TimedRobot {
     robot.roues.setFacteur(1); // 0.8
     manette.activerBoutons();
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
+    positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
   }
 
   @Override
