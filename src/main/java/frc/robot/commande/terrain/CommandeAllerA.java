@@ -20,13 +20,11 @@ import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandeAllerA extends Command {
 
     protected static final double SEUIL_DISTANCE = 0.50 * 0.50;
     protected static final double SEUIL_ANGLE = 5.0;
+    protected static final int DUREE_TIMEOUT = 10000;
 
     // PID axe X
     protected static double x_kP = 0.2;
@@ -75,7 +73,7 @@ public class CommandeAllerA extends Command {
         this.roues = (RouesMecanum) Robot.getInstance().roues;
         this.limelight = Robot.getInstance().cameraLimelight;
         this.addRequirements(this.roues);
-        this.detecteur = new LimiteurDuree(5000);
+        this.detecteur = new LimiteurDuree(DUREE_TIMEOUT);
         this.manette = ActionManette.getInstance();
 
         this.xControleur = new PIDController(x_kP, x_kI, x_kD);

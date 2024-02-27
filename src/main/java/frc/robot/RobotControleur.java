@@ -3,6 +3,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
@@ -164,7 +165,7 @@ public class RobotControleur extends TimedRobot {
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(6.90, 1.48, 0), 180));
+        this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
       }
 
       public void activerBoutonsTests()
