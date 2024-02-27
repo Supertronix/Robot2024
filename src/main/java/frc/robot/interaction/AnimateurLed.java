@@ -18,16 +18,18 @@ public class AnimateurLed implements Materiel.Affichage{
     protected byte[] donnee = new byte[1];
     protected byte[] dummy = new byte[1];
 
+    protected static String LIBELLE_SELECTEUR_ANIMATION = "Animation";
+
 	public AnimateurLed()
 	{
         i2c = new I2C(port, 8); 
 		//SmartDashboard.putString("Animation", "0");
 		selecteur = new SendableChooser<String>();
-		selecteur.setDefaultOption("Aucune", "0");
-		selecteur.addOption("Waves", "W");
-		selecteur.addOption("Damier", "D");
+		selecteur.setDefaultOption("AUCUNE", "0");
+		selecteur.addOption("WAVES", "W");
+		selecteur.addOption("DAMIER", "D");
 		selecteur.addOption("5910", "5");
-		SmartDashboard.putData("Animation", selecteur);	
+		SmartDashboard.putData(LIBELLE_SELECTEUR_ANIMATION, selecteur);	
 	}
 	public void choisirAnimation(String choix)
 	{
@@ -36,7 +38,6 @@ public class AnimateurLed implements Materiel.Affichage{
 	}
 	public void choisirAnimationSelonDashboard()
 	{
-		//String choix = SmartDashboard.getString("Animation", "0");
 		String choix = selecteur.getSelected();
 		System.out.println("Choix " + choix);
         donnee[0] = choix.getBytes()[0];
