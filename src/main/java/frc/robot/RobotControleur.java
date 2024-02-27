@@ -55,8 +55,9 @@ public class RobotControleur extends TimedRobot {
   public void disabledPeriodic() {
   }
 
-  POSITION positionDepart;
-  MODE modeAutonome;
+  protected POSITION positionDepart;
+  protected MODE modeAutonome;
+  protected String designAutonome;
 
   @Override
   public void autonomousInit() {
@@ -86,6 +87,8 @@ public class RobotControleur extends TimedRobot {
     if(MODE.DESIGN == modeAutonome)
     {
       System.out.println("Mode design");
+      designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
+      // a interpreter
     }
   }
 

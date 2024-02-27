@@ -21,6 +21,8 @@ public class SelecteurModeAutonome implements Materiel{
 
     protected static String LIBELLE_SELECTEUR_POSITION = "Position Depart";
     protected static String LIBELLE_SELECTEUR_MODE = "Mode Autonome";
+    protected static String LIBELLE_DESIGN_AUTONOME = "Design Autonome";
+
     private SelecteurModeAutonome()
     {
       selecteurPositionDepart = new SendableChooser<String>();
@@ -39,6 +41,8 @@ public class SelecteurModeAutonome implements Materiel{
       SmartDashboard.putData(LIBELLE_SELECTEUR_MODE, selecteurMode);
       modes.put("A", MODE.AUTOMATIQUE);
       modes.put("D", MODE.DESIGN);      
+
+      SmartDashboard.putString(LIBELLE_DESIGN_AUTONOME, "A-G-A-L");
     }
     
     static protected SelecteurModeAutonome instance = null;    
@@ -59,5 +63,10 @@ public class SelecteurModeAutonome implements Materiel{
         String mode = this.selecteurMode.getSelected();
         System.out.println(mode);
         return modes.get(mode);
+    }
+
+    public String lireDesign()
+    {
+      return SmartDashboard.getString(LIBELLE_DESIGN_AUTONOME, "");
     }
 }
