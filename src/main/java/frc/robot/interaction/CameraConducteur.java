@@ -21,6 +21,7 @@ public class CameraConducteur {
     private int largeur = (int) (640 / 1);
     private int timerVirtuel = 30;
     private int compteur;
+    public boolean estAvaleurActif = false;
 
     public CameraConducteur()
     {
@@ -143,21 +144,24 @@ public class CameraConducteur {
         double tailleTexteLargeur = Imgproc.getTextSize(tempsMatch, Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, 1, null).width;
         double tailleTexteHauteur = Imgproc.getTextSize(tempsMatch, Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, 1, null).height;
         Imgproc.putText(source, tempsMatch, new Point((double) largeur / 2 - tailleTexteLargeur / 2, hauteurRectangle - (tailleTexteHauteur/2) - 2), Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, couleurTexte);
+
+        // triangle gauche
+        Point[] pointsTriangleGauche = {new Point(largeur * 0.45, 0), new Point(largeur * 0.45, hauteurRectangle), new Point(largeur * 0.40, 0)};
     }
 
     public void dessinerAideNote(Mat source, int timerVirtuel) {
         // On return si le capteur de luminosité est activé
         if (this.capteurLuminosite.detecteNote()) return;
-        
-        // Si la commande AvalerTeleop() est activée, on return
-        if (Robot
+
+        // Si la commande Avaler est activée, on clignote
+        if (estAvaleurActif && timerVirtuel % 2 == 0) return;
 
         // couleur : orange
         Scalar couleur = new Scalar(0, 140, 255);
 
         // Dessine un trait qui part d'en bas à gauche de l'image et qui va vers 27% de la largeur et 50% de la hauteur
         Imgproc.line(source, new Point(0, hauteur), new Point(largeur * 0.27, hauteur * 0.5), couleur, 2);
-        // Dessine un tait qui part d'en bas à 55% de la largeur et qui va vers 48% de la largeur et 50% de la hauteur
-        Imgproc.line(source, new Point(largeur * 0.55, hauteur), new Point(largeur * 0.49, hauteur * 0.5), couleur, 2);
+        // Dessine un trait qui part d'en bas à 55% de la largeur et qui va vers 48% de la largeur et 50% de la hauteur
+        Imgproc.line(source, new Point(largeur * 0.55, hauteur), new Point(largeur * 0.48, hauteur * 0.5), couleur, 2);
     }
 }
