@@ -71,15 +71,17 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         return this.actif;
     }
 
-    public void allonger()
-    {
+    public void allonger() {
         System.out.println("ConvoyeurHaut.allonger()");
-        if(this.estOuvert()) // machine etat a la place
+        if (this.estOuvert()) // Machine état a la place
         {
             this.chronoAllonger.initialiser();
             this.mouvementExtension.set(true);
-        }else System.out.println("Peut pas Allonger");
+        }
+        else
+            System.out.println("Peut pas Allonger");
     }
+    
     public void retracter()
     {
         System.out.println("ConvoyeurHaut.retracter()");
@@ -99,7 +101,9 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
             this.chronoFermer.initialiser();
             this.mouvementOuvertureGauche.set(false);
             this.mouvementOuvertureDroite.set(false);
-        }else System.out.println("Peut pas fermer");
+        }
+        else
+            System.out.println("Peut pas fermer");
     }
 
     public boolean estOuvert()
@@ -109,7 +113,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
             chronoFermer.desactiver();
         }
         if (this.detecteurConvoyeurHaut.estOuvert()) this.estOuvert = true;
-        return this.estOuvert;
+            return this.estOuvert;
     }
 
     public boolean estRetracte()
@@ -118,7 +122,9 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
             this.estRetracte = false;
             chronoAllonger.desactiver();
         }
-        if (this.detecteurConvoyeurHaut.estRetracte()) this.estRetracte = true;
+        if (this.detecteurConvoyeurHaut.estRetracte())
+            this.estRetracte = true;
+        
         return this.estRetracte;
     }
 }
