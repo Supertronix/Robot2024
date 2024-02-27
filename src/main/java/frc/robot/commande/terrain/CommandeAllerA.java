@@ -52,9 +52,9 @@ public class CommandeAllerA extends Command {
     protected PIDController yControleur;
     protected ProfiledPIDController angleControleur;
     protected HolonomicDriveController driveControleur;
-
-
     protected MecanumDriveKinematics kinematics;
+
+    protected boolean seuilAngleAtteint;
 
     public CommandeAllerA(Vecteur3 cible, double angle)
     {
@@ -73,6 +73,7 @@ public class CommandeAllerA extends Command {
 
         this.driveControleur = new HolonomicDriveController(xControleur, yControleur, angleControleur);
 
+        this.seuilAngleAtteint = false;
         SmartDashboard.putData("PID x", xControleur);
         SmartDashboard.putData("PID y", yControleur);
         SmartDashboard.putData("PID angle", angleControleur);
@@ -104,21 +105,13 @@ public class CommandeAllerA extends Command {
         MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
         double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
-        boolean seuilAngleAtteint = Math.abs((donneesCible[5] - donneesPosition[5])) < 5.0;
-
-        /*
-        if (distance < Math.pow(0.5, 2)) {
-            if ((donneesCible[5] - donneesPosition[5]) > 0.0)
-                roues.tournerGauche(vitesseAjustee.omegaRadiansPerSecond);
-            else
-                roues.tournerDroite(vitesseAjustee.omegaRadiansPerSecond);
-        }
-        else {
-            roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
-        }*/
 
         if (!seuilAngleAtteint) {
-            if ((donneesCible[5] - donneesPosition[5]) > 0.0)
+            double differenceAngle = Math.toDegrees(donneesCible[5] - donneesPosition[5]);
+            seuilAngleAtteint = Math.abs(differenceAngle) < 5.0;
+            System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
+
+            if (differenceAngle > 0.0)
                 roues.tournerGauche(vitesseAjustee.omegaRadiansPerSecond);
             else
                 roues.tournerDroite(vitesseAjustee.omegaRadiansPerSecond);
@@ -139,12 +132,19 @@ public class CommandeAllerA extends Command {
     @Override
     public boolean isFinished()
     {
+        // Pas de tag
+
+        /*
+        if (!limelight.estIDValide(limelight.getTagID()))
+            return false;
+        */
+
         double[] donneesPosition = limelight.getBotpose();
 
         // Pas de données de tag valide cette frame
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
-
+        
         double[] donneesCible = limelight.getTagPositionRelatifRobot();
 
         System.out.println("CommandeAllerA.isFinished() donneesPosition " + donneesPosition[0] + " " + donneesPosition[1]);
