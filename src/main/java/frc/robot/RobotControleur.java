@@ -164,7 +164,7 @@ public class RobotControleur extends TimedRobot {
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 180));
+        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 1.42, 0), 180));
       }
 
       public void activerBoutonsTests()

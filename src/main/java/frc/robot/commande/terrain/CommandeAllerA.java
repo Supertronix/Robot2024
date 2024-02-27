@@ -45,24 +45,28 @@ public class CommandeAllerA extends Command {
     protected static double longueurDuCentre = 0.635;
     protected static double largeurDuCentre = 0.508;
 
+    // Hardware
     protected RouesMecanum roues;
     protected CameraLimelight limelight;
     protected LimiteurDuree detecteur;
     protected Manette manette;
 
+    // Contrôle PID
     protected PIDController xControleur;
     protected PIDController yControleur;
     protected ProfiledPIDController angleControleur;
     protected HolonomicDriveController driveControleur;
+    protected MecanumDriveKinematics kinematics;
 
+    // Moyenne valeurs
     protected int compteur = 0;
     protected List<double[]> listeDonneesPosition;
     protected List<double[]> listeDonneesCible;
 
-    protected MecanumDriveKinematics kinematics;
-
+    // Etat de la commande
     protected boolean distanceAtteinte;
     protected boolean seuilAngleAtteint;
+    protected Vecteur3 cible;
     protected double angleCible;
 
     public CommandeAllerA(Vecteur3 cible, double angleCible)
@@ -81,7 +85,10 @@ public class CommandeAllerA extends Command {
                 new TrapezoidProfile.Constraints(angMaxVitesse, angMaxAcceleration));
 
         this.driveControleur = new HolonomicDriveController(xControleur, yControleur, angleControleur);
+        
+        this.cible = cible;
         this.angleCible = angleCible;
+
         SmartDashboard.putData("PID x", xControleur);
         SmartDashboard.putData("PID y", yControleur);
         SmartDashboard.putData("PID angle", angleControleur);
@@ -112,31 +119,23 @@ public class CommandeAllerA extends Command {
         if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
             return;
 
-        if (compteur % 10 != 0) {
-            listeDonneesPosition.add(donneesPosition);
-            return;
-        } else {
-            double[] moyennePosition = {0, 0, 0, 0, 0, 0};
-            moyennePosition[0] = listeDonneesPosition.stream().mapToDouble(x -> x[0]).average().getAsDouble();
-            moyennePosition[1] = listeDonneesPosition.stream().mapToDouble(y -> y[1]).average().getAsDouble();
-            moyennePosition[5] = listeDonneesPosition.stream().mapToDouble(angle -> angle[5]).average().getAsDouble();
-            donneesPosition = moyennePosition;
-        }
-        compteur++;
-
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
-        Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromDegrees(0));
+        Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(angleCible));
+
+        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(angleCible));
+        MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
         if (!distanceAtteinte) {
-            ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(0));
-            MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
-
             double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
             System.out.println("Distance: " + distance);
             distanceAtteinte = distance < (0.25 * 0.25);
 
             System.out.println("PID MOVEMENT RUNNING");
-            roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
+            roues.conduireToutesDirections(
+                vitesseRoues.frontLeftMetersPerSecond, 
+                vitesseRoues.frontRightMetersPerSecond,
+                vitesseRoues.rearLeftMetersPerSecond,
+                vitesseRoues.rearRightMetersPerSecond);
         }
         else if (!seuilAngleAtteint) {
             System.out.println("PID ANGLE RUNNING");
