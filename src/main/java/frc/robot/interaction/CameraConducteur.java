@@ -118,7 +118,7 @@ public class CameraConducteur {
         dessinerCoins(source);
         //dessinerHorloge(source, timerVirtuel);
         dessinerHorloge(source, tempsMatchInt);
-        dessinerAideNote(source);
+        dessinerAideNote(source, timerVirtuel);
     }
 
     public void dessinerCoins(Mat source) {
@@ -145,9 +145,16 @@ public class CameraConducteur {
         Imgproc.putText(source, tempsMatch, new Point((double) largeur / 2 - tailleTexteLargeur / 2, hauteurRectangle - (tailleTexteHauteur/2) - 2), Imgproc.FONT_HERSHEY_SIMPLEX, tailleTexte, couleurTexte);
     }
 
-    public void dessinerAideNote(Mat source) {
+    public void dessinerAideNote(Mat source, int timerVirtuel) {
+        // On return si le capteur de luminosité est activé
+        if (this.capteurLuminosite.detecteNote()) return;
+        
+        // Si la commande AvalerTeleop() est activée, on return
+        if (Robot
+
         // couleur : orange
         Scalar couleur = new Scalar(0, 140, 255);
+
         // Dessine un trait qui part d'en bas à gauche de l'image et qui va vers 27% de la largeur et 50% de la hauteur
         Imgproc.line(source, new Point(0, hauteur), new Point(largeur * 0.27, hauteur * 0.5), couleur, 2);
         // Dessine un tait qui part d'en bas à 55% de la largeur et qui va vers 48% de la largeur et 50% de la hauteur
