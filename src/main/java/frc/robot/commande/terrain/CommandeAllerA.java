@@ -61,9 +61,11 @@ public class CommandeAllerA extends Command {
 
     protected MecanumDriveKinematics kinematics;
 
+    protected boolean distanceAtteinte;
     protected boolean seuilAngleAtteint;
+    protected double angleCible;
 
-    public CommandeAllerA(Vecteur3 cible, double angle)
+    public CommandeAllerA(Vecteur3 cible, double angleCible)
     {
         System.out.println("new CommandeAllerA()");
 
@@ -79,8 +81,7 @@ public class CommandeAllerA extends Command {
                 new TrapezoidProfile.Constraints(angMaxVitesse, angMaxAcceleration));
 
         this.driveControleur = new HolonomicDriveController(xControleur, yControleur, angleControleur);
-
-        this.seuilAngleAtteint = false;
+        this.angleCible = angleCible;
         SmartDashboard.putData("PID x", xControleur);
         SmartDashboard.putData("PID y", yControleur);
         SmartDashboard.putData("PID angle", angleControleur);
@@ -91,7 +92,14 @@ public class CommandeAllerA extends Command {
     {
         System.out.println("CommandeAllerA.initialize()");
         this.detecteur.initialiser();
-        kinematics = new MecanumDriveKinematics(new Translation2d(-largeurDuCentre, longueurDuCentre), new Translation2d(largeurDuCentre, longueurDuCentre), new Translation2d(-largeurDuCentre, -longueurDuCentre), new Translation2d(largeurDuCentre, -longueurDuCentre));
+        this.distanceAtteinte = false;
+        this.seuilAngleAtteint = false;
+        kinematics = new MecanumDriveKinematics(
+            new Translation2d(-largeurDuCentre, longueurDuCentre),
+            new Translation2d(largeurDuCentre, longueurDuCentre),
+            new Translation2d(-largeurDuCentre, -longueurDuCentre),
+            new Translation2d(largeurDuCentre, -longueurDuCentre)
+        );
     }
 
     @Override
@@ -100,9 +108,8 @@ public class CommandeAllerA extends Command {
         this.detecteur.mesurer();
 
         double[] donneesPosition = limelight.getBotpose();
-        double[] donneesCible = limelight.getTagPositionRelatifRobot();
 
-        if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
+        if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
             return;
 
         if (compteur % 10 != 0) {
@@ -118,25 +125,29 @@ public class CommandeAllerA extends Command {
         compteur++;
 
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
-        Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromDegrees(donneesCible[5]));
+        Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromDegrees(0));
 
-        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(donneesCible[5]));
-        MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
+        if (!distanceAtteinte) {
+            ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(0));
+            MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
-        double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
+            double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
+            System.out.println("Distance: " + distance);
+            distanceAtteinte = distance < (0.25 * 0.25);
 
-        if (!seuilAngleAtteint) {
-            double differenceAngle = Math.toDegrees(donneesCible[5] - donneesPosition[5]);
+            System.out.println("PID MOVEMENT RUNNING");
+            roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
+        }
+        else if (!seuilAngleAtteint) {
+            System.out.println("PID ANGLE RUNNING");
+            double differenceAngle = Math.toDegrees(angleCible - donneesPosition[5]);
             seuilAngleAtteint = Math.abs(differenceAngle) < 5.0;
-            System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
+            //System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
 
             if (differenceAngle > 0.0)
-                roues.tournerGauche(vitesseAjustee.omegaRadiansPerSecond);
+                roues.tournerGauche(0.3);
             else
-                roues.tournerDroite(vitesseAjustee.omegaRadiansPerSecond);
-        }
-        else {
-            roues.conduireToutesDirections(vitesseRoues.frontLeftMetersPerSecond, vitesseRoues.frontRightMetersPerSecond, vitesseRoues.rearLeftMetersPerSecond, vitesseRoues.rearRightMetersPerSecond);
+                roues.tournerDroite(0.3);
         }
 
         SmartDashboard.putNumber("vitesseAjustee.vxMetersPerSecond", vitesseAjustee.vxMetersPerSecond);
@@ -164,20 +175,15 @@ public class CommandeAllerA extends Command {
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
         
-        double[] donneesCible = limelight.getTagPositionRelatifRobot();
+        //System.out.println("CommandeAllerA.isFinished() distance " + distance);
 
-        System.out.println("CommandeAllerA.isFinished() donneesPosition " + donneesPosition[0] + " " + donneesPosition[1]);
-        double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
-        boolean seuilAngleAtteint = Math.abs((donneesCible[5] - donneesPosition[5])) < 5.0;
-        System.out.println("CommandeAllerA.isFinished() distance " + distance);
-
-        if (distance < Math.pow(0.5, 2) && seuilAngleAtteint) {
-            System.out.println("CommandeAllerA.isFinished() distance < 0.5");
+        if (distanceAtteinte && seuilAngleAtteint) {
+            //System.out.println("CommandeAllerA.isFinished() distance < 0.5");
             return true;
         }
 
         if (this.detecteur.estTropLongue()) {
-            System.out.println("CommandeAllerA.isFinished() detecteur.estTropLongue()");
+            //System.out.println("CommandeAllerA.isFinished() detecteur.estTropLongue()");
             return true;
         }
 
