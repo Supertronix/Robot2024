@@ -139,13 +139,9 @@ public class CommandeAllerA extends Command {
     @Override
     public boolean isFinished()
     {
-        // Pas de tag
-        if (!limelight.estIDValide(limelight.getTagID()))
-            return false;
-
         double[] donneesPosition = limelight.getBotpose();
 
-        // Pas de tag, verification redondante
+        // Pas de données de tag valide cette frame
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
 

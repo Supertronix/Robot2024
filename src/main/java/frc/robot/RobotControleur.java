@@ -105,8 +105,8 @@ public class RobotControleur extends TimedRobot {
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
-      System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
-      System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
+      //System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
+      //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
     //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
     //  System.out.println(etatLanceurDeploye);
     }
@@ -125,13 +125,13 @@ public class RobotControleur extends TimedRobot {
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
         this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
-        //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrir().andThen(new CommandeAvalerAutomatiquement()));
-        this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        this.boutonB.onTrue(new CommandeLanceurFermer());
-        this.boutonX.onTrue(new CommandeLanceurAllonger());
-        this.boutonY.onTrue(new CommandeLanceurRetracter());
+        //this.boutonA.onTrue(new CommandeLanceurOuvrir());
+        //this.boutonB.onTrue(new CommandeLanceurFermer());
+        //this.boutonX.onTrue(new CommandeLanceurAllonger());
+        //this.boutonY.onTrue(new CommandeLanceurRetracter());
+        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
       }
 
       public void activerBoutonsTests()
