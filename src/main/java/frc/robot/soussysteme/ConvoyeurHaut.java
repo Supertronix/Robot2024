@@ -66,6 +66,18 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         actif = false;
     }
 
+    // Permet de changer le sens des moteurs pour tirer vers le bas ou monter en haut
+    public void setDirectionMoteurs(boolean versLeHaut) {
+        if (versLeHaut) {
+            moteurTalonMaitre.setInverted(true);
+            moteurTalonEsclave.setInverted(false);
+        }
+        else {
+            moteurTalonMaitre.setInverted(false);
+            moteurTalonEsclave.setInverted(true);
+        }
+    }
+
     // Retourne l'état des moteurs (allumé/éteint)
     public boolean estActif() {
         return this.actif;
@@ -81,7 +93,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         else
             System.out.println("Peut pas Allonger");
     }
-    
+
     public void retracter()
     {
         System.out.println("ConvoyeurHaut.retracter()");
