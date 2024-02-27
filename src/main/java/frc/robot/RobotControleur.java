@@ -4,11 +4,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.*;
-import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
-import frc.robot.commande.robot.CommandeAvalerTeleop;
-import frc.robot.commande.robot.CommandeLancerSpeaker;
-import frc.robot.commande.robot.CommandeLanceurOuvrirEtAllonger;
-import frc.robot.commande.robot.CommandeLanceurRetracterEtFermer;
+import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
@@ -113,8 +109,8 @@ public class RobotControleur extends TimedRobot {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
-        //this.boutonDemarrer.onTrue(new CommandeGrimper());
-        //this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
         this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());

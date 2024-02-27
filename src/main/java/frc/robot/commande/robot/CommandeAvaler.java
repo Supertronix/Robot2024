@@ -39,6 +39,10 @@ public abstract class CommandeAvaler extends Command {
         this.avaleur.activer(1);
         this.convoyeurBas.activer(1);
         this.convoyeurHaut.activer(0.2);
+
+        if (Robot.getInstance().estVoyant()) {
+            Robot.getInstance().cameraConducteur.estAvaleurActif = true;
+        }
     }
 
     @Override
@@ -58,5 +62,9 @@ public abstract class CommandeAvaler extends Command {
         this.avaleur.desactiver();
         this.convoyeurBas.desactiver();
         this.convoyeurHaut.desactiver();
+
+        if (Robot.getInstance().estVoyant()) {
+            Robot.getInstance().cameraConducteur.estAvaleurActif = false;
+        }
     }
 }
