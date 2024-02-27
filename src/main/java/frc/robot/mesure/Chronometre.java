@@ -3,7 +3,8 @@ package frc.robot.mesure;
 public class Chronometre{
 
 	protected double tempsDebut; 
-	protected double tempsActuel; 
+	protected double tempsActuel;
+	protected boolean estActif = true;
 	
 	public Chronometre()
 	{
@@ -12,7 +13,8 @@ public class Chronometre{
 	}
 	
 	public void initialiser()
-	{
+	{	
+		this.estActif = true;
 		this.tempsDebut = System.currentTimeMillis();
 	}
 
@@ -25,5 +27,16 @@ public class Chronometre{
 	public double getDuree()
 	{
 		return (this.tempsActuel - this.tempsDebut);
+	}
+
+	public double getDureeActuelle()
+	{
+		if (estActif) return (System.currentTimeMillis() - this.tempsDebut);
+		return 0;
+	}
+
+
+	public void desactiver(){
+		this.estActif = false;
 	}
 }
