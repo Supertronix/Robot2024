@@ -25,18 +25,21 @@ import java.util.List;
 
 public class CommandeAllerA extends Command {
 
+    protected static final double SEUIL_DISTANCE = 0.50 * 0.50;
+    protected static final double SEUIL_ANGLE = 5.0;
+
     // PID axe X
-    protected static double x_kP = 0.05;
+    protected static double x_kP = 0.2;
     protected static double x_kI = 0.00;
     protected static double x_kD = 0.00;
 
     // PID axe Y
-    protected static double y_kP = 0.05;
+    protected static double y_kP = 0.2;
     protected static double y_kI = 0.00;
     protected static double y_kD = 0.00;
 
     // PID Angle
-    protected static double ang_kP = 0.05;
+    protected static double ang_kP = 0.25;
     protected static double ang_kI = 0.00;
     protected static double ang_kD = 0.00;
     protected static double angMaxVitesse = 999.00; // m/s
@@ -63,6 +66,7 @@ public class CommandeAllerA extends Command {
     protected int compteur = 0;
     protected List<double[]> listeDonneesPosition = new ArrayList<>();
     protected List<double[]> listeDonneesCible = new ArrayList<>();
+    protected double[] donneesPosition = {0, 0, 0, 0, 0, 0};;
 
     // Etat de la commande
     protected boolean distanceAtteinte;
@@ -88,7 +92,7 @@ public class CommandeAllerA extends Command {
         this.driveControleur = new HolonomicDriveController(xControleur, yControleur, angleControleur);
         
         this.cible = cible;
-        this.angleCible = angleCible;
+        this.angleCible = Math.toRadians(angleCible);
 
         SmartDashboard.putData("PID x", xControleur);
         SmartDashboard.putData("PID y", yControleur);
@@ -100,8 +104,10 @@ public class CommandeAllerA extends Command {
     {
         System.out.println("CommandeAllerA.initialize()");
         this.detecteur.initialiser();
+
         this.distanceAtteinte = false;
         this.seuilAngleAtteint = false;
+
         kinematics = new MecanumDriveKinematics(
             new Translation2d(-largeurDuCentre, longueurDuCentre),
             new Translation2d(largeurDuCentre, longueurDuCentre),
@@ -119,11 +125,11 @@ public class CommandeAllerA extends Command {
 
         if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
             return;
-
+/*
         compteur++;
         if (compteur % 10 != 0) {
-            listeDonneesPosition.add(donneesPosition);
-            return;
+            listeDonneesPosition.add(tempPosition);
+            //return;
         } else {
             double[] moyennePosition = {0, 0, 0, 0, 0, 0};
             System.out.println("CommandeAllerA.execute() listeDonneesPosition.size() " + listeDonneesPosition.size());
@@ -132,7 +138,7 @@ public class CommandeAllerA extends Command {
             moyennePosition[5] = listeDonneesPosition.stream().mapToDouble(angle -> angle[5]).average().getAsDouble();
             donneesPosition = moyennePosition;
         }
-
+*/
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
         Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(angleCible));
 
@@ -140,9 +146,9 @@ public class CommandeAllerA extends Command {
         MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
         if (!distanceAtteinte) {
-            double distance = Math.pow(donneesPosition[0] - 6.89, 2) + Math.pow(donneesPosition[1] - 1.42, 2);
+            double distance = Math.pow(donneesPosition[0] - this.cible.x, 2) + Math.pow(donneesPosition[1] - this.cible.y, 2);
             System.out.println("Distance: " + distance);
-            distanceAtteinte = distance < (0.25 * 0.25);
+            distanceAtteinte = distance < SEUIL_DISTANCE;
 
             System.out.println("PID MOVEMENT RUNNING");
             roues.conduireToutesDirections(
@@ -154,7 +160,7 @@ public class CommandeAllerA extends Command {
         else if (!seuilAngleAtteint) {
             System.out.println("PID ANGLE RUNNING");
             double differenceAngle = Math.toDegrees(angleCible - donneesPosition[5]);
-            seuilAngleAtteint = Math.abs(differenceAngle) < 5.0;
+            seuilAngleAtteint = Math.abs(differenceAngle) < SEUIL_ANGLE;
             //System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
 
             if (differenceAngle > 0.0)
