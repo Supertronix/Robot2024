@@ -3,11 +3,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commande.*;
 import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
 import frc.robot.commande.robot.CommandeAvalerTeleop;
+import frc.robot.commande.robot.CommandeGrimpageRedescendre;
+import frc.robot.commande.robot.CommandeGrimper;
 import frc.robot.commande.robot.CommandeLancerSpeaker;
+import frc.robot.commande.robot.CommandeLanceurAllonger;
+import frc.robot.commande.robot.CommandeLanceurFermer;
+import frc.robot.commande.robot.CommandeLanceurOuvrir;
 import frc.robot.commande.robot.CommandeLanceurOuvrirEtAllonger;
+import frc.robot.commande.robot.CommandeLanceurRetracter;
 import frc.robot.commande.robot.CommandeLanceurRetracterEtFermer;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
@@ -101,6 +108,8 @@ public class RobotControleur extends TimedRobot {
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
+      System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
+      System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
     //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
     //  System.out.println(etatLanceurDeploye);
     }
@@ -113,16 +122,21 @@ public class RobotControleur extends TimedRobot {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
-        //this.boutonDemarrer.onTrue(new CommandeGrimper());
-        //this.boutonRetour.onTrue(new CommandeGrimpageRedescendre());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
         this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
-        this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
-        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
-        this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
-        this.boutonA.onTrue(new CommandeLanceurRetracterEtFermer());
+        //this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
+        //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
+        SequentialCommandGroup test = new SequentialCommandGroup();
+        test.addCommands(new CommandeLanceurOuvrir(), new CommandeAvalerAutomatiquement());
+        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrir().andThen(new CommandeAvalerAutomatiquement()));
+        this.boutonA.onTrue(new CommandeLanceurOuvrir());
+        this.boutonB.onTrue(new CommandeLanceurFermer());
+        this.boutonX.onTrue(new CommandeLanceurAllonger());
+        this.boutonY.onTrue(new CommandeLanceurRetracter());
       }
 
       public void activerBoutonsTests()

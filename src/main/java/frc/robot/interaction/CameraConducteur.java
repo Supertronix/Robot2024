@@ -150,7 +150,7 @@ public class CameraConducteur {
         if (this.capteurLuminosite.detecteNote()) return;
         
         // Si la commande AvalerTeleop() est activée, on return
-        if (Robot
+        //if (Robot
 
         // couleur : orange
         Scalar couleur = new Scalar(0, 140, 255);

@@ -36,7 +36,7 @@ public class CommandeGrimpageRedescendre extends Command {
         //if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_DEMARRER))
         //    return false;
 
-        return true;
+        return false;
     }
 
     @Override

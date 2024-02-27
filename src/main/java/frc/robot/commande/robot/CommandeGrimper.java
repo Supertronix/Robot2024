@@ -35,7 +35,7 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
         //if (this.manette.getBoutonMaintenu(Materiel.Manette.BOUTON_RETOUR))
         //    return false;
 
-        return true;
+        return false;
     }
 
     @Override
