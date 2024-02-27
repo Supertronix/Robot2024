@@ -95,7 +95,7 @@ public class RobotControleur extends TimedRobot {
     }
     if(!robot.estAveugle())
     {
-      robot.cameraLimelight.decoupageCameraDynamique();
+      //robot.cameraLimelight.decoupageCameraDynamique();
     }
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
