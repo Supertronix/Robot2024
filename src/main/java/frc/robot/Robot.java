@@ -24,7 +24,6 @@ public class Robot {
 
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
-  public ShuffleBoard shuffleBoard;
 
   private boolean allianceRouge = true;
   private boolean verrouChangementAlliance = false;
@@ -44,7 +43,6 @@ public class Robot {
     {
         this.cameraLimelight = new CameraLimelight();
         this.cameraConducteur = new CameraConducteur();
-        this.shuffleBoard = new ShuffleBoard();
     }
 
     DriverStation.silenceJoystickConnectionWarning(true);

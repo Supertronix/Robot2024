@@ -20,7 +20,8 @@ public class AnimateurLed implements Materiel.Affichage{
 
 	public AnimateurLed()
 	{
-        i2c = new I2C(port, 0x1E); // 0x1E est l'adresse du périphérique
+        i2c = new I2C(port, 8); 
+		SmartDashboard.putString("Animation", "0");
 	}
 	public void choisirAnimation(String choix)
 	{
@@ -30,6 +31,7 @@ public class AnimateurLed implements Materiel.Affichage{
 	public void choisirAnimationSelonDashboard()
 	{
 		String choix = SmartDashboard.getString("Animation", "0");
+		System.out.println("Choix " + choix);
         donnee[0] = choix.getBytes()[0];
         i2c.transaction(donnee, donnee.length, dummy, dummy.length);
 	}

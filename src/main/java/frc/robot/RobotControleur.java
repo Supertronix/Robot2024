@@ -14,20 +14,25 @@ import frc.robot.interaction.*;
 
 public class RobotControleur extends TimedRobot {
 
-  private Robot robot;
-  private ActionManette manette;
-  private int periode;
+  protected Robot robot;
+  protected ActionManette manette;
+  protected int periode;
+  protected AnimateurLed animateurLed;
+  protected ShuffleBoard shuffleBoard;
 
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
     Compresseur.getInstance().activer();
+    this.shuffleBoard = new ShuffleBoard();
+    this.shuffleBoard.initialiser();
+    this.animateurLed = new AnimateurLed();
+
     robot.setVoyant();
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();
       //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
-      this.robot.shuffleBoard.initialiser();
     }
   }
 
@@ -66,9 +71,8 @@ public class RobotControleur extends TimedRobot {
     // NE PAS ACTIVER DANS LE VRAI MODE AUTONOME FINAL
     //if((periode % 100) == 0)
     {
-      //this.robot.shuffleBoard.mettreAJour();
+      //this.shuffleBoard.mettreAJour();
     }
-
   }
 
   @Override
@@ -87,6 +91,10 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
+    if((periode % 100) == 0)
+    {
+      this.animateurLed.choisirAnimationSelonDashboard();      
+    }
     if(!robot.estAveugle())
     {
       robot.cameraLimelight.decoupageCameraDynamique();
@@ -95,7 +103,7 @@ public class RobotControleur extends TimedRobot {
 
     if((periode % 100) == 0 && !robot.estAveugle())
     {
-      this.robot.shuffleBoard.mettreAJour();
+      this.shuffleBoard.mettreAJour();
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
