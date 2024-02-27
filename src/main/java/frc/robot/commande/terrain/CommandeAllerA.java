@@ -104,19 +104,13 @@ public class CommandeAllerA extends Command {
 
         if (compteur % 10 != 0) {
             listeDonneesPosition.add(donneesPosition);
-            listeDonneesCible.add(donneesCible);
             return;
         } else {
             double[] moyennePosition = {0, 0, 0, 0, 0, 0};
-            double[] moyenneCible = {0, 0, 0, 0, 0, 0};
             moyennePosition[0] = listeDonneesPosition.stream().mapToDouble(x -> x[0]).average().getAsDouble();
             moyennePosition[1] = listeDonneesPosition.stream().mapToDouble(y -> y[1]).average().getAsDouble();
             moyennePosition[5] = listeDonneesPosition.stream().mapToDouble(angle -> angle[5]).average().getAsDouble();
-            moyenneCible[0] = listeDonneesCible.stream().mapToDouble(x -> x[0]).average().getAsDouble();
-            moyenneCible[1] = listeDonneesCible.stream().mapToDouble(y -> y[1]).average().getAsDouble();
-            moyenneCible[5] = listeDonneesCible.stream().mapToDouble(angle -> angle[5]).average().getAsDouble();
             donneesPosition = moyennePosition;
-            donneesCible = moyenneCible;
         }
         compteur++;
 
