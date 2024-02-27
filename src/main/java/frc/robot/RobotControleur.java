@@ -44,8 +44,9 @@ public class RobotControleur extends TimedRobot {
   public void disabledInit() {
     if(robot.estVoyant())
     {
-      Robot.getInstance().cameraLimelight.resetDecoupageCamera();
+      robot.cameraLimelight.resetDecoupageCamera();
     }
+    this.animateurLed.choisirAnimation(AnimateurLed.AUCUNE);
   }
 
   @Override
