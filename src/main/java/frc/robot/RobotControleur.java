@@ -27,13 +27,13 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
     robot.setVoyant();
-    robot.setAveugle();
-
+	
+    /*
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();
       //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
-    }
+    }*/
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -132,7 +132,7 @@ public class RobotControleur extends TimedRobot {
     }
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
-    if((periode % 100) == 0 && !robot.estAveugle())
+    if((periode % 10) == 0 && !robot.estAveugle())
     {
       this.shuffleBoard.mettreAJour();
     }
@@ -164,7 +164,7 @@ public class RobotControleur extends TimedRobot {
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 0));
+        this.boutonX.toggleOnTrue(new CommandeAllerA(new Vecteur3(0, 0, 0), 180));
       }
 
       public void activerBoutonsTests()
