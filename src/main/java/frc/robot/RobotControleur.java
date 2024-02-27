@@ -153,19 +153,21 @@ public class RobotControleur extends TimedRobot {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop()); 
 
-        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
-        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrir().andThen(new CommandeAvalerAutomatiquement()));
+
         //this.boutonA.onTrue(new CommandeLanceurOuvrir());
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrir().andThen(new CommandeAvalerAutomatiquement()));
         this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
+        this.boutonY.onTrue(new CommandeLancerAmpli());
       }
 
       public void activerBoutonsTests()
