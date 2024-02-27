@@ -20,6 +20,7 @@ import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandeAllerA extends Command {
@@ -60,8 +61,8 @@ public class CommandeAllerA extends Command {
 
     // Moyenne valeurs
     protected int compteur = 0;
-    protected List<double[]> listeDonneesPosition;
-    protected List<double[]> listeDonneesCible;
+    protected List<double[]> listeDonneesPosition = new ArrayList<>();
+    protected List<double[]> listeDonneesCible = new ArrayList<>();
 
     // Etat de la commande
     protected boolean distanceAtteinte;
@@ -118,6 +119,19 @@ public class CommandeAllerA extends Command {
 
         if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
             return;
+
+        compteur++;
+        if (compteur % 10 != 0) {
+            listeDonneesPosition.add(donneesPosition);
+            return;
+        } else {
+            double[] moyennePosition = {0, 0, 0, 0, 0, 0};
+            System.out.println("CommandeAllerA.execute() listeDonneesPosition.size() " + listeDonneesPosition.size());
+            moyennePosition[0] = listeDonneesPosition.stream().mapToDouble(x -> x[0]).average().getAsDouble();
+            moyennePosition[1] = listeDonneesPosition.stream().mapToDouble(y -> y[1]).average().getAsDouble();
+            moyennePosition[5] = listeDonneesPosition.stream().mapToDouble(angle -> angle[5]).average().getAsDouble();
+            donneesPosition = moyennePosition;
+        }
 
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
         Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(angleCible));
