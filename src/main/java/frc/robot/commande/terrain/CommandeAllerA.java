@@ -54,7 +54,7 @@ public class CommandeAllerA extends Command {
     protected PIDController yControleur;
     protected ProfiledPIDController angleControleur;
     protected HolonomicDriveController driveControleur;
-    protected int compteur;
+    protected int compteur = 0;
     protected List<double[]> listeDonneesPosition;
     protected List<double[]> listeDonneesCible;
 
