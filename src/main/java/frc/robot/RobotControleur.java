@@ -3,7 +3,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commande.*;
 import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;

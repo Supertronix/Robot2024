@@ -1,6 +1,5 @@
 package frc.robot.interaction;
 
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.I2C;
 import frc.robot.Materiel;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
