@@ -7,6 +7,8 @@ import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
+import frc.robot.interaction.SelecteurModeAutonome.MODE;
+import frc.robot.interaction.SelecteurModeAutonome.POSITION;
 import frc.robot.mesure.Vecteur3;
 
 public class RobotControleur extends TimedRobot {
@@ -24,8 +26,9 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard = new ShuffleBoard();
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
-
     robot.setVoyant();
+    robot.setAveugle();
+
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();
@@ -52,12 +55,41 @@ public class RobotControleur extends TimedRobot {
   public void disabledPeriodic() {
   }
 
+  protected POSITION positionDepart;
+  protected MODE modeAutonome;
+  protected String designAutonome;
+
   @Override
   public void autonomousInit() {
     this.periode = 0;
-    this.robot = Robot.getInstance();    
-    //trajetAutonome = new CommandeTrajetAutonome();
-    //trajetAutonome.schedule();
+    this.robot = Robot.getInstance(); 
+    positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    modeAutonome = SelecteurModeAutonome.getInstance().lireMode();
+    if(POSITION.GAUCHE == positionDepart)
+    {
+      System.out.println("Position gauche");
+      //trajetAutonome = new CommandeTrajetAutonome();
+      //trajetAutonome.schedule();
+    }
+    if(POSITION.MILIEU == positionDepart)
+    {
+      System.out.println("Position milieu");
+    }
+    if(POSITION.DROITE == positionDepart)
+    {
+      System.out.println("Position droite");
+    }
+
+    if(MODE.AUTOMATIQUE == modeAutonome)
+    {
+      System.out.println("Mode automatique");
+    }
+    if(MODE.DESIGN == modeAutonome)
+    {
+      System.out.println("Mode design");
+      designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
+      // a interpreter
+    }
   }
 
   @Override
@@ -83,6 +115,7 @@ public class RobotControleur extends TimedRobot {
     robot.roues.setFacteur(1); // 0.8
     manette.activerBoutons();
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
+    positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
   }
 
   @Override

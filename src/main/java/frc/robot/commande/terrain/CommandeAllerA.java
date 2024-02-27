@@ -20,6 +20,8 @@ import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
+import java.util.List;
+
 public class CommandeAllerA extends Command {
 
     // PID axe X
@@ -52,6 +54,11 @@ public class CommandeAllerA extends Command {
     protected PIDController yControleur;
     protected ProfiledPIDController angleControleur;
     protected HolonomicDriveController driveControleur;
+
+    protected int compteur = 0;
+    protected List<double[]> listeDonneesPosition;
+    protected List<double[]> listeDonneesCible;
+
     protected MecanumDriveKinematics kinematics;
 
     protected boolean seuilAngleAtteint;
@@ -97,6 +104,18 @@ public class CommandeAllerA extends Command {
 
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return;
+
+        if (compteur % 10 != 0) {
+            listeDonneesPosition.add(donneesPosition);
+            return;
+        } else {
+            double[] moyennePosition = {0, 0, 0, 0, 0, 0};
+            moyennePosition[0] = listeDonneesPosition.stream().mapToDouble(x -> x[0]).average().getAsDouble();
+            moyennePosition[1] = listeDonneesPosition.stream().mapToDouble(y -> y[1]).average().getAsDouble();
+            moyennePosition[5] = listeDonneesPosition.stream().mapToDouble(angle -> angle[5]).average().getAsDouble();
+            donneesPosition = moyennePosition;
+        }
+        compteur++;
 
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
         Pose2d cible = new Pose2d(6.89, 1.42, Rotation2d.fromDegrees(donneesCible[5]));
