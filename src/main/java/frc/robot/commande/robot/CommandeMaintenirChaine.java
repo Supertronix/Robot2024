@@ -16,8 +16,9 @@ public class CommandeMaintenirChaine extends Command {
 
     public CommandeMaintenirChaine()
     {
-        System.out.println("new CommandeAvaler()");
+        System.out.println("new CommandeMaintenirChaine()");
 
+        this.detecteurChaine = Robot.getInstance().detecteurChaine;
         this.bras = Robot.getInstance().bras;
 
         this.addRequirements(this.bras);
@@ -26,9 +27,10 @@ public class CommandeMaintenirChaine extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvaler.initialize()");
+        System.out.println("CommandeMaintenirChaine.initialize()");
         
         if (!detecteurChaine.detecteChaine()) {
+            System.out.println("Limite switch non active, annulation");
             this.annuler = true;
         }
     }
@@ -37,8 +39,8 @@ public class CommandeMaintenirChaine extends Command {
     public void execute() {
         if (!detecteurChaine.detecteChaine()) {
             bras.activerSelonVitesse(Bras.ACTION_DESCENDRE, 1);
+            System.out.println("Correction de la hauteur");
         } else {
-
             bras.activerSelonVitesse(Bras.ACTION_DESCENDRE, 0.001); // A TESTER
         }
     }
@@ -53,7 +55,7 @@ public class CommandeMaintenirChaine extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvaler.end()");
+        System.out.println("CommandeMaintenirChaine.end()");
         this.bras.desactiver();
     }
 }
