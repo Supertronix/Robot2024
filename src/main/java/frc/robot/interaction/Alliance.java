@@ -22,7 +22,6 @@ public class Alliance {
     }
 
    private boolean allianceRouge = true;
-   private boolean verrouChangementAlliance = false;
    private Optional<DriverStation.Alliance> couleur;
 
   public boolean getAllianceRouge() {
@@ -34,12 +33,4 @@ public class Alliance {
       this.allianceRouge = couleur.get() != DriverStation.Alliance.Blue;
       return allianceRouge;
   }
-
-
-/*
-  public void setAlliance(boolean estRouge) {
-      if (this.verrouChangementAlliance) return;
-      this.allianceRouge = estRouge;
-  } */
-
 }
