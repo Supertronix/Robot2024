@@ -49,7 +49,7 @@ public class RobotControleur extends TimedRobot {
     {
       robot.cameraLimelight.resetDecoupageCamera();
     }
-    this.animateurLed.choisirAnimation(AnimateurLed.AUCUNE);
+    this.animateurLed.choisirAnimation(AnimateurLed.ANIMATION_AUCUNE);
   }
 
   @Override
@@ -91,11 +91,17 @@ public class RobotControleur extends TimedRobot {
       designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
       // a interpreter
     }
+    this.animateurLed.communiquerAlliance();  
   }
 
   @Override
   public void autonomousPeriodic() {
     this.periode++;
+
+    if((periode % 100) == 0)
+    {
+      this.animateurLed.choisirAnimationSelonDashboard();      
+    }
 
     // SHUFFLEBOARD SEULEMEMT POUR DES TESTS 
     // TOUJOURS limiter la frequence avec periode en mode test
