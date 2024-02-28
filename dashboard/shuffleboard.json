@@ -501,6 +501,19 @@
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
+          },
+          "8,2": {
+            "size": [
+              6,
+              4
+            ],
+            "content": {
+              "_type": "Mecanum Drivebase",
+              "_title": "Mecanum Drivebase",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Visuals/Show velocity vectors": true
+            }
           }
         }
       }
