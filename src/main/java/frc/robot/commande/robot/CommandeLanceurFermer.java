@@ -38,6 +38,8 @@ public class CommandeLanceurFermer extends Command {
     @Override
     public boolean isFinished() 
     {
+
+        if(!convoyeurHaut.estOuvert()) return true;
         if(this.detecteurDuree.estTropLongue()) return true;
         return false;
     }

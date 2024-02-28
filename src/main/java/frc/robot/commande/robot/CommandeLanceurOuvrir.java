@@ -66,8 +66,9 @@ public class CommandeLanceurOuvrir extends Command {
 
     @Override
     public SequentialCommandGroup andThen(Command... next) {
-        System.out.println("CommandeLanceurOuvrir.andThen()");
-        return super.andThen(new WaitCommand(0));
+        if (anormale)
+            return super.andThen(new WaitCommand(0));
+        return super.andThen(next);
     }
 
 
