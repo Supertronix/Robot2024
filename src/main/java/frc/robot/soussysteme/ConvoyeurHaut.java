@@ -89,6 +89,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         {
             this.chronoAllonger.initialiser();
             this.mouvementExtension.set(true);
+            System.out.println("Peut allonger");
         }
         else
             System.out.println("Peut pas Allonger");
