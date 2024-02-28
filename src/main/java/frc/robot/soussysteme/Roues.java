@@ -38,10 +38,10 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
     protected MoteurSparkMax roueAvantGauche;
     protected MoteurSparkMax roueArriereDroite;
     protected MoteurSparkMax roueArriereGauche;
-    protected RelativeEncoder encodeurAvantDroit;
-    protected RelativeEncoder encodeurAvantGauche;
-    protected RelativeEncoder encodeurArriereDroit;
-    protected RelativeEncoder encodeurArriereGauche;        
+    public RelativeEncoder encodeurAvantDroit;
+    public RelativeEncoder encodeurAvantGauche;
+    public RelativeEncoder encodeurArriereDroit;
+    public RelativeEncoder encodeurArriereGauche;        
 
     public Roues()
     {
@@ -51,10 +51,10 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
         this.roueArriereGauche = new MoteurSparkMax(ROUE_ARRIERE_GAUCHE);
 
         // lire sur getAbsoluteEncoder et getAlternateEncoder()
-        // this.encodeurAvantDroit = this.roueAvantDroite.getEncoder();
-        // this.encodeurArriereDroit = this.roueArriereDroite.getEncoder();
-        // this.encodeurAvantGauche = this.roueAvantGauche.getEncoder();
-        // this.encodeurArriereGauche = this.roueArriereGauche.getEncoder();
+        this.encodeurAvantDroit = this.roueAvantDroite.getEncoder();
+        this.encodeurArriereDroit = this.roueArriereDroite.getEncoder();
+        this.encodeurAvantGauche = this.roueAvantGauche.getEncoder();
+        this.encodeurArriereGauche = this.roueArriereGauche.getEncoder();
 
         
         this.arreter();

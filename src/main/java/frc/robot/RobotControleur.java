@@ -1,8 +1,14 @@
 // Code de CONTROLE du robot 2024 de Supertronix
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
+import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commande.auto.TrajetNoteDansAmplificateur;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
 import frc.robot.composant.Compresseur;
@@ -129,7 +135,9 @@ public class RobotControleur extends TimedRobot {
 
     if((periode % 100) == 0)
     {
-      this.animateurLed.choisirAnimationSelonDashboard();      
+      this.animateurLed.choisirAnimationSelonDashboard();
+      double[] test = Robot.getInstance().cameraLimelight.getBotpose();
+      System.out.println(test[0] + " : " + test[1] + " : " + test[5]);
     }
     if(!robot.estAveugle())
     {
@@ -166,10 +174,10 @@ public class RobotControleur extends TimedRobot {
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonB.toggleOnTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.toggleOnTrue(new CommandeLanceurOuvrirEtAllonger());
+        //this.boutonB.toggleOnTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
-        this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracterEtFermer());
+        this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
 
@@ -177,18 +185,19 @@ public class RobotControleur extends TimedRobot {
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.onTrue(new CommandeMaintenirChaine());
+        this.boutonDemarrer.toggleOnTrue(new CommandeAvalerTeleop());
+        // this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        // this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
+        this.boutonA.toggleOnTrue(new TrajetNoteDansAmplificateur());
+        this.boutonB.toggleOnTrue(new TrajetNoteDansSpeaker());
 
         //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
         //this.boutonY.onTrue(new CommandeLancerAmpli());
 
-        this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        this.boutonB.onTrue(new CommandeLanceurAllonger());
-        this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.onTrue(new CommandeLanceurFermer());
+        // this.boutonA.onTrue(new CommandeLanceurOuvrir());
+        // this.boutonB.onTrue(new CommandeLanceurAllonger());
+        // this.boutonY.onTrue(new CommandeLanceurRetracter());
+        // this.boutonX.onTrue(new CommandeLanceurFermer());
         
       }
 
