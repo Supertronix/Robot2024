@@ -237,13 +237,19 @@ public class RobotControleur extends TimedRobot {
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
         //this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
-        //this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
-        //this.boutonX.toggleOnTrue(new TrajetNoteDansAmplificateur());
-        //this.boutonY.toggleOnTrue(new TrajetNoteDansSpeaker());
-
+        this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
         //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
         //this.boutonY.onTrue(new CommandeLancerAmpli());
-        
+
+        this.boutonX.onTrue(new TrajetNoteDansSpeaker());
+        this.boutonY.onTrue(new TrajetNoteDansAmplificateur());
+
+        //this.boutonA.onTrue(new CommandeLanceurOuvrir());
+        //this.boutonB.onTrue(new CommandeLanceurAllonger());
+        //this.boutonY.onTrue(new CommandeLanceurRetracter());
+        //this.boutonX.onTrue(new CommandeLanceurFermer());
       }
 
       public static TestManette getInstance()

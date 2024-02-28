@@ -31,7 +31,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
     protected Robot robot;
     protected ShuffleBoard shuffleBoard;
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
-    protected static final double SEUIL_ANGLE = 2.0;
+    protected static final double SEUIL_ANGLE = 1.0;
     protected static final int DUREE_TIMEOUT = 10000;
 
     // PID axe X
@@ -71,6 +71,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
     protected Vecteur3 cible;
     protected double angleCible;
     protected Field2d arene;
+    protected double[] donneesPosition;
 
     public CommandeAllerA(Vecteur3 cible, double angleCible)
     {
@@ -112,24 +113,30 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
                 new TrapezoidProfile.Constraints(angMaxVitesse, angMaxAcceleration));
 
         this.angleControleur.enableContinuousInput(0, 360); // 0, Math.PI * 2 Radians ?
+        //this.angleControleur.enableContinuousInput(0, Math.PI * 2);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
         Pose2d tolerance = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        this.driveControleur.setTolerance(tolerance);
+        //this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 
         this.kinematics = Odometrie.getInstance().getCinematique();
+
+        this.donneesPosition = new double[6];
     }
 
     @Override
     public void execute() {
         this.detecteur.mesurer();
 
-        double[] donneesPosition = this.limelight.getBotpose();
+        double[] donneesPositionInit = this.limelight.getBotpose();
 
         //System.out.println("x = " + donneesPosition[0] + " y = " + donneesPosition[1] + " angle = " + donneesPosition[5]);
-        if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
+        if (donneesPositionInit[0] == 0 || donneesPositionInit[1] == 0)
             return;
+        donneesPosition[0] = donneesPositionInit[0];
+        donneesPosition[1] = donneesPositionInit[1];
+        donneesPosition[5] = donneesPositionInit[5];
 
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
         Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(this.angleCible));
@@ -151,15 +158,29 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
             //System.out.println("Distance: " + distance);
             this.distanceAtteinte = this.distance < SEUIL_DISTANCE;
 
-            //double vitesse
+            double vitesseMaxMoteur = 3; // Supposons que la vitesse maximale de nos moteurs soit de 3 m/s
+
+            // Convertir les vitesses de m/s à pourcentage de moteur
+            double pourcentageFrontLeft = vitesseRoues.frontLeftMetersPerSecond / vitesseMaxMoteur;
+            double pourcentageFrontRight = vitesseRoues.frontRightMetersPerSecond / vitesseMaxMoteur;
+            double pourcentageRearLeft = vitesseRoues.rearLeftMetersPerSecond / vitesseMaxMoteur;
+            double pourcentageRearRight = vitesseRoues.rearRightMetersPerSecond / vitesseMaxMoteur;
+
+            // Assurez-vous que le pourcentage est dans la plage de -1 à 1
+            pourcentageFrontLeft = Math.max(Math.min(pourcentageFrontLeft, 1.0), -1.0);
+            pourcentageFrontRight = Math.max(Math.min(pourcentageFrontRight, 1.0), -1.0);
+            pourcentageRearLeft = Math.max(Math.min(pourcentageRearLeft, 1.0), -1.0);
+            pourcentageRearRight = Math.max(Math.min(pourcentageRearRight, 1.0), -1.0);
+
 
             //System.out.println("PID MOVEMENT RUNNING");
             //System.out.println("frontleftMS = " + vitesseRoues.frontLeftMetersPerSecond + " frontrightMS = " + vitesseRoues.frontRightMetersPerSecond + " rearleftMS = " + vitesseRoues.rearLeftMetersPerSecond + " rearRightMS = " + vitesseRoues.rearRightMetersPerSecond);
+            System.out.println("frontleft = " + pourcentageFrontLeft + " frontright = " + pourcentageFrontRight + " rearleft = " + pourcentageRearLeft + " rearRight = " + pourcentageRearRight);
             this.roues.conduireToutesDirections(
-                vitesseRoues.frontLeftMetersPerSecond, 
-                vitesseRoues.frontRightMetersPerSecond,
-                vitesseRoues.rearLeftMetersPerSecond,
-                vitesseRoues.rearRightMetersPerSecond); // On verifie que ça peut pas être en dessous/dessus de -1 1 ?
+                pourcentageFrontLeft,
+                pourcentageFrontRight,
+                pourcentageRearLeft,
+                pourcentageRearRight); // On verifie que ça peut pas être en dessous/dessus de -1 1 ?
         }
         // Rotation du robot
         else if (!this.seuilAngleAtteint) {
@@ -168,17 +189,19 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
             differenceAngle = (differenceAngle + 180) % 360 - 180;
             //System.out.println("Difference: " + differenceAngle + " - Position: " + donneesPosition[5]);
             this.seuilAngleAtteint = Math.abs(differenceAngle) < SEUIL_ANGLE;
+
             //System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
 
+            System.out.println("Difference: " + differenceAngle);
             if (differenceAngle > 0.0) {
                 System.out.println("TOURNE GAUCHE");
-                this.roues.tournerGauche(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
+                this.roues.tournerGauche(0.2);
             }
             else {
                 System.out.println("TOURNE DROITE");
-                this.roues.tournerDroite(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
+                this.roues.tournerDroite(0.2);
             }
-            System.out.println(vitesseAjustee.omegaRadiansPerSecond);
+            //System.out.println(vitesseAjustee.omegaRadiansPerSecond);
         }
 
         SmartDashboard.putNumber("Vitesse X (m/s)", vitesseAjustee.vxMetersPerSecond);
