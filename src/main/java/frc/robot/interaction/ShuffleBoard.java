@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
 import frc.robot.commande.robot.CommandeLancerSpeaker;
+import frc.robot.commande.robot.CommandeRecracher;
 
 public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
@@ -25,15 +26,14 @@ public class ShuffleBoard {
         SmartDashboard.putBoolean("Note chargee", false);
         SmartDashboard.putBoolean("Alliance Rouge", true);
 
-        SmartDashboard.putData("Commande Avaler", new CommandeAvalerAutomatiquement());
-        SmartDashboard.putData("Commande Lancer Haut", new CommandeLancerSpeaker());
+        SmartDashboard.putData("Recracher", new CommandeRecracher());
     }
 
     public void mettreAJour() {
         SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitreLanceur.getVelocity());
         SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclaveLanceur.getVelocity());
         SmartDashboard.putBoolean("Note chargee", capteurLuminosite.detecteNote());
-        //SmartDashboard.putBoolean("Alliance Rouge", Alliance.getInstance().getAllianceRouge());
+        SmartDashboard.putBoolean("Alliance Rouge", Alliance.getInstance().getAllianceRouge());
         SmartDashboard.putNumber("angleRobot", Robot.getInstance().cameraLimelight.getBotpose()[5]);
         SmartDashboard.putNumber("angleTag", Robot.getInstance().cameraLimelight.getTagPositionRelatifRobot()[5]);
     }

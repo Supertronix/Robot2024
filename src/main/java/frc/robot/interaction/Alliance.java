@@ -26,7 +26,7 @@ public class Alliance {
 
   public boolean getAllianceRouge() {
       Optional<DriverStation.Alliance> couleur = DriverStation.getAlliance();
-      if (couleur.isEmpty()) {
+      if (!couleur.isPresent()) {
           //System.out.println("Alliance introuvable, défaut à rouge");
           return true;
       }

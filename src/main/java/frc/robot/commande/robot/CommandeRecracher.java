@@ -12,7 +12,7 @@ import frc.robot.soussysteme.ConvoyeurHaut;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
-public abstract class CommandeRecracher extends Command {
+public class CommandeRecracher extends Command {
     protected Avaleur avaleur;
     protected ConvoyeurBas convoyeurBas;
     protected ConvoyeurHaut convoyeurHaut;
@@ -22,7 +22,7 @@ public abstract class CommandeRecracher extends Command {
 
     public CommandeRecracher()
     {
-        System.out.println("new CommandeAvaler()");
+        System.out.println("new CommandeRecracher()");
 
         this.avaleur = Robot.getInstance().avaleur;
         this.convoyeurBas = Robot.getInstance().convoyeurBas;
@@ -39,7 +39,7 @@ public abstract class CommandeRecracher extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvaler.initialize()");
+        System.out.println("CommandeRecracher.initialize()");
         
         this.avaleur.activer(-1);
         this.convoyeurBas.activer(-1);
@@ -64,7 +64,7 @@ public abstract class CommandeRecracher extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvaler.end()");
+        System.out.println("CommandeRecracher.end()");
         this.avaleur.desactiver();
         this.convoyeurBas.desactiver();
         this.convoyeurHaut.desactiver();
