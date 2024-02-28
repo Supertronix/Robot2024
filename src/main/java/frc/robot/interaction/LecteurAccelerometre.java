@@ -9,7 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 // https://github.com/kauailabs/navxmxp/blob/master/roborio/java/navXMXP_Java_AutoBalance/src/org/usfirst/frc/team2465/robot/Robot.java
 public class LecteurAccelerometre {
     
-    AHRS accelerometre;
+    public AHRS accelerometre;
     double pitch;
     double roll;
     double yaw;

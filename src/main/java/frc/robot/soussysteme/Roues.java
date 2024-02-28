@@ -34,10 +34,10 @@ interface Dirigeable
 
 abstract public class Roues extends SousSysteme implements Roulable, Dirigeable, Materiel.Roues, Cinematique.Roues {
 
-    protected MoteurSparkMax roueAvantDroite;
-    protected MoteurSparkMax roueAvantGauche;
-    protected MoteurSparkMax roueArriereDroite;
-    protected MoteurSparkMax roueArriereGauche;
+    public MoteurSparkMax roueAvantDroite;
+    public MoteurSparkMax roueAvantGauche;
+    public MoteurSparkMax roueArriereDroite;
+    public MoteurSparkMax roueArriereGauche;
     public RelativeEncoder encodeurAvantDroit;
     public RelativeEncoder encodeurAvantGauche;
     public RelativeEncoder encodeurArriereDroit;
