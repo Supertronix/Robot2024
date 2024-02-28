@@ -12,7 +12,7 @@ public class TrajetNoteDansAmplificateur extends SequentialCommandGroup {
 	{
 		// 6.390382310264613 : 2.6388704660591458 : -91.35970102439848 
 		addCommands(
-			new CommandeAllerATest(new Vecteur3(6.4, 2.7, 0), -90),
+			new CommandeAllerA(new Vecteur3(6.4, 2.7, 0), -90),
             new CommandeLanceurOuvrir().andThen(new CommandeLanceurAllonger())
 		);
 	}

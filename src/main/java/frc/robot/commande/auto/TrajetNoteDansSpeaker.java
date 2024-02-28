@@ -10,7 +10,7 @@ public class TrajetNoteDansSpeaker extends SequentialCommandGroup {
     public TrajetNoteDansSpeaker()
 	{
 		addCommands(
-			new CommandeAllerATest(new Vecteur3(6.90, 1.48, 0), 180),
+			new CommandeAllerA(new Vecteur3(6.90, 1.48, 0), 180),
             new CommandeLancerSpeaker()
 		);
 	}

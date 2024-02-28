@@ -137,17 +137,10 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
-    if((periode % 100) == 0)
-    {
-      this.animateurLed.choisirAnimationSelonDashboard();
-      double[] test = Robot.getInstance().cameraLimelight.getBotpose();
-      System.out.println(test[0] + " : " + test[1] + " : " + test[5]);
-    }
     if(!robot.estAveugle())
     {
       //robot.cameraLimelight.decoupageCameraDynamique();
     }
-
     if((periode % 10) == 0 && !robot.estAveugle())
     {
       this.shuffleBoard.mettreAJour();
@@ -159,6 +152,9 @@ public class RobotControleur extends TimedRobot {
       //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
       //String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
       //System.out.println(etatLanceurDeploye);
+
+      //double[] test = Robot.getInstance().cameraLimelight.getBotpose();
+      //System.out.println(test[0] + " : " + test[1] + " : " + test[5]);
     }
   }
   
