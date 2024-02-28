@@ -209,7 +209,6 @@ public class RobotControleur extends TimedRobot {
       // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
-        /*
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
@@ -219,26 +218,9 @@ public class RobotControleur extends TimedRobot {
         this.boutonB.onTrue(new CommandeLanceurAllonger());
         this.boutonY.onTrue(new CommandeLanceurRetracter());
         this.boutonX.onTrue(new CommandeLanceurFermer());
-         */
 
-        //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
-        //this.boutonMainGauche.onTrue(new CommandeLancerBas());
+        /*
 
-        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        //this.boutonB.toggleOnTrue(new CommandeAvalerTeleop());
-        //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
-        //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
-        //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
-        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
-        //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
-        //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
-        //this.boutonY.onTrue(new CommandeLancerAmpli());
-
-        //this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        //this.boutonB.onTrue(new CommandeLanceurFermer());
-        //this.boutonX.onTrue(new CommandeLanceurAllonger());
-        //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        //this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
         this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
         this.boutonDemarrer.whileTrue(new CommandeGrimper());
@@ -252,6 +234,8 @@ public class RobotControleur extends TimedRobot {
         //this.boutonB.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
         //this.boutonX.onTrue(new CommandeLanceurFermer());
+
+         */
       }
 
       public static TestManette getInstance()
