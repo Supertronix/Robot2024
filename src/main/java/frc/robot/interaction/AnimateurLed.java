@@ -43,7 +43,7 @@ public class AnimateurLed implements Materiel.Affichage{
 	public void choisirAnimationSelonDashboard()
 	{
 		String choix = selecteur.getSelected();
-		System.out.println("Choix " + choix);
+		//System.out.println("Choix " + choix);
         donnee[0] = choix.getBytes()[0];
         i2c.transaction(donnee, donnee.length, dummy, dummy.length);
 	}

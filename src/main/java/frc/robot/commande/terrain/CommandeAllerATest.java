@@ -20,7 +20,7 @@ import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
-public class CommandeAllerA extends Command {
+public class CommandeAllerATest extends Command {
 
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
     protected static final double SEUIL_ANGLE = 2.0;
@@ -37,7 +37,7 @@ public class CommandeAllerA extends Command {
     protected static double y_kD = 0.00;
 
     // PID Angle
-    protected static double ang_kP = 0.25;
+    protected static double ang_kP = 0.1;
     protected static double ang_kI = 0.00;
     protected static double ang_kD = 0.00;
     protected static double angMaxVitesse = 999.00; // m/s
@@ -66,8 +66,9 @@ public class CommandeAllerA extends Command {
     protected boolean seuilAngleAtteint;
     protected Vecteur3 cible;
     protected double angleCible;
+    protected double[] donneesPosition;
 
-    public CommandeAllerA(Vecteur3 cible, double angleCible)
+    public CommandeAllerATest(Vecteur3 cible, double angleCible)
     {
         System.out.println("new CommandeAllerA()");
 
@@ -75,21 +76,13 @@ public class CommandeAllerA extends Command {
         this.limelight = Robot.getInstance().cameraLimelight;
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(DUREE_TIMEOUT);
-        this.manette = ActionManette.getInstance();
 
         this.xControleur = new PIDController(x_kP, x_kI, x_kD);
         this.yControleur = new PIDController(y_kP, y_kI, y_kD);
         this.angleControleur = new ProfiledPIDController(ang_kP, ang_kI, ang_kD,
-                new TrapezoidProfile.Constraints(angMaxVitesse, angMaxAcceleration));
-
-        this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        
+                new TrapezoidProfile.Constraints(6.28, 3.14));
         this.cible = cible;
         this.angleCible = angleCible;
-
-        SmartDashboard.putData("PID x", this.xControleur);
-        SmartDashboard.putData("PID y", this.yControleur);
-        SmartDashboard.putData("PID angle", this.angleControleur);
     }
 
     @Override
@@ -100,68 +93,30 @@ public class CommandeAllerA extends Command {
 
         this.distanceAtteinte = false;
         this.seuilAngleAtteint = false;
-
-        this.kinematics = new MecanumDriveKinematics(
-            new Translation2d(-largeurDuCentre, longueurDuCentre),
-            new Translation2d(largeurDuCentre, longueurDuCentre),
-            new Translation2d(-largeurDuCentre, -longueurDuCentre),
-            new Translation2d(largeurDuCentre, -longueurDuCentre)
-        );
     }
 
     @Override
     public void execute() {
         this.detecteur.mesurer();
 
-        double[] donneesPosition = this.limelight.getBotpose();
+        donneesPosition = this.limelight.getBotpose();
 
         if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
             return;
 
-        Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
-        Pose2d cible = new Pose2d(this.cible.x, this.cible.y + 1, Rotation2d.fromDegrees(this.angleCible));
+        var pidOutputX = xControleur.calculate(donneesPosition[0], cible.x);        
+        var pidOutputY = -yControleur.calculate(donneesPosition[1], cible.y);
+        var pidOutputRot = -angleControleur.calculate(donneesPosition[5], angleCible);
 
-        // Calcul d'inverse kinematics pour déterminer les vitesses de roues
-        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(this.angleCible));
-        MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
+        SmartDashboard.putNumber("Erreur Angle",donneesPosition[5] - angleCible);
 
-        // Déplacement x,y
-        if (!this.distanceAtteinte) {
-            //System.out.println("x diff: " + (donneesPosition[0] - this.cible.x));
-            this.distance = Math.pow(donneesPosition[0] - this.cible.x, 2) + Math.pow(donneesPosition[1] - this.cible.y, 2);
-            //System.out.println("Distance: " + distance);
-            this.distanceAtteinte = this.distance < SEUIL_DISTANCE;
+        roues.conduireToutesDirections(
+            pidOutputY - pidOutputX - pidOutputRot,
+            pidOutputY + pidOutputX + pidOutputRot,
+            pidOutputY + pidOutputX - pidOutputRot,
+            pidOutputY - pidOutputX + pidOutputRot
+        );
 
-            //System.out.println("PID MOVEMENT RUNNING");
-            this.roues.conduireToutesDirections(
-                vitesseRoues.frontLeftMetersPerSecond, 
-                vitesseRoues.frontRightMetersPerSecond,
-                vitesseRoues.rearLeftMetersPerSecond,
-                vitesseRoues.rearRightMetersPerSecond);
-        }
-        // Rotation du robot
-        else if (!this.seuilAngleAtteint) {
-            //System.out.println("PID ANGLE RUNNING");
-            double differenceAngle = this.angleCible - donneesPosition[5];
-            differenceAngle = (differenceAngle + 180) % 360 - 180;
-            //System.out.println("Difference: " + differenceAngle + " - Position: " + donneesPosition[5]);
-            this.seuilAngleAtteint = Math.abs(differenceAngle) < SEUIL_ANGLE;
-            //System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
-
-            if (differenceAngle > 0.0) {
-                System.out.println("TOURNE GAUCHE");
-                this.roues.tournerGauche(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
-            }
-            else {
-                System.out.println("TOURNE DROITE");
-                this.roues.tournerDroite(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
-            }
-            System.out.println(vitesseAjustee.omegaRadiansPerSecond);
-        }
-
-        SmartDashboard.putNumber("vitesseAjustee.vxMetersPerSecond", vitesseAjustee.vxMetersPerSecond);
-        SmartDashboard.putNumber("vitesseAjustee.vyMetersPerSecond", vitesseAjustee.vyMetersPerSecond);
-        SmartDashboard.putNumber("vitesseAjustee.omegaDegreesPerSecond", vitesseAjustee.omegaRadiansPerSecond * 180 / Math.PI);
     }
 
 
@@ -175,9 +130,6 @@ public class CommandeAllerA extends Command {
             //System.out.println("CommandeAllerA.isFinished() detecteur.estTropLongue()");
             return true;
         }
-
-        double[] donneesPosition = this.limelight.getBotpose();
-
         // Pas de données de tag valide cette frame
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
