@@ -32,7 +32,7 @@ public class Alliance {
           return true;
       }
       this.allianceRouge = couleur.get() != DriverStation.Alliance.Blue;
-      return this.allianceRouge;
+      return allianceRouge;
   }
 
 

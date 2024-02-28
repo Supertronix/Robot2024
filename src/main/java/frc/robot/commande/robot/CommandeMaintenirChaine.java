@@ -29,19 +29,19 @@ public class CommandeMaintenirChaine extends Command {
     {
         System.out.println("CommandeMaintenirChaine.initialize()");
         
-        if (!detecteurChaine.detecteChaine()) {
-            System.out.println("Limite switch non active, annulation");
-            this.annuler = true;
-        }
+        //if (!detecteurChaine.detecteChaine()) {
+        //    System.out.println("Limite switch non active, annulation");
+        //    this.annuler = true;
+        //}
     }
 
     @Override
     public void execute() {
         if (!detecteurChaine.detecteChaine()) {
-            bras.activerSelonVitesse(Bras.ACTION_DESCENDRE, 1);
+            bras.activerSelonVitesse(Bras.ACTION_MONTER, 1);
             System.out.println("Correction de la hauteur");
         } else {
-            bras.activerSelonVitesse(Bras.ACTION_DESCENDRE, 0.001); // A TESTER
+            bras.activerSelonVitesse(Bras.ACTION_MONTER, 0.001); // A TESTER
         }
     }
     

@@ -33,7 +33,7 @@ public class ShuffleBoard {
         SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitreLanceur.getVelocity());
         SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclaveLanceur.getVelocity());
         SmartDashboard.putBoolean("Note chargee", capteurLuminosite.detecteNote());
-        SmartDashboard.putBoolean("Alliance Rouge", Alliance.getInstance().getAllianceRouge());
+        //SmartDashboard.putBoolean("Alliance Rouge", Alliance.getInstance().getAllianceRouge());
         SmartDashboard.putNumber("angleRobot", Robot.getInstance().cameraLimelight.getBotpose()[5]);
         SmartDashboard.putNumber("angleTag", Robot.getInstance().cameraLimelight.getTagPositionRelatifRobot()[5]);
     }
