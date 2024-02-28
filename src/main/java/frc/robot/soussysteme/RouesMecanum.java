@@ -161,6 +161,10 @@ public class RouesMecanum extends Roues {
         this.roueArriereDroite.set( vitesseArriereDroite );
     }
 
+    public void conduireAvecDrive(double vitesseX, double vitesseY, double vitesseRotation) {
+        new MecanumDrive(this.roueAvantGauche, this.roueArriereGauche, this.roueAvantDroite, this.roueArriereGauche).driveCartesian(vitesseX, vitesseY, vitesseRotation);
+    }
+
     public double getPosition() {
         return this.roueAvantDroite.getEncoder().getPosition();
     }

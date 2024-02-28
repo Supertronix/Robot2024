@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.auto.TrajetNoteDansAmplificateur;
@@ -37,13 +38,18 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
     robot.setVoyant();
+
+    for (int port = 5800; port <= 5807; port++) {
+      PortForwarder.add(port, "limelight.local", port);
+    }
   
-    /*
+
     if(!robot.estAveugle())
     {
       this.robot.cameraConducteur.initialiser();
+      this.robot.cameraLimelight.initialiser();
       //CameraServer.startAutomaticCapture(); // Méthode simple, mais ne permet pas de manipuler les images
-    }*/
+    }
   }
 
   // This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard integrated updating.
@@ -137,13 +143,12 @@ public class RobotControleur extends TimedRobot {
   public void teleopPeriodic() {
     periode++;
 
-    if(!robot.estAveugle())
-    {
-      //robot.cameraLimelight.decoupageCameraDynamique();
-    }
+    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+
     if((periode % 10) == 0 && !robot.estAveugle())
     {
       this.shuffleBoard.mettreAJour();
+      this.robot.cameraLimelight.afficherPosition();
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
@@ -155,6 +160,12 @@ public class RobotControleur extends TimedRobot {
 
       //double[] test = Robot.getInstance().cameraLimelight.getBotpose();
       //System.out.println(test[0] + " : " + test[1] + " : " + test[5]);
+
+      if(!robot.estAveugle())
+      {
+        //robot.cameraLimelight.decoupageCameraDynamique();
+        robot.cameraLimelight.verifierUtilite();
+      }
     }
   }
   
@@ -189,11 +200,11 @@ public class RobotControleur extends TimedRobot {
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonDemarrer.toggleOnTrue(new CommandeAvalerTeleop());
+        this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
         // this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
         // this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
-        this.boutonA.toggleOnTrue(new TrajetNoteDansAmplificateur());
-        this.boutonB.toggleOnTrue(new TrajetNoteDansSpeaker());
+        this.boutonX.toggleOnTrue(new TrajetNoteDansAmplificateur());
+        this.boutonY.toggleOnTrue(new TrajetNoteDansSpeaker());
 
         //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
         //this.boutonY.onTrue(new CommandeLancerAmpli());

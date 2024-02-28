@@ -1,6 +1,7 @@
 package frc.robot.interaction;
 
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
@@ -11,6 +12,7 @@ public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
     RelativeEncoder encodeurEsclaveLanceur;
     DetecteurNote capteurLuminosite;
+    public final Field2d arene = new Field2d();
     int periode;
     public ShuffleBoard() {
         System.out.println("new ShuffleBoard()");
@@ -25,6 +27,7 @@ public class ShuffleBoard {
         SmartDashboard.putNumber("RPM Lanceur Esclave", 0);
         SmartDashboard.putBoolean("Note chargee", false);
         SmartDashboard.putBoolean("Alliance Rouge", true);
+        //SmartDashboard.putData("Arène", arene);
 
         SmartDashboard.putData("Recracher", new CommandeRecracher());
     }

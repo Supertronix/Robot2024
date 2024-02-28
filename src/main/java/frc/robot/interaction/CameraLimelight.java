@@ -1,7 +1,11 @@
 package frc.robot.interaction;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 import java.util.HashMap;
@@ -12,7 +16,9 @@ public class CameraLimelight {
     private NetworkTable networkTable = null;
     private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
     private final double VERTICAL_FOV = 24.85; // A verifier
-    private double multiplicateur = 1.2; // Augmenter pour augmenter la zone de découpage
+    private double multiplicateur = 1.5; // Augmenter pour augmenter la zone de découpage
+    private DetecteurNote detecteurNote;
+    private Field2d arene;
 
     private final double[] ID_TAGS_BLEU = {1, 2, 6, 7, 8, 14, 15, 16};
     private final double[] ID_TAGS_ROUGE = {3, 4, 5, 9, 10, 11, 12, 13};
@@ -43,7 +49,14 @@ public class CameraLimelight {
         } catch (Exception e) {
             System.out.println("Limelight() exception: " + e.getMessage());
         }
-        setModeStream(1);
+    }
+
+    public void initialiser() {
+        this.arene = new Field2d();
+        this.detecteurNote = Robot.getInstance().detecteurNote;
+        SmartDashboard.putData("Arene", arene);
+        //setModeStream(1); La caméra sera branché directement sur le RoboRIO
+        // brancher la caméra sur la limelight augmente fortement la latence des deux caméras
     }
 
     // ------------------- GETTERS -------------------
@@ -504,5 +517,20 @@ public class CameraLimelight {
         cropValues[3] = 1; // y1
 
         setDecoupageCamera(cropValues);
+    }
+
+    public void verifierUtilite() {
+        if (detecteurNote.detecteNote()) {
+            setModeCamera(0);
+        }
+        else {
+            setModeCamera(1);
+        }
+    }
+
+    public void afficherPosition() {
+        double[] position = getBotpose();
+        Pose2d pose = new Pose2d(position[0], position[1], Rotation2d.fromDegrees(position[5]));
+        arene.setRobotPose(pose);
     }
 }
