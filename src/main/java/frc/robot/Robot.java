@@ -21,6 +21,7 @@ public class Robot {
   public ConvoyeurHaut convoyeurHaut;
   public Lanceur lanceur;
   public DetecteurNote detecteurNote;
+  public DetecteurChaine detecteurChaine;
 
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
@@ -30,12 +31,14 @@ public class Robot {
   public Robot() 
   {
     this.detecteurNote = new DetecteurNote();
+    this.detecteurChaine = new DetecteurChaine();
     this.roues = new RouesMecanum();  //this.roues = new RouesMecanum();
     this.avaleur = new Avaleur();
     this.convoyeurBas = new ConvoyeurBas();
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
     this.bras = new Bras();
+
 
     if(!this.aveugle)
     {
