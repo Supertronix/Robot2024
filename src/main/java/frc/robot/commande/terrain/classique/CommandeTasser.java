@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
-public class CommandeAvancer extends Command {
+public class CommandeTasser extends Command {
 
     private static final int TEMPS_MAXIMUM = 3000;
 
@@ -14,9 +14,9 @@ public class CommandeAvancer extends Command {
     protected LimiteurDuree detecteur;
     protected double centimetres;
 
-    public CommandeAvancer(double centimetres)
+    public CommandeTasser(double centimetres)
     {
-        //System.out.println("new CommandeAvancer()");
+        //System.out.println("new CommandeTasser()");
         this.centimetres = centimetres;
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);
@@ -26,7 +26,7 @@ public class CommandeAvancer extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvancer.initialize()");
+        System.out.println("CommandeTasser.initialize()");
         this.roues = Robot.getInstance().roues;
         //this.roues.avancer(pas);
         this.detecteur.initialiser();
@@ -50,6 +50,6 @@ public class CommandeAvancer extends Command {
     }
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvancer.end()");
+        System.out.println("CommandeTasser.end()");
     }
 }

@@ -15,7 +15,7 @@ public class CommandeAvancerNombreDePas extends Command {
 
     public CommandeAvancerNombreDePas(int pas)
     {
-        System.out.println("new CommandeAvancerNombreDePas()");
+        //System.out.println("new CommandeAvancerNombreDePas()");
         this.pas = pas;
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);

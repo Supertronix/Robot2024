@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
-public class CommandeAvancer extends Command {
+public class CommandeDiagonale extends Command {
 
     private static final int TEMPS_MAXIMUM = 3000;
 
@@ -14,9 +14,9 @@ public class CommandeAvancer extends Command {
     protected LimiteurDuree detecteur;
     protected double centimetres;
 
-    public CommandeAvancer(double centimetres)
+    public CommandeDiagonale(double centimetres, double angle)
     {
-        //System.out.println("new CommandeAvancer()");
+        //System.out.println("new CommandeDiagonale()");
         this.centimetres = centimetres;
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);
@@ -26,7 +26,7 @@ public class CommandeAvancer extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeAvancer.initialize()");
+        System.out.println("CommandeDiagonale.initialize()");
         this.roues = Robot.getInstance().roues;
         //this.roues.avancer(pas);
         this.detecteur.initialiser();
@@ -50,6 +50,6 @@ public class CommandeAvancer extends Command {
     }
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvancer.end()");
+        System.out.println("CommandeDiagonale.end()");
     }
 }

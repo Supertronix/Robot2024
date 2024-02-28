@@ -16,7 +16,7 @@ public class CommandeReculer extends Command {
 
     public CommandeReculer(double centimetres)
     {
-        System.out.println("new CommandeReculer()");
+        //System.out.println("new CommandeReculer()");
         this.centimetres = centimetres;
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);

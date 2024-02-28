@@ -16,7 +16,7 @@ public class CommandeTourner extends Command {
 
     public CommandeTourner(double angle)
     {
-        System.out.println("new CommandeTourner()");
+        //System.out.println("new CommandeTourner()");
         this.angle = angle;
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);

@@ -16,7 +16,7 @@ public class CommandeAvancerEtTourner extends Command {
 
     public CommandeAvancerEtTourner(double angle)
     {
-        System.out.println("new CommandeAvancerEtTourner()");
+        //System.out.println("new CommandeAvancerEtTourner()");
         this.angle = angle;
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);
