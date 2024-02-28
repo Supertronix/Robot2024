@@ -2,7 +2,7 @@ package frc.robot.commande.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class CommandeLanceurRetracterEtFermerNadine extends Command {
+public class CommandeLanceurRetracterEtFermerDoubleTest extends Command {
     
     CommandeLanceurFermer commandeFermer = new CommandeLanceurFermer();
     CommandeLanceurRetracter commandeRetracter = new CommandeLanceurRetracter();
@@ -10,7 +10,7 @@ public class CommandeLanceurRetracterEtFermerNadine extends Command {
     enum COMMANDE_EN_COURS{FERMER,RETRACTER};
     COMMANDE_EN_COURS commandeEnCours = null;
 
-    public CommandeLanceurRetracterEtFermerNadine()
+    public CommandeLanceurRetracterEtFermerDoubleTest()
     {
         System.out.println("new CommandeRetracterEtFermer()");
     }

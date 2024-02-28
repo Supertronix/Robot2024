@@ -2,7 +2,7 @@ package frc.robot.commande.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class CommandeLanceurOuvrirEtAllongerNadine extends Command {
+public class CommandeLanceurOuvrirEtAllongerDoubleTest extends Command {
     
     CommandeLanceurOuvrir commandeOuvrir = new CommandeLanceurOuvrir();
     CommandeLanceurAllonger commandeAllonger = new CommandeLanceurAllonger();
@@ -10,7 +10,7 @@ public class CommandeLanceurOuvrirEtAllongerNadine extends Command {
     enum COMMANDE_EN_COURS{OUVRIR,ALLONGER};
     COMMANDE_EN_COURS commandeEnCours = null;
 
-    public CommandeLanceurOuvrirEtAllongerNadine()
+    public CommandeLanceurOuvrirEtAllongerDoubleTest()
     {
         System.out.println("new CommandeLanceurOuvrirEtAllonger()");
     }

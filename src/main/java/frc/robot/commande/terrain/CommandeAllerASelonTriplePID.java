@@ -20,7 +20,7 @@ import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
-public class CommandeAllerATest extends Command {
+public class CommandeAllerASelonTriplePID extends Command {
 
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
     protected static final double SEUIL_ANGLE = 2.0;
@@ -68,7 +68,7 @@ public class CommandeAllerATest extends Command {
     protected double angleCible;
     protected double[] donneesPosition;
 
-    public CommandeAllerATest(Vecteur3 cible, double angleCible)
+    public CommandeAllerASelonTriplePID(Vecteur3 cible, double angleCible)
     {
         System.out.println("new CommandeAllerA()");
 
