@@ -3,8 +3,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
+import frc.robot.commande.terrain.CommandeInverserRoues;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 import frc.robot.interaction.SelecteurModeAutonome.MODE;
@@ -158,8 +158,8 @@ public class RobotControleur extends TimedRobot {
       this.animateurLed.choisirAnimationSelonDashboard();  
       //System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
       //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
-    //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
-    //  System.out.println(etatLanceurDeploye);
+      //String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
+      //System.out.println(etatLanceurDeploye);
     }
   }
   
@@ -177,41 +177,25 @@ public class RobotControleur extends TimedRobot {
       {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
-
-        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonB.toggleOnTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.toggleOnTrue(new CommandeLanceurOuvrirEtAllonger());
-        //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
-        this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracterEtFermer());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
-
-        //this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        //this.boutonB.onTrue(new CommandeLanceurFermer());
-        //this.boutonX.onTrue(new CommandeLanceurAllonger());
-        //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.onTrue(new CommandeMaintenirChaine());
-
+        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
+        //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
         //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
         //this.boutonY.onTrue(new CommandeLancerAmpli());
 
-        this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        this.boutonB.onTrue(new CommandeLanceurAllonger());
-        this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.onTrue(new CommandeLanceurFermer());
-        
-      }
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
 
-      public void activerBoutonsTests()
-      {
-          //this.boutonB.onTrue(new CommandeLanceurOuvrir());
-          //this.boutonX.onTrue(new CommandeLanceurFermer());
-          //this.boutonY.onTrue(new CommandeLanceurAllonger());
-          //this.boutonA.onTrue(new CommandeLanceurRetracter());
-          //this.povBas.onTrue(new CommandeAvalerAutomatiquement());
+        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.onTrue(new CommandeMaintenirChaine());
+
+        this.boutonA.onTrue(new CommandeLanceurOuvrir()); // A
+        this.boutonB.onTrue(new CommandeLanceurAllonger()); // B
+        this.boutonY.onTrue(new CommandeLanceurRetracter()); // Y
+        this.boutonX.onTrue(new CommandeLanceurFermer()); // X
+
+        this.povBas.onTrue(new CommandeInverserRoues()); // D-Pad bas
       }
 
       public static ActionManette getInstance()
