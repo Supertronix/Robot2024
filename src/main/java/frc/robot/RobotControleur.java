@@ -131,7 +131,7 @@ public class RobotControleur extends TimedRobot {
     robot.roues.setFacteur(1); // 0.8
 
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
-    this.manette = (TestManette)RobotControleur.TestManette.getInstance();
+    //this.manette = (TestManette)RobotControleur.TestManette.getInstance();
     manette.activerBoutons();
     this.periode = 0;
     
@@ -184,6 +184,12 @@ public class RobotControleur extends TimedRobot {
       {
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
+
+        this.boutonA.onTrue(new CommandeAvalerTeleop());
+        this.boutonB.onTrue(new CommandeRecracher());
+        this.boutonX.onTrue(new CommandeLancerSpeaker());
+        this.boutonY.onTrue(new CommandeLancerAmplificateur());
+
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
         this.boutonDemarrer.whileTrue(new CommandeGrimper());        
       }
@@ -212,8 +218,16 @@ public class RobotControleur extends TimedRobot {
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());     
-                
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+
+        this.boutonA.onTrue(new CommandeAvalerTeleop());
+        this.boutonB.onTrue(new CommandeLancerSpeaker());
+        this.boutonX.onTrue(new CommandeLancerSpeaker());
+
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+
+        /*
         this.boutonA.onTrue(new CommandeLanceurOuvrir());
         this.boutonB.onTrue(new CommandeLanceurAllonger());
         this.boutonY.onTrue(new CommandeLanceurRetracter());
