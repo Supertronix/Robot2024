@@ -73,6 +73,7 @@ public class Odometrie implements Materiel.Roues{
     public void setPositionSelonVision(Pose2d position)
     {
         this.positionSurLeField = position;
+        this.annulerIncertitude();
     }
 
     private void annulerIncertitude()
