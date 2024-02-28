@@ -55,8 +55,7 @@ public class RobotControleur extends TimedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   @Override
   public void autonomousInit() {
@@ -113,12 +112,15 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopInit() {
     System.out.println("teleopInit()");
-    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
-    this.periode = 0;
+
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
+
+    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     manette.activerBoutons();
+    this.periode = 0;
+    
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
     positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
   }
@@ -139,11 +141,13 @@ public class RobotControleur extends TimedRobot {
         System.out.println("Chaine non detectee");
       }
     }
+
+    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+
     if(!robot.estAveugle())
     {
       //robot.cameraLimelight.decoupageCameraDynamique();
     }
-    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
     if((periode % 10) == 0 && !robot.estAveugle())
     {
@@ -151,6 +155,7 @@ public class RobotControleur extends TimedRobot {
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
+      this.animateurLed.choisirAnimationSelonDashboard();  
       //System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
       //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
     //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
