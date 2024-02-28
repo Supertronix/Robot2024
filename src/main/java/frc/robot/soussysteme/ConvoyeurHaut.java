@@ -120,7 +120,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
 
     public boolean estOuvert()
     {
-        if (this.chronoFermer.getDureeActuelle() >= 1000) {
+        if (this.chronoFermer.getDuree() >= 1000) {
             this.estOuvert = false;
             chronoFermer.desactiver();
         }
@@ -130,7 +130,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
 
     public boolean estRetracte()
     {
-        if (this.chronoAllonger.getDureeActuelle() >= 1000) {
+        if (this.chronoAllonger.getDuree() >= 1000) {
             this.estRetracte = false;
             chronoAllonger.desactiver();
         }

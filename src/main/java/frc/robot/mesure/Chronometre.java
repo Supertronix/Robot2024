@@ -24,12 +24,12 @@ public class Chronometre{
 		this.tempsActuel = System.currentTimeMillis();				
 	}
 
-	public double getDuree()
+	public double getDureePreMesuree()
 	{
 		return (this.tempsActuel - this.tempsDebut);
 	}
 
-	public double getDureeActuelle()
+	public double getDuree()
 	{
 		if (estActif) return (System.currentTimeMillis() - this.tempsDebut);
 		return 0;

@@ -41,7 +41,7 @@ public class CommandeLancerSpeaker extends Command {
     @Override
     public void execute() {
         detecteurDuree.mesurer();
-        if (detecteurDuree.getDuree() > DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR)
+        if (detecteurDuree.getDureePreMesuree() > DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR)
             convoyeurHaut.activer(1);
     }
 

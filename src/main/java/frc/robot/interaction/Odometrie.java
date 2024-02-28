@@ -8,9 +8,16 @@ import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import frc.robot.Materiel;
 import frc.robot.Robot;
+import frc.robot.mesure.Chronometre;
 import frc.robot.soussysteme.Roues;
 
 public class Odometrie implements Materiel.Roues{
+
+    public double FACTEUR_GLISSEMENT_PAR_SECONDE = 0.01;
+    private Pose2d positionSurLeField;
+    protected MecanumDriveOdometry odometrieMecanum;
+    protected Chronometre chronometre;
+    protected double incertitude;
 
     protected static Odometrie instance = null;
     public static Odometrie getInstance()
@@ -23,7 +30,6 @@ public class Odometrie implements Materiel.Roues{
     }
 
     protected MecanumDriveKinematics cinematique;
-    protected MecanumDriveOdometry odometrieMecanum;
     protected LecteurAccelerometre accelerometre;
     protected MecanumDriveWheelPositions positionsMecanum;
     protected Roues roues;
@@ -32,6 +38,7 @@ public class Odometrie implements Materiel.Roues{
     public Odometrie()
     {
         this.roues = Robot.getInstance().roues;
+        this.chronometre = new Chronometre();
         this.positionDepartMatch = new Pose2d(5.0, 13.5, new Rotation2d());
 
         this.cinematique = new MecanumDriveKinematics(
@@ -58,6 +65,32 @@ public class Odometrie implements Materiel.Roues{
         return cinematique;
     }
 
+    public void actualiser()
+    {
+        this.positionSurLeField = odometrieMecanum.getPoseMeters();
+    }
 
+    public void setPositionSelonVision(Pose2d position)
+    {
+        this.positionSurLeField = position;
+    }
 
+    private void annulerIncertitude()
+    {
+        this.chronometre.desactiver();
+        this.chronometre.initialiser();
+        this.incertitude = 0;
+    }
+
+    // j'approxime l'incertitude comme une fraction du temps
+    // todo update plus tard avec fraction de distance rellement parcourue
+    public double getIncertitude()
+    {
+        return (this.chronometre.getDuree()/1000) * FACTEUR_GLISSEMENT_PAR_SECONDE;
+    }
+
+    public Pose2d getPosition()
+    {
+        return this.positionSurLeField;
+    }
 }
