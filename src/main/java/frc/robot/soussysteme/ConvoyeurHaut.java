@@ -136,7 +136,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         }
         if (this.detecteurConvoyeurHaut.estRetracte())
             this.estRetracte = true;
-        
+        System.out.println(estRetracte);
         return this.estRetracte;
     }
 }
