@@ -16,11 +16,18 @@
 
 
 
-const char CHOIX_AUCUN = '0';
 const char CHOIX_WAVE = 'W';
-const char CHOIX_SPONSOR = 'S';
 const char CHOIX_5910 = '5';
+const char CHOIX_COMMANDITAIRE = 'C';
+const char CHOIX_AUCUN = '0';
+const char CHOIX_DAMIER = 'D';
+
+const char ALLIANCE_ROUGE = 'R';
+const char ALLIANCE_BLEUE = 'B';
+
 char choix = 'W';
+char alliance = 'R';
+char message = '0';
 
 
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, 8, PIN,
@@ -231,11 +238,14 @@ void loop(){
     case CHOIX_WAVE :
       musicWaveDisplayer.run();
     break;
-    case CHOIX_SPONSOR :
+    case CHOIX_COMMANDITAIRE :
       sponsorNameDisplayer.run();
     break;
     case CHOIX_5910 :
       teamNuberDisplayer.run();
+    break;
+    case CHOIX_DAMIER :
+      nothingDisplayer.run();
     break;
     case CHOIX_AUCUN :
       nothingDisplayer.run();
@@ -247,11 +257,19 @@ void loop(){
 }
 
 
-
 void recevoirChoix(int combien) {
   Serial.println("recevoirChoix");
   while (Wire.available()) {
-    choix = Wire.read();
-    Serial.println(choix);
+    message = Wire.read();
+    Serial.println(message);
+    if('R' == message || 'B' == message)
+    {
+      alliance = message;
+    }
+    else
+    {
+      choix = message;
+    }
+
   }
 }

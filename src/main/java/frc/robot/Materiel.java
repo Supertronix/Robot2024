@@ -15,10 +15,12 @@ public interface Materiel {
 
     public interface Roues
     {
-        public int ROUE_AVANT_DROITE = 4; // ID 4 // roule avant
-        public int ROUE_ARRIERE_DROITE = 2; // ID 3 // roule avant
-        public int ROUE_AVANT_GAUCHE = 3; // ID 1  // roule arriere
-        public int ROUE_ARRIERE_GAUCHE = 1; // ID 2 // roule arriere
+        public static int ROUE_AVANT_DROITE = 4; // ID 4 // roule avant
+        public static int ROUE_ARRIERE_DROITE = 2; // ID 3 // roule avant
+        public static int ROUE_AVANT_GAUCHE = 3; // ID 1  // roule arriere
+        public static int ROUE_ARRIERE_GAUCHE = 1; // ID 2 // roule arriere
+        public static double LONGUEUR_DU_CENTRE = 0.635;
+        public static double LARGEUR_DU_CENTRE = 0.508;
     }
     public interface Manette
     {

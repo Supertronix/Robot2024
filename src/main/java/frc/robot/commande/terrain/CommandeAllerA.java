@@ -15,16 +15,18 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Materiel;
 import frc.robot.Robot;
 import frc.robot.RobotControleur.ActionManette;
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.Manette;
+import frc.robot.interaction.Odometrie;
 import frc.robot.interaction.ShuffleBoard;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.RouesMecanum;
 
-public class CommandeAllerA extends Command {
+public class CommandeAllerA extends Command implements Materiel.Roues{
 
     protected Robot robot;
     protected ShuffleBoard shuffleBoard;
@@ -48,10 +50,6 @@ public class CommandeAllerA extends Command {
     protected static double ang_kD = 0.00;
     protected static double angMaxVitesse = 999.00; // m/s
     protected static double angMaxAcceleration = 999.00; // m2/s
-
-    // Pour le calcul de déplacement des roues mecanum
-    protected static double longueurDuCentre = 0.635;
-    protected static double largeurDuCentre = 0.508;
 
     // Hardware
     protected RouesMecanum roues;
@@ -120,13 +118,7 @@ public class CommandeAllerA extends Command {
         this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 
-
-        this.kinematics = new MecanumDriveKinematics(
-            new Translation2d(-largeurDuCentre, longueurDuCentre),
-            new Translation2d(largeurDuCentre, longueurDuCentre),
-            new Translation2d(-largeurDuCentre, -longueurDuCentre),
-            new Translation2d(largeurDuCentre, -longueurDuCentre)
-        );
+        this.kinematics = Odometrie.getInstance().getCinematique();
     }
 
     @Override

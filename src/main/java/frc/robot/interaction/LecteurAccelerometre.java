@@ -5,7 +5,7 @@ package frc.robot.interaction;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
-
+import edu.wpi.first.math.geometry.Rotation2d;
 // https://github.com/kauailabs/navxmxp/blob/master/roborio/java/navXMXP_Java_AutoBalance/src/org/usfirst/frc/team2465/robot/Robot.java
 public class LecteurAccelerometre {
     
@@ -31,6 +31,7 @@ public class LecteurAccelerometre {
             Timer.delay(1);
         }
         //accelerometre.resetDisplacement();
+        this.calibrerManuellement();
     }
 
     // singleton pour calibrer une seule fois
@@ -87,6 +88,10 @@ public class LecteurAccelerometre {
         return this.getYaw();
     }
 
+    public Rotation2d getRotation2D()
+    {
+        return accelerometre.getRotation2d();
+    }
     public boolean depasseSeuilPente()
     {
         //System.out.println("PITCH = " + this.getPitch());
