@@ -11,6 +11,7 @@ public class Alliance {
     {
         if(null == instance)
         {
+            instance = new Alliance();
             return instance;
         }
         return instance;
