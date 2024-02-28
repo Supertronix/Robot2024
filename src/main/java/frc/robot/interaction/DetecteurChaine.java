@@ -3,10 +3,11 @@ package frc.robot.interaction;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Materiel;
 
-public class DetecteurNote implements Materiel.DetecteurNote {
+public class DetecteurChaine implements Materiel.DetecteurChaine {
     private static DigitalInput input;
+    private static final int ID_PORT_DIO = 3;
 
-    public DetecteurNote()
+    public DetecteurChaine()
     {
         // Initalisation du capteur de luminosité
         input = new DigitalInput(ID_PORT_DIO);
@@ -15,7 +16,7 @@ public class DetecteurNote implements Materiel.DetecteurNote {
     /** 
      * @return True si la luminosité est faible, false sinon
      */
-    public boolean detecteNote()
+    public boolean detecteChaine()
     {
         return input.get();
     }

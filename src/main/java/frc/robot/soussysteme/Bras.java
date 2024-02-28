@@ -6,7 +6,7 @@ import frc.robot.Cinematique;
 import frc.robot.Materiel;
 import frc.robot.composant.MoteurTalon;
 
-public class Bras implements Materiel.Bras, Cinematique.Bras {
+public class Bras extends SousSysteme implements Materiel.Bras, Cinematique.Bras {
     protected boolean actif;
     protected MoteurTalon moteur;
 
@@ -19,9 +19,16 @@ public class Bras implements Materiel.Bras, Cinematique.Bras {
         moteur = new MoteurTalon(ID_TREUIL);
     }
 
+    /**
+     * Descendre les bras (pas le robot !)
+     */
      public void descendre() {
         this.activer(ACTION_DESCENDRE);
     }
+
+    /**
+     * Monter les bras (pas le robot !)
+     */
      public void monter() {
         this.activer(ACTION_MONTER);
     }

@@ -67,7 +67,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
     }
 
     // Permet de changer le sens des moteurs pour tirer vers le bas ou monter en haut
-    public void setDirectionMoteurs(boolean versLeHaut) {
+    public void setMoteursVersHaut(boolean versLeHaut) {
         if (versLeHaut) {
             moteurTalonMaitre.setInverted(true);
             moteurTalonEsclave.setInverted(false);

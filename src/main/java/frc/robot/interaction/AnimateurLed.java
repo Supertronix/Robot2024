@@ -8,10 +8,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class AnimateurLed implements Materiel.Affichage{
 
 	private final SendableChooser<String> selecteur;
-	public static String AUCUNE = "0";
-	public static String WAVE = "W";
-	public static String DAMIER = "D";
-	public static String NUMERO_EQUIPE = "5";
+	public static String ANIMATION_AUCUNE = "0";
+	public static String ANIMATION_WAVE = "W";
+	public static String ANIMATIN_DAMIER = "D";
+	public static String ANIMATION_EQUIPE = "5";
+	public static String ANIMATION_COMMANDITAIRE = "C";
+
+	public static String ALLIANCE_ROUGE = "R";
+	public static String ALLIANCE_BLEUE = "B";
 
     protected final I2C.Port port = I2C.Port.kOnboard;
     protected I2C i2c;
@@ -41,6 +45,20 @@ public class AnimateurLed implements Materiel.Affichage{
 		String choix = selecteur.getSelected();
 		System.out.println("Choix " + choix);
         donnee[0] = choix.getBytes()[0];
+        i2c.transaction(donnee, donnee.length, dummy, dummy.length);
+	}
+	public void communiquerAlliance()
+	{
+		String alliance = "";
+		if(Alliance.getInstance().getAllianceRouge())
+		{
+			alliance = "R";
+		}
+		else
+		{
+			alliance = "B";
+		}
+        donnee[0] = alliance.getBytes()[0];
         i2c.transaction(donnee, donnee.length, dummy, dummy.length);
 	}
 

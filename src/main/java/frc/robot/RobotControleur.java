@@ -5,12 +5,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
-import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 import frc.robot.interaction.SelecteurModeAutonome.MODE;
 import frc.robot.interaction.SelecteurModeAutonome.POSITION;
-import frc.robot.mesure.Vecteur3;
 
 public class RobotControleur extends TimedRobot {
 
@@ -20,6 +18,10 @@ public class RobotControleur extends TimedRobot {
   protected AnimateurLed animateurLed;
   protected ShuffleBoard shuffleBoard;
 
+  protected POSITION positionDepart;
+  protected MODE modeAutonome;
+  protected String designAutonome;
+
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
@@ -28,7 +30,7 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
     robot.setVoyant();
-	
+  
     /*
     if(!robot.estAveugle())
     {
@@ -49,16 +51,12 @@ public class RobotControleur extends TimedRobot {
     {
       robot.cameraLimelight.resetDecoupageCamera();
     }
-    this.animateurLed.choisirAnimation(AnimateurLed.AUCUNE);
+    this.animateurLed.choisirAnimation(AnimateurLed.ANIMATION_AUCUNE);
   }
 
   @Override
   public void disabledPeriodic() {
   }
-
-  protected POSITION positionDepart;
-  protected MODE modeAutonome;
-  protected String designAutonome;
 
   @Override
   public void autonomousInit() {
@@ -91,11 +89,17 @@ public class RobotControleur extends TimedRobot {
       designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
       // a interpreter
     }
+    this.animateurLed.communiquerAlliance();  
   }
 
   @Override
   public void autonomousPeriodic() {
     this.periode++;
+
+    if((periode % 100) == 0)
+    {
+      this.animateurLed.choisirAnimationSelonDashboard();      
+    }
 
     // SHUFFLEBOARD SEULEMEMT POUR DES TESTS 
     // TOUJOURS limiter la frequence avec periode en mode test
@@ -147,14 +151,19 @@ public class RobotControleur extends TimedRobot {
   }
   
   static public class ActionManette extends Manette {
-  
+
+      protected static ActionManette instance = null;
+
+      protected ActionManette()
+      {
+        System.out.println("new ActionManette()");
+      }
+
+      // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
-
-        //this.boutonDemarrer.whileTrue(new CommandeGrimper());
-        //this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
         this.boutonB.toggleOnTrue(new CommandeAvalerTeleop());
@@ -178,20 +187,13 @@ public class RobotControleur extends TimedRobot {
           //this.povBas.onTrue(new CommandeAvalerAutomatiquement());
       }
 
-      protected static ActionManette instance = null;
       public static ActionManette getInstance()
       {
-        if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
+        if (null == ActionManette.instance)
+          ActionManette.instance = new ActionManette();
+        
         return ActionManette.instance;
       };
-  
-      //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
-      protected ActionManette()
-      {
-        System.out.println("new ActionManette()");
-      }
-
-
   }
 }
 // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html

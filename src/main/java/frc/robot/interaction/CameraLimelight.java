@@ -453,7 +453,7 @@ public class CameraLimelight {
     }
 
     public boolean estIDValide(int id) {
-        if (Robot.getInstance().getAllianceRouge()) {
+        if (Alliance.getInstance().getAllianceRouge()) {
             if (mapIDTagsRouge.get("SPEAKER").contains(id)) return true;
             if (mapIDTagsRouge.get("AMP").contains(id)) return true;
         } else {

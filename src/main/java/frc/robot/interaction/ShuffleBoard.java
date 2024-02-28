@@ -33,7 +33,7 @@ public class ShuffleBoard {
         SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitreLanceur.getVelocity());
         SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclaveLanceur.getVelocity());
         SmartDashboard.putBoolean("Note chargee", capteurLuminosite.detecteNote());
-        SmartDashboard.putBoolean("Alliance Rouge", Robot.getInstance().getAllianceRouge());
+        SmartDashboard.putBoolean("Alliance Rouge", Alliance.getInstance().getAllianceRouge());
         SmartDashboard.putNumber("angleRobot", Robot.getInstance().cameraLimelight.getBotpose()[5]);
         SmartDashboard.putNumber("angleTag", Robot.getInstance().cameraLimelight.getTagPositionRelatifRobot()[5]);
     }
@@ -41,9 +41,10 @@ public class ShuffleBoard {
     /**
      * Changer l'alliance du robot manuellement verrouillera le changement d'alliance automatique
      */
-    public void changerEquipe() {
-        Robot.getInstance().setVerrouChangementAlliance(false);
-        Robot.getInstance().setAlliance(!Robot.getInstance().getAllianceRouge());
-        Robot.getInstance().setVerrouChangementAlliance(true);
-    }
+    /*public void changerEquipe() {
+        
+        Alliance.getInstance().setVerrouChangementAlliance(false);
+        Alliance.getInstance().setAlliance(!Alliance.getInstance().getAllianceRouge());
+        Alliance.getInstance().setVerrouChangementAlliance(true);
+    }*/
 }
