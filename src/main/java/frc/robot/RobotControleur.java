@@ -121,6 +121,7 @@ public class RobotControleur extends TimedRobot {
     manette.activerBoutons();
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
     positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    this.animateurLed.communiquerAlliance();  
   }
 
   @Override
