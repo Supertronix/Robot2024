@@ -15,7 +15,7 @@ public class ExempleCommandeAvancerJusquaPlateforme extends Command {
 
     public ExempleCommandeAvancerJusquaPlateforme()
     {
-        System.out.println("new CommandeAvancerJusquaPlateforme()");
+        //System.out.println("new CommandeAvancerJusquaPlateforme()");
         this.lecteurEquilibre = LecteurAccelerometre.getInstance();
         //this.roues = Robot.getInstance().roues;
         //this.addRequirements(this.roues);
@@ -32,7 +32,6 @@ public class ExempleCommandeAvancerJusquaPlateforme extends Command {
     }
     @Override
     public void execute() {
-        //System.out.println("CommandeAvancerJusquaPlateforme.execute()");
         //this.detecteur.mesurer();
 
         this.roues.reinitialiser();

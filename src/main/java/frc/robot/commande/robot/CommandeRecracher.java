@@ -22,7 +22,7 @@ public class CommandeRecracher extends Command {
 
     public CommandeRecracher()
     {
-        System.out.println("new CommandeRecracher()");
+        //System.out.println("new CommandeRecracher()");
 
         this.avaleur = Robot.getInstance().avaleur;
         this.convoyeurBas = Robot.getInstance().convoyeurBas;

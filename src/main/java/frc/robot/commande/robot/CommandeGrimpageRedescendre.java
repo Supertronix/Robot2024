@@ -12,7 +12,7 @@ public class CommandeGrimpageRedescendre extends Command {
 
     public CommandeGrimpageRedescendre() // CommandeBrasMonter
     {
-        System.out.println("new CommandeGrimpageRedescendre()");
+        //System.out.println("new CommandeGrimpageRedescendre()");
         this.bras = Robot.getInstance().bras;
     }
        

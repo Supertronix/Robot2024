@@ -6,12 +6,13 @@ public class CommandeLanceurRetracterEtFermer extends Command {
     
     public CommandeLanceurRetracterEtFermer()
     {
-        System.out.println("new CommandeRetracterEtFermer()");
+        //System.out.println("new CommandeRetracterEtFermer()");
     }
        
     @Override
     public void initialize() 
     {
+        System.out.println("CommandeLanceurRetracterEtFermer.initialize()");
         new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()).schedule();
     }
 
@@ -27,5 +28,6 @@ public class CommandeLanceurRetracterEtFermer extends Command {
 
     @Override
     public void end(boolean interrupted) {
+        System.out.println("CommandeLanceurRetracterEtFermer.end()");
     }
 }

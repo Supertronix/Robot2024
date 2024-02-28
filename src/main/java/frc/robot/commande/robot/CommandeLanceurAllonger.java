@@ -10,7 +10,7 @@ public class CommandeLanceurAllonger extends Command {
 
     public CommandeLanceurAllonger()
     {
-        System.out.println("new CommandeLanceurAllonger()");
+        //System.out.println("new CommandeLanceurAllonger()");
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
         addRequirements(this.convoyeurHaut);
     }

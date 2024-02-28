@@ -12,7 +12,7 @@ public class CommandeDormir extends Command {
 
     public CommandeDormir(int delais)
     {
-        System.out.println("new CommandeDormir()");
+        //System.out.println("new CommandeDormir()");
         this.delais = delais;
         this.detecteur = new LimiteurDuree(delais);
     }
@@ -25,7 +25,7 @@ public class CommandeDormir extends Command {
     }
     @Override
     public void execute() {
-        System.out.println("CommandeDormir.execute()");
+        //System.out.println("CommandeDormir.execute()");
         this.detecteur.mesurer();
     }
 

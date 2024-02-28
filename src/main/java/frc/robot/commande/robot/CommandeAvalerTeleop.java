@@ -12,7 +12,7 @@ public class CommandeAvalerTeleop extends CommandeAvaler {
     public CommandeAvalerTeleop()
     {
         super();
-        System.out.println("new CommandeAvalerTeleop()");
+        //System.out.println("new CommandeAvalerTeleop()");
     }
        
     @Override

@@ -11,7 +11,7 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
 
     public CommandeGrimper()
     {
-        System.out.println("new CommandeGrimper()");
+        //System.out.println("new CommandeGrimper()");
         this.bras = Robot.getInstance().bras;
     }
        

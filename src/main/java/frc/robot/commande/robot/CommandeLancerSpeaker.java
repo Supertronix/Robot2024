@@ -21,7 +21,7 @@ public class CommandeLancerSpeaker extends Command {
 
     public CommandeLancerSpeaker()
     {
-        System.out.println("new CommandeLancerHaut()");
+        //System.out.println("new CommandeLancerSpeaker()");
         convoyeurHaut = Robot.getInstance().convoyeurHaut;
         lanceur = Robot.getInstance().lanceur;
         detecteurDuree = new LimiteurDuree(DUREE);
@@ -33,7 +33,7 @@ public class CommandeLancerSpeaker extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeLancerHaut.initialize()");
+        System.out.println("CommandeLancerSpeaker.initialize()");
         this.detecteurDuree.initialiser();
         lanceur.activer(1);
     }
@@ -57,7 +57,7 @@ public class CommandeLancerSpeaker extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeLancerHaut.end()");
+        System.out.println("CommandeLancerSpeaker.end()");
         convoyeurHaut.desactiver();
         lanceur.desactiver();
     }

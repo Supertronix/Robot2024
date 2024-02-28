@@ -13,7 +13,7 @@ public class CommandeAvalerAutomatiquement extends CommandeAvaler {
     public CommandeAvalerAutomatiquement()
     {
         super();
-        System.out.println("new CommandeAvalerAutomatiquement()");
+        //System.out.println("new CommandeAvalerAutomatiquement()");
         this.detecteurDuree = new LimiteurDuree(DUREE);
     }
        

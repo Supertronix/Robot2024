@@ -16,7 +16,7 @@ public class CommandeMaintenirChaine extends Command {
 
     public CommandeMaintenirChaine()
     {
-        System.out.println("new CommandeMaintenirChaine()");
+        //System.out.println("new CommandeMaintenirChaine()");
 
         this.detecteurChaine = Robot.getInstance().detecteurChaine;
         this.bras = Robot.getInstance().bras;

@@ -76,7 +76,7 @@ public class CommandeAllerA extends Command {
 
     public CommandeAllerA(Vecteur3 cible, double angleCible)
     {
-        System.out.println("new CommandeAllerA()");
+        //System.out.println("new CommandeAllerA()");
 
         this.robot = Robot.getInstance();
         this.roues = (RouesMecanum) this.robot.roues;

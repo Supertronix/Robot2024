@@ -12,12 +12,13 @@ public class CommandeLanceurOuvrirEtAllongerDoubleTest extends Command {
 
     public CommandeLanceurOuvrirEtAllongerDoubleTest()
     {
-        System.out.println("new CommandeLanceurOuvrirEtAllonger()");
+        //System.out.println("new CommandeLanceurOuvrirEtAllongerDoubleTest()");
     }
        
     @Override
     public void initialize() 
     {
+        System.out.println("CommandeLanceurOuvrirEtAllongerDoubleTest.initialize()");
         commandeOuvrir.schedule();
         commandeEnCours = COMMANDE_EN_COURS.OUVRIR;
     }
@@ -47,5 +48,6 @@ public class CommandeLanceurOuvrirEtAllongerDoubleTest extends Command {
 
     @Override
     public void end(boolean interrupted) {
+        System.out.println("CommandeLanceurOuvrirEtAllongerDoubleTest.end()");
     }
 }

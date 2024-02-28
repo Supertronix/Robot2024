@@ -11,7 +11,7 @@ public class CommandeInverserRoues extends Command {
     public RouesMecanum roues;
 
     public CommandeInverserRoues() {
-        System.out.println("new CommandeInverserRoues()");
+        //System.out.println("new CommandeInverserRoues()");
         this.roues = Robot.getInstance().roues;
     }
 
@@ -22,7 +22,6 @@ public class CommandeInverserRoues extends Command {
 
     @Override
     public void execute() {
-        System.out.println("CommandeInverserRoues.execute()");
     } 
 
     @Override

@@ -17,7 +17,7 @@ public class CommandeLanceurOuvrir extends Command {
 
     public CommandeLanceurOuvrir()
     {
-        System.out.println("new CommandeLanceurOuvrir()");
+        //System.out.println("new CommandeLanceurOuvrir()");
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
         addRequirements(this.convoyeurHaut);
         this.detecteurDuree = new LimiteurDuree(DUREE);

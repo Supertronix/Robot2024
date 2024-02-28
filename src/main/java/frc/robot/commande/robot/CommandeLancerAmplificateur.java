@@ -22,7 +22,7 @@ public class CommandeLancerAmplificateur extends Command {
 
     public CommandeLancerAmplificateur()
     {
-        System.out.println("new CommandeLancerBas()");     
+        //System.out.println("new CommandeLancerAmplificateur()");     
         convoyeurHaut = Robot.getInstance().convoyeurHaut;
 
         addRequirements(convoyeurHaut);
@@ -31,7 +31,7 @@ public class CommandeLancerAmplificateur extends Command {
     @Override
     public void initialize() 
     {
-        System.out.println("CommandeLancerBas.initialize()");
+        System.out.println("CommandeLancerAmplificateur.initialize()");
         convoyeurHaut.activer();
     }
     @Override
@@ -51,7 +51,7 @@ public class CommandeLancerAmplificateur extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeLancerBas.end()");
+        System.out.println("CommandeLancerAmplificateur.end()");
         convoyeurHaut.desactiver();
     }
 

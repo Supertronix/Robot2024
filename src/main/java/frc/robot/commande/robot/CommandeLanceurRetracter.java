@@ -15,7 +15,7 @@ public class CommandeLanceurRetracter extends Command {
 
     public CommandeLanceurRetracter()
     {
-        System.out.println("new CommandeLanceurRetracter()");
+        //System.out.println("new CommandeLanceurRetracter()");
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
         addRequirements(this.convoyeurHaut);
         this.detecteurDuree = new LimiteurDuree(DUREE);

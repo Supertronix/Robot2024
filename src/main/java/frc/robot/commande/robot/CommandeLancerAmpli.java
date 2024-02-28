@@ -14,7 +14,7 @@ public class CommandeLancerAmpli extends Command {
     protected ConvoyeurHaut convoyeurHaut;
 
     public CommandeLancerAmpli() {
-        System.out.println("new CommandeLancerAmpli()");
+        //System.out.println("new CommandeLancerAmpli()");
         convoyeurHaut = Robot.getInstance().convoyeurHaut;
         detecteurDuree = new LimiteurDuree(DUREE);
 

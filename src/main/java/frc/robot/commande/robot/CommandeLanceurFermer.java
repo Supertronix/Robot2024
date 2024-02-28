@@ -13,7 +13,7 @@ public class CommandeLanceurFermer extends Command {
 
     public CommandeLanceurFermer()
     {
-        System.out.println("new CommandeLanceurFermer()");
+        //System.out.println("new CommandeLanceurFermer()");
         this.convoyeurHaut = Robot.getInstance().convoyeurHaut;
         addRequirements(this.convoyeurHaut);
         this.detecteurDuree = new LimiteurDuree(DUREE);

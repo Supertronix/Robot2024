@@ -70,7 +70,7 @@ public class CommandeAllerASelonTriplePID extends Command {
 
     public CommandeAllerASelonTriplePID(Vecteur3 cible, double angleCible)
     {
-        System.out.println("new CommandeAllerA()");
+        //System.out.println("new CommandeAllerASelonTriplePID()");
 
         this.roues = (RouesMecanum) Robot.getInstance().roues;
         this.limelight = Robot.getInstance().cameraLimelight;
@@ -88,7 +88,7 @@ public class CommandeAllerASelonTriplePID extends Command {
     @Override
     public void initialize()
     {
-        System.out.println("CommandeAllerA.initialize()");
+        System.out.println("CommandeAllerASelonTriplePID.initialize()");
         this.detecteur.initialiser();
 
         this.distanceAtteinte = false;
@@ -145,7 +145,7 @@ public class CommandeAllerASelonTriplePID extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAllerA.end()");
+        System.out.println("CommandeAllerASelonTriplePID.end()");
         this.roues.arreter();
     }
 }
