@@ -185,13 +185,7 @@ public class RobotControleur extends TimedRobot {
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-
-        this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        this.boutonB.onTrue(new CommandeLanceurAllonger());
-        this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.onTrue(new CommandeLanceurFermer());
-        
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());        
       }
 
       public static ActionManette getInstance()
@@ -215,6 +209,11 @@ public class RobotControleur extends TimedRobot {
       // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
+        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
+        this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());     
+                
         this.boutonA.onTrue(new CommandeLanceurOuvrir());
         this.boutonB.onTrue(new CommandeLanceurAllonger());
         this.boutonY.onTrue(new CommandeLanceurRetracter());
