@@ -1,28 +1,26 @@
-package frc.robot.commande.terrain;
+package frc.robot.commande.terrain.classique;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
-//import frc.robot.Cinematique;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvancer extends Command {
+
+    private static final int TEMPS_MAXIMUM = 3000;
 
     protected Roues roues = null;
     protected boolean finie = false;
     protected LimiteurDuree detecteur;
-    protected double pas;
+    protected double centimetres;
 
-    public CommandeAvancer(int pas)
+    public CommandeAvancer(double centimetres)
     {
         System.out.println("new CommandeAvancer()");
-        this.pas = pas;
-        //this.roues = Robot.getInstance().roues;
-        //this.addRequirements(this.roues);
-        //this.detecteur = new DetecteurDuree(Cinematique.Machoire.TEMPS_MAXIMUM_OUVRIR);
+        this.centimetres = centimetres;
+        this.roues = Robot.getInstance().roues;
+        this.addRequirements(this.roues);
+        this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
     }
        
     @Override
@@ -30,14 +28,14 @@ public class CommandeAvancer extends Command {
     {
         System.out.println("CommandeAvancer.initialize()");
         this.roues = Robot.getInstance().roues;
-        this.roues.avancer(pas);
-        //this.detecteur.initialiser();
-        //this.finie = false;
+        //this.roues.avancer(pas);
+        this.detecteur.initialiser();
+        this.finie = false;
     }
     @Override
     public void execute() {
         System.out.println("CommandeAvancer.execute()");
-        //this.detecteur.mesurer();
+        this.detecteur.mesurer();
     }
 
     
@@ -47,7 +45,7 @@ public class CommandeAvancer extends Command {
     @Override
     public boolean isFinished() 
     {
-        //if(this.machoire.estOuverte() || this.detecteur.estTropLongue())
+        //if(this.estArrivee() || this.detecteur.estTropLongue())
         return true;
     }
     @Override

@@ -6,7 +6,7 @@ import frc.robot.commande.robot.CommandeLanceurFermer;
 import frc.robot.commande.robot.CommandeLanceurOuvrir;
 import frc.robot.commande.robot.CommandeLanceurRetracter;
 import frc.robot.commande.terrain.CommandeAllerA;
-import frc.robot.commande.terrain.CommandeAllerATest;
+import frc.robot.commande.terrain.CommandeAllerASelonTriplePID;
 import frc.robot.mesure.Vecteur3;
 
 public class TrajetNoteDansAmplificateur extends SequentialCommandGroup {
