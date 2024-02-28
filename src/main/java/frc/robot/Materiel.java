@@ -94,5 +94,13 @@ public interface Materiel {
     {
       public static final int ID_TREUIL = 11;
     }
-    
+
+    public interface DetecteurNote
+    {
+        public static final int ID_PORT_DIO = 0;
+    }
+
+    public interface DetecteurChaine {
+        public static final int ID_PORT_DIO = 3;
+    }
 }

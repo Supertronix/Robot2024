@@ -61,6 +61,7 @@ public class CommandeAllerA extends Command {
     protected MecanumDriveKinematics kinematics;
 
     // Etat de la commande
+    protected double distance;
     protected boolean distanceAtteinte;
     protected boolean seuilAngleAtteint;
     protected Vecteur3 cible;
@@ -81,14 +82,14 @@ public class CommandeAllerA extends Command {
         this.angleControleur = new ProfiledPIDController(ang_kP, ang_kI, ang_kD,
                 new TrapezoidProfile.Constraints(angMaxVitesse, angMaxAcceleration));
 
-        this.driveControleur = new HolonomicDriveController(xControleur, yControleur, angleControleur);
+        this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
         
         this.cible = cible;
         this.angleCible = angleCible;
 
-        SmartDashboard.putData("PID x", xControleur);
-        SmartDashboard.putData("PID y", yControleur);
-        SmartDashboard.putData("PID angle", angleControleur);
+        SmartDashboard.putData("PID x", this.xControleur);
+        SmartDashboard.putData("PID y", this.yControleur);
+        SmartDashboard.putData("PID angle", this.angleControleur);
     }
 
     @Override
@@ -100,7 +101,7 @@ public class CommandeAllerA extends Command {
         this.distanceAtteinte = false;
         this.seuilAngleAtteint = false;
 
-        kinematics = new MecanumDriveKinematics(
+        this.kinematics = new MecanumDriveKinematics(
             new Translation2d(-largeurDuCentre, longueurDuCentre),
             new Translation2d(largeurDuCentre, longueurDuCentre),
             new Translation2d(-largeurDuCentre, -longueurDuCentre),
@@ -112,48 +113,48 @@ public class CommandeAllerA extends Command {
     public void execute() {
         this.detecteur.mesurer();
 
-        double[] donneesPosition = limelight.getBotpose();
+        double[] donneesPosition = this.limelight.getBotpose();
 
         if (donneesPosition[0] == 0 || donneesPosition[1] == 0)
             return;
 
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
-        Pose2d cible = new Pose2d(this.cible.x + 1, this.cible.y, Rotation2d.fromDegrees(angleCible));
+        Pose2d cible = new Pose2d(this.cible.x + 1, this.cible.y, Rotation2d.fromDegrees(this.angleCible));
 
         // Calcul d'inverse kinematics pour déterminer les vitesses de roues
-        ChassisSpeeds vitesseAjustee = driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(angleCible));
-        MecanumDriveWheelSpeeds vitesseRoues = kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
+        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 0.2, Rotation2d.fromDegrees(this.angleCible));
+        MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
 
         // Déplacement x,y
-        if (!distanceAtteinte) {
+        if (!this.distanceAtteinte) {
             //System.out.println("x diff: " + (donneesPosition[0] - this.cible.x));
-            double distance = Math.pow(donneesPosition[0] - this.cible.x, 2) + Math.pow(donneesPosition[1] - this.cible.y, 2);
+            this.distance = Math.pow(donneesPosition[0] - this.cible.x, 2) + Math.pow(donneesPosition[1] - this.cible.y, 2);
             //System.out.println("Distance: " + distance);
-            distanceAtteinte = distance < SEUIL_DISTANCE;
+            this.distanceAtteinte = this.distance < SEUIL_DISTANCE;
 
             //System.out.println("PID MOVEMENT RUNNING");
-            roues.conduireToutesDirections(
+            this.roues.conduireToutesDirections(
                 vitesseRoues.frontLeftMetersPerSecond, 
                 vitesseRoues.frontRightMetersPerSecond,
                 vitesseRoues.rearLeftMetersPerSecond,
                 vitesseRoues.rearRightMetersPerSecond);
         }
         // Rotation du robot
-        else if (!seuilAngleAtteint) {
+        else if (!this.seuilAngleAtteint) {
             //System.out.println("PID ANGLE RUNNING");
-            double differenceAngle = angleCible - donneesPosition[5];
+            double differenceAngle = this.angleCible - donneesPosition[5];
             differenceAngle = (differenceAngle + 180) % 360 - 180;
             //System.out.println("Difference: " + differenceAngle + " - Position: " + donneesPosition[5]);
-            seuilAngleAtteint = Math.abs(differenceAngle) < SEUIL_ANGLE;
+            this.seuilAngleAtteint = Math.abs(differenceAngle) < SEUIL_ANGLE;
             //System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
 
             if (differenceAngle > 0.0) {
                 System.out.println("TOURNE GAUCHE");
-                roues.tournerGauche(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
+                this.roues.tournerGauche(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
             }
             else {
                 System.out.println("TOURNE DROITE");
-                roues.tournerDroite(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
+                this.roues.tournerDroite(Math.abs(vitesseAjustee.omegaRadiansPerSecond));
             }
             System.out.println(vitesseAjustee.omegaRadiansPerSecond);
         }
@@ -175,14 +176,14 @@ public class CommandeAllerA extends Command {
             return true;
         }
 
-        double[] donneesPosition = limelight.getBotpose();
+        double[] donneesPosition = this.limelight.getBotpose();
 
         // Pas de données de tag valide cette frame
         if (donneesPosition[0] == 0 && donneesPosition[1] == 0)
             return false;
         
         // Cible atteinte
-        if (distanceAtteinte && seuilAngleAtteint) {
+        if (this.distanceAtteinte && this.seuilAngleAtteint) {
             //System.out.println("CommandeAllerA.isFinished() distance < 0.5");
             return true;
         }
