@@ -5,12 +5,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
-import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 import frc.robot.interaction.SelecteurModeAutonome.MODE;
 import frc.robot.interaction.SelecteurModeAutonome.POSITION;
-import frc.robot.mesure.Vecteur3;
 
 public class RobotControleur extends TimedRobot {
 
@@ -20,6 +18,10 @@ public class RobotControleur extends TimedRobot {
   protected AnimateurLed animateurLed;
   protected ShuffleBoard shuffleBoard;
 
+  protected POSITION positionDepart;
+  protected MODE modeAutonome;
+  protected String designAutonome;
+
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
@@ -28,7 +30,7 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
     robot.setVoyant();
-	
+  
     /*
     if(!robot.estAveugle())
     {
@@ -55,10 +57,6 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void disabledPeriodic() {
   }
-
-  protected POSITION positionDepart;
-  protected MODE modeAutonome;
-  protected String designAutonome;
 
   @Override
   public void autonomousInit() {
@@ -153,26 +151,36 @@ public class RobotControleur extends TimedRobot {
   }
   
   static public class ActionManette extends Manette {
-  
+
+      protected static ActionManette instance = null;
+
+      protected ActionManette()
+      {
+        System.out.println("new ActionManette()");
+      }
+
+      // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
-        //this.boutonDemarrer.whileTrue(new CommandeGrimper());
-        //this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop()); 
 
-        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
-        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
-        //this.boutonMainDroite.onTrue(new CommandeLanceurOuvrir().andThen(new CommandeAvalerAutomatiquement()));
-        this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
+
         //this.boutonA.onTrue(new CommandeLanceurOuvrir());
         //this.boutonB.onTrue(new CommandeLanceurFermer());
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrir().andThen(new CommandeAvalerAutomatiquement()));
         this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
+        this.boutonY.onTrue(new CommandeLancerAmpli());
+        
       }
 
       public void activerBoutonsTests()
@@ -184,20 +192,13 @@ public class RobotControleur extends TimedRobot {
           //this.povBas.onTrue(new CommandeAvalerAutomatiquement());
       }
 
-      protected static ActionManette instance = null;
       public static ActionManette getInstance()
       {
-        if(null == ActionManette.instance) ActionManette.instance = new ActionManette();
+        if (null == ActionManette.instance)
+          ActionManette.instance = new ActionManette();
+        
         return ActionManette.instance;
       };
-  
-      //@SuppressWarnings("deprecation") // la classe ouverte fonctionne aussi bien que la nouvelle classe proprietaire
-      protected ActionManette()
-      {
-        System.out.println("new ActionManette()");
-      }
-
-
   }
 }
 // https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
