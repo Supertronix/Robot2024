@@ -13,11 +13,11 @@ public class DetecteurChaine implements Materiel.DetecteurChaine {
     }
 
     /** 
-     * @return True si la luminosité est faible, false sinon
+     * @return True si la chaine est en bas
      */
     public boolean detecteChaine()
     {
-        return input.get();
+        return !input.get();
     }
 
 }
