@@ -186,7 +186,9 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       this.povGauche = new POVButton(manette, ANGLE_POV.get(ANGLE.GAUCHE));
       this.povHautGauche = new POVButton(manette, ANGLE_POV.get(ANGLE.HAUT_GAUCHE));
     }
-    
+    public void activerBoutons()
+    {
+    }
     public void executerActions()
     {
       if(this.gachetteMainGauche.getAsBoolean())

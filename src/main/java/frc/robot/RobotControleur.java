@@ -21,7 +21,7 @@ import frc.robot.interaction.SelecteurModeAutonome.POSITION;
 public class RobotControleur extends TimedRobot {
 
   protected Robot robot;
-  protected ActionManette manette;
+  protected Manette manette;
   protected int periode;
   protected AnimateurLed animateurLed;
   protected ShuffleBoard shuffleBoard;
@@ -131,6 +131,7 @@ public class RobotControleur extends TimedRobot {
     robot.roues.setFacteur(1); // 0.8
 
     this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
+    this.manette = (TestManette)RobotControleur.TestManette.getInstance();
     manette.activerBoutons();
     this.periode = 0;
     
@@ -181,14 +182,50 @@ public class RobotControleur extends TimedRobot {
       // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
+        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
+        this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
+        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
+        this.boutonDemarrer.whileTrue(new CommandeGrimper());
+
+        this.boutonA.onTrue(new CommandeLanceurOuvrir());
+        this.boutonB.onTrue(new CommandeLanceurAllonger());
+        this.boutonY.onTrue(new CommandeLanceurRetracter());
+        this.boutonX.onTrue(new CommandeLanceurFermer());
+        
+      }
+
+      public static ActionManette getInstance()
+      {
+        if (null == ActionManette.instance)
+          ActionManette.instance = new ActionManette();
+        
+        return ActionManette.instance;
+      };
+  }
+
+  static public class TestManette extends Manette {
+
+      protected static TestManette instance = null;
+
+      protected TestManette()
+      {
+        System.out.println("new TestManette()");
+      }
+
+      // Une méthode qui permet de mapper les différents inputs avec les actions
+      public void activerBoutons()
+      {
+        this.boutonA.onTrue(new CommandeLanceurOuvrir());
+        this.boutonB.onTrue(new CommandeLanceurAllonger());
+        this.boutonY.onTrue(new CommandeLanceurRetracter());
+        this.boutonX.onTrue(new CommandeLanceurFermer());
+
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
 
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());   
         //this.boutonB.toggleOnTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
-        this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
         //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
@@ -201,37 +238,21 @@ public class RobotControleur extends TimedRobot {
         //this.boutonX.onTrue(new CommandeLanceurAllonger());
         //this.boutonY.onTrue(new CommandeLanceurRetracter());
         //this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
         //this.boutonMainGauche.whileTrue(new CommandeAvalerTeleop());
         //this.boutonX.toggleOnTrue(new TrajetNoteDansAmplificateur());
         //this.boutonY.toggleOnTrue(new TrajetNoteDansSpeaker());
 
         //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
         //this.boutonY.onTrue(new CommandeLancerAmpli());
-
-        this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        this.boutonB.onTrue(new CommandeLanceurAllonger());
-        this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.onTrue(new CommandeLanceurFermer());
         
       }
 
-      public void activerBoutonsTests()
+      public static TestManette getInstance()
       {
-          //this.boutonB.onTrue(new CommandeLanceurOuvrir());
-          //this.boutonX.onTrue(new CommandeLanceurFermer());
-          //this.boutonY.onTrue(new CommandeLanceurAllonger());
-          //this.boutonA.onTrue(new CommandeLanceurRetracter());
-          //this.povBas.onTrue(new CommandeAvalerAutomatiquement());
-      }
-
-      public static ActionManette getInstance()
-      {
-        if (null == ActionManette.instance)
-          ActionManette.instance = new ActionManette();
+        if (null == TestManette.instance)
+          TestManette.instance = new TestManette();
         
-        return ActionManette.instance;
+        return TestManette.instance;
       };
   }
 }
