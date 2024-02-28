@@ -22,6 +22,7 @@ public class CameraConducteur {
     private int timerVirtuel = 30;
     private int compteur;
     public boolean estAvaleurActif = false;
+    public boolean estRecracherActif;
     public boolean estSpeakerAcquit = false;
     public boolean estAmplificateurAcquit = false;
     public boolean estSceneAcquise = false;

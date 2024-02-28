@@ -22,7 +22,6 @@ public class Robot {
   public Lanceur lanceur;
   public DetecteurNote detecteurNote;
   public DetecteurChaine detecteurChaine;
-
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
 

@@ -11,6 +11,7 @@ public class Alliance {
     {
         if(null == instance)
         {
+            instance = new Alliance();
             return instance;
         }
         return instance;
@@ -20,37 +21,25 @@ public class Alliance {
 
     }
 
-    private boolean allianceRouge = true;
-    private boolean verrouChangementAlliance = false;
-  
-    public void miseAJourAlliance() {
-      if (this.verrouChangementAlliance) return;
+   private boolean allianceRouge = true;
+   private boolean verrouChangementAlliance = false;
+   private Optional<DriverStation.Alliance> couleur;
 
-      Optional<DriverStation.Alliance> couleur = DriverStation.getAlliance();
+  public boolean getAllianceRouge() {
+      couleur = DriverStation.getAlliance(); // todo cacher si pas trop tot
       if (couleur.isEmpty()) {
           //System.out.println("Alliance introuvable, défaut à rouge");
-          this.allianceRouge = true;
-          return;
+          return true;
       }
       this.allianceRouge = couleur.get() != DriverStation.Alliance.Blue;
+      return allianceRouge;
   }
 
+
+/*
   public void setAlliance(boolean estRouge) {
       if (this.verrouChangementAlliance) return;
       this.allianceRouge = estRouge;
-  }
-
-  /**
-   * @param verrou
-   * Empêche le changement d'alliance si la méthode automatique ne fonctionne pas
-   */
-  public void setVerrouChangementAlliance(boolean verrou) {
-      this.verrouChangementAlliance = verrou;
-  }
-
-  public boolean getAllianceRouge() {
-      miseAJourAlliance();
-      return this.allianceRouge;
-  }
+  } */
 
 }

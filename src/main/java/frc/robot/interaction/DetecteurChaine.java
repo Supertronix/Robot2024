@@ -5,7 +5,6 @@ import frc.robot.Materiel;
 
 public class DetecteurChaine implements Materiel.DetecteurChaine {
     private static DigitalInput input;
-    private static final int ID_PORT_DIO = 3;
 
     public DetecteurChaine()
     {
@@ -14,11 +13,11 @@ public class DetecteurChaine implements Materiel.DetecteurChaine {
     }
 
     /** 
-     * @return True si la luminosité est faible, false sinon
+     * @return True si la chaine est en bas
      */
     public boolean detecteChaine()
     {
-        return input.get();
+        return !input.get();
     }
 
 }

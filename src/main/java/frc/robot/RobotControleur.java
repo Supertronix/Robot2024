@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.auto.TrajetNoteDansAmplificateur;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
+import frc.robot.commande.terrain.CommandeInverserRoues;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 import frc.robot.interaction.SelecteurModeAutonome.MODE;
@@ -61,8 +62,7 @@ public class RobotControleur extends TimedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   @Override
   public void autonomousInit() {
@@ -119,14 +119,18 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopInit() {
     System.out.println("teleopInit()");
-    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
-    this.periode = 0;
+
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
+
+    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     manette.activerBoutons();
+    this.periode = 0;
+    
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
     positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    this.animateurLed.communiquerAlliance();  
   }
 
   @Override
@@ -143,7 +147,6 @@ public class RobotControleur extends TimedRobot {
     {
       //robot.cameraLimelight.decoupageCameraDynamique();
     }
-    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
     if((periode % 10) == 0 && !robot.estAveugle())
     {
@@ -151,10 +154,11 @@ public class RobotControleur extends TimedRobot {
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
+      this.animateurLed.choisirAnimationSelonDashboard();  
       //System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
       //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
-    //  String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
-    //  System.out.println(etatLanceurDeploye);
+      //String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
+      //System.out.println(etatLanceurDeploye);
     }
   }
   
@@ -180,6 +184,10 @@ public class RobotControleur extends TimedRobot {
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         //this.gachetteMainGauche.onTrue(new CommandeAvalerAutomatiquement());
         //this.boutonY.onTrue(new CommandeLanceurOuvrirEtAllonger());
+        //this.boutonGachetteMainGauche.whileTrue(new CommandeAvalerTeleop());
+        //this.boutonMainGauche.toggleOnTrue(new CommandeLanceurRetracter().andThen(new CommandeLanceurFermer()));
+        //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
+        //this.boutonY.onTrue(new CommandeLancerAmpli());
 
         //this.boutonA.onTrue(new CommandeLanceurOuvrir());
         //this.boutonB.onTrue(new CommandeLanceurFermer());
