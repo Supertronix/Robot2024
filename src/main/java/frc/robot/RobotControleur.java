@@ -129,7 +129,15 @@ public class RobotControleur extends TimedRobot {
 
     if((periode % 100) == 0)
     {
-      this.animateurLed.choisirAnimationSelonDashboard();      
+      this.animateurLed.choisirAnimationSelonDashboard();
+      if (Robot.getInstance().detecteurChaine.detecteChaine())
+      {
+        System.out.println("Chaine detectee");
+      }
+      else
+      {
+        System.out.println("Chaine non detectee");
+      }
     }
     if(!robot.estAveugle())
     {
