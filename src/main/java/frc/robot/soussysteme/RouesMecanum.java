@@ -10,84 +10,75 @@ public class RouesMecanum extends Roues {
     protected MecanumDrive mecanum;
     protected double facteur = 1;
 
-    // import edu.wpi.first.math.geometry.Rotation2d;
     // this.mecanum = new MecanumDrive(this.roueArriereDroite, this.roueArriereGauche, this.roueAvantDroite, this.roueAvantGauche);
-    public RouesMecanum()
-    {
+    public RouesMecanum() {
         this.facteur = FACTEUR_ROUES;
         this.reinitialiserMoteurs();
         this.activerModeHolonomique();
     }
-    public void activerModeHolonomique()
-    {
+
+    public void activerModeHolonomique() {
         this.roueAvantGauche.setInverted(true);
         this.roueArriereGauche.setInverted(true);
         this.roueArriereDroite.setInverted(false);
         this.roueAvantDroite.setInverted(false);
     }
-    public RouesMecanum convertirEnRouesHolonomiques()
-    {
+
+    public RouesMecanum convertirEnRouesHolonomiques() {
         this.reinitialiserMoteurs();
         this.activerModeHolonomique();
         return (RouesMecanum)this;
-    }    
-    public void reinitialiserMoteurs()
-    {
+    }
+
+    public void reinitialiserMoteurs() {
         this.roueAvantDroite.initialiser();
         this.roueAvantGauche.initialiser();
         this.roueArriereDroite.initialiser();
         this.roueArriereGauche.initialiser();
     }
-    public void setFacteur(double facteur)
-    {
+
+    public void setFacteur(double facteur) {
         this.facteur = facteur;
     }
-    public void avancer(double vitesse)
-    {
+    public void avancer(double vitesse) {
         conduireAvecAxes(vitesse, 0, 0);
     }
 
-    public void reculer(double vitesse)
-    {
+    public void reculer(double vitesse) {
         conduireAvecAxes(-vitesse, 0, 0);
     }
 
-    public void tasserDroite(double vitesse)
-    {
+    public void tasserDroite(double vitesse) {
         conduireAvecAxes(0, vitesse, 0);
     }
-    public void tasserGauche(double vitesse)
-    {
+
+    public void tasserGauche(double vitesse) {
         conduireAvecAxes(0, -vitesse, 0);
     }
-    public void tournerDroite(double vitesse)
-    {
+
+    public void tournerDroite(double vitesse) {
         conduireAvecAxes(0, 0, vitesse);
     }
-    public void tournerGauche(double vitesse)
-    {
+
+    public void tournerGauche(double vitesse) {
         conduireAvecAxes(0, 0, -vitesse);
     }
 
-    public void avancerEtTournerDroite(double vitesse)
-    {
+    public void avancerEtTournerDroite(double vitesse) {
         conduireAvecAxes(vitesse, 0, vitesse);
     }   
-    public void avancerEtTournerGauche(double vitesse)
-    {
+    public void avancerEtTournerGauche(double vitesse) {
         conduireAvecAxes(vitesse, 0, -vitesse);
     }
-    public void reculerEtTournerDroite(double vitesse)
-    {
+    public void reculerEtTournerDroite(double vitesse) {
         conduireAvecAxes(-vitesse, 0, vitesse);
     }   
-    public void reculerEtTournerGauche(double vitesse)
-    {
+    public void reculerEtTournerGauche(double vitesse) {
         conduireAvecAxes(-vitesse, 0, -vitesse);
     }
+
     @Deprecated
-    public void tourner(double vitesseGauche, double vitesseDroite)
-    {
+    public void tourner(double vitesseGauche, double vitesseDroite) {
     //   System.out.println("tourner("+vitesseGauche+","+vitesseDroite+")");
     //   this.roueAvantGauche  .set(  vitesseGauche );
     //   this.roueAvantDroite  .set( -vitesseDroite );
@@ -135,6 +126,7 @@ public class RouesMecanum extends Roues {
         this.roueArriereDroite.set( facteur * ( vitesseAvantArriere + vitesseDroiteGauche - vitesseRotationDroiteGauche ) );
 
     }
+
     public void conduireAvecAxes(double vitesseAvantArriere, double vitesseDroiteGauche, double vitesseRotationDroiteGauche) {
 
         // System.out.println("vitesseAvantArriere="+vitesseAvantArriere+" vitesseDroiteGauche="+vitesseDroiteGauche+" vitesseRotationDroiteGauche="+vitesseRotationDroiteGauche);
@@ -146,24 +138,22 @@ public class RouesMecanum extends Roues {
 
     }
 
-    public void conduire(double vitesseX, double vitesseY)
-    {
+    public void conduire(double vitesseX, double vitesseY) {
         System.out.println("conduire("+vitesseY+","+vitesseX+")");
         this.mecanum.driveCartesian(vitesseX, vitesseY, 0);
     }
+
     // les angles sont en radians
-    public void conduireAvecAngle(double vitesse, double angle, double vitesseRotation)
-    {
+    public void conduireAvecAngle(double vitesse, double angle, double vitesseRotation) {
         // System.out.println("conduire("+vitesse+","+angle+")");
         //this.mecanum.drivePolar(vitesse, new Rotation2d(angle), vitesseRotation);
     }
-    public void conduireSelonGyro(double x, double y, double z, double gyro)
-    {
+
+    public void conduireSelonGyro(double x, double y, double z, double gyro) {
         //this.mecanum.driveCartesian(x,y,z, new Rotation2d(gyro));
     }
 
-    public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) 
-    {
+    public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) {
         //System.out.println("conduireToutesDirections("+vitesseAvantGauche+ " "+ vitesseAvantDroite + " " + vitesseArriereGauche + " " + vitesseArriereDroite + ")");
         this.roueAvantGauche  .set( vitesseAvantGauche   );
         this.roueAvantDroite  .set( vitesseAvantDroite   );
@@ -171,8 +161,7 @@ public class RouesMecanum extends Roues {
         this.roueArriereDroite.set( vitesseArriereDroite );
     }
 
-    public double getPosition()
-    {
+    public double getPosition() {
         return this.roueAvantDroite.getEncoder().getPosition();
     }
 }
