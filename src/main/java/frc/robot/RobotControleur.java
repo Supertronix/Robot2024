@@ -209,6 +209,7 @@ public class RobotControleur extends TimedRobot {
       // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
+        /*
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
@@ -218,6 +219,7 @@ public class RobotControleur extends TimedRobot {
         this.boutonB.onTrue(new CommandeLanceurAllonger());
         this.boutonY.onTrue(new CommandeLanceurRetracter());
         this.boutonX.onTrue(new CommandeLanceurFermer());
+         */
 
         //this.boutonMainDroite.toggleOnTrue(new CommandeAvalerTeleop());    
         //this.boutonMainGauche.onTrue(new CommandeLancerBas());
