@@ -16,11 +16,11 @@ public class CommandeTasserDroite extends Command {
     protected static final int SEUIL_ENCODEUR = 1;
 
     protected Roues roues = null;
-    protected boolean finie = false;
     protected LimiteurDuree detecteur;
-    protected double targetEncodeurPosition;
-    Odometrie odometrie;
-    Pose2d nouvellePosition;
+
+    protected double positionCibleEncodeur;
+    protected Odometrie odometrie;
+    protected Pose2d nouvellePosition;
 
     protected PIDController pid;
     protected RelativeEncoder encodeurAvantDroit;
@@ -32,9 +32,10 @@ public class CommandeTasserDroite extends Command {
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
 
-        this.pid = new PIDController(0.005, 0.00, 0);
+        this.pid = new PIDController(0.005, 0.0001, 0);
         this.encodeurAvantDroit = this.roues.encodeurAvantDroit;
-        this.targetEncodeurPosition = this.roues.encodeurAvantDroit.getPosition() + distance;        
+        this.positionCibleEncodeur = this.roues.encodeurAvantGauche.getPosition() - distance;
+        System.out.println("Start pos: " + this.roues.encodeurAvantGauche.getPosition() + "Target pos: " + this.positionCibleEncodeur);   
     }
        
     public void initialize() 
@@ -42,7 +43,6 @@ public class CommandeTasserDroite extends Command {
         System.out.println("CommandeTasserDroite.initialize()");
         this.roues = Robot.getInstance().roues;
         this.detecteur.initialiser();
-        this.finie = false;
         pid.reset();
     }
 
@@ -50,8 +50,8 @@ public class CommandeTasserDroite extends Command {
         System.out.println("CommandeTasserDroite.execute()");
         this.detecteur.mesurer();
         this.odometrie.actualiser();
-        this.roues.tasserDroite(pid.calculate(this.encodeurAvantDroit.getPosition(), this.targetEncodeurPosition));
-        System.out.println(encodeurAvantDroit.getPosition());
+        this.roues.tasserDroite(pid.calculate(this.encodeurAvantDroit.getPosition(), -this.positionCibleEncodeur));
+        System.out.println("Current pos: " + encodeurAvantDroit.getPosition() + " - Cible pos: " + this.positionCibleEncodeur);
     }
 
     /** 
@@ -60,8 +60,8 @@ public class CommandeTasserDroite extends Command {
     @Override
     public boolean isFinished() 
     {
-        boolean seuilEncodeurAtteint = Math.abs(this.targetEncodeurPosition - this.encodeurAvantDroit.getPosition()) < SEUIL_ENCODEUR;
-
+        boolean seuilEncodeurAtteint = Math.abs(this.positionCibleEncodeur - this.encodeurAvantDroit.getPosition()) < SEUIL_ENCODEUR;
+        System.out.println("Seuil encodeur: " + Math.abs(this.positionCibleEncodeur - this.encodeurAvantDroit.getPosition()));
         if (seuilEncodeurAtteint)
             return true;
 

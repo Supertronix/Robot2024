@@ -16,7 +16,7 @@ public class TrajetTest extends SequentialCommandGroup {
         //     new CommandeDeplacer(500, 0, 0, 0.3)
         // );a
         addCommands(
-            new CommandeTasserDroite(100)
+            new CommandeTasserDroite(30)
         );
     }
     
