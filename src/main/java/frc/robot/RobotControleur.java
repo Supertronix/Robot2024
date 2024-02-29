@@ -185,8 +185,8 @@ public class RobotControleur extends TimedRobot {
         //this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         //this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
 
-        this.boutonMainDroite.onTrue(new CommandeAvalerTeleop());
-        this.boutonMainGauche.onTrue(new CommandeLancerSpeaker());
+        this.boutonMainGauche.onTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
 
         this.boutonA.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonB.onTrue(new CommandeLanceurRetracterEtFermer());
