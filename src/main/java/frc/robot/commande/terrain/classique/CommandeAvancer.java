@@ -20,7 +20,7 @@ public class CommandeAvancer extends Command {
     protected double centimetres;
 
     protected PIDController pid;
-    protected RelativeEncoder unEncodeur;
+    protected RelativeEncoder encodeurAvantDroit;
 
     public CommandeAvancer(double centimetres)
     {
@@ -29,8 +29,8 @@ public class CommandeAvancer extends Command {
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
-        this.pid = new PIDController(0,0,0);
-        this.unEncodeur = this.roues.encodeurAvantDroit;
+        this.pid = new PIDController(0.3,0,0);
+        this.encodeurAvantDroit = this.roues.encodeurAvantDroit;
     }
        
     @Override
@@ -50,10 +50,11 @@ public class CommandeAvancer extends Command {
     public void execute() {
         System.out.println("CommandeAvancer.execute()");
         this.detecteur.mesurer();
-        this.roues.roueAvantGauche.set(pid.calculate(unEncodeur.getPosition(), 1));
-        this.roues.roueAvantDroite.set(pid.calculate(unEncodeur.getPosition(), 1));
-        this.roues.roueArriereGauche.set(pid.calculate(unEncodeur.getPosition(), 1));
-        this.roues.roueArriereDroite.set(pid.calculate(unEncodeur.getPosition(), 1));
+        this.roues.avancer(pid.calculate(encodeurAvantDroit.getPosition(), 1));
+        // this.roues.roueAvantGauche.set(pid.calculate(unEncodeur.getPosition(), 1));
+        // this.roues.roueAvantDroite.set(pid.calculate(unEncodeur.getPosition(), 1));
+        // this.roues.roueArriereGauche.set(pid.calculate(unEncodeur.getPosition(), 1));
+        // this.roues.roueArriereDroite.set(pid.calculate(unEncodeur.getPosition(), 1));
 
     }
 

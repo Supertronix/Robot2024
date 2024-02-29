@@ -32,7 +32,7 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
         moteurTalonMaitre = new MoteurTalon(ID_TALON_CONVOYEUR_MAITRE);
         moteurTalonEsclave = new MoteurTalon(ID_TALON_CONVOYEUR_ESCLAVE);
 
-        Compresseur.getInstance();
+        // Compresseur.getInstance();
         this.mouvementOuvertureGauche = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_GAUCHE);
         this.mouvementOuvertureDroite = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_ANGLE_DROITE);
         this.mouvementExtension   = new Solenoid(ID_MODULE_PNEUMATIQUE, PneumaticsModuleType.CTREPCM, MOUVEMENT_EXTENSION);
@@ -85,14 +85,15 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
 
     public void allonger() {
         System.out.println("ConvoyeurHaut.allonger()");
-        if (this.estOuvert()) // Machine état a la place
+        if (this.estOuvert()) // Machine état a la place // what?
         {
             this.chronoAllonger.initialiser();
             this.mouvementExtension.set(true);
             System.out.println("Peut allonger");
         }
-        else
+        else {
             System.out.println("Peut pas Allonger");
+        }
     }
 
     public void retracter()
@@ -109,14 +110,16 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
 
     public void fermer() {
         System.out.println("ConvoyeurHaut.fermer()");
-        if(this.estRetracte()) // machine etat a la place
+        if(this.estRetracte()) // machine etat a la place // what?
         {
             this.chronoFermer.initialiser();
             this.mouvementOuvertureGauche.set(false);
             this.mouvementOuvertureDroite.set(false);
         }
-        else
+        else {
+
             System.out.println("Peut pas fermer");
+        }
     }
 
     public boolean estOuvert()
@@ -125,8 +128,11 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
             this.estOuvert = false;
             chronoFermer.desactiver();
         }
-        if (this.detecteurConvoyeurHaut.estOuvert()) this.estOuvert = true;
-            return this.estOuvert;
+        if (this.detecteurConvoyeurHaut.estOuvert()) {
+            this.estOuvert = true;
+        }
+        // System.out.println("ConvoyeurHaut.estOuvert() => "+estOuvert);
+        return this.estOuvert;
     }
 
     public boolean estRetracte()
@@ -135,9 +141,10 @@ public class ConvoyeurHaut extends SousSysteme implements Materiel.ConvoyeurHaut
             this.estRetracte = false;
             chronoAllonger.desactiver();
         }
-        if (this.detecteurConvoyeurHaut.estRetracte())
+        if (this.detecteurConvoyeurHaut.estRetracte()){
             this.estRetracte = true;
-        System.out.println(estRetracte);
+        }
+        // System.out.println("ConvoyeurHaut.estRetracte() => "+estRetracte);
         return this.estRetracte;
     }
 }

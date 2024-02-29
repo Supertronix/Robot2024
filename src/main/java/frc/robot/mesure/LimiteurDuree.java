@@ -26,7 +26,7 @@ public class LimiteurDuree extends Chronometre{
 		super.mesurer();
 		//System.out.println("mesurer()");
 		this.estTropLong = (this.tempsActuel - this.tempsDebut) > this.limite;
-		if(this.estTropLong) System.out.println("Délai trop long !");	
+		if(this.estTropLong) System.out.println("Delai trop long !");	
 	}
 	
 	/** 
@@ -34,6 +34,7 @@ public class LimiteurDuree extends Chronometre{
 	 */
 	public boolean estTropLongue()
 	{
+		// System.out.println("LimiteurDuree.estTropLongue() => "+this.estTropLong);
 		return this.estTropLong;
 	}
 }

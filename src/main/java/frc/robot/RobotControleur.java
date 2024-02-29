@@ -146,6 +146,7 @@ public class RobotControleur extends TimedRobot {
 
     robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
 
+    // robot.convoyeurHaut.activer(this.manette.getAxeMainDroite().y);
     if((periode % 10) == 0 && !robot.estAveugle())
     {
       this.shuffleBoard.mettreAJour();
@@ -185,8 +186,8 @@ public class RobotControleur extends TimedRobot {
         //this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         //this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
 
-        this.boutonMainGauche.onTrue(new CommandeAvalerTeleop());
-        this.boutonMainDroite.onTrue(new CommandeLancerSpeaker());
+        this.boutonMainGauche.toggleOnTrue(new CommandeAvalerTeleop());
+        this.boutonMainDroite.toggleOnTrue(new CommandeLancerSpeaker());
 
         this.boutonA.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonB.onTrue(new CommandeLanceurRetracterEtFermer());
@@ -197,26 +198,10 @@ public class RobotControleur extends TimedRobot {
         this.boutonDemarrer.whileTrue(new CommandeGrimper());        
       }
 
-      public static ActionManette getInstance()
-      {
-        if (null == ActionManette.instance)
-          ActionManette.instance = new ActionManette();
-        
-        return ActionManette.instance;
-      };
-  }
 
-  static public class TestManette extends Manette {
 
-      protected static TestManette instance = null;
 
-      protected TestManette()
-      {
-        System.out.println("new TestManette()");
-      }
-
-      // Une méthode qui permet de mapper les différents inputs avec les actions
-      public void activerBoutons()
+      public void activerBoutonsTest()
       {
         this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
@@ -255,12 +240,12 @@ public class RobotControleur extends TimedRobot {
          */
       }
 
-      public static TestManette getInstance()
+      public static ActionManette getInstance()
       {
-        if (null == TestManette.instance)
-          TestManette.instance = new TestManette();
+        if (null == ActionManette.instance)
+          ActionManette.instance = new ActionManette();
         
-        return TestManette.instance;
+        return ActionManette.instance;
       };
   }
 }
