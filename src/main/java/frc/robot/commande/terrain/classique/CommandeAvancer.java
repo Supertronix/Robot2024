@@ -73,7 +73,6 @@ public class CommandeAvancer extends Command {
 
     }
 
-    
     /** 
      * @return boolean
      */
@@ -85,6 +84,7 @@ public class CommandeAvancer extends Command {
         }
         return false;
     }
+
     @Override
     public void end(boolean interrupted) {
         System.out.println("CommandeAvancer.end()");
