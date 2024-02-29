@@ -13,6 +13,8 @@ public class AnimateurLed implements Materiel.Affichage{
 	public static String ANIMATIN_DAMIER = "D";
 	public static String ANIMATION_EQUIPE = "5";
 	public static String ANIMATION_COMMANDITAIRE = "C";
+	public static String ANIMATION_VICTOIRE = "V";
+	public static String ANIMATION_LOST = "L";
 
 	public static String ALLIANCE_ROUGE = "R";
 	public static String ALLIANCE_BLEUE = "B";
@@ -33,6 +35,10 @@ public class AnimateurLed implements Materiel.Affichage{
 		selecteur.addOption("WAVES", "W");
 		selecteur.addOption("DAMIER", "D");
 		selecteur.addOption("5910", "5");
+		selecteur.addOption("COMMANDITE", "C");
+		selecteur.addOption("VICTOIRE", "V");
+		selecteur.addOption("LOST", "L");
+
 		SmartDashboard.putData(LIBELLE_SELECTEUR_ANIMATION, selecteur);	
 	}
 	public void choisirAnimation(String choix)

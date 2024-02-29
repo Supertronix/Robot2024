@@ -11,7 +11,7 @@
  #define PSTR // Make Arduino Due happy
 #endif
 
-#define PIN 6
+#define PIN 5
 #define NUMPIXELS 255
 
 
@@ -21,6 +21,8 @@ const char CHOIX_5910 = '5';
 const char CHOIX_COMMANDITAIRE = 'C';
 const char CHOIX_AUCUN = '0';
 const char CHOIX_DAMIER = 'D';
+const char CHOIX_VICTORY = 'V';
+const char CHOIX_LOST = 'L';
 
 const char ALLIANCE_ROUGE = 'R';
 const char ALLIANCE_BLEUE = 'B';
@@ -29,13 +31,13 @@ char choix = 'W';
 char alliance = 'R';
 char message = '0';
 
+int color = 31;
+
 
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(32, 8, PIN,
   NEO_MATRIX_BOTTOM     + NEO_MATRIX_RIGHT +
   NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG,
   NEO_GRB            + NEO_KHZ800);
-
-bool isOnRedTeam = false;
 
 
 
@@ -56,7 +58,7 @@ class mainPillar{
       currentHorizontalCoord = random(maxHorizontalCoord, minHorizontalCoord);
     }
 
-    void draw(int color){
+    void draw(){
       adjuster = (currentHeight % 2) ? 0 : -1;
       for(int x = currentHorizontalCoord; x > maxHorizontalCoord - (((int) (currentHeight/2)) + adjuster); x--){
         for(int y = 0; y < currentHeight - ((currentHorizontalCoord - x) * 2); y++) matrix.drawPixel(x, 7-y, color);
@@ -84,9 +86,7 @@ class mainPillar{
 
 class displayModel{
   public:
-  void run(){
-    Serial.print("dfgdsarf");
-  }
+  virtual void run() = 0;
 };
 
 
@@ -105,9 +105,8 @@ class displayMusicWave : public displayModel{
   void run(){
     matrix.fillScreen(0);
 
-    int color = (isOnRedTeam) ? 63488 : 31;
     //dessine les vagues
-    for(int i = 0; i < 7; i++) pillarCollection[i].draw(color);
+    for(int i = 0; i < 7; i++) pillarCollection[i].draw();
     //remplit la ligne du bas
     for(int x = 0; x < 32; x++) matrix.drawPixel(x, 7, color);
     matrix.show();
@@ -115,7 +114,7 @@ class displayMusicWave : public displayModel{
     delay(random(50));
   }
 
-  displayMusicWave(int test){
+  displayMusicWave(){
 
   }
 };
@@ -125,7 +124,7 @@ class displaySponsorsName : public displayModel{
   public:
   int x = matrix.width();//32
   int widthOfMatrix = matrix.width();//32
-  String listOfSonsorName[3] = {"BMR", "Itech", "Garage gros gnouf"};
+  String listOfSonsorName[2] = {"BMR", "Itech"};
   int sponsorNameIdentifier = 0;
   String text = ("Presented by:" + listOfSonsorName[sponsorNameIdentifier]);
   //valeurs temporaires qui seront redéfinies dans le constructeur
@@ -136,9 +135,7 @@ class displaySponsorsName : public displayModel{
 
   void changeText(){
     sponsorNameIdentifier++;
-    // je ne sais pourquoi mais duran les test sizeof(sponsorNameIdentifier)
-    // retournait toujour 12 au laieu de 2 donc j'ai juste mis le nombre
-    if(sponsorNameIdentifier >= (sizeof(listOfSonsorName))/6) sponsorNameIdentifier = 0;
+    if(sponsorNameIdentifier >= 2) sponsorNameIdentifier = 0;
     r = random(255);
     g = random(255);
     b = random(255);
@@ -172,7 +169,7 @@ class displayTeamNuber : public displayModel{
   public:
   void run(){
     matrix.fillScreen(0);
-    if(isOnRedTeam){
+    if(alliance == 'R'){
       matrix.setTextColor(matrix.Color(255, 0, 0));
     }else{
       matrix.setTextColor(matrix.Color(0, 0, 255));
@@ -203,12 +200,136 @@ class displayNothing : public displayModel{
   }
 };
 
+class displayCheckerBoard : public displayModel{
+  public:
+
+  void run(){
+    matrix.fillScreen(0);
+    for(int x = 0; x < 32; x += 2){
+      for(int y = 0; y < 8; y += 2) matrix.drawPixel(x, 7-y, color);
+      for(int y = 1; y < 8; y += 2) matrix.drawPixel(x+1, 7-y, color);
+    }
+    matrix.show();
+    Serial.println("damier");
+  }
+
+  displayCheckerBoard(){
+
+  }
+};
 
 
-displayMusicWave musicWaveDisplayer(3);
+
+class displayHappyFace : public displayModel{
+  public:
+  void run(){
+    matrix.fillScreen(0);
+    //yeux
+    matrix.drawPixel(14, 2, color);
+    matrix.drawPixel(17, 2, color);
+
+    //bouche
+    matrix.drawPixel(14, 4, color);
+    matrix.drawPixel(17, 4, color);
+    matrix.drawPixel(15, 5, color);
+    matrix.drawPixel(16, 5, color);
+
+    //contour
+    matrix.drawPixel(14, 0, color);
+    matrix.drawPixel(15, 0, color);
+    matrix.drawPixel(16, 0, color);
+    matrix.drawPixel(17, 0, color);
+
+    matrix.drawPixel(13, 1, color);
+    matrix.drawPixel(18, 1, color);
+
+    matrix.drawPixel(12, 2, color);
+    matrix.drawPixel(12, 3, color);
+    matrix.drawPixel(12, 4, color);
+    matrix.drawPixel(12, 5, color);
+
+    matrix.drawPixel(19, 2, color);
+    matrix.drawPixel(19, 3, color);
+    matrix.drawPixel(19, 4, color);
+    matrix.drawPixel(19, 5, color);
+
+    matrix.drawPixel(13, 6, color);
+    matrix.drawPixel(18, 6, color);
+
+
+    matrix.drawPixel(14, 7, color);
+    matrix.drawPixel(15, 7, color);
+    matrix.drawPixel(16, 7, color);
+    matrix.drawPixel(17, 7, color);
+
+    matrix.show();
+  }
+
+  displayHappyFace(){
+    
+  }
+};
+
+
+
+class displaySadFace : public displayModel{
+  public:
+  void run(){
+    matrix.fillScreen(0);
+    //yeux
+    matrix.drawPixel(14, 2, color);
+    matrix.drawPixel(17, 2, color);
+
+    //bouche
+    matrix.drawPixel(14, 5, color);
+    matrix.drawPixel(17, 5, color);
+    matrix.drawPixel(15, 4, color);
+    matrix.drawPixel(16, 4, color);
+
+    //contour
+    matrix.drawPixel(14, 0, color);
+    matrix.drawPixel(15, 0, color);
+    matrix.drawPixel(16, 0, color);
+    matrix.drawPixel(17, 0, color);
+
+    matrix.drawPixel(13, 1, color);
+    matrix.drawPixel(18, 1, color);
+
+    matrix.drawPixel(12, 2, color);
+    matrix.drawPixel(12, 3, color);
+    matrix.drawPixel(12, 4, color);
+    matrix.drawPixel(12, 5, color);
+
+    matrix.drawPixel(19, 2, color);
+    matrix.drawPixel(19, 3, color);
+    matrix.drawPixel(19, 4, color);
+    matrix.drawPixel(19, 5, color);
+
+    matrix.drawPixel(13, 6, color);
+    matrix.drawPixel(18, 6, color);
+
+
+    matrix.drawPixel(14, 7, color);
+    matrix.drawPixel(15, 7, color);
+    matrix.drawPixel(16, 7, color);
+    matrix.drawPixel(17, 7, color);
+
+    matrix.show();
+  }
+
+  displaySadFace(){
+    
+  }
+};
+
+
+displayMusicWave musicWaveDisplayer;
 displaySponsorsName sponsorNameDisplayer;
 displayTeamNuber teamNuberDisplayer;
 displayNothing nothingDisplayer;
+displayCheckerBoard checkerBoardDisplayer;
+displayHappyFace happyFaceDisplayer;
+displaySadFace sadFaceDisplayer;
 
 
 
@@ -224,10 +345,10 @@ void setup() {
 
   matrix.begin();
   matrix.setTextWrap(false);
-  matrix.setBrightness(40);
+  matrix.setBrightness(5);
   matrix.setTextColor(matrix.Color(255, 0, 0));
 
-  isOnRedTeam = (choix == 'R') ? true : false;
+  color = (alliance == 'R') ? 63488 : 31;
 }
 
 
@@ -245,13 +366,19 @@ void loop(){
       teamNuberDisplayer.run();
     break;
     case CHOIX_DAMIER :
-      nothingDisplayer.run();
+      checkerBoardDisplayer.run();
     break;
     case CHOIX_AUCUN :
       nothingDisplayer.run();
     break;
+    case CHOIX_VICTORY : 
+      happyFaceDisplayer.run();
+    break;
+    case CHOIX_LOST : 
+      sadFaceDisplayer.run();
+    break;
     default :
-      nothingDisplayer.run();
+      musicWaveDisplayer.run();
     break;
   }
 }
@@ -265,6 +392,7 @@ void recevoirChoix(int combien) {
     if('R' == message || 'B' == message)
     {
       alliance = message;
+      color = (alliance == 'R') ? 63488 : 31;
     }
     else
     {
