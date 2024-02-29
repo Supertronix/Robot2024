@@ -15,7 +15,7 @@ public class TrajetTest extends SequentialCommandGroup {
         // );a
         addCommands(
             //new CommandeAvancer(-30)
-            new CommandeTourner(-90)
+            new CommandeTourner(45)
         );
     }
     

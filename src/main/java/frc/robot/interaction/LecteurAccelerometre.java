@@ -78,7 +78,7 @@ public class LecteurAccelerometre {
     }
     public double getYaw()
     {
-        this.yaw = (this.accelerometre.getYaw() - this.yawDebut);
+        this.yaw = (this.accelerometre.getYaw());
         return this.yaw;
     }
     public double getYaw(UNITE unites)
