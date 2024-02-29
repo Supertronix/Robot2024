@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Materiel;
 import frc.robot.Robot;
 import frc.robot.RobotControleur.ActionManette;
+import frc.robot.composant.Compresseur;
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.Odometrie;
@@ -36,21 +37,21 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected static final int DUREE_TIMEOUT = 10000;
 
     // PID axe X
-    protected static double x_kP = 1;
-    protected static double x_kI = 0.00;
-    protected static double x_kD = 0.00;
+    protected static double x_kP = 0.95;
+    protected static double x_kI = 0.4;
+    protected static double x_kD = 0.1;
 
     // PID axe Y
-    protected static double y_kP = 1;
-    protected static double y_kI = 0.00;
-    protected static double y_kD = 0.00;
+    protected static double y_kP = 0.95;
+    protected static double y_kI = 0.4;
+    protected static double y_kD = 0.1;
 
     // PID Angle
-    protected static double ang_kP = 1;
-    protected static double ang_kI = 0.00;
-    protected static double ang_kD = 0.00;
-    protected static double angMaxVitesse = 2.00; // m/s
-    protected static double angMaxAcceleration = 2.00; // m2/s
+    protected static double ang_kP = 5;
+    protected static double ang_kI = 0.1;
+    protected static double ang_kD = 0.5;
+    protected static double angMaxVitesse = 10.00; // m/s
+    protected static double angMaxAcceleration = 5.00; // m2/s
 
     // Hardware
     protected RouesMecanum roues;
@@ -89,6 +90,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         System.out.println("new CommandeAllerA(" + cible + ", " + angleCible + ")");
 
         this.robot = Robot.getInstance();
+        Compresseur.getInstance().desactiver();
         this.roues = (RouesMecanum) this.robot.roues;
         this.limelight = this.robot.cameraLimelight;
         this.addRequirements(this.roues);
@@ -97,8 +99,6 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         
         this.cible = cible;
         this.angleCible = angleCible;
-
-        System.out.println("CommandeAllerA fin constructeur");
     }
 
     @Override
@@ -123,11 +123,17 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0.1, 0.1, Rotation2d.fromDegrees(5));
+        Pose2d tolerance = new Pose2d(0.1, 0.1, Rotation2d.fromDegrees(3));
         this.driveControleur.setTolerance(tolerance);
-        this.driveControleur.setEnabled(false);
+        this.driveControleur.setEnabled(true);
 
-        this.kinematics = Odometrie.getInstance().getCinematique();
+        //this.kinematics = Odometrie.getInstance().getCinematique();
+        this.kinematics = new MecanumDriveKinematics(    // Trop de temps pour initialiser Odometrie
+                new Translation2d(-LARGEUR_DU_CENTRE, LONGUEUR_DU_CENTRE),
+                new Translation2d(LARGEUR_DU_CENTRE, LONGUEUR_DU_CENTRE),
+                new Translation2d(-LARGEUR_DU_CENTRE, -LONGUEUR_DU_CENTRE),
+                new Translation2d(LARGEUR_DU_CENTRE, -LONGUEUR_DU_CENTRE)
+        );
         this.donneesPosition = new double[6];
     }
 
@@ -146,9 +152,11 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
 
         Pose2d position = new Pose2d(donneesPosition[0], donneesPosition[1], Rotation2d.fromDegrees(donneesPosition[5]));
         Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(this.angleCible));
+        Vecteur3 dist = new Vecteur3(donneesPosition[0], donneesPosition[1], 0);
+        this.distance = dist.distanceCarree(this.cible);
 
         // Calcul d'inverse kinematics pour déterminer les vitesses de roues
-        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 0, Rotation2d.fromDegrees(this.angleCible));
+        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 1, Rotation2d.fromDegrees(this.angleCible));
         // TODO : réactiver le PID
         MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee);
         // TODO :
@@ -185,6 +193,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
             return false;
         
         // Cible atteinte
+        System.out.println("Distance : " + this.distance + " - Angle : " + (this.angleCible - donneesPosition[5]));
         if (this.driveControleur.atReference()) {
             System.out.println("CommandeAllerA.isFinished() d < 0.2 : " + this.distance + " - a < 2 : " + (this.angleCible - donneesPosition[5]));
             return true;
@@ -198,6 +207,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     @Override
     public void end(boolean interrupted) {
         System.out.println("CommandeAllerA.end()");
+        Compresseur.getInstance().activer();
         this.roues.arreter();
     }
 
