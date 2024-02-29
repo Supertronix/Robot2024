@@ -67,6 +67,13 @@ public class Odometrie implements Materiel.Roues{
 
     public void actualiser()
     {
+        positionsMecanum = new MecanumDriveWheelPositions( 
+                roues.encodeurAvantGauche.getPosition(),
+                roues.encodeurAvantDroit.getPosition(),
+                roues.encodeurArriereGauche.getPosition(),
+                roues.encodeurArriereDroit.getPosition()
+        );
+        this.odometrieMecanum.update(accelerometre.getRotation2D(), positionsMecanum);
         this.positionSurLeField = odometrieMecanum.getPoseMeters();
     }
 
