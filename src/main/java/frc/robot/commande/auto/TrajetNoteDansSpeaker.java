@@ -14,6 +14,7 @@ import frc.robot.soussysteme.AprilTags;
 import frc.robot.soussysteme.RouesMecanum;
 
 public class TrajetNoteDansSpeaker extends Command {
+	CommandeLancerSpeaker commandeLancerSpeaker;
     public TrajetNoteDansSpeaker()
 	{
 		System.out.println("TrajetNoteDansSpeaker()");
@@ -35,8 +36,19 @@ public class TrajetNoteDansSpeaker extends Command {
 			cible = new Vecteur3(AprilTags.SpeakerBleu.X, AprilTags.SpeakerBleu.Y, 0);
 			angleCible = AprilTags.SpeakerBleu.ANGLE;
 		}
-		new CommandeAllerA(cible, angleCible).andThen(new CommandeLancerSpeaker()).schedule();
+		commandeLancerSpeaker = new CommandeLancerSpeaker();
+		new CommandeAllerA(cible, angleCible).andThen(commandeLancerSpeaker).schedule();
 	}
+
+	@Override
+	public boolean isFinished() {
+		// Vérifie si la commandeLancerSpeaker est terminée
+		if (commandeLancerSpeaker.isFinished()) {
+			return true; // Si c'est le cas, retourne true pour indiquer que CommandeAllerA est également terminée
+		}
+		return false;
+	}
+
 
 	@Override
 	public void end(boolean interrupted) {

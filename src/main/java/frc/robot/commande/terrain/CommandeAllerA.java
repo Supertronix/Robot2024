@@ -37,13 +37,13 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected static final int DUREE_TIMEOUT = 10000;
 
     // PID axe X
-    protected static double x_kP = 0.95;
-    protected static double x_kI = 0.4;
+    protected static double x_kP = 1;
+    protected static double x_kI = 0.6;
     protected static double x_kD = 0.1;
 
     // PID axe Y
-    protected static double y_kP = 0.95;
-    protected static double y_kI = 0.4;
+    protected static double y_kP = 1;
+    protected static double y_kI = 0.6;
     protected static double y_kD = 0.1;
 
     // PID Angle
@@ -123,7 +123,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0.1, 0.1, Rotation2d.fromDegrees(3));
+        Pose2d tolerance = new Pose2d(0.15, 0.15, Rotation2d.fromDegrees(5));
         this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 
