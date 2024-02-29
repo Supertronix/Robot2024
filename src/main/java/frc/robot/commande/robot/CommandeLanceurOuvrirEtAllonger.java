@@ -15,4 +15,9 @@ public class CommandeLanceurOuvrirEtAllonger extends Command {
         System.out.println("CommandeLanceurOuvrirEtAllonger.initialize()");
         new CommandeLanceurOuvrir().andThen(new CommandeLanceurAllonger()).schedule();
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        System.out.println("CommandeLanceurOuvrirEtAllonger.end()");
+    }
 }
