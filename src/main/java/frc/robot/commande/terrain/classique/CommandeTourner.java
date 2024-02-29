@@ -9,7 +9,8 @@ import frc.robot.mesure.LimiteurDuree;
 
 public class CommandeTourner extends Command {
 
-    private static final int TEMPS_MAXIMUM = 3000;
+    protected static final int TEMPS_MAXIMUM = 10000; // En millisecondes
+    protected static final double SEUIL_ANGLE = 2.5; // En degrés
 
     protected Roues roues;
     protected boolean finie;
@@ -18,8 +19,8 @@ public class CommandeTourner extends Command {
 
     protected PIDController pid;
 
-    protected double angleCible; // angle en degre ???
-    protected double angleActuel;
+    protected double angleActuel; // Angle actuel du robot
+    protected double angleCible; // Angle en degré, relatif à l'angle initial
 
     public CommandeTourner(double angleCible)
     {
@@ -28,10 +29,10 @@ public class CommandeTourner extends Command {
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
         this.gyroscope = LecteurAccelerometre.getInstance();
-        this.pid = new PIDController(0.001, 0.00, 0.00);
+        this.pid = new PIDController(0.007, 0.0002, 0.00035);
 
-        this.angleCible = angleCible;
         this.angleActuel = gyroscope.getYaw();
+        this.angleCible = this.angleActuel + angleCible;
     }
        
     @Override
@@ -56,7 +57,8 @@ public class CommandeTourner extends Command {
         else
             this.roues.tournerDroite(vitesseRotation);
 
-        System.out.println("Yaw gyro: " + gyroscope.getYaw() + " - Yaw target: " + this.angleCible);
+        //System.out.println("Yaw gyro: " + gyroscope.getYaw() + " - Yaw target: " + this.angleCible);
+        System.out.println("Vitesse PID: " + vitesseRotation);
         this.detecteur.mesurer();
     }
     
@@ -66,7 +68,7 @@ public class CommandeTourner extends Command {
     @Override
     public boolean isFinished() 
     {
-        boolean seuilAngleAtteint = Math.abs(this.angleActuel - this.angleCible) < 5.0;
+        boolean seuilAngleAtteint = Math.abs(this.angleActuel - this.angleCible) < SEUIL_ANGLE;
 
         if (seuilAngleAtteint)
             return true;
