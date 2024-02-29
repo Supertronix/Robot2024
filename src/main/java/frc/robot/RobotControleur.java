@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.auto.TrajetNoteDansAmplificateur;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
+import frc.robot.commande.auto.TrajetTest;
 import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeInverserRoues;
 import frc.robot.composant.Compresseur;
@@ -74,34 +75,37 @@ public class RobotControleur extends TimedRobot {
   public void autonomousInit() {
     this.periode = 0;
     this.robot = Robot.getInstance(); 
-    positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
-    modeAutonome = SelecteurModeAutonome.getInstance().lireMode();
-    if(POSITION.GAUCHE == positionDepart)
-    {
-      System.out.println("Position gauche");
-      //trajetAutonome = new CommandeTrajetAutonome();
-      //trajetAutonome.schedule();
-    }
-    if(POSITION.MILIEU == positionDepart)
-    {
-      System.out.println("Position milieu");
-    }
-    if(POSITION.DROITE == positionDepart)
-    {
-      System.out.println("Position droite");
-    }
 
-    if(MODE.AUTOMATIQUE == modeAutonome)
-    {
-      System.out.println("Mode automatique");
-    }
-    if(MODE.DESIGN == modeAutonome)
-    {
-      System.out.println("Mode design");
-      designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
-      // a interpreter
-    }
-    this.animateurLed.communiquerAlliance();  
+    new TrajetTest().schedule();
+
+    // positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    // modeAutonome = SelecteurModeAutonome.getInstance().lireMode();
+    // if(POSITION.GAUCHE == positionDepart)
+    // {
+    //   System.out.println("Position gauche");
+    //   //trajetAutonome = new CommandeTrajetAutonome();
+    //   //trajetAutonome.schedule();
+    // }
+    // if(POSITION.MILIEU == positionDepart)
+    // {
+    //   System.out.println("Position milieu");
+    // }
+    // if(POSITION.DROITE == positionDepart)
+    // {
+    //   System.out.println("Position droite");
+    // }
+
+    // if(MODE.AUTOMATIQUE == modeAutonome)
+    // {
+    //   System.out.println("Mode automatique");
+    // }
+    // if(MODE.DESIGN == modeAutonome)
+    // {
+    //   System.out.println("Mode design");
+    //   designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
+    //   // a interpreter
+    // }
+    // this.animateurLed.communiquerAlliance();  
   }
 
   @Override
