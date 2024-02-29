@@ -12,9 +12,10 @@ import frc.robot.soussysteme.ConvoyeurHaut;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeLancerAmplificateur extends Command {
 
-    protected static int DUREE = 5000;
+    protected static int DUREE = 3000;
 
     protected boolean finie = false;
+
     protected LimiteurDuree detecteurDuree;
     protected DetecteurNote capteurLuminosite;
 
@@ -24,7 +25,7 @@ public class CommandeLancerAmplificateur extends Command {
     {
         //System.out.println("new CommandeLancerAmplificateur()");     
         convoyeurHaut = Robot.getInstance().convoyeurHaut;
-
+        detecteurDuree = new LimiteurDuree(DUREE);
         addRequirements(convoyeurHaut);
     }
        
@@ -46,6 +47,11 @@ public class CommandeLancerAmplificateur extends Command {
     @Override
     public boolean isFinished() 
     {
+        if (detecteurDuree.estTropLongue())
+        {
+            System.out.println("CommandeLancerAmplificateur.isFinished() detecteurDuree.estTropLongue()");
+            return true;
+        }
         return false;
     }
 

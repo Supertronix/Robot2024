@@ -48,8 +48,8 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
     protected static double ang_kP = 1;
     protected static double ang_kI = 0.00;
     protected static double ang_kD = 0.00;
-    protected static double angMaxVitesse = 999.00; // m/s
-    protected static double angMaxAcceleration = 999.00; // m2/s
+    protected static double angMaxVitesse = 2.00; // m/s
+    protected static double angMaxAcceleration = 2.00; // m2/s
 
     // Hardware
     protected RouesMecanum roues;
@@ -86,24 +86,14 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
         
         this.cible = cible;
         this.angleCible = angleCible;
-
-        this.xControleur = new PIDController(x_kP, x_kI, x_kD);
-        this.yControleur = new PIDController(y_kP, y_kI, y_kD);
-        this.angleControleur = new ProfiledPIDController(ang_kP, ang_kI, ang_kD,
-                new TrapezoidProfile.Constraints(angMaxVitesse, angMaxAcceleration));
-
-        SmartDashboard.putData("PID x", this.xControleur);
-        SmartDashboard.putData("PID y", this.yControleur);
-        SmartDashboard.putData("PID angle", this.angleControleur);
-        //SmartDashboard.putData("Arene", arene);
     }
 
     @Override
     public void initialize()
     {
         System.out.println("CommandeAllerA.initialize()");
-        this.detecteur.initialiser();
 
+        this.detecteur.initialiser();
         this.distanceAtteinte = false;
         this.seuilAngleAtteint = false;
 
@@ -115,19 +105,23 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
         this.angleControleur.enableContinuousInput(0, 360); // 0, Math.PI * 2 Radians ?
         //this.angleControleur.enableContinuousInput(0, Math.PI * 2);
 
+        SmartDashboard.putData("PID x", this.xControleur);
+        SmartDashboard.putData("PID y", this.yControleur);
+        SmartDashboard.putData("PID angle", this.angleControleur);
+
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        //this.driveControleur.setTolerance(tolerance);
-        this.driveControleur.setEnabled(true);
+        Pose2d tolerance = new Pose2d(0.1, 0.1, Rotation2d.fromDegrees(5));
+        this.driveControleur.setTolerance(tolerance);
+        this.driveControleur.setEnabled(false);
 
         this.kinematics = Odometrie.getInstance().getCinematique();
-
         this.donneesPosition = new double[6];
     }
 
     @Override
     public void execute() {
         this.detecteur.mesurer();
+
 
         double[] donneesPositionInit = this.limelight.getBotpose();
 
@@ -142,67 +136,17 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
         Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(this.angleCible));
 
         // Calcul d'inverse kinematics pour déterminer les vitesses de roues
-        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 0, Rotation2d.fromDegrees(this.angleCible));
-        MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee, new Translation2d(0, 0));
+        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 1, Rotation2d.fromDegrees(this.angleCible));
+        // TODO : réactiver le PID
+        MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee);
+        // TODO :
+        vitesseRoues.desaturate(1.0); // On va le mettre en pourcentage de moteur
 
-        //System.out.println("Vitesse ajustée: " + vitesseAjustee.vxMetersPerSecond + " - " + vitesseAjustee.vyMetersPerSecond + " - " + vitesseAjustee.omegaRadiansPerSecond);
-        //this.roues.conduireAvecDrive(vitesseAjustee.vxMetersPerSecond, vitesseAjustee.vyMetersPerSecond, vitesseAjustee.omegaRadiansPerSecond);
-        //SmartDashboard.putData("ChassisSpeeds", new
-
-
-        // Déplacement x,y
-        if (!this.distanceAtteinte) {
-            //System.out.println("x diff: " + (donneesPosition[0] - this.cible.x));
-            this.distance = Math.pow(donneesPosition[0] - this.cible.x, 2) + Math.pow(donneesPosition[1] - this.cible.y, 2);
-            SmartDashboard.putNumber("Distance", this.distance);
-            //System.out.println("Distance: " + distance);
-            this.distanceAtteinte = this.distance < SEUIL_DISTANCE;
-
-            double vitesseMaxMoteur = 3; // Supposons que la vitesse maximale de nos moteurs soit de 3 m/s
-
-            // Convertir les vitesses de m/s à pourcentage de moteur
-            double pourcentageFrontLeft = vitesseRoues.frontLeftMetersPerSecond / vitesseMaxMoteur;
-            double pourcentageFrontRight = vitesseRoues.frontRightMetersPerSecond / vitesseMaxMoteur;
-            double pourcentageRearLeft = vitesseRoues.rearLeftMetersPerSecond / vitesseMaxMoteur;
-            double pourcentageRearRight = vitesseRoues.rearRightMetersPerSecond / vitesseMaxMoteur;
-
-            // Assurez-vous que le pourcentage est dans la plage de -1 à 1
-            pourcentageFrontLeft = Math.max(Math.min(pourcentageFrontLeft, 1.0), -1.0);
-            pourcentageFrontRight = Math.max(Math.min(pourcentageFrontRight, 1.0), -1.0);
-            pourcentageRearLeft = Math.max(Math.min(pourcentageRearLeft, 1.0), -1.0);
-            pourcentageRearRight = Math.max(Math.min(pourcentageRearRight, 1.0), -1.0);
-
-
-            //System.out.println("PID MOVEMENT RUNNING");
-            //System.out.println("frontleftMS = " + vitesseRoues.frontLeftMetersPerSecond + " frontrightMS = " + vitesseRoues.frontRightMetersPerSecond + " rearleftMS = " + vitesseRoues.rearLeftMetersPerSecond + " rearRightMS = " + vitesseRoues.rearRightMetersPerSecond);
-            System.out.println("frontleft = " + pourcentageFrontLeft + " frontright = " + pourcentageFrontRight + " rearleft = " + pourcentageRearLeft + " rearRight = " + pourcentageRearRight);
-            this.roues.conduireToutesDirections(
-                pourcentageFrontLeft,
-                pourcentageFrontRight,
-                pourcentageRearLeft,
-                pourcentageRearRight); // On verifie que ça peut pas être en dessous/dessus de -1 1 ?
-        }
-        // Rotation du robot
-        else if (!this.seuilAngleAtteint) {
-            //System.out.println("PID ANGLE RUNNING");
-            double differenceAngle = this.angleCible - donneesPosition[5];
-            differenceAngle = (differenceAngle + 180) % 360 - 180;
-            //System.out.println("Difference: " + differenceAngle + " - Position: " + donneesPosition[5]);
-            this.seuilAngleAtteint = Math.abs(differenceAngle) < SEUIL_ANGLE;
-
-            //System.out.println(Math.abs((donneesCible[5] - donneesPosition[5])));
-
-            System.out.println("Difference: " + differenceAngle);
-            if (differenceAngle > 0.0) {
-                System.out.println("TOURNE GAUCHE");
-                this.roues.tournerGauche(0.2);
-            }
-            else {
-                System.out.println("TOURNE DROITE");
-                this.roues.tournerDroite(0.2);
-            }
-            //System.out.println(vitesseAjustee.omegaRadiansPerSecond);
-        }
+        this.roues.conduireToutesDirections(
+                vitesseRoues.frontLeftMetersPerSecond,
+                vitesseRoues.frontRightMetersPerSecond,
+                vitesseRoues.rearLeftMetersPerSecond,
+                vitesseRoues.rearRightMetersPerSecond);
 
         SmartDashboard.putNumber("Vitesse X (m/s)", vitesseAjustee.vxMetersPerSecond);
         SmartDashboard.putNumber("Vitesse Y (m/s)", vitesseAjustee.vyMetersPerSecond);
@@ -229,7 +173,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
             return false;
         
         // Cible atteinte
-        if (this.distanceAtteinte && this.seuilAngleAtteint) {
+        if (this.driveControleur.atReference()) {
             System.out.println("CommandeAllerA.isFinished() d < 0.2 : " + this.distance + " - a < 2 : " + (this.angleCible - donneesPosition[5]));
             return true;
         }

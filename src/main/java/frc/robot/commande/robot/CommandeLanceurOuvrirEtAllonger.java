@@ -13,6 +13,6 @@ public class CommandeLanceurOuvrirEtAllonger extends Command {
     public void initialize() 
     {
         System.out.println("CommandeLanceurOuvrirEtAllonger.initialize()");
-        new CommandeLanceurOuvrir().andThen(new CommandeLanceurAllonger()).schedule();;
+        new CommandeLanceurOuvrir().andThen(new CommandeLanceurAllonger()).schedule();
     }
 }
