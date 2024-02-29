@@ -1,39 +1,54 @@
 package frc.robot.soussysteme;
 
+import frc.robot.mesure.Vecteur3;
+
 import java.util.Map;
 
 import static java.util.Map.entry;
 
 /*
- * Fichier qui prend en note les positions des positions souhaitées relatives au field
+ * Fichier qui prend en note les positions des positions souhaitées relatives au field global
  */
 public interface AprilTags {
+    public enum Position {
+        SpeakerRouge, SpeakerBleu, AmplificateurRouge, AmplificateurBleu, SceneRougePos1, SceneRougePos2, SceneRougePos3, SceneBleuPos1, SceneBleuPos2, SceneBleuPos3
+    }
 
     public interface SpeakerRouge {
         public static final double X = 6.43;
         public static final double Y = 1.44;
-        public static final double ANGLE = -90;
+        public static final double ANGLE = 180;
+        public static final Vecteur3[] POSITIONS = {
+                new Vecteur3(6.43-0.82, 1.44-1.40, -90), // Position Gauche
+                new Vecteur3(6.43, 1.44, -90), // Position Centre
+                new Vecteur3(6.43+0.82, 1.44+1.40, -90) // Position Droite
+        };
         public static final double[] ID_TAGS = {3, 4};
     }
 
     public interface SpeakerBleu {
         public static final double X = -6.43;
         public static final double Y = 1.44;
-        public static final double ANGLE = 90;
+        public static final double ANGLE = 180;
+        public static final Vecteur3[] POSITIONS = {
+                new Vecteur3(-6.43-0.82, 1.44-1.40, -90), // Position Gauche
+                new Vecteur3(-6.43, 1.44, -90), // Position Centre
+                new Vecteur3(-6.43+0.82, 1.44+1.40, -90) // Position Droite
+        };
         public static final double[] ID_TAGS = {7, 8};
     }
 
     public interface AmplificateurRouge {
         public static final double X = 6.43;
         public static final double Y = 3.09; // 4.09, il reste 1m normalement
-        public static final double ANGLE = 180;
+        public static final double ANGLE = 90;
         public static final double[] ID_TAGS = {5};
     }
 
     public interface AmplificateurBleu {
         public static final double X = -6.43;
         public static final double Y = 3.09;
-        public static final double ANGLE = 180;
+        public static final double ANGLE = 90;
         public static final double[] ID_TAGS = {6};
     }
 

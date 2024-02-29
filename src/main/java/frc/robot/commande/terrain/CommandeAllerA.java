@@ -24,9 +24,10 @@ import frc.robot.interaction.Odometrie;
 import frc.robot.interaction.ShuffleBoard;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
+import frc.robot.soussysteme.AprilTags;
 import frc.robot.soussysteme.RouesMecanum;
 
-public class CommandeAllerA extends Command implements Materiel.Roues{
+public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags {
 
     protected Robot robot;
     protected ShuffleBoard shuffleBoard;
@@ -70,8 +71,18 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
     protected boolean seuilAngleAtteint;
     protected Vecteur3 cible;
     protected double angleCible;
-    protected Field2d arene;
     protected double[] donneesPosition;
+
+
+    /* GPASLETEMPS
+    public CommandeAllerA(AprilTags.Position position)
+    {
+        switch (position) {
+            case SpeakerRouge:
+                CommandeAllerA(getPositionProche(SpeakerRouge.POSITIONS);
+        }
+    }
+     */
 
     public CommandeAllerA(Vecteur3 cible, double angleCible)
     {
@@ -121,7 +132,6 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
     @Override
     public void execute() {
         this.detecteur.mesurer();
-
 
         double[] donneesPositionInit = this.limelight.getBotpose();
 
@@ -187,5 +197,20 @@ public class CommandeAllerA extends Command implements Materiel.Roues{
     public void end(boolean interrupted) {
         System.out.println("CommandeAllerA.end()");
         this.roues.arreter();
+    }
+
+    public Vecteur3 getPositionProche(Vecteur3[] positions, Vecteur3 positionActuelle)
+    {
+        Vecteur3 positionProche = positions[0];
+        positionProche.y = 0; // J'ai juste utilisé y pour stocker l'angle
+        double distanceMin = positionActuelle.distanceCarree(positions[0]);
+        for (Vecteur3 position : positions) {
+            double distance = positionActuelle.distanceCarree(position);
+            if (distance < distanceMin) {
+                distanceMin = distance;
+                positionProche = position;
+            }
+        }
+        return positionProche;
     }
 }
