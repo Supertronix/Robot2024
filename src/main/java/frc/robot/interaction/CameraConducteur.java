@@ -9,9 +9,12 @@ import edu.wpi.first.util.PixelFormat;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Robot;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+
+import java.util.List;
 
 public class CameraConducteur {
     private DetecteurNote capteurLuminosite;
@@ -124,7 +127,7 @@ public class CameraConducteur {
         //dessinerHorloge(source, timerVirtuel);
         dessinerHorloge(source, tempsMatchInt);
         dessinerAideNote(source, timerVirtuel);
-        dessinerAideVerouillage(source);
+        //dessinerAideVerouillage(source);
     }
 
     public void dessinerCoins(Mat source) {
@@ -139,7 +142,7 @@ public class CameraConducteur {
         String tempsMatch = String.valueOf(tempsMatchInt);
 
         Scalar couleurTexte = new Scalar(255, 255, 255);
-        if (tempsMatchInt < 15 && tempsMatchInt % 2 == 0) couleurTexte = new Scalar(80, 0, 255);
+        if (tempsMatchInt < 30 && tempsMatchInt % 2 == 0) couleurTexte = new Scalar(80, 0, 255);
 
         // Rectangle noir, de longueur 30% Longueur, de couleur (46,46,46) positionné en haut au milieu
         double hauteurRectangle = hauteur * 0.05;
@@ -152,6 +155,13 @@ public class CameraConducteur {
 
         // triangle gauche
         Point[] pointsTriangleGauche = {new Point(largeur * 0.45, 0), new Point(largeur * 0.45, hauteurRectangle), new Point(largeur * 0.40, 0)};
+        List<MatOfPoint> pointsTriangleGaucheMat = List.of(new MatOfPoint(pointsTriangleGauche));
+        Imgproc.fillPoly(source, pointsTriangleGaucheMat, new Scalar(46, 46, 46));
+
+        // triangle droit
+        Point[] pointsTriangleDroit = {new Point(largeur * 0.55, 0), new Point(largeur * 0.55, hauteurRectangle), new Point(largeur * 0.60, 0)};
+        List<MatOfPoint> pointsTriangleDroitMat = List.of(new MatOfPoint(pointsTriangleDroit));
+        Imgproc.fillPoly(source, pointsTriangleDroitMat, new Scalar(46, 46, 46));
     }
 
     public void dessinerAideNote(Mat source, int timerVirtuel) {

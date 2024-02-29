@@ -86,7 +86,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
 
     public CommandeAllerA(Vecteur3 cible, double angleCible)
     {
-        //System.out.println("new CommandeAllerA()");
+        System.out.println("new CommandeAllerA(" + cible + ", " + angleCible + ")");
 
         this.robot = Robot.getInstance();
         this.roues = (RouesMecanum) this.robot.roues;
@@ -97,6 +97,8 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         
         this.cible = cible;
         this.angleCible = angleCible;
+
+        System.out.println("CommandeAllerA fin constructeur");
     }
 
     @Override
@@ -146,11 +148,11 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         Pose2d cible = new Pose2d(this.cible.x, this.cible.y, Rotation2d.fromDegrees(this.angleCible));
 
         // Calcul d'inverse kinematics pour déterminer les vitesses de roues
-        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 1, Rotation2d.fromDegrees(this.angleCible));
+        ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 0, Rotation2d.fromDegrees(this.angleCible));
         // TODO : réactiver le PID
         MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee);
         // TODO :
-        vitesseRoues.desaturate(1.0); // On va le mettre en pourcentage de moteur
+        vitesseRoues.desaturate(0.9); // On va le mettre en pourcentage de moteur
 
         this.roues.conduireToutesDirections(
                 vitesseRoues.frontLeftMetersPerSecond,
