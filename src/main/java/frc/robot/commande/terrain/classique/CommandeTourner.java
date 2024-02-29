@@ -58,25 +58,21 @@ public class CommandeTourner extends Command {
 
     @Override
     public void execute() {
-        //System.out.println("CommandeTourner.execute()");
         this.angleActuel = gyroscope.getYaw();
         double differenceAngle = this.angleActuel - this.angleCible;
         double differenceAngleAbsolue = Math.abs(differenceAngle);
         double vitesseRotation = pid.calculate(0, differenceAngleAbsolue);
-        SmartDashboard.putNumber("Vitesse rotation PID", vitesseRotation);
 
-        
+        // Pour déterminer si gauche/droite plus rapide pour atteindre la cible
+        differenceAngle = (differenceAngle + 180) % 360 - 180;
         if (differenceAngle > 0.0)
-            this.roues.tournerDroite(vitesseRotation);
-        else
             this.roues.tournerGauche(vitesseRotation);
-        
-        //this.roues.tournerDroite(0.2);
+        else
+            this.roues.tournerDroite(vitesseRotation);
 
-        System.out.println("Yaw gyro: " + this.angleActuel + " - Yaw target: " + this.angleCible);
-        //System.out.println("Différence abs: " + differenceAngleAbsolue + " Différence: " + differenceAngle);
-        //System.out.println("Vitesse PID: " + vitesseRotation);
         this.detecteur.mesurer();
+
+        SmartDashboard.putNumber("Vitesse rotation PID", vitesseRotation);
     }
     
     /** 
