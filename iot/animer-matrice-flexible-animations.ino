@@ -11,7 +11,7 @@
  #define PSTR // Make Arduino Due happy
 #endif
 
-#define PIN 6
+#define PIN 5
 #define NUMPIXELS 255
 
 
@@ -27,8 +27,8 @@ const char CHOIX_LOST = 'L';
 const char ALLIANCE_ROUGE = 'R';
 const char ALLIANCE_BLEUE = 'B';
 
-char choix = '0';
-char alliance = 'B';
+char choix = 'W';
+char alliance = 'R';
 char message = '0';
 
 int color = 31;
@@ -378,7 +378,7 @@ void loop(){
       sadFaceDisplayer.run();
     break;
     default :
-      nothingDisplayer.run();
+      musicWaveDisplayer.run();
     break;
   }
 }
