@@ -41,6 +41,10 @@ public class Vecteur3 {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }
 
+    public double distanceCarree(Vecteur3 vecteur) {
+        return Math.pow(this.x - vecteur.x, 2) + Math.pow(this.y - vecteur.y, 2) + Math.pow(this.z - vecteur.z, 2);
+    }
+
     /*
      * Méthode statique qui additionne deux vecteurs entre eux
      */
