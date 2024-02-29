@@ -1,9 +1,12 @@
 package frc.robot.commande.terrain.classique;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.interaction.LecteurAccelerometre;
+import frc.robot.interaction.ShuffleBoard;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
@@ -29,10 +32,17 @@ public class CommandeTourner extends Command {
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
         this.gyroscope = LecteurAccelerometre.getInstance();
-        this.pid = new PIDController(0.007, 0.0002, 0.00035);
+        this.pid = new PIDController(0.003, 0.0000001, 0.00);
+        SmartDashboard.putData("PID Rotation", this.pid);
 
         this.angleActuel = gyroscope.getYaw();
+
         this.angleCible = this.angleActuel + angleCible;
+        // On remappe l'angle entre -180/180 degrés
+        if (this.angleCible > 180.0)
+            this.angleCible -= 360.0;
+        else if (this.angleCible < 180.0)
+            this.angleCible += 360.0;
     }
        
     @Override
@@ -50,14 +60,17 @@ public class CommandeTourner extends Command {
     public void execute() {
         //System.out.println("CommandeTourner.execute()");
         this.angleActuel = gyroscope.getYaw();
-        double vitesseRotation = pid.calculate(this.angleActuel, this.angleCible);
+        double differenceAngle = this.angleActuel - this.angleCible;
+        double differenceAngleAbsolue = Math.abs(differenceAngle);
+        double vitesseRotation = pid.calculate(0, differenceAngleAbsolue);
+        SmartDashboard.putNumber("Vitesse rotation PID", vitesseRotation);
 
-        if (this.angleActuel > this.angleCible)
+        if (differenceAngle > 0.0)
             this.roues.tournerGauche(vitesseRotation);
         else
             this.roues.tournerDroite(vitesseRotation);
 
-        //System.out.println("Yaw gyro: " + gyroscope.getYaw() + " - Yaw target: " + this.angleCible);
+        System.out.println("Yaw gyro: " + gyroscope.getYaw() + " - Yaw target: " + this.angleCible);
         System.out.println("Vitesse PID: " + vitesseRotation);
         this.detecteur.mesurer();
     }
