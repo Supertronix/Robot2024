@@ -27,13 +27,13 @@ public interface AprilTags {
     }
 
     public interface SpeakerBleu {
-        public static final double X = -6.43;
+        public static final double X = -6.55;
         public static final double Y = 1.44;
         public static final double ANGLE = 180;
         public static final Vecteur3[] POSITIONS = {
-                new Vecteur3(-6.43-0.82, 1.44-1.40, -90), // Position Gauche
-                new Vecteur3(-6.43, 1.44, -90), // Position Centre
-                new Vecteur3(-6.43+0.82, 1.44+1.40, -90) // Position Droite
+                new Vecteur3(-6.55-0.82, 1.44-1.40, -90), // Position Gauche
+                new Vecteur3(-6.55, 1.44, -90), // Position Centre
+                new Vecteur3(-6.55+0.82, 1.44+1.40, -90) // Position Droite
         };
         public static final double[] ID_TAGS = {7, 8};
     }

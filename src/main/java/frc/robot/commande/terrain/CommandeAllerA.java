@@ -34,17 +34,17 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected ShuffleBoard shuffleBoard;
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
     protected static final double SEUIL_ANGLE = 1.0;
-    protected static final int DUREE_TIMEOUT = 10000;
+    protected static final int DUREE_TIMEOUT = 8000;
 
     // PID axe X
     protected static double x_kP = 1;
     protected static double x_kI = 0.6;
-    protected static double x_kD = 0.1;
+    protected static double x_kD = 0.3;
 
     // PID axe Y
     protected static double y_kP = 1;
     protected static double y_kI = 0.6;
-    protected static double y_kD = 0.1;
+    protected static double y_kD = 0.5;
 
     // PID Angle
     protected static double ang_kP = 5;
@@ -123,7 +123,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0.15, 0.15, Rotation2d.fromDegrees(5));
+        Pose2d tolerance = new Pose2d(0.15, 0.25, Rotation2d.fromDegrees(5));
         this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 
@@ -193,7 +193,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
             return false;
         
         // Cible atteinte
-        System.out.println("Distance : " + this.distance + " - Angle : " + (this.angleCible - donneesPosition[5]));
+        //System.out.println("Distance : " + this.distance + " - Angle : " + (this.angleCible - donneesPosition[5]));
         if (this.driveControleur.atReference()) {
             System.out.println("CommandeAllerA.isFinished() d < 0.2 : " + this.distance + " - a < 2 : " + (this.angleCible - donneesPosition[5]));
             return true;

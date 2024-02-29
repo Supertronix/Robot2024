@@ -9,15 +9,20 @@ import frc.robot.commande.robot.CommandeLanceurOuvrir;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.commande.terrain.CommandeAllerASelonTriplePID;
 import frc.robot.interaction.Alliance;
+import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.AprilTags;
 import frc.robot.soussysteme.RouesMecanum;
 
 public class TrajetNoteDansSpeaker extends Command {
 	CommandeLancerSpeaker commandeLancerSpeaker;
+	CommandeAllerA commandeAllerA;
+	public static int DUREE = 8000;
+	protected LimiteurDuree detecteurDuree;
     public TrajetNoteDansSpeaker()
 	{
 		System.out.println("TrajetNoteDansSpeaker()");
+		detecteurDuree = new LimiteurDuree(DUREE);
 	}
 
 	@Override
@@ -37,14 +42,18 @@ public class TrajetNoteDansSpeaker extends Command {
 			angleCible = AprilTags.SpeakerBleu.ANGLE;
 		}
 		commandeLancerSpeaker = new CommandeLancerSpeaker();
-		new CommandeAllerA(cible, angleCible).andThen(commandeLancerSpeaker).schedule();
+		commandeAllerA = new CommandeAllerA(cible, angleCible);
+		commandeAllerA.andThen(commandeLancerSpeaker).schedule();
 	}
 
 	@Override
 	public boolean isFinished() {
 		// Vérifie si la commandeLancerSpeaker est terminée
-		if (commandeLancerSpeaker.isFinished()) {
-			return true; // Si c'est le cas, retourne true pour indiquer que CommandeAllerA est également terminée
+		if (commandeLancerSpeaker.isFinished() || commandeAllerA.isFinished()) {
+			return true;
+		}
+		if (detecteurDuree.estTropLongue()) {
+			return true;
 		}
 		return false;
 	}
@@ -52,6 +61,8 @@ public class TrajetNoteDansSpeaker extends Command {
 
 	@Override
 	public void end(boolean interrupted) {
+		commandeAllerA.end(interrupted);
+		commandeLancerSpeaker.end(interrupted);
 		System.out.println("TrajetNoteDansSpeaker.end()");
 	}
 }

@@ -14,8 +14,8 @@ import java.util.List;
 public class CameraLimelight {
 
     private NetworkTable networkTable = null;
-    private final double HORIZONTAL_FOV = 32; // Fix ? 29.8 produit plus de décalages
-    private final double VERTICAL_FOV = 24.85; // A verifier
+    private final double HORIZONTAL_FOV = 29.8; // A verifier
+    private final double VERTICAL_FOV = 24.85;
     private double multiplicateur = 1.5; // Augmenter pour augmenter la zone de découpage
     private DetecteurNote detecteurNote;
     private Field2d arene;
@@ -532,5 +532,9 @@ public class CameraLimelight {
         double[] position = getBotpose();
         Pose2d pose = new Pose2d(position[0], position[1], Rotation2d.fromDegrees(position[5]));
         arene.setRobotPose(pose);
+    }
+
+    public void activerTargeting() {
+        setModeCamera(0);
     }
 }

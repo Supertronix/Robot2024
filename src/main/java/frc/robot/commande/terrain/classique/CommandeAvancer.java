@@ -61,7 +61,7 @@ public class CommandeAvancer extends Command {
     }
 
     public void execute() {
-        System.out.println("CommandeAvancer.execute()");
+        //System.out.println("CommandeAvancer.execute()");
         this.detecteur.mesurer();
         this.odometrie.actualiser();
         // double pos = this.odometrie.getPosition().getX()

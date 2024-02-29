@@ -7,7 +7,7 @@ import frc.robot.mesure.LimiteurDuree;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvalerAutomatiquement extends CommandeAvaler {
-    protected static final int DUREE = 1000;
+    protected static final int DUREE = 4000;
     protected LimiteurDuree detecteurDuree;
 
     public CommandeAvalerAutomatiquement()
