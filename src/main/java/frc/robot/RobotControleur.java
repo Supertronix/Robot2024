@@ -78,7 +78,7 @@ public class RobotControleur extends TimedRobot {
     this.robot.cameraLimelight.activerTargeting();
     if (Alliance.getInstance().getPositionDepart() == 2) {
       System.out.println("Position 2");
-      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-10))).andThen(new CommandeLancerSpeaker())).schedule();
+      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     } else {
         System.out.println("Position 1 ou 3");
       new CommandeLancerSpeaker();
