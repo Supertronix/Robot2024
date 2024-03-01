@@ -89,13 +89,13 @@ public class RobotControleur extends TimedRobot {
     this.robot.cameraLimelight.activerTargeting();
     if (choixMode == 2) {
       System.out.println("Position 2");
-      new TrajetAutonomePosition2();
+      new TrajetAutonomePosition2().schedule();
     } else if (choixMode == 3) {
       System.out.println("Position 3");
-      new TrajetAutonomePosition3();
+      new TrajetAutonomePosition3().schedule();
     } else if (choixMode == 1){
       System.out.println("Position 1");
-      new TrajetAutonomePosition1();
+      new TrajetAutonomePosition1().schedule();
     }
 
     this.animateurLed.communiquerAlliance();  
