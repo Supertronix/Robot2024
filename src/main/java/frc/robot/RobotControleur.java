@@ -83,19 +83,21 @@ public class RobotControleur extends TimedRobot {
     int choixMode = (int) chooser.getSelected();
     System.out.println("choixMode autonome : " + choixMode);
     this.periode = 0;
-    this.robot = Robot.getInstance(); 
+    this.robot = Robot.getInstance();
+
+    Compresseur.getInstance().desactiver();
 
     //new TrajetTest().schedule();
     this.robot.cameraLimelight.activerTargeting();
     if (choixMode == 2) {
       System.out.println("Position 2");
-      new TrajetAutonomePosition2();
+      new TrajetAutonomePosition2().schedule();
     } else if (choixMode == 3) {
       System.out.println("Position 3");
-      new TrajetAutonomePosition3();
+      new TrajetAutonomePosition3().schedule();
     } else if (choixMode == 1){
       System.out.println("Position 1");
-      new TrajetAutonomePosition1();
+      new TrajetAutonomePosition1().schedule();
     }
 
     this.animateurLed.communiquerAlliance();  
@@ -122,6 +124,8 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopInit() {
     System.out.println("teleopInit()");
+
+    Compresseur.getInstance().activer();
 
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire

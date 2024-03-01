@@ -24,7 +24,7 @@ public class TrajetAutonomePosition2 extends SequentialCommandGroup {
             new WaitCommand(1),
             new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)),
             new TrajetNoteDansSpeaker(),
-            new CommandeAvancer(20)
+            new CommandeAvancer(40)
         );
         //      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     }

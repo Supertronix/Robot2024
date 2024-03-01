@@ -58,7 +58,6 @@ public class TrajetNoteDansSpeaker extends Command {
 		return false;
 	}
 
-
 	@Override
 	public void end(boolean interrupted) {
 		commandeAllerA.end(interrupted);

@@ -45,7 +45,7 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
     public RelativeEncoder encodeurArriereGauche;
 
     private final double LIMITE_BROWNOUT = 6.75;
-    private double plage_reduction_avant_brownout = 1.5;
+    private double plage_reduction_avant_brownout = 2.5;
     private double sousVoltage = 0;
     public Roues()
     {
@@ -92,16 +92,16 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
     public double protegerBrownout(double vitesse)
     {
         double voltage = RobotController.getBatteryVoltage();
-        if (voltage < LIMITE_BROWNOUT)
+        if (voltage < LIMITE_BROWNOUT + 0.2)
         {
             plage_reduction_avant_brownout += 0.1;
-            return 0;
+            return 0.1;
         }
         else if (voltage < LIMITE_BROWNOUT + plage_reduction_avant_brownout)
         {
             return vitesse * (voltage - LIMITE_BROWNOUT) / plage_reduction_avant_brownout;
         }
-        else if (voltage > 12 && plage_reduction_avant_brownout > 1.5)
+        else if (voltage > 12 && plage_reduction_avant_brownout > 2.5)
         {
             plage_reduction_avant_brownout -= 0.1;
             return vitesse;
