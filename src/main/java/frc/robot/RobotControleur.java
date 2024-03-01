@@ -3,6 +3,8 @@ package frc.robot;
 
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commande.auto.TrajetAutonomePosition1;
@@ -27,6 +29,7 @@ public class RobotControleur extends TimedRobot {
   protected POSITION positionDepart;
   protected MODE modeAutonome;
   protected String designAutonome;
+  protected SendableChooser chooser;
 
   @Override
   public void robotInit() {
@@ -34,6 +37,15 @@ public class RobotControleur extends TimedRobot {
     Compresseur.getInstance().activer();
     this.shuffleBoard = new ShuffleBoard();
     this.shuffleBoard.initialiser();
+    // ajouter une combobox
+    String[] choix = {"auto1", "auto2", "auto3"};
+    chooser = new SendableChooser();
+    chooser = new SendableChooser<String>();
+    chooser.setDefaultOption("auto1", 1);
+    chooser.addOption("auto2", 2);
+    chooser.addOption("auto3", 3);
+    SmartDashboard.putData("Selecteur mode", chooser);
+
     this.animateurLed = new AnimateurLed();
     this.robot.setVoyant();
 
@@ -69,18 +81,21 @@ public class RobotControleur extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+
+    int choixMode = (int) chooser.getSelected();
+    System.out.println("choixMode autonome : " + choixMode);
     this.periode = 0;
     this.robot = Robot.getInstance(); 
 
     //new TrajetTest().schedule();
     this.robot.cameraLimelight.activerTargeting();
-    if (Alliance.getInstance().getPositionDepart() == 2) {
+    if (choixMode == 2) {
       System.out.println("Position 2");
       new TrajetAutonomePosition2();
-    } else if (Alliance.getInstance().getPositionDepart() == 3) {
+    } else if (choixMode == 3) {
       System.out.println("Position 3");
       new TrajetAutonomePosition3();
-    } else {
+    } else if (choixMode == 1){
       System.out.println("Position 1");
       new TrajetAutonomePosition1();
     }
@@ -175,7 +190,7 @@ public class RobotControleur extends TimedRobot {
 
         this.boutonA.onTrue(new CommandeLanceurOuvrirEtAllonger());
         this.boutonB.onTrue(new CommandeLanceurRetracterEtFermer());
-        this.boutonX.onTrue(new TrajetNoteDansSpeaker());
+        this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
         this.boutonY.onTrue(new CommandeLancerAmplificateur());
 
         this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
