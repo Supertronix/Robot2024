@@ -83,7 +83,9 @@ public class RobotControleur extends TimedRobot {
     int choixMode = (int) chooser.getSelected();
     System.out.println("choixMode autonome : " + choixMode);
     this.periode = 0;
-    this.robot = Robot.getInstance(); 
+    this.robot = Robot.getInstance();
+
+    Compresseur.getInstance().desactiver();
 
     //new TrajetTest().schedule();
     this.robot.cameraLimelight.activerTargeting();
@@ -122,6 +124,8 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void teleopInit() {
     System.out.println("teleopInit()");
+
+    Compresseur.getInstance().activer();
 
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
