@@ -49,7 +49,7 @@ public class TrajetNoteDansSpeaker extends Command {
 	@Override
 	public boolean isFinished() {
 		// Vérifie si la commandeLancerSpeaker est terminée
-		if (commandeLancerSpeaker.isFinished() || commandeAllerA.isFinished()) {
+		if (commandeLancerSpeaker.isFinished()) {
 			return true;
 		}
 		if (detecteurDuree.estTropLongue()) {

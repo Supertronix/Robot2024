@@ -1,6 +1,8 @@
 package frc.robot.commande.terrain.classique;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +23,7 @@ public class CommandeTourner extends Command {
     protected LecteurAccelerometre gyroscope;
 
     protected PIDController pid;
+    protected ProfiledPIDController pidTest;
 
     protected double angleActuel; // Angle actuel du robot
     protected double angleCible; // Angle en degré, relatif à l'angle initial
@@ -33,6 +36,7 @@ public class CommandeTourner extends Command {
         this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
         this.gyroscope = LecteurAccelerometre.getInstance();
         this.pid = new PIDController(0.004, 0.00025, 0.00);
+        this.pidTest = new ProfiledPIDController(0.1, 0, 0, new TrapezoidProfile.Constraints(10, 5));
         SmartDashboard.putData("PID Rotation", this.pid);
 
         this.angleActuel = gyroscope.getYaw();
@@ -54,6 +58,8 @@ public class CommandeTourner extends Command {
         this.detecteur.initialiser();
         this.finie = false;
         pid.reset();
+        pidTest.reset(gyroscope.getYaw());
+        this.pidTest.enableContinuousInput(0, 360);
     }
 
     @Override
@@ -62,6 +68,9 @@ public class CommandeTourner extends Command {
         double differenceAngle = this.angleActuel - this.angleCible;
         double differenceAngleAbsolue = Math.abs(differenceAngle);
         double vitesseRotation = pid.calculate(0, differenceAngleAbsolue);
+
+        double vitesseRotationTest = pidTest.calculate(gyroscope.getYaw(), angleCible);
+        this.roues.tournerDroite(vitesseRotation);
 
         // Pour déterminer si gauche/droite plus rapide pour atteindre la cible
         differenceAngle = (differenceAngle + 180) % 360 - 180;

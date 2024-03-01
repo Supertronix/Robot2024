@@ -2,6 +2,7 @@ package frc.robot.soussysteme;
 
 import com.revrobotics.RelativeEncoder;
 
+import edu.wpi.first.wpilibj.RobotController;
 import frc.robot.Materiel;
 import frc.robot.Cinematique;
 import frc.robot.composant.MoteurSparkMax;
@@ -41,8 +42,11 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
     public RelativeEncoder encodeurAvantDroit;
     public RelativeEncoder encodeurAvantGauche;
     public RelativeEncoder encodeurArriereDroit;
-    public RelativeEncoder encodeurArriereGauche;        
+    public RelativeEncoder encodeurArriereGauche;
 
+    private final double LIMITE_BROWNOUT = 6.75;
+    private double plage_reduction_avant_brownout = 1.5;
+    private double sousVoltage = 0;
     public Roues()
     {
         this.roueAvantDroite = new MoteurSparkMax(ROUE_AVANT_DROITE);
@@ -55,7 +59,6 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
         this.encodeurArriereDroit = this.roueArriereDroite.getEncoder();
         this.encodeurAvantGauche = this.roueAvantGauche.getEncoder();
         this.encodeurArriereGauche = this.roueArriereGauche.getEncoder();
-
         
         this.arreter();
     }
@@ -80,5 +83,32 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
         this.roueAvantGauche.liberer();
         this.roueArriereDroite.liberer();
         this.roueArriereGauche.liberer();
+    }
+
+    /**
+     * @param vitesse
+     * Réduit la vitesse des moteurs si la batterie est proche ou en dela de la limite de brownout
+     */
+    public double protegerBrownout(double vitesse)
+    {
+        double voltage = RobotController.getBatteryVoltage();
+        if (voltage < LIMITE_BROWNOUT)
+        {
+            plage_reduction_avant_brownout += 0.1;
+            return 0;
+        }
+        else if (voltage < LIMITE_BROWNOUT + plage_reduction_avant_brownout)
+        {
+            return vitesse * (voltage - LIMITE_BROWNOUT) / plage_reduction_avant_brownout;
+        }
+        else if (voltage > 12 && plage_reduction_avant_brownout > 1.5)
+        {
+            plage_reduction_avant_brownout -= 0.1;
+            return vitesse;
+        }
+        else
+        {
+            return vitesse;
+        }
     }
 }

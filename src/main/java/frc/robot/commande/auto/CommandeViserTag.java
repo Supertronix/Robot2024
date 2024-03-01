@@ -9,14 +9,14 @@ import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.AprilTags;
 
-public class ViserTag extends Command implements AprilTags {
+public class CommandeViserTag extends Command implements AprilTags {
     public static int DUREE = 20000;
     protected LimiteurDuree detecteurDuree;
     protected Robot robot;
     protected CommandeAllerA commandeAllerA;
     protected CameraLimelight cameraLimelight;
     protected boolean estFinie = false;
-    public ViserTag() {
+    public CommandeViserTag() {
         System.out.println("ViserTag()");
         detecteurDuree = new LimiteurDuree(DUREE);
         robot = Robot.getInstance();

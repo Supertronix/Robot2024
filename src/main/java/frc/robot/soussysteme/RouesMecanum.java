@@ -4,11 +4,14 @@ package frc.robot.soussysteme;
 // import edu.wpi.first.math.geometry.Rotation2d;
 // Doc https://first.wpi.edu/wpilib/allwpilib/docs/release/java/edu/wpi/first/wpilibj/drive/MecanumDrive.html    
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.Robot;
+import frc.robot.RobotControleur;
 
 public class RouesMecanum extends Roues {
 
     protected MecanumDrive mecanum;
     protected double facteur = 1;
+    protected RobotControleur robotControleur;
 
     // this.mecanum = new MecanumDrive(this.roueArriereDroite, this.roueArriereGauche, this.roueAvantDroite, this.roueAvantGauche);
     public RouesMecanum() {
@@ -155,10 +158,10 @@ public class RouesMecanum extends Roues {
 
     public void conduireToutesDirections(double vitesseAvantGauche, double vitesseAvantDroite, double vitesseArriereGauche, double vitesseArriereDroite) {
         //System.out.println("conduireToutesDirections("+vitesseAvantGauche+ " "+ vitesseAvantDroite + " " + vitesseArriereGauche + " " + vitesseArriereDroite + ")");
-        this.roueAvantGauche  .set( vitesseAvantGauche   );
-        this.roueAvantDroite  .set( vitesseAvantDroite   );
-        this.roueArriereGauche.set( vitesseArriereGauche );
-        this.roueArriereDroite.set( vitesseArriereDroite );
+        this.roueAvantGauche  .set( super.protegerBrownout(vitesseAvantGauche));
+        this.roueAvantDroite  .set( super.protegerBrownout(vitesseAvantDroite));
+        this.roueArriereGauche.set( super.protegerBrownout(vitesseArriereGauche));
+        this.roueArriereDroite.set( super.protegerBrownout(vitesseArriereDroite));
     }
 
     public void conduireAvecDrive(double vitesseX, double vitesseY, double vitesseRotation) {

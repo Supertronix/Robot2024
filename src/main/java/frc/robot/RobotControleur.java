@@ -3,13 +3,10 @@ package frc.robot;
 
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commande.auto.AvancerDevantTag;
-import frc.robot.commande.auto.TrajetAutonome;
+import frc.robot.commande.auto.TrajetAutonomePosition2;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
-import frc.robot.commande.auto.ViserTag;
 import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.classique.CommandeAvancer;
 import frc.robot.composant.Compresseur;
@@ -36,12 +33,11 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard = new ShuffleBoard();
     this.shuffleBoard.initialiser();
     this.animateurLed = new AnimateurLed();
-    robot.setVoyant();
+    this.robot.setVoyant();
 
     for (int port = 5800; port <= 5807; port++) {
       PortForwarder.add(port, "limelight.local", port);
     }
-  
 
     if(!robot.estAveugle())
     {
@@ -78,7 +74,7 @@ public class RobotControleur extends TimedRobot {
     this.robot.cameraLimelight.activerTargeting();
     if (Alliance.getInstance().getPositionDepart() == 2) {
       System.out.println("Position 2");
-      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
+      new TrajetAutonomePosition2();
     } else {
         System.out.println("Position 1 ou 3");
       new CommandeLancerSpeaker();
