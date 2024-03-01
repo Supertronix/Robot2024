@@ -118,9 +118,9 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         this.angleControleur.enableContinuousInput(0, 360); // 0, Math.PI * 2 Radians ?
         //this.angleControleur.enableContinuousInput(0, Math.PI * 2);
 
-        SmartDashboard.putData("PID x", this.xControleur);
-        SmartDashboard.putData("PID y", this.yControleur);
-        SmartDashboard.putData("PID angle", this.angleControleur);
+        //SmartDashboard.putData("PID x", this.xControleur);
+        //SmartDashboard.putData("PID y", this.yControleur);
+        //SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
         Pose2d tolerance = new Pose2d(0.15, 0.25, Rotation2d.fromDegrees(5));
@@ -157,9 +157,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
 
         // Calcul d'inverse kinematics pour déterminer les vitesses de roues
         ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 1, Rotation2d.fromDegrees(this.angleCible));
-        // TODO : réactiver le PID
         MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee);
-        // TODO :
         vitesseRoues.desaturate(0.9); // On va le mettre en pourcentage de moteur
 
         this.roues.conduireToutesDirections(
@@ -168,9 +166,9 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
                 vitesseRoues.rearLeftMetersPerSecond,
                 vitesseRoues.rearRightMetersPerSecond);
 
-        SmartDashboard.putNumber("Vitesse X (m/s)", vitesseAjustee.vxMetersPerSecond);
-        SmartDashboard.putNumber("Vitesse Y (m/s)", vitesseAjustee.vyMetersPerSecond);
-        SmartDashboard.putNumber("Vitesse angulaire (deg/s)", vitesseAjustee.omegaRadiansPerSecond * 180 / Math.PI);
+        //SmartDashboard.putNumber("Vitesse X (m/s)", vitesseAjustee.vxMetersPerSecond);
+        //SmartDashboard.putNumber("Vitesse Y (m/s)", vitesseAjustee.vyMetersPerSecond);
+        //SmartDashboard.putNumber("Vitesse angulaire (deg/s)", vitesseAjustee.omegaRadiansPerSecond * 180 / Math.PI);
         //arene.setRobotPose(position);
     }
 

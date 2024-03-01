@@ -26,8 +26,8 @@ public class Lanceur extends SousSysteme implements Materiel.Lanceur, Cinematiqu
 
         encodeurMaitre = moteurMaitre.getEncoder();
         encodeurEsclave = moteurEsclave.getEncoder();
-        SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitre.getVelocity());
-        SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclave.getVelocity());
+        //SmartDashboard.putNumber("RPM Lanceur Maitre", encodeurMaitre.getVelocity());
+        //SmartDashboard.putNumber("RPM Lanceur Esclave", encodeurEsclave.getVelocity());
 
         moteurEsclave.follow(moteurMaitre, true);
     }
