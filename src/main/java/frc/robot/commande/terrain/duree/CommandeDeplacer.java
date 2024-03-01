@@ -1,15 +1,7 @@
-package frc.robot.commande.terrain.classique;
+package frc.robot.commande.terrain.duree;
 
-import com.revrobotics.RelativeEncoder;
-
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
-import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.interaction.LecteurAccelerometre;
-import frc.robot.interaction.Odometrie;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
