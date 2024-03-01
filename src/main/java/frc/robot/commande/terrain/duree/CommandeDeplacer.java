@@ -37,11 +37,7 @@ public class CommandeDeplacer extends Command {
     {
         System.out.println("CommandeAvancer.initialize()");
         this.roues = Robot.getInstance().roues;
-        // this.roues.avancer(10);
         this.detecteur.initialiser();
-		//pid.setSetpoint(LecteurAccelerometre.getInstance().accelerometre.getRawGyroZ);
-		//	pid.enable();
-        
     }
 
     public void execute() {
