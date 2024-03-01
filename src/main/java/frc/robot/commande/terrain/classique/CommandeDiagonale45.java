@@ -10,7 +10,7 @@ import frc.robot.interaction.Odometrie;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
-public class CommandeAvancer extends Command {
+public class CommandeDiagonale45 extends Command {
 
     private static final int TEMPS_MAXIMUM = 3000;
 
@@ -23,10 +23,14 @@ public class CommandeAvancer extends Command {
 
     protected PIDController pid;
     protected RelativeEncoder encodeurAvantDroit;
+    protected double distance;
+    protected boolean coteDroit;
 
-    public CommandeAvancer(double distance)
+    public CommandeDiagonale45(double distance, boolean coteDroit)
     {
-        //System.out.println("new CommandeAvancer()");
+        //System.out.println("new CommandeDiagonale45()");
+        this.coteDroit = coteDroit;
+        this.distance = distance;
         this.roues = Robot.getInstance().roues;
         this.odometrie = Odometrie.getInstance();
         
@@ -42,28 +46,28 @@ public class CommandeAvancer extends Command {
        
     public void initialize() 
     {
-        System.out.println("CommandeAvancer.initialize()");
+        System.out.println("CommandeDiagonale45.initialize()");
         this.roues = Robot.getInstance().roues;
         this.detecteur.initialiser();
         this.finie = false;
         pid.reset();
-
-		//pid.setSetpoint(LecteurAccelerometre.getInstance().accelerometre.getRawGyroZ);
-		//	pid.enable();
         
     }
 
     public void execute() {
-        //System.out.println("CommandeAvancer.execute()");
         this.detecteur.mesurer();
         this.odometrie.actualiser();
-        // double pos = this.odometrie.getPosition().getX()
-        this.roues.avancer(pid.calculate(this.encodeurAvantDroit.getPosition(), this.targetEncodeurPosition));
-        // this.roues.roueAvantGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
-        // this.roues.roueAvantDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
-        // this.roues.roueArriereGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
-        // this.roues.roueArriereDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
-
+        
+        if(this.coteDroit)
+        {
+            this.roues.roueAvantGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
+            this.roues.roueArriereDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
+        }
+        else
+        {
+            this.roues.roueAvantDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
+            this.roues.roueArriereGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
+        }
     }
 
     /** 
@@ -80,6 +84,6 @@ public class CommandeAvancer extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvancer.end()");
+        System.out.println("CommandeDiagonale45.end()");
     }
 }
