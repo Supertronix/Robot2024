@@ -14,7 +14,7 @@ public class CommandeTasserGaucheSelonDuree extends SequentialCommandGroup {
 
     /**
      * Cette classe tasse a droite avec un nombre positif et a gauche avec un nombre negatif
-     * @param tempsMs temps en milisecondes
+     * @param temps temps en milisecondes
      * @param vitesse de deplacement
      */
     public CommandeTasserGaucheSelonDuree(double temps, double vitesse)

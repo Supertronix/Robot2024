@@ -14,8 +14,7 @@ public class CommandeAvancerSelonDuree extends Command {
     protected double vitesse = 0;
 
     /**
-     * 
-     * @param tempsMs temps en milisecondes
+     * @param temps temps en milisecondes
      * @param vitesse de deplacement
      */
     public CommandeAvancerSelonDuree(double temps, double vitesse)

@@ -15,7 +15,7 @@ public class CommandeReculerSelonDuree extends Command {
 
     /**
      * 
-     * @param tempsMs temps en milisecondes
+     * @param temps temps en milisecondes
      * @param vitesse de deplacement
      */
     public CommandeReculerSelonDuree(double temps, double vitesse)
