@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
-public class CommandeAvancerSelonDuree extends Command {
+public class CommandeReculerSelonDuree extends Command {
 
     protected Roues roues = null;
     protected LimiteurDuree detecteur;
@@ -18,9 +18,9 @@ public class CommandeAvancerSelonDuree extends Command {
      * @param tempsMs temps en milisecondes
      * @param vitesse de deplacement
      */
-    public CommandeAvancerSelonDuree(double temps, double vitesse)
+    public CommandeReculerSelonDuree(double temps, double vitesse)
     {
-        //System.out.println("new CommandeAvancerSelonDuree()");
+        //System.out.println("new CommandeReculerSelonDuree()");
         this.temps = temps;
         this.detecteur = new LimiteurDuree(temps);
         this.vitesse = vitesse;
@@ -31,18 +31,14 @@ public class CommandeAvancerSelonDuree extends Command {
        
     public void initialize() 
     {
-        System.out.println("duree.CommandeAvancer.initialize()");
+        System.out.println("CommandeReculerSelonDuree.initialize()");
         this.roues = Robot.getInstance().roues;
-        // this.roues.avancer(10);
-        this.detecteur.initialiser();
-		//pid.setSetpoint(LecteurAccelerometre.getInstance().accelerometre.getRawGyroZ);
-		//	pid.enable();
-        
+        this.detecteur.initialiser();        
     }
 
     public void execute() {
         this.detecteur.mesurer();
-        this.roues.avancer(vitesse);
+        this.roues.avancer(-vitesse);
     }
     
     public boolean isFinished() 
@@ -51,7 +47,7 @@ public class CommandeAvancerSelonDuree extends Command {
     }
 
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvancerSelonDuree.end()");
+        System.out.println("CommandeReculerSelonDuree.end()");
         this.roues.conduireAvecAxes(0, 0, 0);
     }
 }
