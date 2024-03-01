@@ -85,34 +85,7 @@ public class RobotControleur extends TimedRobot {
       //new WaitCommand(1).andThen(new ViserTag());
     }
 
-    // positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
-    // modeAutonome = SelecteurModeAutonome.getInstance().lireMode();
-    // if(POSITION.GAUCHE == positionDepart)
-    // {
-    //   System.out.println("Position gauche");
-    //   //trajetAutonome = new CommandeTrajetAutonome();
-    //   //trajetAutonome.schedule();
-    // }
-    // if(POSITION.MILIEU == positionDepart)
-    // {
-    //   System.out.println("Position milieu");
-    // }
-    // if(POSITION.DROITE == positionDepart)
-    // {
-    //   System.out.println("Position droite");
-    // }
-
-    // if(MODE.AUTOMATIQUE == modeAutonome)
-    // {
-    //   System.out.println("Mode automatique");
-    // }
-    // if(MODE.DESIGN == modeAutonome)
-    // {
-    //   System.out.println("Mode design");
-    //   designAutonome = SelecteurModeAutonome.getInstance().lireDesign();
-    //   // a interpreter
-    // }
-    // this.animateurLed.communiquerAlliance();  
+    this.animateurLed.communiquerAlliance();  
   }
 
   @Override
