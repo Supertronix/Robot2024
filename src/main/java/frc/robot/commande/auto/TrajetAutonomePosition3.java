@@ -12,26 +12,26 @@ import frc.robot.interaction.Alliance;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.AprilTags;
 
-public class TrajetAutonomePosition1 extends SequentialCommandGroup implements AprilTags {
+public class TrajetAutonomePosition3 extends SequentialCommandGroup implements AprilTags {
 
-    public TrajetAutonomePosition1(){
+    public TrajetAutonomePosition3(){
         boolean estRouge = Alliance.getInstance().getAllianceRouge();
-        int angle = estRouge ? -45 : 45;
-        double positionX = estRouge ? SpeakerRouge.POSITIONS[0].x : SpeakerBleu.POSITIONS[0].x;
-        double positionY = estRouge ? SpeakerRouge.POSITIONS[0].y : SpeakerBleu.POSITIONS[0].y;
-        double positionAngle = estRouge ? SpeakerRouge.POSITIONS[0].z : SpeakerBleu.POSITIONS[0].z;
+        int angle = estRouge ? 45 : -45;
+        double positionX = estRouge ? SpeakerRouge.POSITIONS[2].x : SpeakerBleu.POSITIONS[2].x;
+        double positionY = estRouge ? SpeakerRouge.POSITIONS[2].y : SpeakerBleu.POSITIONS[2].y;
+        double positionAngle = estRouge ? SpeakerRouge.POSITIONS[2].z : SpeakerBleu.POSITIONS[2].z;
         Vecteur3 position = new Vecteur3(positionX, positionY, 0);
 
         addCommands(
-            new CommandeTourner(angle),
-            new CommandeLancerSpeaker(),
-            new WaitCommand(1),
-            new CommandeTourner(-angle),
-            new CommandeAvancer(40).alongWith(new CommandeAvalerAutomatiquement()),
-            new CommandeAllerA(position, positionAngle),
-            new CommandeLancerSpeaker()
+                new CommandeTourner(angle),
+                new CommandeLancerSpeaker(),
+                new WaitCommand(1),
+                new CommandeTourner(-angle),
+                new CommandeAvancer(40).alongWith(new CommandeAvalerAutomatiquement()),
+                new CommandeAllerA(position, positionAngle),
+                new CommandeLancerSpeaker()
         );
         //      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     }
-    
+
 }

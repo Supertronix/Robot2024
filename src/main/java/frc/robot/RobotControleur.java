@@ -5,7 +5,9 @@ import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commande.auto.TrajetAutonomePosition1;
 import frc.robot.commande.auto.TrajetAutonomePosition2;
+import frc.robot.commande.auto.TrajetAutonomePosition3;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.classique.CommandeAvancer;
@@ -75,10 +77,12 @@ public class RobotControleur extends TimedRobot {
     if (Alliance.getInstance().getPositionDepart() == 2) {
       System.out.println("Position 2");
       new TrajetAutonomePosition2();
+    } else if (Alliance.getInstance().getPositionDepart() == 3) {
+      System.out.println("Position 3");
+      new TrajetAutonomePosition3();
     } else {
-        System.out.println("Position 1 ou 3");
-      new CommandeLancerSpeaker();
-      //new WaitCommand(1).andThen(new ViserTag());
+      System.out.println("Position 1");
+      new TrajetAutonomePosition1();
     }
 
     this.animateurLed.communiquerAlliance();  
