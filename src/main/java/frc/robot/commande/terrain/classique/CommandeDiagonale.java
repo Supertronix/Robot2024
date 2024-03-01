@@ -61,34 +61,47 @@ public class CommandeDiagonale extends Command {
     public void execute() {
         this.detecteur.mesurer();
         this.odometrie.actualiser();
+        this.positionTemporaire = encodeurAvantDroit.getPosition();
 
         if(this.angle > 0 && this.angle < 90)
         {
             this.roues.roueAvantGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
             this.roues.roueArriereDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
 
-            this.positionTemporaire = encodeurAvantDroit.getPosition();
             if(this.angle > 45)
             {
-                double positionCalculee = this.positionTemporaire * (1-(this.angle / 45.0) );
+                positionCalculee = this.positionTemporaire * (1-(this.angle / 45.0) );
                 this.roues.roueAvantDroite.set(pid.calculate(positionCalculee, 1));
                 this.roues.roueArriereGauche.set(pid.calculate(positionCalculee, 1));
             }
             else
             {   
                 // algo est generique ok - enlever ce petit if-else
-                double positionCalculee = this.positionTemporaire * (1-(this.angle / 45.0) );
+                positionCalculee = this.positionTemporaire * (1-(this.angle / 45.0) );
                 this.roues.roueAvantDroite.set(pid.calculate(positionCalculee, 1));
                 this.roues.roueArriereGauche.set(pid.calculate(positionCalculee, 1));                
             }
         }
-        if((this.angle < 0 && this.angle > -90) || (this.angle > 270 && this.angle < 360))
+        //while(this.angle < 0) this.angle += 360;
+        if(this.angle > 180) this.angle-=360;
+        if(this.angle < 0 && this.angle > -90)
         {
             this.roues.roueAvantDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
             this.roues.roueArriereGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
 
-            this.roues.roueAvantGauche.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
-            this.roues.roueArriereDroite.set(pid.calculate(encodeurAvantDroit.getPosition(), 1));
+            if(this.angle < -45)
+            {
+                positionCalculee = this.positionTemporaire * (1-(this.angle / 45.0) );
+                this.roues.roueAvantGauche.set(pid.calculate(positionCalculee, 1));
+                this.roues.roueArriereDroite.set(pid.calculate(positionCalculee, 1));
+            }
+            if(this.angle > -45)
+            {
+                positionCalculee = this.positionTemporaire * (1-(this.angle / 45.0) );
+                this.roues.roueAvantGauche.set(pid.calculate(positionCalculee, 1));
+                this.roues.roueArriereDroite.set(pid.calculate(positionCalculee, 1));
+            }
+
         }
     }
 
