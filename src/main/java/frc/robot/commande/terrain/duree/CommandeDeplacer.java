@@ -23,7 +23,7 @@ public class CommandeDeplacer extends Command {
      */
     public CommandeDeplacer(double tempsMs, double vitesseAvantArriere, double vitesseDroiteGauche, double vitesseRotationDroiteGauche)
     {
-        System.out.println("new CommandeAvancer()");
+        //System.out.println("new CommandeDeplacer()");
         this.detecteur = new LimiteurDuree(tempsMs);
         this.vitesseAvantArriere = vitesseAvantArriere;
         this.vitesseDroiteGauche = vitesseDroiteGauche;
