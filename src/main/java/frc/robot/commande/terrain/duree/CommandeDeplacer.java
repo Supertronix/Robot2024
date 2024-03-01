@@ -16,7 +16,7 @@ public class CommandeDeplacer extends Command {
 
     /**
      * 
-     * @param tempsMs temps en milisecondes
+     * @param temps temps en milisecondes
      * @param vitesseAvantArriere vitesse de deplacement, 1 pour avancer vers l'avant a la vitesse maximale, -1 pour reculer vers l'arriere a la vitesse maximale
      * @param vitesseDroiteGauche vitesse de deplacement, 1 pour se deplacer ver la droite a la vitesse maximale, -1 pour se deplacer vers la gauche a la vitesse maximale
      * @param vitesseRotationDroiteGauche vitesse de deplacement, 1 pour tourner a droite a la vitesse maximale, -1 pour reculer tourner a gauche a la vitesse maximale
@@ -37,11 +37,7 @@ public class CommandeDeplacer extends Command {
     {
         System.out.println("CommandeAvancer.initialize()");
         this.roues = Robot.getInstance().roues;
-        // this.roues.avancer(10);
         this.detecteur.initialiser();
-		//pid.setSetpoint(LecteurAccelerometre.getInstance().accelerometre.getRawGyroZ);
-		//	pid.enable();
-        
     }
 
     public void execute() {

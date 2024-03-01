@@ -5,24 +5,26 @@ import frc.robot.Robot;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
 
-public class CommandeAvancerSelonDuree extends Command {
+public class CommandeDiagonaleSelonDuree extends Command {
 
     protected Roues roues = null;
     protected LimiteurDuree detecteur;
 
     protected double temps = 0;
-    protected double vitesse = 0;
+    protected double vitesseAvant = 0;
+    protected double vitesseDroite = 0;
 
     /**
      * @param temps temps en milisecondes
      * @param vitesse de deplacement
      */
-    public CommandeAvancerSelonDuree(double temps, double vitesse)
+    public CommandeDiagonaleSelonDuree(double temps, double vitesseAvant, double vitesseDroite)
     {
         //System.out.println("new CommandeAvancerSelonDuree()");
         this.temps = temps;
         this.detecteur = new LimiteurDuree(temps);
-        this.vitesse = vitesse;
+        this.vitesseAvant = vitesseAvant;
+        this.vitesseDroite = vitesseDroite;
 
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);
@@ -30,14 +32,14 @@ public class CommandeAvancerSelonDuree extends Command {
        
     public void initialize() 
     {
-        System.out.println("CommandeAvancer.initialize()");
+        System.out.println("CommandeDiagonaleSelonDuree.initialize()");
         this.roues = Robot.getInstance().roues;
         this.detecteur.initialiser();
     }
 
     public void execute() {
         this.detecteur.mesurer();
-        this.roues.avancer(vitesse);
+        this.roues.conduireAvecAxes(vitesseAvant, vitesseDroite, 0);
     }
     
     public boolean isFinished() 
@@ -46,7 +48,7 @@ public class CommandeAvancerSelonDuree extends Command {
     }
 
     public void end(boolean interrupted) {
-        System.out.println("CommandeAvancerSelonDuree.end()");
+        System.out.println("CommandeDiagonaleSelonDuree.end()");
         this.roues.conduireAvecAxes(0, 0, 0);
     }
 }

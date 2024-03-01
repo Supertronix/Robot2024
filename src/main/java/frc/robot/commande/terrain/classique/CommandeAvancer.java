@@ -2,17 +2,10 @@ package frc.robot.commande.terrain.classique;
 
 import com.revrobotics.RelativeEncoder;
 
-import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.numbers.N2;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.interaction.LecteurAccelerometre;
 import frc.robot.interaction.Odometrie;
 import frc.robot.soussysteme.Roues;
 import frc.robot.mesure.LimiteurDuree;
