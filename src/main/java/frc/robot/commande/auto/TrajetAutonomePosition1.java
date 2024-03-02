@@ -17,19 +17,21 @@ public class TrajetAutonomePosition1 extends SequentialCommandGroup implements A
 
     public TrajetAutonomePosition1(){
         boolean estRouge = Alliance.getInstance().getAllianceRouge();
-        int angle = estRouge ? -30 : 30;
+        //int angle = estRouge ? -30 : 30;
+        int angleDebut = estRouge ? 180 : 0;
+        double decalage = estRouge ? 0.82 : -0.82;
         double positionX = estRouge ? SpeakerRouge.POSITIONS[0].x : SpeakerBleu.POSITIONS[0].x;
         double positionY = estRouge ? SpeakerRouge.POSITIONS[0].y : SpeakerBleu.POSITIONS[0].y;
         double positionAngle = estRouge ? SpeakerRouge.POSITIONS[0].z : SpeakerBleu.POSITIONS[0].z;
         Vecteur3 position = new Vecteur3(positionX, positionY, 0);
+        Vecteur3 positionDebut = new Vecteur3(positionX+decalage, positionY, 0);
 
         addCommands(
+            new CommandeLancerSpeaker(),
+            new CommandeAllerA(positionDebut, angleDebut),
+            new CommandeAvancer(40, 2500).alongWith(new CommandeAvalerAutomatiquement()),
+            new CommandeAllerA(position, positionAngle),
             new CommandeLancerSpeaker()
-            //new CommandeLancerSpeaker(),
-            //new CommandeTourner(-angle)
-            // new CommandeAvancer(40).alongWith(new CommandeAvalerAutomatiquement()),
-            // new CommandeAllerA(position, positionAngle),
-            // new CommandeLancerSpeaker()
         );
         //      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     }

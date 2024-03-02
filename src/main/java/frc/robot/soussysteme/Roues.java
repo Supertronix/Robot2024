@@ -45,9 +45,9 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
     public RelativeEncoder encodeurArriereDroit;
     public RelativeEncoder encodeurArriereGauche;
 
-    private final double LIMITE_BROWNOUT = 6.75;
-    private double plage_reduction_avant_brownout = 2.5;
-    private double sousVoltage = 0;
+    private final double LIMITE_BROWNOUT = 6.3;
+    private double plage_reduction_avant_brownout = 2.7;
+
     public Roues()
     {
         this.roueAvantDroite = new MoteurSparkMax(ROUE_AVANT_DROITE);

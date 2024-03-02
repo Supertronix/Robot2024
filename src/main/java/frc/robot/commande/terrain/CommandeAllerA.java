@@ -39,12 +39,12 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     // PID axe X
     protected static double x_kP = 1;
     protected static double x_kI = 0.6;
-    protected static double x_kD = 0.3;
+    protected static double x_kD = 0.2;
 
     // PID axe Y
     protected static double y_kP = 1;
     protected static double y_kI = 0.6;
-    protected static double y_kD = 0.5;
+    protected static double y_kD = 0.3;
 
     // PID Angle
     protected static double ang_kP = 5;
@@ -74,16 +74,6 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected double angleCible;
     protected double[] donneesPosition;
 
-
-    /* GPASLETEMPS
-    public CommandeAllerA(AprilTags.Position position)
-    {
-        switch (position) {
-            case SpeakerRouge:
-                CommandeAllerA(getPositionProche(SpeakerRouge.POSITIONS);
-        }
-    }
-     */
 
     public CommandeAllerA(Vecteur3 cible, double angleCible)
     {
@@ -123,7 +113,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         //SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0.15, 0.25, Rotation2d.fromDegrees(5));
+        Pose2d tolerance = new Pose2d(0.15, 0.35, Rotation2d.fromDegrees(5));
         this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 
@@ -158,7 +148,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         // Calcul d'inverse kinematics pour déterminer les vitesses de roues
         ChassisSpeeds vitesseAjustee = this.driveControleur.calculate(position, cible, 1, Rotation2d.fromDegrees(this.angleCible));
         MecanumDriveWheelSpeeds vitesseRoues = this.kinematics.toWheelSpeeds(vitesseAjustee);
-        vitesseRoues.desaturate(0.9); // On va le mettre en pourcentage de moteur
+        vitesseRoues.desaturate(1); // On va le mettre en pourcentage de moteur
 
         this.roues.conduireToutesDirections(
                 vitesseRoues.frontLeftMetersPerSecond,

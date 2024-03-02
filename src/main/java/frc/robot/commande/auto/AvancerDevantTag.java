@@ -37,8 +37,7 @@ public class AvancerDevantTag extends Command implements AprilTags {
         double angleCible = 0;
         if (Alliance.getInstance().getAllianceRouge()) {
             System.out.println("Avancer Speaker Rouge");
-            //positionCible = new Vecteur3(x, y + 1, SpeakerRouge.ANGLE);
-            new CommandeAvancer(20).schedule();
+            positionCible = new Vecteur3(x, y + 1, SpeakerRouge.ANGLE);
             angleCible = angle;
             commandeAllerA = new CommandeAllerA(positionCible, angleCible);
         } else {
@@ -47,7 +46,7 @@ public class AvancerDevantTag extends Command implements AprilTags {
             angleCible = angle;
             commandeAllerA = new CommandeAllerA(positionCible, angleCible);
         }
-        //commandeAllerA.schedule();
+        commandeAllerA.schedule();
     }
 
     @Override

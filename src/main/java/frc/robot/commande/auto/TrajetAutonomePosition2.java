@@ -19,11 +19,11 @@ public class TrajetAutonomePosition2 extends SequentialCommandGroup {
         //);
 
         addCommands(
-            new CommandeAvancer(15),
+            new CommandeAvancer(15, 1200),
             new CommandeLancerSpeaker(),
-            new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)),
+            new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20, 2500)),
             new TrajetNoteDansSpeaker(),
-            new CommandeAvancer(60).andThen(new CommandeAvancer(20))
+            new CommandeAvancer(60, 3000)
         );
         //      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     }

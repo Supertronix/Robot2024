@@ -15,7 +15,7 @@ public class CommandeReculer extends Command {
     @Override
     public void initialize() 
     {
-        new CommandeAvancer(-centimetres).schedule();
+        new CommandeAvancer(-centimetres, 3000).schedule();
     }
     @Override
     public void execute() {

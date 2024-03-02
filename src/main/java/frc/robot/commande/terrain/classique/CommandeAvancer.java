@@ -12,7 +12,7 @@ import frc.robot.mesure.LimiteurDuree;
 
 public class CommandeAvancer extends Command {
 
-    private static final int TEMPS_MAXIMUM = 1200;
+    private static int tempsMaximum = 1200;
 
     protected Roues roues = null;
     protected boolean finie = false;
@@ -24,14 +24,16 @@ public class CommandeAvancer extends Command {
     protected PIDController pid;
     protected RelativeEncoder encodeurAvantDroit;
 
-    public CommandeAvancer(double distance)
+    public CommandeAvancer(double distance, int timeout)
     {
+        tempsMaximum = timeout;
+
         //System.out.println("new CommandeAvancer()");
         this.roues = Robot.getInstance().roues;
         this.odometrie = Odometrie.getInstance();
         
         this.addRequirements(this.roues);
-        this.detecteur = new LimiteurDuree(TEMPS_MAXIMUM);
+        this.detecteur = new LimiteurDuree(tempsMaximum);
         // this.pid = new PIDController(0.015, 0.0000001, 0); // distance 100
         this.pid = new PIDController(0.015, 0.0000001, 0);
         this.encodeurAvantDroit = this.roues.encodeurAvantDroit;
