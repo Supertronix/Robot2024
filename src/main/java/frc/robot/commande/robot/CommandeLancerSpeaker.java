@@ -13,7 +13,7 @@ import frc.robot.mesure.LimiteurDuree;
 public class CommandeLancerSpeaker extends Command {
 
     public static int DUREE = 1000;
-    public static int DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR = 100;
+    public static int DELAIS_ENTRE_CONVOYEUR_ET_LANCEUR = 200;
 
     protected LimiteurDuree detecteurDuree;
     protected ConvoyeurHaut convoyeurHaut;

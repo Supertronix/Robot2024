@@ -3,6 +3,7 @@ package frc.robot.commande.auto;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
+import frc.robot.commande.robot.CommandeAvalerTeleop;
 import frc.robot.commande.robot.CommandeLancerSpeaker;
 import frc.robot.commande.terrain.classique.CommandeAvancer;
 
@@ -21,7 +22,7 @@ public class TrajetAutonomePosition2 extends SequentialCommandGroup {
         addCommands(
             new CommandeAvancer(15, 1200),
             new CommandeLancerSpeaker(),
-            new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20, 2500)),
+            new CommandeAvalerAutomatiquement().raceWith(new CommandeAvancer(40, 2500)),
             new TrajetNoteDansSpeaker(),
             new CommandeAvancer(60, 3000)
         );

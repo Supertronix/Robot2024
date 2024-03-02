@@ -27,7 +27,7 @@ public class RobotControleur extends TimedRobot {
   protected POSITION positionDepart;
   protected MODE modeAutonome;
   protected String designAutonome;
-  protected SendableChooser chooser;
+  protected SendableChooser<Integer> chooser;
 
   @Override
   public void robotInit() {
@@ -36,9 +36,8 @@ public class RobotControleur extends TimedRobot {
     this.shuffleBoard = new ShuffleBoard();
     this.shuffleBoard.initialiser();
     // ajouter une combobox
-    String[] choix = {"auto1", "auto2", "auto3"};
-    chooser = new SendableChooser();
-    chooser = new SendableChooser<String>();
+
+    chooser = new SendableChooser<>();
     chooser.setDefaultOption("auto1", 1);
     chooser.addOption("auto2", 2);
     chooser.addOption("auto3", 3);
@@ -80,14 +79,14 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    int choixMode = (int) chooser.getSelected();
+    int choixMode = chooser.getSelected();
     System.out.println("choixMode autonome : " + choixMode);
     this.periode = 0;
     this.robot = Robot.getInstance();
 
     Compresseur.getInstance().desactiver();
 
-    //new TrajetTest().schedule();
+    //new TrajetTest().schedule();-
     this.robot.cameraLimelight.activerTargeting();
     if (choixMode == 2) {
       System.out.println("Position 2");

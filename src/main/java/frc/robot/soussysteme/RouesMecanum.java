@@ -15,6 +15,7 @@ public class RouesMecanum extends Roues {
 
     // this.mecanum = new MecanumDrive(this.roueArriereDroite, this.roueArriereGauche, this.roueAvantDroite, this.roueAvantGauche);
     public RouesMecanum() {
+        super();
         this.facteur = FACTEUR_ROUES;
         this.reinitialiserMoteurs();
         this.activerModeHolonomique();
@@ -34,10 +35,16 @@ public class RouesMecanum extends Roues {
     }
 
     public void reinitialiserMoteurs() {
+        System.out.println("LOL ------------------------------------------------------------------------------");
         this.roueAvantDroite.initialiser();
         this.roueAvantGauche.initialiser();
         this.roueArriereDroite.initialiser();
         this.roueArriereGauche.initialiser();
+
+        this.roueAvantGauche.setOpenLoopRampRate(0.2);
+        this.roueArriereGauche.setOpenLoopRampRate(0.2);
+        this.roueAvantDroite.setOpenLoopRampRate(0.2);
+        this.roueArriereDroite.setOpenLoopRampRate(0.2);
     }
 
     public void setFacteur(double facteur) {

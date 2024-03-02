@@ -13,6 +13,7 @@ public class CommandeGrimper extends Command { // CommandeBrasDescendre
     {
         //System.out.println("new CommandeGrimper()");
         this.bras = Robot.getInstance().bras;
+        this.addRequirements(bras);
     }
        
     @Override

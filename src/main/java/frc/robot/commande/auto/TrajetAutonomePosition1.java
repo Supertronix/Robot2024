@@ -28,10 +28,7 @@ public class TrajetAutonomePosition1 extends SequentialCommandGroup implements A
 
         addCommands(
             new CommandeLancerSpeaker(),
-            new CommandeAllerA(positionDebut, angleDebut),
-            new CommandeAvancer(40, 2500).alongWith(new CommandeAvalerAutomatiquement()),
-            new CommandeAllerA(position, positionAngle),
-            new CommandeLancerSpeaker()
+            new CommandeAvancer(60, 2500)
         );
         //      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     }

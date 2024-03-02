@@ -50,21 +50,22 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
 
     public Roues()
     {
+        System.out.println("Initialisation roues");
         this.roueAvantDroite = new MoteurSparkMax(ROUE_AVANT_DROITE);
         this.roueAvantGauche = new MoteurSparkMax(ROUE_AVANT_GAUCHE);
         this.roueArriereDroite = new MoteurSparkMax(ROUE_ARRIERE_DROITE);
         this.roueArriereGauche = new MoteurSparkMax(ROUE_ARRIERE_GAUCHE);
-
-        this.roueAvantDroite.setOpenLoopRampRate(0.75);
-        this.roueAvantGauche.setOpenLoopRampRate(0.75);
-        this.roueArriereDroite.setOpenLoopRampRate(0.75);
-        this.roueArriereGauche.setOpenLoopRampRate(0.75);
 
         // lire sur getAbsoluteEncoder et getAlternateEncoder()
         this.encodeurAvantDroit = this.roueAvantDroite.getEncoder();
         this.encodeurArriereDroit = this.roueArriereDroite.getEncoder();
         this.encodeurAvantGauche = this.roueAvantGauche.getEncoder();
         this.encodeurArriereGauche = this.roueArriereGauche.getEncoder();
+
+//        this.roueAvantDroite.setSmartCurrentLimit(10)
+//        this.roueAvantGauche.setSecondaryCurrentLimit(10);
+//        this.roueArriereDroite.setSecondaryCurrentLimit(10);
+//        this.roueArriereGauche.setSecondaryCurrentLimit(10);
         
         this.arreter();
     }

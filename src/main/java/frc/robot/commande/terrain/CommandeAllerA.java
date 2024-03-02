@@ -33,16 +33,16 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected Robot robot;
     protected ShuffleBoard shuffleBoard;
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
-    protected static final double SEUIL_ANGLE = 1.0;
+    protected static final double SEUIL_ANGLE = 10.0;
     protected static final int DUREE_TIMEOUT = 8000;
 
     // PID axe X
-    protected static double x_kP = 1;
+    protected static double x_kP = 1.3;
     protected static double x_kI = 0.6;
     protected static double x_kD = 0.2;
 
     // PID axe Y
-    protected static double y_kP = 1;
+    protected static double y_kP = 1.3;
     protected static double y_kI = 0.6;
     protected static double y_kD = 0.3;
 
@@ -113,7 +113,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         //SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0.15, 0.35, Rotation2d.fromDegrees(5));
+        Pose2d tolerance = new Pose2d(0.15, 0.35, Rotation2d.fromDegrees(SEUIL_ANGLE));
         this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 

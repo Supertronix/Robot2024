@@ -14,6 +14,7 @@ public class CommandeGrimpageRedescendre extends Command {
     {
         //System.out.println("new CommandeGrimpageRedescendre()");
         this.bras = Robot.getInstance().bras;
+        this.addRequirements(bras);
     }
        
     @Override
