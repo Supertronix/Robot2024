@@ -1,5 +1,6 @@
 package frc.robot.soussysteme;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.RobotController;
@@ -53,6 +54,11 @@ abstract public class Roues extends SousSysteme implements Roulable, Dirigeable,
         this.roueAvantGauche = new MoteurSparkMax(ROUE_AVANT_GAUCHE);
         this.roueArriereDroite = new MoteurSparkMax(ROUE_ARRIERE_DROITE);
         this.roueArriereGauche = new MoteurSparkMax(ROUE_ARRIERE_GAUCHE);
+
+        this.roueAvantDroite.setOpenLoopRampRate(0.75);
+        this.roueAvantGauche.setOpenLoopRampRate(0.75);
+        this.roueArriereDroite.setOpenLoopRampRate(0.75);
+        this.roueArriereGauche.setOpenLoopRampRate(0.75);
 
         // lire sur getAbsoluteEncoder et getAlternateEncoder()
         this.encodeurAvantDroit = this.roueAvantDroite.getEncoder();

@@ -28,7 +28,8 @@ public class CommandeTournerDroiteSelonDuree extends Command {
         this.roues = Robot.getInstance().roues;
         this.addRequirements(this.roues);
     }
-       
+
+    @Override
     public void initialize() 
     {
         System.out.println("CommandeTournerSelonDuree.initialize()");
@@ -36,16 +37,19 @@ public class CommandeTournerDroiteSelonDuree extends Command {
         this.detecteur.initialiser();        
     }
 
+    @Override
     public void execute() {
         this.detecteur.mesurer();
         this.roues.tournerDroite(vitesse);
     }
-    
+
+    @Override
     public boolean isFinished() 
     {
         return this.detecteur.estTropLongue();
     }
 
+    @Override
     public void end(boolean interrupted) {
         System.out.println("CommandeTournerDroiteSelonDuree.end()");
         this.roues.conduireAvecAxes(0, 0, 0);

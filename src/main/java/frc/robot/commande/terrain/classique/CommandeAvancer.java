@@ -12,7 +12,7 @@ import frc.robot.mesure.LimiteurDuree;
 
 public class CommandeAvancer extends Command {
 
-    private static final int TEMPS_MAXIMUM = 3000;
+    private static final int TEMPS_MAXIMUM = 1200;
 
     protected Roues roues = null;
     protected boolean finie = false;
