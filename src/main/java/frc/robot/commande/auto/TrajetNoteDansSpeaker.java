@@ -17,7 +17,7 @@ import frc.robot.soussysteme.RouesMecanum;
 public class TrajetNoteDansSpeaker extends Command {
 	CommandeLancerSpeaker commandeLancerSpeaker;
 	CommandeAllerA commandeAllerA;
-	public static int DUREE = 8000;
+	public static int DUREE = 6000;
 	protected LimiteurDuree detecteurDuree;
     public TrajetNoteDansSpeaker()
 	{

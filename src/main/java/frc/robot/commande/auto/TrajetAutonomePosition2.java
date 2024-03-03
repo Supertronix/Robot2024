@@ -22,7 +22,7 @@ public class TrajetAutonomePosition2 extends SequentialCommandGroup {
         addCommands(
             new CommandeAvancer(15, 1200),
             new CommandeLancerSpeaker(),
-            new CommandeAvalerAutomatiquement().raceWith(new CommandeAvancer(40, 2500)),
+            new CommandeAvalerAutomatiquement().raceWith(new CommandeAvancer(45, 3000)),
             new TrajetNoteDansSpeaker(),
             new CommandeAvancer(60, 3000)
         );

@@ -4,7 +4,7 @@ public class Chronometre{
 
 	protected double tempsDebut; 
 	protected double tempsActuel;
-	protected boolean estActif = true;
+	public boolean estActif = true;
 	
 	public Chronometre()
 	{

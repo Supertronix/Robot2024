@@ -23,6 +23,7 @@ import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.Odometrie;
 import frc.robot.interaction.ShuffleBoard;
+import frc.robot.mesure.Chronometre;
 import frc.robot.mesure.LimiteurDuree;
 import frc.robot.mesure.Vecteur3;
 import frc.robot.soussysteme.AprilTags;
@@ -34,15 +35,16 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected ShuffleBoard shuffleBoard;
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
     protected static final double SEUIL_ANGLE = 10.0;
-    protected static final int DUREE_TIMEOUT = 8000;
+    protected static final int DUREE_TIMEOUT = 4000;
+    protected static final int DUREE_TAG_PERDU = 2000;
 
     // PID axe X
-    protected static double x_kP = 1.3;
+    protected static double x_kP = 1;
     protected static double x_kI = 0.6;
-    protected static double x_kD = 0.2;
+    protected static double x_kD = 0.5;
 
     // PID axe Y
-    protected static double y_kP = 1.3;
+    protected static double y_kP = 1.15;
     protected static double y_kI = 0.6;
     protected static double y_kD = 0.3;
 
@@ -57,6 +59,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected RouesMecanum roues;
     protected CameraLimelight limelight;
     protected LimiteurDuree detecteur;
+    protected Chronometre chronometre;
     protected Manette manette;
 
     // Contrôle PID
@@ -85,6 +88,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         this.limelight = this.robot.cameraLimelight;
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(DUREE_TIMEOUT);
+        //this.chronometre = new Chronometre();
         this.manette = ActionManette.getInstance();
         
         this.cible = cible;
@@ -95,8 +99,8 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     public void initialize()
     {
         System.out.println("CommandeAllerA.initialize()");
+        //this.chronometre.initialiser();
 
-        this.detecteur.initialiser();
         this.distanceAtteinte = false;
         this.seuilAngleAtteint = false;
 
@@ -113,7 +117,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         //SmartDashboard.putData("PID angle", this.angleControleur);
 
         this.driveControleur = new HolonomicDriveController(this.xControleur, this.yControleur, this.angleControleur);
-        Pose2d tolerance = new Pose2d(0.15, 0.35, Rotation2d.fromDegrees(SEUIL_ANGLE));
+        Pose2d tolerance = new Pose2d(0.13, 0.40, Rotation2d.fromDegrees(SEUIL_ANGLE));
         this.driveControleur.setTolerance(tolerance);
         this.driveControleur.setEnabled(true);
 
@@ -136,6 +140,9 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         //System.out.println("x = " + donneesPosition[0] + " y = " + donneesPosition[1] + " angle = " + donneesPosition[5]);
         if (donneesPositionInit[0] == 0 || donneesPositionInit[1] == 0)
             return;
+
+        //this.chronometre.initialiser();
+
         donneesPosition[0] = donneesPositionInit[0];
         donneesPosition[1] = donneesPositionInit[1];
         donneesPosition[5] = donneesPositionInit[5];
@@ -173,6 +180,10 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
             System.out.println("CommandeAllerA.isFinished() detecteur.estTropLongue()");
             return true;
         }
+
+        //if (DUREE_TAG_PERDU < this.chronometre.getDureePreMesuree()) {
+        //    return true;
+        //}
 
         double[] donneesPosition = this.limelight.getBotpose();
 

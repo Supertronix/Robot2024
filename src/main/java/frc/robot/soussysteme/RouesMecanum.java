@@ -35,7 +35,6 @@ public class RouesMecanum extends Roues {
     }
 
     public void reinitialiserMoteurs() {
-        System.out.println("LOL ------------------------------------------------------------------------------");
         this.roueAvantDroite.initialiser();
         this.roueAvantGauche.initialiser();
         this.roueArriereDroite.initialiser();
