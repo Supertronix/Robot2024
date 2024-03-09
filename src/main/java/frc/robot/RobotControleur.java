@@ -148,10 +148,9 @@ public class RobotControleur extends TimedRobot {
   
   static public class ActionManette extends Manette {
 
-      // Une méthode qui permet de mapper les différents inputs avec les actions
+      // Une méthode polymorphique qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
-
         this.boutonMainGauche.toggleOnTrue(new CommandeAvalerTeleop());
         this.boutonMainDroite.toggleOnTrue(new CommandeLancerSpeaker());
 
