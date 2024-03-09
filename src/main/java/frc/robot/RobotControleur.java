@@ -18,11 +18,9 @@ import frc.robot.interaction.SelecteurModeAutonome.POSITION;
 
 public class RobotControleur extends TimedRobot {
 
-  protected Robot robot;
-  protected Manette manette;
   protected int periode;
-  protected AnimateurLed animateurLed;
-  protected ShuffleBoard shuffleBoard;
+  protected Robot robot;
+  protected StationPilotage station;
 
   protected POSITION positionDepart;
   protected MODE modeAutonome;
@@ -32,9 +30,8 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
+    this.station = StationPilotage.getInstance();
     Compresseur.getInstance().activer();
-    this.shuffleBoard = new ShuffleBoard();
-    this.shuffleBoard.initialiser();
     // ajouter une combobox
 
     chooser = new SendableChooser<>();
@@ -43,7 +40,7 @@ public class RobotControleur extends TimedRobot {
     chooser.addOption("auto3", 3);
     SmartDashboard.putData("Selecteur mode", chooser);
 
-    this.animateurLed = new AnimateurLed();
+    station.animateurLed = new AnimateurLed();
     this.robot.setVoyant();
 
     for (int port = 5800; port <= 5807; port++) {
@@ -70,7 +67,7 @@ public class RobotControleur extends TimedRobot {
     {
       robot.cameraLimelight.resetDecoupageCamera();
     }
-    this.animateurLed.choisirAnimation(AnimateurLed.ANIMATION_AUCUNE);
+    station.animateurLed.choisirAnimation(AnimateurLed.ANIMATION_AUCUNE);
   }
 
   @Override
@@ -99,7 +96,7 @@ public class RobotControleur extends TimedRobot {
       new TrajetAutonomePosition1().schedule();
     }
 
-    this.animateurLed.communiquerAlliance();  
+    station.animateurLed.communiquerAlliance();  
   }
 
   @Override
@@ -108,7 +105,7 @@ public class RobotControleur extends TimedRobot {
 
     if((periode % 100) == 0)
     {
-      this.animateurLed.choisirAnimationSelonDashboard();      
+      station.animateurLed.choisirAnimationSelonDashboard();      
     }
 
     // SHUFFLEBOARD SEULEMEMT POUR DES TESTS 
@@ -130,31 +127,31 @@ public class RobotControleur extends TimedRobot {
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
 
-    this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
+    station.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     //this.manette = (TestManette)RobotControleur.TestManette.getInstance();
-    manette.activerBoutons();
+    station.manette.activerBoutons();
     this.periode = 0;
     
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
     positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
-    this.animateurLed.communiquerAlliance();  
+    station.animateurLed.communiquerAlliance();  
   }
 
   @Override
   public void teleopPeriodic() {
     periode++;
 
-    robot.roues.conduireAvecAxes(this.manette.getAxeMainGauche().y, this.manette.getAxeMainGauche().x, this.manette.getAxeMainDroite().x);
+    robot.roues.conduireAvecAxes(station.manette.getAxeMainGauche().y, station.manette.getAxeMainGauche().x, station.manette.getAxeMainDroite().x);
 
     // robot.convoyeurHaut.activer(this.manette.getAxeMainDroite().y);
     if((periode % 10) == 0 && !robot.estAveugle())
     {
-      this.shuffleBoard.mettreAJour();
+      station.shuffleBoard.mettreAJour();
       this.robot.cameraLimelight.afficherPosition();
     }
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
-      this.animateurLed.choisirAnimationSelonDashboard();  
+      station.animateurLed.choisirAnimationSelonDashboard();  
       //System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
       //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
       //String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
