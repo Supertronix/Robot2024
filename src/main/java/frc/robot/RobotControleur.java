@@ -118,20 +118,17 @@ public class RobotControleur extends TimedRobot {
   public void teleopInit() {
     System.out.println("teleopInit()");
 
-    Compresseur.getInstance().activer();
-
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
+    Compresseur.getInstance().activer();
 
-    station.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
     //this.manette = (TestManette)RobotControleur.TestManette.getInstance();
-    station.manette.activerBoutons();
-    this.periode = 0;
-    
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
-    positionDepart = SelecteurModeAutonomeAutomatique.getInstance().lirePosition();
+    station.manette.activerBoutons();    
     station.animateurLed.communiquerAlliance();  
+    
+    this.periode = 0;
   }
 
   @Override
