@@ -22,11 +22,6 @@ public class RobotControleur extends TimedRobot {
   protected Robot robot;
   protected StationPilotage station;
 
-  protected POSITION positionDepart;
-  protected MODE modeAutonome;
-  protected String designAutonome;
-  protected SendableChooser<Integer> chooser;
-
   @Override
   public void robotInit() {
     this.robot = Robot.getInstance();
@@ -145,11 +140,6 @@ public class RobotControleur extends TimedRobot {
     if((periode % 100) == 0) // pour limiter les logs dans le periodic = 1 tour sur 100
     {
       station.animateurLed.choisirAnimationSelonDashboard();  
-      //System.out.println("Retracte : " + Robot.getInstance().convoyeurHaut.estRetracte());
-      //System.out.println("Ouvert : " + Robot.getInstance().convoyeurHaut.estOuvert());
-      //String etatLanceurDeploye = "capteur magnetique haut (flippe) " + ((robot.lanceurExtension.estOuvert())?"ouvert":"non ouvert");
-      //System.out.println(etatLanceurDeploye);
-
       //double[] test = Robot.getInstance().cameraLimelight.getBotpose();
       //System.out.println(test[0] + " : " + test[1] + " : " + test[5]);
 
@@ -173,8 +163,6 @@ public class RobotControleur extends TimedRobot {
       // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
-        //this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
-        //this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
 
         this.boutonMainGauche.toggleOnTrue(new CommandeAvalerTeleop());
         this.boutonMainDroite.toggleOnTrue(new CommandeLancerSpeaker());
