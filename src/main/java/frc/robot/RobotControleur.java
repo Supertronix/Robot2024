@@ -13,8 +13,8 @@ import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
-import frc.robot.interaction.SelecteurModeAutonome.MODE;
-import frc.robot.interaction.SelecteurModeAutonome.POSITION;
+import frc.robot.interaction.SelecteurModeAutonomeAutomatique.MODE;
+import frc.robot.interaction.SelecteurModeAutonomeAutomatique.POSITION;
 
 public class RobotControleur extends TimedRobot {
 
@@ -32,14 +32,6 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     this.station = StationPilotage.getInstance();
     Compresseur.getInstance().activer();
-    // ajouter une combobox
-
-    chooser = new SendableChooser<>();
-    chooser.setDefaultOption("auto1", 1);
-    chooser.addOption("auto2", 2);
-    chooser.addOption("auto3", 3);
-    SmartDashboard.putData("Selecteur mode", chooser);
-
     station.animateurLed = new AnimateurLed();
     this.robot.setVoyant();
 
@@ -76,24 +68,29 @@ public class RobotControleur extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    int choixMode = chooser.getSelected();
-    System.out.println("choixMode autonome : " + choixMode);
     this.periode = 0;
     this.robot = Robot.getInstance();
-
+    this.station = StationPilotage.getInstance();
+    
     Compresseur.getInstance().desactiver();
-
-    //new TrajetTest().schedule();-
     this.robot.cameraLimelight.activerTargeting();
-    if (choixMode == 2) {
-      System.out.println("Position 2");
-      new TrajetAutonomePosition2().schedule();
-    } else if (choixMode == 3) {
-      System.out.println("Position 3");
-      new TrajetAutonomePosition3().schedule();
-    } else if (choixMode == 1){
-      System.out.println("Position 1");
-      new TrajetAutonomePosition1().schedule();
+
+    int choixAuto = station.selecteurAutonome.lirePositionNumerique();
+    System.out.println("choixMode autonome : " + choixAuto);
+    switch(choixAuto)
+    {
+      case 1:
+        System.out.println("Position 1");
+        new TrajetAutonomePosition1().schedule();
+      break;
+      case 2:
+        System.out.println("Position 2");
+        new TrajetAutonomePosition2().schedule();
+      break;      
+      case 3:
+        System.out.println("Position 3");
+        new TrajetAutonomePosition3().schedule();
+      break;
     }
 
     station.animateurLed.communiquerAlliance();  
@@ -133,7 +130,7 @@ public class RobotControleur extends TimedRobot {
     this.periode = 0;
     
     //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
-    positionDepart = SelecteurModeAutonome.getInstance().lirePosition();
+    positionDepart = SelecteurModeAutonomeAutomatique.getInstance().lirePosition();
     station.animateurLed.communiquerAlliance();  
   }
 

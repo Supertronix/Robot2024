@@ -7,7 +7,7 @@ import java.util.HashMap;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SelecteurModeAutonome implements Materiel{
+public class SelecteurModeAutonomeAutomatique implements Materiel{
 
     protected int position = 0;
     protected SendableChooser<String> selecteurPositionDepart;
@@ -23,7 +23,7 @@ public class SelecteurModeAutonome implements Materiel{
     protected static String LIBELLE_SELECTEUR_MODE = "Mode Autonome";
     protected static String LIBELLE_DESIGN_AUTONOME = "Design Autonome";
 
-    private SelecteurModeAutonome()
+    private SelecteurModeAutonomeAutomatique()
     {
       selecteurPositionDepart = new SendableChooser<String>();
       selecteurPositionDepart.setDefaultOption("MILIEU", "M");
@@ -45,10 +45,10 @@ public class SelecteurModeAutonome implements Materiel{
       SmartDashboard.putString(LIBELLE_DESIGN_AUTONOME, "A-G-A-L");
     }
     
-    static protected SelecteurModeAutonome instance = null;    
-    static public SelecteurModeAutonome getInstance()
+    static protected SelecteurModeAutonomeAutomatique instance = null;    
+    static public SelecteurModeAutonomeAutomatique getInstance()
     {
-    	if(null == instance) instance = new SelecteurModeAutonome();
+    	if(null == instance) instance = new SelecteurModeAutonomeAutomatique();
     	return instance;
     }
     
