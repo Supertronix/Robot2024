@@ -1,12 +1,6 @@
 package frc.robot;
 
-import frc.robot.RobotControleur.ActionManette;
-import frc.robot.commande.robot.CommandeAvalerTeleop;
-import frc.robot.commande.robot.CommandeGrimpageRedescendre;
-import frc.robot.commande.robot.CommandeGrimper;
-import frc.robot.commande.robot.CommandeLancerSpeaker;
-import frc.robot.commande.robot.CommandeLanceurOuvrirEtAllonger;
-import frc.robot.commande.robot.CommandeLanceurRetracterEtFermer;
+import frc.robot.commande.robot.*;
 import frc.robot.interaction.Manette;
 
 public class ManetteTest extends Manette{

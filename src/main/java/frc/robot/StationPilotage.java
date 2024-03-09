@@ -1,6 +1,6 @@
 package frc.robot;
 
-import frc.robot.RobotControleur.ActionManette;
+import frc.robot.RobotControleur.ManetteAction;
 import frc.robot.interaction.AnimateurLed;
 import frc.robot.interaction.Manette;
 import frc.robot.interaction.SelecteurModeAutonomeNumerote;
@@ -17,7 +17,7 @@ public class StationPilotage {
         this.shuffleBoard = new ShuffleBoard();
         this.shuffleBoard.initialiser();  
         this.selecteurAutonome = SelecteurModeAutonomeNumerote.getInstance();
-        this.manette = (ActionManette)RobotControleur.ActionManette.getInstance();
+        this.manette = (ManetteAction)RobotControleur.ManetteAction.getInstance();
     }
 
     protected static StationPilotage instance = null;

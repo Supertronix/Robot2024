@@ -7,7 +7,7 @@ import frc.robot.RobotControleur;
 
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands.html
 public class CommandeAvalerTeleop extends CommandeAvaler {
-    protected RobotControleur.ActionManette manette;
+    protected RobotControleur.ManetteAction manette;
 
     public CommandeAvalerTeleop()
     {

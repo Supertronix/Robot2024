@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Materiel;
 import frc.robot.Robot;
-import frc.robot.RobotControleur.ActionManette;
+import frc.robot.RobotControleur.ManetteAction;
 import frc.robot.composant.Compresseur;
 import frc.robot.interaction.CameraLimelight;
 import frc.robot.interaction.Manette;
@@ -89,7 +89,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         this.addRequirements(this.roues);
         this.detecteur = new LimiteurDuree(DUREE_TIMEOUT);
         //this.chronometre = new Chronometre();
-        this.manette = ActionManette.getInstance();
+        this.manette = ManetteAction.getInstance();
         
         this.cible = cible;
         this.angleCible = angleCible;

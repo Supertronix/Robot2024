@@ -4,10 +4,7 @@ package frc.robot;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commande.auto.TrajetAutonomePosition1;
-import frc.robot.commande.auto.TrajetAutonomePosition2;
-import frc.robot.commande.auto.TrajetAutonomePosition3;
-import frc.robot.commande.auto.TrajetNoteDansSpeaker;
+import frc.robot.commande.auto.*;
 import frc.robot.commande.robot.*;
 import frc.robot.interaction.*;
 
@@ -146,7 +143,7 @@ public class RobotControleur extends TimedRobot {
     }
   }
   
-  static public class ActionManette extends Manette {
+  static public class ManetteAction extends Manette {
 
       // Une méthode polymorphique qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
@@ -163,17 +160,17 @@ public class RobotControleur extends TimedRobot {
         this.boutonDemarrer.whileTrue(new CommandeGrimper());        
       }
 
-      protected static ActionManette instance = null;
-      protected ActionManette()
+      protected static ManetteAction instance = null;
+      protected ManetteAction()
       {
-        System.out.println("new ActionManette()");
+        System.out.println("new ManetteAction()");
       }
-      public static ActionManette getInstance()
+      public static ManetteAction getInstance()
       {
-        if (null == ActionManette.instance)
-          ActionManette.instance = new ActionManette();
+        if (null == ManetteAction.instance)
+          ManetteAction.instance = new ManetteAction();
         
-        return ActionManette.instance;
+        return ManetteAction.instance;
       };
   }
 }

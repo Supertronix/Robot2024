@@ -2,9 +2,6 @@ package frc.robot.commande.terrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotControleur;
-import frc.robot.RobotControleur.ActionManette;
-import frc.robot.interaction.Manette;
 import frc.robot.soussysteme.RouesMecanum;
 
 public class CommandeInverserRoues extends Command {
