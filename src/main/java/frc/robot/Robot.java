@@ -3,6 +3,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
 import frc.robot.soussysteme.*;
 
@@ -24,6 +25,7 @@ public class Robot {
   public DetecteurChaine detecteurChaine;
   public CameraLimelight cameraLimelight;
   public CameraConducteur cameraConducteur;
+  public Compresseur compresseur;
 
   private boolean aveugle = false;
 
@@ -37,7 +39,6 @@ public class Robot {
     this.convoyeurHaut = new ConvoyeurHaut();
     this.lanceur = new Lanceur();
     this.bras = new Bras();
-
 
     if(!this.aveugle)
     {
@@ -74,6 +75,12 @@ public class Robot {
   public void setVoyant()
   {
     this.aveugle = false;
+  }
+
+  public void  activerCompresseur()
+  {
+    this.compresseur = Compresseur.getInstance();
+    this.compresseur.activer(); 
   }
 
 }

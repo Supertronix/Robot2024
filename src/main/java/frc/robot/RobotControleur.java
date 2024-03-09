@@ -3,18 +3,13 @@ package frc.robot;
 
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commande.auto.TrajetAutonomePosition1;
 import frc.robot.commande.auto.TrajetAutonomePosition2;
 import frc.robot.commande.auto.TrajetAutonomePosition3;
 import frc.robot.commande.auto.TrajetNoteDansSpeaker;
 import frc.robot.commande.robot.*;
-import frc.robot.composant.Compresseur;
 import frc.robot.interaction.*;
-import frc.robot.interaction.SelecteurModeAutonomeAutomatique.MODE;
-import frc.robot.interaction.SelecteurModeAutonomeAutomatique.POSITION;
 
 public class RobotControleur extends TimedRobot {
 
@@ -26,7 +21,7 @@ public class RobotControleur extends TimedRobot {
   public void robotInit() {
     this.robot = Robot.getInstance();
     this.station = StationPilotage.getInstance();
-    Compresseur.getInstance().activer();
+    this.robot.activerCompresseur();
     station.animateurLed = new AnimateurLed();
     this.robot.setVoyant();
 
@@ -67,7 +62,7 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     this.station = StationPilotage.getInstance();
     
-    Compresseur.getInstance().desactiver();
+    this.robot.compresseur.desactiver();
     this.robot.cameraLimelight.activerTargeting();
 
     int choixAuto = station.selecteurAutonome.lirePositionNumerique();
@@ -116,7 +111,7 @@ public class RobotControleur extends TimedRobot {
     this.robot = Robot.getInstance();
     robot.roues.convertirEnRouesHolonomiques(); // si necessaire
     robot.roues.setFacteur(1); // 0.8
-    Compresseur.getInstance().activer();
+    this.robot.compresseur.activer();
 
     station.manette = (ManetteTest)ManetteTest.getInstance(); // boutons temporaires pour equipe mecanique
     station.manette.activerBoutons(); // appel uniformise   
