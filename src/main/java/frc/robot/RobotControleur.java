@@ -123,11 +123,10 @@ public class RobotControleur extends TimedRobot {
     robot.roues.setFacteur(1); // 0.8
     Compresseur.getInstance().activer();
 
-    //this.manette = (TestManette)RobotControleur.TestManette.getInstance();
-    //manette.activerBoutonsTests(); // boutons temporaires pour equipe mecanique
-    station.manette.activerBoutons();    
+    station.manette = (ManetteTest)ManetteTest.getInstance(); // boutons temporaires pour equipe mecanique
+    station.manette.activerBoutons(); // appel uniformise   
     station.animateurLed.communiquerAlliance();  
-    
+
     this.periode = 0;
   }
 
@@ -189,48 +188,6 @@ public class RobotControleur extends TimedRobot {
         this.boutonDemarrer.whileTrue(new CommandeGrimper());        
       }
 
-
-
-
-      public void activerBoutonsTest()
-      {
-        this.boutonMainDroite.onTrue(new CommandeLanceurOuvrirEtAllonger());
-        this.boutonMainGauche.onTrue(new CommandeLanceurRetracterEtFermer());
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-
-        this.boutonA.onTrue(new CommandeAvalerTeleop());
-        this.boutonB.onTrue(new CommandeLancerSpeaker());
-        this.boutonX.onTrue(new CommandeLancerSpeaker());
-
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-
-        /*
-        this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        this.boutonB.onTrue(new CommandeLanceurAllonger());
-        this.boutonY.onTrue(new CommandeLanceurRetracter());
-        this.boutonX.onTrue(new CommandeLanceurFermer());
-
-        /*
-
-        this.boutonA.toggleOnTrue(new CommandeAvalerTeleop());
-        this.boutonRetour.whileTrue(new CommandeGrimpageRedescendre());
-        this.boutonDemarrer.whileTrue(new CommandeGrimper());
-        //this.boutonX.toggleOnTrue(new TrajetNoteDansSpeaker());
-        //this.boutonY.onTrue(new CommandeLancerAmpli());
-
-        this.boutonX.onTrue(new TrajetNoteDansSpeaker());
-        this.boutonY.onTrue(new TrajetNoteDansAmplificateur());
-
-        //this.boutonA.onTrue(new CommandeLanceurOuvrir());
-        //this.boutonB.onTrue(new CommandeLanceurAllonger());
-        //this.boutonY.onTrue(new CommandeLanceurRetracter());
-        //this.boutonX.onTrue(new CommandeLanceurFermer());
-
-         */
-      }
-
       public static ActionManette getInstance()
       {
         if (null == ActionManette.instance)
@@ -240,9 +197,4 @@ public class RobotControleur extends TimedRobot {
       };
   }
 }
-// https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
-// https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html  
 
-//Exemple d'option sur une commande avec enum
-//Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);

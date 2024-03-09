@@ -205,3 +205,10 @@ public class Manette implements Materiel.Manette, Cinematique.Manette {
       //}
     }         
 }
+
+// https://docs.wpilib.org/en/2020/docs/software/old-commandbased/commands/running-commands-joystick-input.html
+// https://docs.wpilib.org/en/stable/docs/software/basic-programming/joystick.html
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html  
+
+//Exemple d'option sur une commande avec enum
+//Command commandeMilieu = new CommandeDeplacerBras(POSITION.POSTIION_MILIEU);
