@@ -148,13 +148,6 @@ public class RobotControleur extends TimedRobot {
   
   static public class ActionManette extends Manette {
 
-      protected static ActionManette instance = null;
-
-      protected ActionManette()
-      {
-        System.out.println("new ActionManette()");
-      }
-
       // Une méthode qui permet de mapper les différents inputs avec les actions
       public void activerBoutons()
       {
@@ -171,6 +164,11 @@ public class RobotControleur extends TimedRobot {
         this.boutonDemarrer.whileTrue(new CommandeGrimper());        
       }
 
+      protected static ActionManette instance = null;
+      protected ActionManette()
+      {
+        System.out.println("new ActionManette()");
+      }
       public static ActionManette getInstance()
       {
         if (null == ActionManette.instance)
