@@ -4,9 +4,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.commande.robot.CommandeAvalerAutomatiquement;
-import frc.robot.commande.robot.CommandeLancerSpeaker;
-import frc.robot.commande.robot.CommandeRecracher;
+import frc.robot.commande.robot.*;
 
 public class ShuffleBoard {
     RelativeEncoder encodeurMaitreLanceur;
@@ -30,6 +28,11 @@ public class ShuffleBoard {
         //SmartDashboard.putData("Arène", arene);
 
         SmartDashboard.putData("Recracher", new CommandeRecracher());
+
+        SmartDashboard.putData("ClignoterLeds", new CommandeClignoterLeds());
+        SmartDashboard.putData("AllumerLeds", new CommandeAllumerLeds());
+        SmartDashboard.putData("EteindreLeds", new CommandeEteindreLeds());
+        SmartDashboard.putData("ResetLeds", new CommandeResetLeds());
     }
 
     public void mettreAJour() {
@@ -40,14 +43,4 @@ public class ShuffleBoard {
         //SmartDashboard.putNumber("angleRobot", Robot.getInstance().cameraLimelight.getBotpose()[5]);
         //SmartDashboard.putNumber("angleTag", Robot.getInstance().cameraLimelight.getTagPositionRelatifRobot()[5]);
     }
-
-    /**
-     * Changer l'alliance du robot manuellement verrouillera le changement d'alliance automatique
-     */
-    /*public void changerEquipe() {
-        
-        Alliance.getInstance().setVerrouChangementAlliance(false);
-        Alliance.getInstance().setAlliance(!Alliance.getInstance().getAllianceRouge());
-        Alliance.getInstance().setVerrouChangementAlliance(true);
-    }*/
 }

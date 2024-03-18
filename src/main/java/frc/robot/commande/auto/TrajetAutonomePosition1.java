@@ -27,9 +27,10 @@ public class TrajetAutonomePosition1 extends SequentialCommandGroup implements A
         Vecteur3 positionDebut = new Vecteur3(positionX+decalage, positionY, 0);
 
         addCommands(
-            new CommandeLancerSpeaker(),
-            new CommandeAvancer(60, 2500),
-            new CommandeTourner(-45)
+            new WaitCommand(0.5),
+            new CommandeLancerSpeaker()
+            //new CommandeAvancer(60, 2500)
+            //new CommandeTourner(-45)
         );
         //      new CommandeLancerSpeaker().andThen(new WaitCommand(1).andThen(new CommandeAvalerAutomatiquement().alongWith(new CommandeAvancer(20)).andThen(new CommandeAvancer(-5))).andThen(new CommandeLancerSpeaker())).schedule();
     }

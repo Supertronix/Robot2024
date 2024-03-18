@@ -3,9 +3,7 @@ package frc.robot.commande.auto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.commande.robot.CommandeLancerSpeaker;
-import frc.robot.commande.robot.CommandeLanceurAllonger;
-import frc.robot.commande.robot.CommandeLanceurOuvrir;
+import frc.robot.commande.robot.*;
 import frc.robot.commande.terrain.CommandeAllerA;
 import frc.robot.commande.terrain.CommandeAllerASelonTriplePID;
 import frc.robot.interaction.Alliance;
@@ -29,6 +27,7 @@ public class TrajetNoteDansSpeaker extends Command {
 	public void initialize()
 	{
 		System.out.println("TrajetNoteDansSpeaker.initialize()");
+		//new CommandeAllumerLeds().schedule();
 
 		Vecteur3 cible;
 		double angleCible;

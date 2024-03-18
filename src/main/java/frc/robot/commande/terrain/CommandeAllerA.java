@@ -34,14 +34,14 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     protected Robot robot;
     protected ShuffleBoard shuffleBoard;
     protected static final double SEUIL_DISTANCE = 0.25 * 0.25;
-    protected static final double SEUIL_ANGLE = 10.0;
+    protected static final double SEUIL_ANGLE = 7.0;
     protected static final int DUREE_TIMEOUT = 4000;
     protected static final int DUREE_TAG_PERDU = 2000;
 
     // PID axe X
     protected static double x_kP = 1;
     protected static double x_kI = 0.6;
-    protected static double x_kD = 0.5;
+    protected static double x_kD = 0.7;
 
     // PID axe Y
     protected static double y_kP = 1.15;
@@ -100,6 +100,8 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
     {
         System.out.println("CommandeAllerA.initialize()");
         //this.chronometre.initialiser();
+
+        //this.limelight.setModeLeds(3);
 
         this.distanceAtteinte = false;
         this.seuilAngleAtteint = false;
@@ -208,6 +210,7 @@ public class CommandeAllerA extends Command implements Materiel.Roues, AprilTags
         System.out.println("CommandeAllerA.end()");
         Compresseur.getInstance().activer();
         this.roues.arreter();
+        //this.limelight.setModeLeds(0);
     }
 
     public Vecteur3 getPositionProche(Vecteur3[] positions, Vecteur3 positionActuelle)
